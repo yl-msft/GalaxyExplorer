@@ -44,6 +44,7 @@ public class Cursor : Singleton<Cursor>
 
     public CursorStageImage[] stateImages;
     public Material cursorMaterial;
+    private float originalAlpha;
 
     private Vector3 previousPosition;
     private bool isOverToolbar;
@@ -64,10 +65,8 @@ public class Cursor : Singleton<Cursor>
         {
             Destroy(this);
         }
-#if UNITY_EDITOR
-        // We don't want to change the material in the Editor, but a copy of it.
-        cursorMaterial = new Material(cursorMaterial);
-#endif
+
+        originalAlpha = cursorMaterial.GetFloat("_Alpha");
     }
 
     private IEnumerator Start()
@@ -408,5 +407,10 @@ public class Cursor : Singleton<Cursor>
     public void ClearToolState()
     {
         ApplyCursorState(CursorState.Default);
+    }
+
+    private void OnDestroy()
+    {
+        cursorMaterial.SetFloat("_Alpha", originalAlpha);
     }
 }

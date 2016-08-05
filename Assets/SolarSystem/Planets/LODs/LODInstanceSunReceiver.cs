@@ -8,14 +8,12 @@ public class LODInstanceSunReceiver : MonoBehaviour
     public Transform Sun;
 
     private MeshRenderer currentRenderer;
+    private Vector4 originalSunPosition;
 
     private void Awake()
     {
         currentRenderer = GetComponent<MeshRenderer>();
-#if UNITY_EDITOR
-        // We don't want to change the material in the Editor, but a copy of it.
-        currentRenderer.sharedMaterial = new Material(currentRenderer.sharedMaterial);
-#endif
+        originalSunPosition = currentRenderer.sharedMaterial.GetVector("_SunPosition");
     }
 
     private void Update()
@@ -24,5 +22,10 @@ public class LODInstanceSunReceiver : MonoBehaviour
         {
             currentRenderer.sharedMaterial.SetVector("_SunPosition", Sun.position);
         }
+    }
+
+    private void OnDestroy()
+    {
+        currentRenderer.sharedMaterial.SetVector("_SunPosition", originalSunPosition);
     }
 }

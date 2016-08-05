@@ -7,17 +7,12 @@ public class LODSunReceiver : MonoBehaviour
 {
     public Transform Sun;
     public Material planetLod;
+    private Vector4 originalSunPosition;
 
-#if UNITY_EDITOR
     private void Awake()
     {
-        if (planetLod)
-        {
-            // We don't want to change the material in the Editor, but a copy of it.
-            planetLod = new Material(planetLod);
-        }
+        originalSunPosition = planetLod.GetVector("_SunPosition");
     }
-#endif
 
     private void Update()
     {
@@ -25,5 +20,10 @@ public class LODSunReceiver : MonoBehaviour
         {
             planetLod.SetVector("_SunPosition", Sun.position);
         }
+    }
+
+    private void OnDestroy()
+    {
+        planetLod.SetVector("_SunPosition", originalSunPosition);
     }
 }

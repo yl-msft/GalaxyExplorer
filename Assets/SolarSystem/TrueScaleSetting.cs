@@ -9,11 +9,13 @@ public class TrueScaleSetting : Singleton<TrueScaleSetting>
 {
     [Range(0, 1)]
     public float CurrentRealismScale = 0;
+    private float originalRealismScale;
     public Material OrbitsMaterial;
     public float TargetRealismPlanetScale = 1;
 
     public Transform AsteroidBelt;
     public Material AsteroidMaterial;
+    private float originalTransitionAlpha;
     public float AsteroidBeltRealismScale = 0.2560388f;
 
     public float TimeSpeedRealistic = 1;
@@ -28,15 +30,8 @@ public class TrueScaleSetting : Singleton<TrueScaleSetting>
 
     private void Awake()
     {
-#if UNITY_EDITOR
-        MaterialsFader matfad = GetComponentInParent<MaterialsFader>();
-        if (matfad)
-        {
-            // We don't want to change the material in the Editor, but a copy of it.
-            AsteroidMaterial = matfad.materials[0];
-            OrbitsMaterial = matfad.materials[1];
-        }
-#endif
+        originalTransitionAlpha = AsteroidMaterial.GetFloat("_TransitionAlpha");
+        originalRealismScale = OrbitsMaterial.GetFloat("_Truthfulness");
         planets = FindObjectsOfType<OrbitUpdater>().ToArray();
         originalScales = planets.Select(p => p.transform.localScale.x).ToArray();
         previousRealismScale = -1;
@@ -97,6 +92,17 @@ public class TrueScaleSetting : Singleton<TrueScaleSetting>
                     AsteroidBelt.gameObject.SetActive(CurrentRealismScale < 1);
                 }
             }
+        }
+    }
+    private void OnDestroy()
+    {
+        if (AsteroidMaterial)
+        {
+            AsteroidMaterial.SetFloat("_TransitionAlpha", originalTransitionAlpha);
+        }
+        if (OrbitsMaterial)
+        {
+            OrbitsMaterial.SetFloat("_Truthfulness", originalRealismScale);
         }
     }
 }

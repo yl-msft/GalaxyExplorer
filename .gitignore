@@ -58,6 +58,7 @@ UWP/**
 !UWP/GalaxyExplorer/Assets/Square44x44Logo.targetsize-256_altform-unplated.png
 !UWP/GalaxyExplorer/Assets/StoreLogo.png
 !UWP/GalaxyExplorer/Assets/StoreLogo.scale-400.png
+!UWP/GalaxyExplorer/Assets/StoreLogo.scale-100.png
 !UWP/GalaxyExplorer/Assets/Wide310x150Logo.scale-200.png
 !UWP/GalaxyExplorer/Properties/AssemblyInfo.cs
 
