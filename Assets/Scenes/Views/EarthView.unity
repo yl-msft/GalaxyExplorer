@@ -176,6 +176,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11462598, guid: a5594a1a2c6c29647a9124ea0abfb953, type: 2}
+      propertyPath: speed
+      value: -10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8236412, guid: a5594a1a2c6c29647a9124ea0abfb953, type: 2}
     - {fileID: 6453998, guid: a5594a1a2c6c29647a9124ea0abfb953, type: 2}
@@ -221,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb4f31e4b806a3469cc9a17f127685a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: {x: 0, y: -10, z: 0}
+  rotateSpeed: {x: 0, y: -2.5, z: 0}
   RandomRotationSpeed: 0
   RandomRotationDirection: 0
   RotationSpeedMin: {x: 0, y: 0, z: 0}
@@ -283,6 +287,10 @@ Prefab:
     - target: {fileID: 192134, guid: 6da2c9510ec42844ba8b1ec2349ff83a, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459584, guid: 6da2c9510ec42844ba8b1ec2349ff83a, type: 2}
+      propertyPath: speed
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6455996, guid: 6da2c9510ec42844ba8b1ec2349ff83a, type: 2}

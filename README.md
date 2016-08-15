@@ -2,6 +2,8 @@
 
 Galaxy Explorer is an open-source HoloLens application that was developed in 6-weeks as part of the Share Your Idea program where the community submitted and voted on ideas.
 
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
 The following sections serve as guide posts to help navigate the code by explaining some of the larger systems, both how they work and how they interact.
 
 #HoloLens Tools
