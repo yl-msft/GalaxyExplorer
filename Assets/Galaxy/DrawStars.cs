@@ -96,6 +96,7 @@ public class DrawStars : MonoBehaviour
 
     public bool renderIntoDownscaledTarget;
     public MeshRenderer referenceQuad;
+    private float originalTransitionAlpha;
 
     private HoloCube holoCube;
 
@@ -117,13 +118,10 @@ public class DrawStars : MonoBehaviour
             holoCube = TransitionManager.Instance.ViewVolume.GetComponentInChildren<HoloCube>(includeInactive: true);
         }
 
-#if UNITY_EDITOR
         if (referenceQuad && referenceQuad.sharedMaterial)
         {
-            // We don't want to change the material in the Editor, but a copy of it.
-            referenceQuad.sharedMaterial = new Material(referenceQuad.sharedMaterial);
+            originalTransitionAlpha = referenceQuad.sharedMaterial.GetFloat("_TransitionAlpha");
         }
-#endif
     }
 
     public void CreateBuffers(StarVertDescriptor[] stars)
@@ -165,6 +163,11 @@ public class DrawStars : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (referenceQuad && referenceQuad.sharedMaterial)
+        {
+            referenceQuad.sharedMaterial.SetFloat("_TransitionAlpha", originalTransitionAlpha);
+        }
+
         DisposeBuffer(ref starsData);
 
         if (holoCube)

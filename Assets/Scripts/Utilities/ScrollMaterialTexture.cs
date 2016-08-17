@@ -11,17 +11,15 @@ public class ScrollMaterialTexture : MonoBehaviour
     public string textureName;
 
     private float currentOffset;
+    private Vector2 originalTextureOffset;
 
-#if UNITY_EDITOR
     private void Awake()
     {
         if (material)
         {
-            // We don't want to change the material in the Editor, but a copy of it.
-            material = new Material(material);
+            originalTextureOffset = material.GetTextureOffset(textureName);
         }
     }
-#endif
 
     private void Update()
     {
@@ -30,6 +28,14 @@ public class ScrollMaterialTexture : MonoBehaviour
         if (material)
         {
             material.SetTextureOffset(textureName, new Vector2((currentOffset * direction.x) % 1.0f, (currentOffset * direction.y) % 1.0f));
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (material)
+        {
+            material.SetTextureOffset(textureName, originalTextureOffset);
         }
     }
 }
