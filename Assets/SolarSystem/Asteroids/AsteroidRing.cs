@@ -201,8 +201,6 @@ public class AsteroidRing : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
-        mesh.Optimize();
-
         return mesh;
     }
 

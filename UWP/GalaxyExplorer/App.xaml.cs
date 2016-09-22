@@ -102,9 +102,7 @@ namespace GalaxyExplorer
 			{
 				rootFrame = new Frame();
 				Window.Current.Content = rootFrame;
-#if UNITY_HOLOGRAPHIC
-				CoreWindow.GetForCurrentThread().Activated += WindowActivated;
-#else
+#if !UNITY_HOLOGRAPHIC
 				Window.Current.Activate();
 #endif
 
@@ -113,13 +111,13 @@ namespace GalaxyExplorer
 
 			Window.Current.Activate();
 
-			// Integrate with Shell back button behavior on non-Holographic UWP platforms such as Desktop and Mobile.
-			// Using DeviceFamily name here instead of an API Contract check since the UWP API we will subsequently 
-			// call when the back button should be visible (AppViewBackButtonVisibility) is present on all platforms
-			// and simply no-ops on some.  Unity has the UnityEngine.VR.VRDevice.isPresent which would work here but 
-			// since this will wind up including a check for SurfaceHub as well in the future which Unity does not 
-			// know about, this will consistently use DeviceFamily for these platform checks
-			if (AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Holographic")
+            // Integrate with Shell back button behavior on non-Holographic UWP platforms such as Desktop and Mobile.
+            // Using DeviceFamily name here instead of an API Contract check since the UWP API we will subsequently 
+            // call when the back button should be visible (AppViewBackButtonVisibility) is present on all platforms
+            // and simply no-ops on some.  Unity has the UnityEngine.VR.VRDevice.isPresent which would work here but 
+            // since this will wind up including a check for SurfaceHub as well in the future which Unity does not 
+            // know about, this will consistently use DeviceFamily for these platform checks
+            if (AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Holographic")
 			{                
 				AppCallbacks.Instance.InvokeOnAppThread(() =>
 					{
@@ -170,18 +168,5 @@ namespace GalaxyExplorer
 				},
 				waitUntilDone: false);
 		}
-
-#if UNITY_HOLOGRAPHIC
-		private void WindowActivated(object sender, WindowActivatedEventArgs e)
-		{
-			if (e.WindowActivationState == CoreWindowActivationState.CodeActivated || e.WindowActivationState == CoreWindowActivationState.PointerActivated)
-			{
-				AppCallbacks.Instance.SetInitialViewActive();
-				// Only need to mark initial activation once so unregister ourself
-				CoreWindow coreWindowSender = sender as CoreWindow;
-				coreWindowSender.Activated -= WindowActivated;
-			}
-		}
-#endif
 	}
 }
