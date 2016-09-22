@@ -52,7 +52,7 @@ namespace GalaxyExplorer
 
 			if (isWindowsHolographic)
 			{
-				appCallbacks.InitializeViewManager();
+				appCallbacks.InitializeViewManager(Window.Current.CoreWindow);
 			}
 			else
 			{

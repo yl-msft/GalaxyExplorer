@@ -200,8 +200,6 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>.\Unprocessed\UnityEngine.VR.dll</HintPath>
     </Reference>
-    <Content Include="AudioPluginMsHRTF.dll" />
-    <Content Include="AudioPluginMsHRTF.pdb" Condition="Exists('AudioPluginMsHRTF.pdb')" />
     <Content Include="Data\**" />
   </ItemGroup>
   <ItemGroup>
@@ -211,12 +209,12 @@
     <None Include="WSATestCertificate.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Assembly-CSharp\Assembly-CSharp.csproj">
+    <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj">
       <Project>{FBA57953-C0C3-F9D8-E86A-9F7C063B5FDE}</Project>
       <Name>Assembly-CSharp</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj">
+    <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj">
       <Project>{194D914D-0664-444E-B663-4D0F1C80AF68}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
       <Private>False</Private>
@@ -225,23 +223,23 @@
   <ItemGroup>
     <Reference Include="UnityPlayer">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\$(PlatformTarget)\$(Configuration)\UnityPlayer.winmd</HintPath>
+      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityPlayer.winmd</HintPath>
     </Reference>
     <Reference Include="WinRTBridge">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\$(PlatformTarget)\$(Configuration)\WinRTBridge.winmd</HintPath>
+      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\WinRTBridge.winmd</HintPath>
     </Reference>
     <Reference Include="BridgeInterface">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\$(PlatformTarget)\$(Configuration)\BridgeInterface.winmd</HintPath>
+      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\BridgeInterface.winmd</HintPath>
     </Reference>
     <Reference Include="UnityEngineDelegates">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\$(PlatformTarget)\$(Configuration)\UnityEngineDelegates.winmd</HintPath>
+      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityEngineDelegates.winmd</HintPath>
     </Reference>
     <Reference Include="UnityEngineProxy">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\$(PlatformTarget)\$(Configuration)\UnityEngineProxy.dll</HintPath>
+      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityEngineProxy.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
@@ -275,10 +273,10 @@
     <Message Importance="high" Text="UnityProjectDir &quot;$(UnityProjectDir)&quot;." />
     <Message Importance="high" Text="Copying unprocessed assemblies..." />
     <Copy SourceFiles="@(UnprocessedFile)" DestinationFolder="$(ProjectDir)" />
-    <Copy SourceFiles="$(UnityProjectDir)\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp.dll" />
-    <Copy SourceFiles="$(UnityProjectDir)\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp.pdb" Condition="Exists('$(UnityProjectDir)\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb')" />
-    <Copy SourceFiles="$(UnityProjectDir)\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.dll" />
-    <Copy SourceFiles="$(UnityProjectDir)\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.pdb" Condition="Exists('$(UnityProjectDir)\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb')" />
+    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp.dll" />
+    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp.pdb" Condition="Exists('$(UnityProjectDir)\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb')" />
+    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.dll" />
+    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.pdb" Condition="Exists('$(UnityProjectDir)\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb')" />
     <PropertyGroup Condition=" '$(Configuration)' == 'Master' ">
       <RemoveDebuggableAttribute>True</RemoveDebuggableAttribute>
     </PropertyGroup>
@@ -286,7 +284,7 @@
       <RemoveDebuggableAttribute>False</RemoveDebuggableAttribute>
     </PropertyGroup>
     <Message Importance="high" Text="Running AssemblyConverter..." />
-    <Exec Command="&quot;$(UnityWSAToolsDir)\AssemblyConverter.exe&quot; -platform=uap -lock=&quot;$(ProjectDir)project.lock.json&quot; -bits=$(UnityBits) -configuration=$(Configuration) -removeDebuggableAttribute=$(RemoveDebuggableAttribute) -path=&quot;.&quot; -path=&quot;..\Players\UAP\$(PlatformTarget)\$(Configuration)&quot; &quot;$(ProjectDir)Assembly-CSharp.dll&quot; &quot;$(ProjectDir)Assembly-CSharp-firstpass.dll&quot; &quot;$(ProjectDir)UnityEngine.dll&quot; &quot;$(ProjectDir)UnityEngine.UI.dll&quot; &quot;$(ProjectDir)UnityEngine.HoloLens.dll&quot; &quot;$(ProjectDir)UnityEngine.Networking.dll&quot; &quot;$(ProjectDir)UnityEngine.VR.dll&quot;" />
+    <Exec Command="&quot;$(UnityWSAToolsDir)\AssemblyConverter.exe&quot; -platform=uap -lock=&quot;$(ProjectDir)project.lock.json&quot; -bits=$(UnityBits) -configuration=$(Configuration) -removeDebuggableAttribute=$(RemoveDebuggableAttribute) -path=&quot;.&quot; -path=&quot;..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)&quot; &quot;$(ProjectDir)Assembly-CSharp.dll&quot; &quot;$(ProjectDir)Assembly-CSharp-firstpass.dll&quot; &quot;$(ProjectDir)UnityEngine.dll&quot; &quot;$(ProjectDir)UnityEngine.UI.dll&quot; &quot;$(ProjectDir)UnityEngine.HoloLens.dll&quot; &quot;$(ProjectDir)UnityEngine.Networking.dll&quot; &quot;$(ProjectDir)UnityEngine.VR.dll&quot;" />
     <Message Importance="high" Text="AssemblyConverter done." />
     <Message Importance="high" Text="Modifying AppxPackagePayload" />
     <ItemGroup>
