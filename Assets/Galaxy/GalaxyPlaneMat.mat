@@ -197,7 +197,7 @@ Material:
       second: 1
     - first:
         name: _TransitionAlpha
-      second: 1
+      second: 0.00005209446
     - first:
         name: _UVSec
       second: 0
