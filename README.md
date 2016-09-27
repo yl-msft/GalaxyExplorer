@@ -134,7 +134,10 @@ The ToolManager handles the Button and Tool settings that can be called from any
 
 #PointOfInterest
 
-PointOfInterests (POIs) are used to interact with a specific part of a hologram (galaxy, solar system, a planet) as opposed to the entire hologram, which is controlled by Tools. They are represented in the app by a line from the content to interact with to a marker.
+PointOfInterests (POIs) are used to interact with a specific part of a hologram
+(galaxy, solar system, a planet) as opposed to the entire hologram, which is
+controlled by Tools. They are represented in the application by a line from the
+content to interact with to a marker.
 
 Parts of a PointOfInterest:
 * BillboardLine - the line that connects the interest point to interact with to an indicator at the top of the line. The line is always vertical and scales with distance as a UI element. It does not rescale with content and will always start at a target point.
@@ -142,11 +145,26 @@ Parts of a PointOfInterest:
 * Description - a text card that fades in when GazeSelection collides with any collider in the POI hierarchy.
 * Transition Scene (optional) - the scene that is loaded through the TransitionManager when the POI is selected.
 
-OrbitScalePointOfInterest is a toggle that converts between Realistic and Simplified orbit and size views in the solar system.
+OrbitScalePointOfInterest is a toggle that converts between Realistic and Simplified
+orbit and size views in the solar system.
 
-CardPointOfInterest is used in the galaxy to inspect images through a magic window. Parallax for the window and settings are incorporated in the POI_Porthole shader, and the window depth is hidden with the POI_Occlusion shader. The magic window points of interest have a moving target, but the cards are outside of the POI hierarchy.
+CardPointOfInterest is used in the galaxy to inspect images through a magic window.
+Parallax for the window and settings are incorporated in the POI_Porthole shader, and
+the window depth is hidden with the POI_Occlusion shader. The magic window points of
+interest have a moving target, but the cards are outside of the POI hierarchy.
 
-POI controls are used outside of the POI hierarchy using a PointOfInterestReference. Any colliders that respond to GazeSelection in the reference's hierarchy are treated as if they are under the POI hierarchy. This is used by magic windows in the galaxy and could be extended to add other selection sources, like using orbits in the solar system to travel to planet views.
+POI controls are used outside of the POI hierarchy using a PointOfInterestReference.
+Any colliders that respond to GazeSelection in the reference's hierarchy are treated
+as if they are under the POI hierarchy. This is used by magic windows in the galaxy
+and could be extended to add other selection sources, like using orbits in the solar
+system to travel to planet views.
+
+The font used in the PointOfInterest cards is called "Orbitron" and it can be found
+[here](http://fonts.google.com/specimen/Orbitron) or [here](https://www.fontsquirrel.com/fonts/Orbitron).
+As this font is released under the [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web),
+developers who are interested in creating or modifying PointOfInterest cards should
+treat it like any other third-party dependency and install the font on their own
+development system rather than committing it directly into the git repository.
 
 #TransitionManager
 
