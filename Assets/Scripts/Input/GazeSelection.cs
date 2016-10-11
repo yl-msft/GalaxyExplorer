@@ -91,7 +91,7 @@ public class GazeSelection : MonoBehaviour
                             // calculate radius of sphere to cast based on GazeSpreadDegrees at GazeDistance
                             float sphereRadius = GazeDistance * Mathf.Tan(Mathf.Deg2Rad * (GazeSpreadDegrees / 2.0f));
                             // get all target objects in a sphere from the camera
-                            RaycastHit[] hitTargets = Physics.SphereCastAll(gazeRay, sphereRadius, 0.0f, priorityMask.layers);
+                            RaycastHit[] hitTargets = Physics.SphereCastAll(gazeRay, sphereRadius, GazeDistance, priorityMask.layers);
 
                             // only consider target objects that are within the target spread angle specified on start
                             foreach (RaycastHit target in hitTargets)
