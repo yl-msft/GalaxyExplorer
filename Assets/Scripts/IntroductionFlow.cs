@@ -180,7 +180,7 @@ public class IntroductionFlow : Singleton<IntroductionFlow>
                 {
                     if (SkipPlaceEarth && TransitionManager.Instance.InTransition == false)
                     {
-                        InputRouter.Instance.OnTapped(InteractionSourceKind.Other, 1, new Ray(Vector3.zero, Vector3.forward));
+                        placementControl.TogglePinnedState();
                     }
                 }
 

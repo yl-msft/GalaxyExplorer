@@ -51,6 +51,10 @@ public class GazeSelection : MonoBehaviour
 
         selectedTargets = new SortedList<float, RaycastHit>();
         targetSpreadMinValue = Mathf.Cos(Mathf.Deg2Rad * GazeSpreadDegrees);
+        if (!UnityEngine.VR.VRDevice.isPresent)
+        {
+            UseSphericalConeSearch = false;
+        }
     }
 
     public void Update()
