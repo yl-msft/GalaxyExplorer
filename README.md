@@ -116,7 +116,7 @@ The IntroductionFlow loads the first scene in the experience by telling the Tran
 
 The galaxy rendering process was mostly described in Tech Process - Creating a Galaxy (https://microsoftstudios.com/hololens/2016/03/10/tech-process-creating-a-galaxy/)
 
-The code itself lives in Assets\Galaxy and is comprised of a set of SpiralGalaxy which make up the stars and clouds (see MilkyWay.prefab).
+tThe code itself lives in Assets\Galaxy and is comprised of a set of SpiralGalaxy which make up the stars and clouds (see MilkyWay.prefab).
 The galaxy is the result of 3 layers:
 * Stars, rendered last but first in the hierarchy
 * Clouds shadows, that make up the dark spots that can be seen when looking at the Galaxy from the side
@@ -160,11 +160,24 @@ and could be extended to add other selection sources, like using orbits in the s
 system to travel to planet views.
 
 The font used in the PointOfInterest cards is called "Orbitron" and it can be found
-[here](http://fonts.google.com/specimen/Orbitron) or [here](https://www.fontsquirrel.com/fonts/Orbitron).
-As this font is released under the [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web),
+[here](https://www.theleagueofmoveabletype.com/orbitron). As this font is released
+under the [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web),
 developers who are interested in creating or modifying PointOfInterest cards should
 treat it like any other third-party dependency and install the font on their own
 development system rather than committing it directly into the git repository.
+
+#GE_POIMaker Tool
+
+The GE_POIMaker tool can be used to help create new point of interest billboard image files quickly and easily. 
+This tool is located as a seperate project within the solution. It can create one-off 
+POI billboard .png files or batch create all POI files when necessary. The current POI files included within 
+GalaxyExplorer were generated with this tool's default settings.
+
+The GE_POIMaker can also be used to experiment with colors, font sizes and other effects by 
+clicking the "Show advanced controls" checkbox. Please consult the tooltips on each control for help on that specific control.
+
+The GE_POIMaker tool references the Orbitron font, but will use a default font if Orbitron
+is not installed on the development system.
 
 #TransitionManager
 
