@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <POI>
   <POIAttributes>
     <POIFileName>POI_1501.png</POIFileName>
-    <POIMainString>gc 1501</POIMainString>
+    <POIMainString>ngc 1501</POIMainString>
     <POISubString>discovered in 1787</POISubString>
   </POIAttributes>
   <POIAttributes>
@@ -52,7 +52,7 @@
   </POIAttributes>
   <POIAttributes>
     <POIFileName>POI_Pluto.png</POIFileName>
-    <POIMainString>neptune</POIMainString>
+    <POIMainString>pluto</POIMainString>
     <POISubString>orbital period: 90581</POISubString>
   </POIAttributes>
   <POIAttributes>
@@ -92,7 +92,7 @@
   </POIAttributes>
   <POIAttributes>
     <POIFileName>POI_Sun.png</POIFileName>
-    <POIMainString>Solar System</POIMainString>
+    <POIMainString>Sun</POIMainString>
     <POISubString>g-type main-sequence star</POISubString>
   </POIAttributes>
   <POIAttributes>
