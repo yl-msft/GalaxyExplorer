@@ -130,14 +130,14 @@ namespace GE_POIMaker
             
         }
 
-        public static Bitmap convertText(string txt1, string txt2, string fontName, int fontSize1, int fontSize2, int OutputImageWidth, int OutputImageHeight)
+        public static Bitmap convertText(string txt1, string txt2, string fontName)
         {
 
-            Font font1 = new Font(fontName, fontSize1);
-            Font font2 = new Font(fontName, fontSize2);
+            Font font1 = new Font(fontName, MyGlobals.fontSize1);
+            Font font2 = new Font(fontName, MyGlobals.fontSize2);
 
             // Create the new image
-            Bitmap bmp = new Bitmap(OutputImageWidth, OutputImageHeight);
+            Bitmap bmp = new Bitmap(MyGlobals.OutputImageWidth, MyGlobals.OutputImageHeight);
             Graphics graphics = Graphics.FromImage(bmp);
             
             // fill the image with the blackness of space
@@ -155,7 +155,7 @@ namespace GE_POIMaker
             drawBlurredText(graphics, Rectangle.Empty, 0, 0, txt1, font1);
 
             // create and render the glyph mask
-            Font font3 = new Font("Arial", fontSize2, FontStyle.Bold);
+            Font font3 = new Font("Arial", MyGlobals.fontSize2, FontStyle.Bold);
             StringBuilder sb = new StringBuilder("  \u25AA\\\\\\\\\\"); // Space + Unicode Black Square
                                                                         //  sb.Append(@"\\\\\");
             string glyphText = sb.ToString();
@@ -214,7 +214,7 @@ namespace GE_POIMaker
                             SubString = reader.ReadElementContentAsString();
 
                             //Create POI .png files using data read from xml file
-                            MyGlobals.fullBmp = imageTools.convertText(MainString.ToUpper(), SubString.ToUpper(), "Orbitron", MyGlobals.fontSize1, MyGlobals.fontSize2, MyGlobals.OutputImageWidth, MyGlobals.OutputImageHeight);
+                            MyGlobals.fullBmp = imageTools.convertText(MainString.ToUpper(), SubString.ToUpper(), "Orbitron");
                             MyGlobals.fullBmp.Save(MyGlobals.savePath + "\\" + FileName, System.Drawing.Imaging.ImageFormat.Png);
                             MyGlobals.poiFileCount++; 
                             MyGlobals.fullBmp.Dispose();
