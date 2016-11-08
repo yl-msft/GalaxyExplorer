@@ -70,8 +70,7 @@
             this.POIMainTitile.Name = "POIMainTitile";
             this.POIMainTitile.Size = new System.Drawing.Size(751, 24);
             this.POIMainTitile.TabIndex = 1;
-            this.POIMainTitile.Text = "Galactic Center";
-            this.POIMainTitile.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.POIMainTitile.Text = "This is a test image";
             // 
             // button1
             // 
@@ -95,8 +94,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(756, 24);
             this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "Sagittarius A";
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.Text = "Subtitle text";
             // 
             // label1
             // 
@@ -132,7 +130,6 @@
             this.label3.Size = new System.Drawing.Size(71, 18);
             this.label3.TabIndex = 7;
             this.label3.Text = "FileName";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // textBox3
             // 
@@ -145,7 +142,6 @@
             this.textBox3.TabIndex = 3;
             this.textBox3.Text = "c:\\temp\\POI_temp.png";
             this.toolTip1.SetToolTip(this.textBox3, "This is location where the file gets saved.\r\nSave it as a .png file please.");
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label4
             // 
@@ -158,7 +154,6 @@
             this.label4.Size = new System.Drawing.Size(355, 18);
             this.label4.TabIndex = 9;
             this.label4.Text = "This tool requires the installation of the Orbitron font. ";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -180,7 +175,6 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(148, 24);
             this.textBox4.TabIndex = 9;
-            this.textBox4.Text = "725";
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox4.Visible = false;
             // 
@@ -209,7 +203,6 @@
             this.label8.Text = "Font Size - SubTitle";
             this.toolTip1.SetToolTip(this.label8, "Font point size of the sub-title text.");
             this.label8.Visible = false;
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // textBox5
             // 
@@ -219,7 +212,6 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(148, 24);
             this.textBox5.TabIndex = 11;
-            this.textBox5.Text = "375";
             this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBox5, "Font point size of the sub-title text.");
             this.textBox5.Visible = false;
@@ -247,7 +239,6 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(148, 24);
             this.textBox6.TabIndex = 14;
-            this.textBox6.Text = "400";
             this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox6.Visible = false;
             // 
@@ -272,7 +263,6 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(148, 24);
             this.textBox7.TabIndex = 8;
-            this.textBox7.Text = "13662";
             this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox7.Visible = false;
             // 
@@ -297,7 +287,6 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(148, 24);
             this.textBox8.TabIndex = 7;
-            this.textBox8.Text = "2048";
             this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox8.Visible = false;
             // 
@@ -355,10 +344,9 @@
             this.label12.TabIndex = 28;
             this.label12.Text = "Transparency ";
             this.toolTip1.SetToolTip(this.label12, "This sets the initial transparency of the pen that draws all text. The \"A\" channe" +
-        "l in ARGB. \r\nThis along with \"Text Blur factor\" draw text with increasinly small" +
-        " and increasingly opaque pens.");
+        "l in ARGB. \r\nThis along with \"Text Blur factor\" draw text with increasingly smal" +
+        "l and increasingly opaque pens.");
             this.label12.Visible = false;
-            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // textBox9
             // 
@@ -369,12 +357,10 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(127, 24);
             this.textBox9.TabIndex = 12;
-            this.textBox9.Text = "12";
             this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBox9, "This sets the initial transparency  of the pen used to write text (the \"Alpha\" ch" +
         "annel of ARGB). Set this to a small number for greater initial transparency. ");
             this.textBox9.Visible = false;
-            this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // checkBox1
             // 
@@ -427,10 +413,6 @@
         "es - \r\nwith files exhibiting the currently selected settings.");
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // Form1
             // 
