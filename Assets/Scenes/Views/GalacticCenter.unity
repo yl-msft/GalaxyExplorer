@@ -1630,15 +1630,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 492544, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0175
       objectReference: {fileID: 0}
     - target: {fileID: 6597388, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: m_Center.x
-      value: 0
+      value: 0.000000001222361
       objectReference: {fileID: 0}
     - target: {fileID: 6597388, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: m_Center.z
-      value: 0
+      value: -0.00000001490116
       objectReference: {fileID: 0}
     - target: {fileID: 11425332, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: bottomOffset.x
@@ -1646,7 +1646,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11447178, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: IndicatorOffset.y
-      value: 0.15
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 11447178, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: IndicatorOffset.x
