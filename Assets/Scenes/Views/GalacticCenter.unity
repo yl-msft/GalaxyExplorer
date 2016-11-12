@@ -79,28 +79,29 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
+    agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    accuratePlacement: 0
     minRegionArea: 2
-    cellSize: 0.16666667
     manualCellSize: 0
+    cellSize: 0.16666667
+    accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &86368537
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 159530, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 86368538}
-  - 33: {fileID: 86368541}
-  - 23: {fileID: 86368540}
-  - 114: {fileID: 86368539}
+  - component: {fileID: 86368538}
+  - component: {fileID: 86368541}
+  - component: {fileID: 86368540}
+  - component: {fileID: 86368539}
   m_Layer: 0
   m_Name: S2_LOD1
   m_TagString: Untagged
@@ -149,7 +150,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 9e5cad10a9e0bf041bb01b5b2b4f32e3, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -157,6 +160,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -312,9 +316,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 267304539}
+  - component: {fileID: 267304539}
   m_Layer: 0
   m_Name: SceneLoadHider
   m_TagString: Untagged
@@ -343,13 +347,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 112262, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 369697042}
-  - 33: {fileID: 369697046}
-  - 23: {fileID: 369697045}
-  - 114: {fileID: 369697044}
-  - 135: {fileID: 369697043}
+  - component: {fileID: 369697042}
+  - component: {fileID: 369697046}
+  - component: {fileID: 369697045}
+  - component: {fileID: 369697044}
+  - component: {fileID: 369697043}
   m_Layer: 14
   m_Name: S102
   m_TagString: Untagged
@@ -411,7 +415,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 5ead6fd1374a6b548853351bff8c3244, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -419,6 +425,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -444,9 +451,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 581937979}
+  - component: {fileID: 581937979}
   m_Layer: 0
   m_Name: HeroView
   m_TagString: Untagged
@@ -585,12 +592,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 159530, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 694758422}
-  - 33: {fileID: 694758425}
-  - 23: {fileID: 694758424}
-  - 114: {fileID: 694758423}
+  - component: {fileID: 694758422}
+  - component: {fileID: 694758425}
+  - component: {fileID: 694758424}
+  - component: {fileID: 694758423}
   m_Layer: 0
   m_Name: S102_LOD1
   m_TagString: Untagged
@@ -639,14 +646,17 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 9e5cad10a9e0bf041bb01b5b2b4f32e3, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.031487536
+  m_ScaleInLightmap: 0.0066749584
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -679,10 +689,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 872280071}
-  - 108: {fileID: 872280072}
+  - component: {fileID: 872280071}
+  - component: {fileID: 872280072}
   m_Layer: 0
   m_Name: Directional light
   m_TagString: Untagged
@@ -720,6 +730,7 @@ Light:
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
+    m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
@@ -741,13 +752,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 112262, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 875292608}
-  - 33: {fileID: 875292607}
-  - 23: {fileID: 875292606}
-  - 114: {fileID: 875292605}
-  - 135: {fileID: 734313821}
+  - component: {fileID: 875292608}
+  - component: {fileID: 875292607}
+  - component: {fileID: 875292606}
+  - component: {fileID: 875292605}
+  - component: {fileID: 734313821}
   m_Layer: 14
   m_Name: S2
   m_TagString: Untagged
@@ -783,7 +794,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 5ead6fd1374a6b548853351bff8c3244, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -791,6 +804,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -893,16 +907,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 962714959}
-  - 114: {fileID: 962714960}
-  - 65: {fileID: 962714961}
-  - 114: {fileID: 962714963}
-  - 95: {fileID: 962714962}
-  - 114: {fileID: 962714965}
-  - 114: {fileID: 962714966}
-  - 114: {fileID: 962714964}
+  - component: {fileID: 962714959}
+  - component: {fileID: 962714960}
+  - component: {fileID: 962714961}
+  - component: {fileID: 962714963}
+  - component: {fileID: 962714962}
+  - component: {fileID: 962714965}
+  - component: {fileID: 962714966}
+  - component: {fileID: 962714964}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -1028,10 +1042,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 165252, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1033127166}
-  - 114: {fileID: 1033127167}
+  - component: {fileID: 1033127166}
+  - component: {fileID: 1033127167}
   m_Layer: 0
   m_Name: OrbitPicker
   m_TagString: Untagged
@@ -1071,11 +1085,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1040787908}
-  - 114: {fileID: 1040787910}
-  - 114: {fileID: 1040787911}
+  - component: {fileID: 1040787908}
+  - component: {fileID: 1040787910}
+  - component: {fileID: 1040787911}
   m_Layer: 0
   m_Name: GalacticCenter
   m_TagString: Untagged
@@ -1137,14 +1151,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 122692, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1119185427}
-  - 114: {fileID: 1119185432}
-  - 114: {fileID: 1119185431}
-  - 205: {fileID: 1119185430}
-  - 114: {fileID: 1119185429}
-  - 114: {fileID: 1119185428}
+  - component: {fileID: 1119185427}
+  - component: {fileID: 1119185432}
+  - component: {fileID: 1119185431}
+  - component: {fileID: 1119185430}
+  - component: {fileID: 1119185429}
+  - component: {fileID: 1119185428}
   m_Layer: 0
   m_Name: S102
   m_TagString: Untagged
@@ -1208,12 +1222,12 @@ LODGroup:
   m_FadeMode: 1
   m_AnimateCrossFading: 0
   m_LODs:
-  - screenRelativeHeight: 0.031487536
+  - screenRelativeHeight: 0.0066749584
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 369697045}
     - renderer: {fileID: 1994433120}
-  - screenRelativeHeight: 0.00016246649
+  - screenRelativeHeight: 0.003109139
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 694758424}
@@ -1267,10 +1281,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 127696, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1187979079}
-  - 114: {fileID: 1187979080}
+  - component: {fileID: 1187979079}
+  - component: {fileID: 1187979080}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -1314,11 +1328,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 102208, guid: 9a291ad8ef4469c41bd12ddca4fd2999, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1225959503}
-  - 33: {fileID: 1225959505}
-  - 65: {fileID: 1225959504}
+  - component: {fileID: 1225959503}
+  - component: {fileID: 1225959505}
+  - component: {fileID: 1225959504}
   m_Layer: 13
   m_Name: CursorCollisionBackground
   m_TagString: Untagged
@@ -1365,10 +1379,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 165252, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1302538612}
-  - 114: {fileID: 1302538613}
+  - component: {fileID: 1302538612}
+  - component: {fileID: 1302538613}
   m_Layer: 0
   m_Name: OrbitPicker
   m_TagString: Untagged
@@ -1408,14 +1422,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 122692, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1847972815}
-  - 114: {fileID: 1305043111}
-  - 114: {fileID: 1305043110}
-  - 205: {fileID: 1305043109}
-  - 114: {fileID: 1305043108}
-  - 114: {fileID: 1305043107}
+  - component: {fileID: 1847972815}
+  - component: {fileID: 1305043111}
+  - component: {fileID: 1305043110}
+  - component: {fileID: 1305043109}
+  - component: {fileID: 1305043108}
+  - component: {fileID: 1305043107}
   m_Layer: 0
   m_Name: S2
   m_TagString: Untagged
@@ -1462,12 +1476,12 @@ LODGroup:
   m_FadeMode: 1
   m_AnimateCrossFading: 0
   m_LODs:
-  - screenRelativeHeight: 0.031487536
+  - screenRelativeHeight: 0.0064889058
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 875292606}
     - renderer: {fileID: 2065610000}
-  - screenRelativeHeight: 0.00016246649
+  - screenRelativeHeight: 0.003109139
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 86368540}
@@ -1521,9 +1535,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1313907604}
+  - component: {fileID: 1313907604}
   m_Layer: 0
   m_Name: POI
   m_TagString: Untagged
@@ -1646,10 +1660,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 127696, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1721934661}
-  - 114: {fileID: 1721934662}
+  - component: {fileID: 1721934661}
+  - component: {fileID: 1721934662}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -1844,13 +1858,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 167040, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1994433117}
-  - 33: {fileID: 1994433121}
-  - 23: {fileID: 1994433120}
-  - 114: {fileID: 1994433119}
-  - 114: {fileID: 1994433118}
+  - component: {fileID: 1994433117}
+  - component: {fileID: 1994433121}
+  - component: {fileID: 1994433120}
+  - component: {fileID: 1994433119}
+  - component: {fileID: 1994433118}
   m_Layer: 0
   m_Name: S102Glow
   m_TagString: Untagged
@@ -1914,7 +1928,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 9ca8e0a1ace2ab7489b2001bc2d0202b, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -1922,6 +1938,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -1941,13 +1958,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 167040, guid: f3b4e8e75851af54fb09fd1af9f90669, type: 2}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 2065609997}
-  - 33: {fileID: 2065610001}
-  - 23: {fileID: 2065610000}
-  - 114: {fileID: 2065609999}
-  - 114: {fileID: 2065609998}
+  - component: {fileID: 2065609997}
+  - component: {fileID: 2065610001}
+  - component: {fileID: 2065610000}
+  - component: {fileID: 2065609999}
+  - component: {fileID: 2065609998}
   m_Layer: 0
   m_Name: S2Glow
   m_TagString: Untagged
@@ -2011,7 +2028,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 9ca8e0a1ace2ab7489b2001bc2d0202b, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -2019,6 +2038,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
