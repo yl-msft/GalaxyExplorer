@@ -462,7 +462,7 @@ public class TransitionManager : Singleton<TransitionManager>
         }
 
         preLoadedContent = content;
-        SceneManager.UnloadScene(ViewLoader.Instance.CurrentView);
+        SceneManager.UnloadSceneAsync(ViewLoader.Instance.CurrentView);
 
         inTransition = false;
     }
