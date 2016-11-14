@@ -279,7 +279,7 @@ public class ViewLoader : Singleton<ViewLoader>
             Destroy(content);
         }
 
-        SceneManager.UnloadScene(viewName);
+        SceneManager.UnloadSceneAsync(viewName);
     }
 
     public void ActivateContent(GameObject newContent)

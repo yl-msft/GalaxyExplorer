@@ -1650,6 +1650,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11447178, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: IndicatorOffset.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 11425332, guid: f538a33d650b367418f1004a76555e94, type: 2}
+      propertyPath: bottomOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11425332, guid: f538a33d650b367418f1004a76555e94, type: 2}
+      propertyPath: bottomOffset.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1828,11 +1836,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11447178, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: IndicatorOffset.x
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 11425332, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: bottomOffset.x
-      value: -0.0009
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2308358, guid: f538a33d650b367418f1004a76555e94, type: 2}
       propertyPath: m_Materials.Array.data[0]
