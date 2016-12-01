@@ -19,8 +19,8 @@ interact.
 Download all of the developer tools from the
 [Microsoft Developer Website](http://lens.ms/Sa37sr)
 
-*note*, the currently supported version of Unity is 5.5.0b4 which can be
-downloaded from the [Unity Beta Program site](https://unity3d.com/unity/beta#download)
+*note*, the currently supported version of Unity is 5.5.0f3 which can be
+downloaded from the [Unity download site](https://store.unity.com/download)
 
 #Running in Unity
 
