@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     /// <summary>
     /// A Tagalong that stays at a fixed distance from the camera and always

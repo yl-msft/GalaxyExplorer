@@ -21,10 +21,7 @@ namespace GalaxyExplorer
                         InputRouter.Instance.XamlMousePosition.x = (float)unityX;
                         InputRouter.Instance.XamlMousePosition.y = (float)unityY;
 
-                        InputRouter.Instance.OnTapped(
-                            UnityEngine.VR.WSA.Input.InteractionSourceKind.Other,
-                            0,
-                            Camera.main.ScreenPointToRay(InputRouter.Instance.XamlMousePosition));
+                        InputRouter.Instance.InternalHandleOnTapped();
                     }
                 },
                 waitUntilDone: false);

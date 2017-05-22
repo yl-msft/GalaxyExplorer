@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     /// <summary>
     /// The AudioContainer class is sound container for an AudioEvent. It also specifies the rules of how to

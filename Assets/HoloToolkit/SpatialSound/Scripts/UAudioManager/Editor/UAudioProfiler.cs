@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     public class UAudioProfiler : EditorWindow
     {

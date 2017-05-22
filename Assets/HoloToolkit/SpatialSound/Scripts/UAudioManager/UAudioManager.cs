@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     /// <summary>
     /// The UAudioManager class is a singleton that provides organization and control of an application's AudioEvents.

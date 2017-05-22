@@ -3,9 +3,9 @@
 
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer
 {
-    public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+    public class GE_Singleton<T> : MonoBehaviour where T : GE_Singleton<T>
     {
         private static T _Instance;
 

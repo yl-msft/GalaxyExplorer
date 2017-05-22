@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     /// <summary>
     /// A Tagalong that extends SimpleTagalong that allows for specifying the

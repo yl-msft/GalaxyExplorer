@@ -19,8 +19,8 @@ interact.
 Download all of the developer tools from the
 [Microsoft Developer Website](http://lens.ms/Sa37sr)
 
-*note*, the currently supported version of Unity is 5.5.0f3 which can be
-downloaded from the [Unity download site](https://store.unity.com/download)
+*note*, the currently supported version of Unity is 5.5.0b4 which can be
+downloaded from the [Unity Beta Program site](https://unity3d.com/unity/beta#download)
 
 #Running in Unity
 
@@ -34,8 +34,8 @@ From Unity, choose File->Build Settings to bring up the Build Settings
 window. All of the scenes in the Scenes to Build section should be checked.
 Choose Windows Store as the Platform. On the right side, choose Universal 10
 as the SDK, "any device" as the Target device, XAML as the UWP Build Type,
-check "Copy References", check "Unity C# Projects" and then click Build.
-Select the folder called 'UWP' and choose this folder.
+check "Unity C# Projects" and then click Build. Select the folder called 'UWP'
+and choose this folder.
 
 After the build completes successfully, an explorer window will pop up.
 Navigate into the UWP folder and double-click GalaxyExplorer.sln to launch

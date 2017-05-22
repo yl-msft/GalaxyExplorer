@@ -8,11 +8,11 @@
     <ProjectGuid>{13A45C13-3265-47B8-BC48-A553B569DF55}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GalaxyExplorer</RootNamespace>
+    <RootNamespace>Galaxy_Explorer</RootNamespace>
     <AssemblyName>GalaxyExplorer</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -21,6 +21,14 @@
     <PackageCertificateKeyFile>WSATestCertificate.pfx</PackageCertificateKeyFile>
     <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
     <PlatformShortName>$(Platform)</PlatformShortName>
+    <AllowedReferenceRelatedFileExtensions>
+      $(AllowedReferenceRelatedFileExtensions);
+      _UAP_$(Platform)_$(Configuration)_dotnet.pdb;
+      .pdb;
+    </AllowedReferenceRelatedFileExtensions>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -142,7 +150,7 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
@@ -156,10 +164,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="InputHandling.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Content Include="Resource.res">
+    </Content>
+    <Content Include="Assets\SplashScreen.scale-150.png">
+    </Content>
     <Content Include="Assets\SplashScreen.scale-200.png">
     </Content>
     <Content Include="Assets\Square150x150Logo.scale-200.png">
@@ -172,7 +183,9 @@
     </Content>
     <Content Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png">
     </Content>
-    <Content Include="Assets\StoreLogo.png">
+    <Content Include="Assets\StoreLogo.scale-100.png">
+    </Content>
+    <Content Include="Assets\StoreLogo.scale-200.png">
     </Content>
     <Content Include="Assets\StoreLogo.scale-400.png">
     </Content>
@@ -182,11 +195,17 @@
     </Compile>
     <Content Include="Properties\Default.rd.xml">
     </Content>
+    <Compile Include="UnityGenerated.cs">
+    </Compile>
+    <Compile Include="InputHandling.cs" />
     <Reference Include="UnityEngine">
       <HintPath>.\Unprocessed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="WinRTLegacy">
       <HintPath>.\Unprocessed\WinRTLegacy.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>.\Unprocessed\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>.\Unprocessed\UnityEngine.UI.dll</HintPath>
@@ -200,6 +219,8 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>.\Unprocessed\UnityEngine.VR.dll</HintPath>
     </Reference>
+    <Content Include="AudioPluginMsHRTF.dll" />
+    <Content Include="AudioPluginMsHRTF.pdb" Condition="Exists('AudioPluginMsHRTF.pdb')" />
     <Content Include="Data\**" />
   </ItemGroup>
   <ItemGroup>
@@ -210,12 +231,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj">
-      <Project>{FBA57953-C0C3-F9D8-E86A-9F7C063B5FDE}</Project>
+      <Project>{fa367816-0e45-41b8-a2af-e7be76ed4a85}</Project>
       <Name>Assembly-CSharp</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj">
-      <Project>{194D914D-0664-444E-B663-4D0F1C80AF68}</Project>
+      <Project>{da9ddd18-23b9-4d23-9631-8881c14e4daa}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
       <Private>False</Private>
     </ProjectReference>
@@ -223,23 +244,23 @@
   <ItemGroup>
     <Reference Include="UnityPlayer">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityPlayer.winmd</HintPath>
+      <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityPlayer.winmd</HintPath>
     </Reference>
     <Reference Include="WinRTBridge">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\WinRTBridge.winmd</HintPath>
+      <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\WinRTBridge.winmd</HintPath>
     </Reference>
     <Reference Include="BridgeInterface">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\BridgeInterface.winmd</HintPath>
+      <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\BridgeInterface.winmd</HintPath>
     </Reference>
     <Reference Include="UnityEngineDelegates">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityEngineDelegates.winmd</HintPath>
+      <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityEngineDelegates.winmd</HintPath>
     </Reference>
     <Reference Include="UnityEngineProxy">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityEngineProxy.dll</HintPath>
+      <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityEngineProxy.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
@@ -262,21 +283,20 @@
    </_GenerateAppxManifestDependsOn>
   </PropertyGroup>
   <Target Name="BeforeResolveReferences" Condition="'$(BuildingProject)' == 'true'">
-    <Copy SourceFiles="$(ProjectDir)Plugins\$(PlatformShortName)\AudioPluginMsHRTF.dll" DestinationFiles="$(ProjectDir)AudioPluginMsHRTF.dll" Condition="Exists('$(ProjectDir)Plugins\$(PlatformShortName)\AudioPluginMsHRTF.dll')" />
+    <Copy SourceFiles="$(ProjectDir)Plugins\$(PlatformShortName)\AudioPluginMsHRTF.dll" DestinationFiles="$(ProjectDir)AudioPluginMsHRTF.dll" />
     <Delete Files="$(ProjectDir)AudioPluginMsHRTF.pdb" Condition="Exists('$(ProjectDir)AudioPluginMsHRTF.pdb')" />
     <Delete Files="$(ProjectDir)AudioPluginMsHRTF.dll.mdb" Condition="Exists('$(ProjectDir)AudioPluginMsHRTF.dll.mdb')" />
     <Copy SourceFiles="$(ProjectDir)Plugins\$(PlatformShortName)\AudioPluginMsHRTF.pdb" DestinationFiles="$(ProjectDir)AudioPluginMsHRTF.pdb" Condition="Exists('$(ProjectDir)Plugins\$(PlatformShortName)\AudioPluginMsHRTF.pdb')" />
   </Target>
   <Target Name="ModifyAppXPackage" Condition="'$(BuildingProject)' == 'true'">
-    <Message Importance="high" Text="UnityInstallationDir &quot;$(UnityInstallationDir)&quot;." />
     <Message Importance="high" Text="UnityWSAPlayerDir &quot;$(UnityWSAPlayerDir)&quot;." />
     <Message Importance="high" Text="UnityProjectDir &quot;$(UnityProjectDir)&quot;." />
     <Message Importance="high" Text="Copying unprocessed assemblies..." />
     <Copy SourceFiles="@(UnprocessedFile)" DestinationFolder="$(ProjectDir)" />
-    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp.dll" />
-    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp.pdb" Condition="Exists('$(UnityProjectDir)\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb')" />
-    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.dll" />
-    <Copy SourceFiles="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.pdb" Condition="Exists('$(UnityProjectDir)\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb')" />
+    <Copy SourceFiles="$(UnityWSASolutionDir)\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp.dll" />
+    <Copy SourceFiles="$(UnityWSASolutionDir)\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp.pdb" Condition="Exists('$(UnityWSASolutionDir)\GeneratedProjects\UWP\Assembly-CSharp\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp.pdb')" />
+    <Copy SourceFiles="$(UnityWSASolutionDir)GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.dll" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.dll" />
+    <Copy SourceFiles="$(UnityWSASolutionDir)GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb" DestinationFiles="$(ProjectDir)Assembly-CSharp-firstpass.pdb" Condition="Exists('$(UnityWSASolutionDir)GeneratedProjects\UWP\Assembly-CSharp-firstpass\bin\$(PlatformName)\$(ConfigurationName)\Assembly-CSharp-firstpass.pdb')" />
     <PropertyGroup Condition=" '$(Configuration)' == 'Master' ">
       <RemoveDebuggableAttribute>True</RemoveDebuggableAttribute>
     </PropertyGroup>
@@ -284,40 +304,77 @@
       <RemoveDebuggableAttribute>False</RemoveDebuggableAttribute>
     </PropertyGroup>
     <Message Importance="high" Text="Running AssemblyConverter..." />
-    <Exec Command="&quot;$(UnityWSAToolsDir)\AssemblyConverter.exe&quot; -platform=uap -lock=&quot;$(ProjectDir)project.lock.json&quot; -bits=$(UnityBits) -configuration=$(Configuration) -removeDebuggableAttribute=$(RemoveDebuggableAttribute) -path=&quot;.&quot; -path=&quot;..\Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)&quot; &quot;$(ProjectDir)Assembly-CSharp.dll&quot; &quot;$(ProjectDir)Assembly-CSharp-firstpass.dll&quot; &quot;$(ProjectDir)UnityEngine.dll&quot; &quot;$(ProjectDir)UnityEngine.UI.dll&quot; &quot;$(ProjectDir)UnityEngine.HoloLens.dll&quot; &quot;$(ProjectDir)UnityEngine.Networking.dll&quot; &quot;$(ProjectDir)UnityEngine.VR.dll&quot;" />
+    <Exec Command="&quot;$(UnityWSAToolsDir)AssemblyConverter.exe&quot; -platform=uap -lock=&quot;$(ProjectDir)project.lock.json&quot; -bits=$(UnityBits) -configuration=$(Configuration) -removeDebuggableAttribute=$(RemoveDebuggableAttribute) -uwpsdk=$(TargetPlatformVersion) -path=&quot;.&quot; -path=&quot;$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)&quot; &quot;$(ProjectDir)Assembly-CSharp.dll&quot; &quot;$(ProjectDir)Assembly-CSharp-firstpass.dll&quot; &quot;$(ProjectDir)UnityEngine.dll&quot; &quot;$(ProjectDir)nunit.framework.dll&quot; &quot;$(ProjectDir)UnityEngine.UI.dll&quot; &quot;$(ProjectDir)UnityEngine.HoloLens.dll&quot; &quot;$(ProjectDir)UnityEngine.Networking.dll&quot; &quot;$(ProjectDir)UnityEngine.VR.dll&quot;" />
     <Message Importance="high" Text="AssemblyConverter done." />
     <Message Importance="high" Text="Modifying AppxPackagePayload" />
     <ItemGroup>
       <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.dll'" />
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.UI.dll'" />
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.HoloLens.dll'" />
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.Networking.dll'" />
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.VR.dll'" />
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp.dll'" />
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp-firstpass.dll'" />
-    </ItemGroup>
-    <ItemGroup>
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.dll">
         <TargetPath>UnityEngine.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)UnityEngine.pdb">
+        <TargetPath>UnityEngine.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'nunit.framework.dll'" />
+      <AppxPackagePayload Include="$(ProjectDir)nunit.framework.dll">
+        <TargetPath>nunit.framework.dll</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'nunit.framework.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)nunit.framework.pdb">
+        <TargetPath>nunit.framework.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.UI.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.UI.dll">
         <TargetPath>UnityEngine.UI.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.UI.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)UnityEngine.UI.pdb">
+        <TargetPath>UnityEngine.UI.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.HoloLens.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.HoloLens.dll">
         <TargetPath>UnityEngine.HoloLens.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.HoloLens.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)UnityEngine.HoloLens.pdb">
+        <TargetPath>UnityEngine.HoloLens.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.Networking.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.Networking.dll">
         <TargetPath>UnityEngine.Networking.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.Networking.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)UnityEngine.Networking.pdb">
+        <TargetPath>UnityEngine.Networking.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.VR.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.VR.dll">
         <TargetPath>UnityEngine.VR.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.VR.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)UnityEngine.VR.pdb">
+        <TargetPath>UnityEngine.VR.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp.dll">
         <TargetPath>Assembly-CSharp.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp.pdb">
+        <TargetPath>Assembly-CSharp.pdb</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp-firstpass.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp-firstpass.dll">
         <TargetPath>Assembly-CSharp-firstpass.dll</TargetPath>
       </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp-firstpass.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp-firstpass.pdb">
+        <TargetPath>Assembly-CSharp-firstpass.pdb</TargetPath>
+      </AppxPackagePayload>
     </ItemGroup>
   </Target>
+  <PropertyGroup>
+    <Win32Resource>Resource.res</Win32Resource>
+  </PropertyGroup>
 </Project>

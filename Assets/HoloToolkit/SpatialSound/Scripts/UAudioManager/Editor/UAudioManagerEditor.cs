@@ -3,7 +3,7 @@
 
 using UnityEditor;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     [CustomEditor(typeof(UAudioManager))]
     public class UAudioManagerEditor : UAudioManagerBaseEditor<AudioEvent>

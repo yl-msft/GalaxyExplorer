@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace HoloToolkit.Unity
+namespace GalaxyExplorer.HoloToolkit.Unity
 {
     /// <summary>
     /// Extensions for the UnityEnditor.EditorGUILayout class.
