@@ -29,12 +29,16 @@ namespace GalaxyExplorer
         private SplashScreen splash;
         private Rect splashImageRect;
         private WindowSizeChangedEventHandler onResizeHandler;
-        private InputHandling inputHandler = new InputHandling();
+        private XamlInputHandling inputHandler = new XamlInputHandling();
 
         public MainPage()
         {
             this.InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Required;
+
+            DXSwapChainPanel.ManipulationDelta += DXSwapChainPanel_ManipulationDelta;
+            DXSwapChainPanel.ManipulationStarted += DXSwapChainPanel_ManipulationStarted;
+            DXSwapChainPanel.ManipulationCompleted += DXSwapChainPanel_ManipulationCompleted;
 
             AppCallbacks appCallbacks = AppCallbacks.Instance;
             // Setup scripting bridge
@@ -161,9 +165,12 @@ namespace GalaxyExplorer
         private void DXSwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             //UnityEngine.Debug.Log("DXSwapChainPanel_PointerReleased");
-            PointerPoint releasePoint = e.GetCurrentPoint(null);
+            if (!manipulating)
+            {
+                PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-            inputHandler.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y);
+                inputHandler.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y);
+            }
         }
 
         private void DXSwapChainPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
@@ -172,6 +179,49 @@ namespace GalaxyExplorer
             PointerPoint releasePoint = e.GetCurrentPoint(null);
 
             inputHandler.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y);
+        }
+
+        private bool manipulating = false;
+        private void DXSwapChainPanel_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            manipulating = true;
+        }
+
+        private void DXSwapChainPanel_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (e.Delta.Scale != 1)
+            {
+                inputHandler.ZoomHappened(e.Delta.Scale);
+            }
+        }
+
+        private void DXSwapChainPanel_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            // delay toggling the manipulating flag by 500ms so
+            // PointerReleased doesn't get processed unintentionally
+            DispatcherTimer dt = new DispatcherTimer();
+            dt.Tick += EndManipulationDelay;
+            dt.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            dt.Start();
+        }
+
+        private void EndManipulationDelay(object sender, object e)
+        {
+            (sender as DispatcherTimer).Stop();
+            manipulating = false;
+        }
+
+        private void DXSwapChainPanel_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            if ((e.KeyModifiers & Windows.System.VirtualKeyModifiers.Control) == Windows.System.VirtualKeyModifiers.Control)
+            {
+                // determine wheel direction
+                int wheelDirection = e.GetCurrentPoint(null).Properties.MouseWheelDelta;
+                wheelDirection /= Math.Abs(wheelDirection);
+
+                // zoom - zoom
+                inputHandler.ZoomHappened(1 + (0.03f * wheelDirection));
+            }
         }
     }
 }

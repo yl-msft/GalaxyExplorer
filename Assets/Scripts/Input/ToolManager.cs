@@ -55,6 +55,55 @@ namespace GalaxyExplorer
             {
                 Debug.LogError("ToolManager couldn't find ToolSounds.");
             }
+
+            KeyboardInput kbd = KeyboardInput.Instance;
+            KeyboardInput.KeyEvent keyEvent = KeyboardInput.KeyEvent.KeyDown;
+            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Equals,      keyEvent), HandleKeyboardZoomIn);
+            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Plus,        keyEvent), HandleKeyboardZoomIn);
+            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadPlus,  keyEvent), HandleKeyboardZoomIn);
+            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus,       keyEvent), HandleKeyboardZoomOut);
+            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
+
+        }
+
+        private bool ctrlKeyIsDown = false;
+        private bool lCtrlKeyIsDown = false;
+        private bool rCtrlKeyIsDown = false;
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                lCtrlKeyIsDown = true;
+            }
+            if (Input.GetKeyDown(KeyCode.RightControl))
+            {
+                rCtrlKeyIsDown = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                lCtrlKeyIsDown = false;
+            }
+            if (Input.GetKeyUp(KeyCode.RightControl))
+            {
+                rCtrlKeyIsDown = false;
+            }
+            ctrlKeyIsDown = lCtrlKeyIsDown || rCtrlKeyIsDown;
+        }
+
+        private void HandleKeyboardZoomOut(KeyboardInput.KeyCodeEventPair keyCodeEvent)
+        {
+            HandleKeyboardZoom(-1);
+        }
+        private void HandleKeyboardZoomIn(KeyboardInput.KeyCodeEventPair keyCodeEvent)
+        {
+            HandleKeyboardZoom(1);
+        }
+        private void HandleKeyboardZoom(int direction)
+        {
+            if (ctrlKeyIsDown)
+            {
+                InputRouter.Instance.UpdateZoomFromXaml(1 + (direction * 0.03f));
+            }
         }
 
         private void Start()
@@ -64,8 +113,11 @@ namespace GalaxyExplorer
                 TransitionManager.Instance.ContentLoaded += ViewContentLoaded;
             }
 
-            // it would be nice if we had callbacks for registering voice commands, but it requires finding game objects that are not active; this
-            // bypasses that issue by getting all of the children gaze selection targets and manually registering them in the tool panel which is active
+            // It would be nice if we had callbacks for registering voice
+            // commands, but it requires finding game objects that are not
+            // active; this bypasses that issue by getting all of the children
+            // gaze selection targets and manually registering them in the tool
+            // panel which is active
             GazeSelectionTarget[] selectionTargets = GetComponentsInChildren<GazeSelectionTarget>(true);
             foreach (GazeSelectionTarget selectionTarget in selectionTargets)
             {
@@ -268,6 +320,36 @@ namespace GalaxyExplorer
             else if (BackButton)
             {
                 BackButton.SetActive(false);
+            }
+        }
+
+        public void UpdateZoomFromXaml(float delta)
+        {
+            if (!IsLocked)
+            {
+
+                // TODO: Normalize this zoom code with what is in Tool.HandleUpdatedInput
+                float smallestScale = ToolManager.Instance.TargetMinZoomSize;
+
+                Bounds currentBounds = Tool.GetContentBounds();
+
+                float contentXSize = currentBounds.extents.x == 0 ? smallestScale : currentBounds.extents.x;
+                float zoomContentSizeFactor = contentXSize / smallestScale;
+                float contentScalar = ToolManager.Instance.SmallestZoom / ToolManager.Instance.TargetMinZoomSize;
+                float newScale = ViewLoader.Instance.GetCurrentContent().transform.localScale.x * delta;
+
+                if (newScale < ToolManager.Instance.SmallestZoom)
+                {
+                    newScale = ToolManager.Instance.SmallestZoom;
+                }
+
+                if (newScale > ToolManager.Instance.LargestZoom)
+                {
+                    newScale = ToolManager.Instance.LargestZoom;
+                }
+
+                ViewLoader.Instance.GetCurrentContent().transform.localScale = new Vector3(newScale, newScale, newScale);
+                ToolManager.Instance.RaiseContentZoomChanged();
             }
         }
 

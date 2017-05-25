@@ -135,6 +135,18 @@ namespace GalaxyExplorer
                 0));
         }
 
+        public void UpdateZoomFromXaml(double delta)
+        {
+            // Don't allow zooming in until the introduction flow has
+            // gotten us to GalaxyView.
+            if (IntroductionFlow.Instance == null || (
+                IntroductionFlow.Instance != null &&
+                IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
+            {
+                ToolManager.Instance.UpdateZoomFromXaml((float)delta);
+            }
+        }
+
         private void Update()
         {
             if (enableFakeInput)

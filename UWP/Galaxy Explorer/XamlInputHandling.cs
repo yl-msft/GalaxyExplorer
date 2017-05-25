@@ -6,7 +6,7 @@ using Windows.UI.Xaml;
 
 namespace GalaxyExplorer
 {
-    class InputHandling
+    class XamlInputHandling
     {
         public void PointerOrSingleFingerReleased(double x, double y)
         {
@@ -42,6 +42,17 @@ namespace GalaxyExplorer
                     }
                 },
                 waitUntilDone: false);
+        }
+
+        public void ZoomHappened(double scaleDelta)
+        {
+            UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
+                {
+                    if (InputRouter.Instance != null)
+                    {
+                        InputRouter.Instance.UpdateZoomFromXaml(scaleDelta);
+                    }
+                }, waitUntilDone: false);
         }
 
         /// <summary>

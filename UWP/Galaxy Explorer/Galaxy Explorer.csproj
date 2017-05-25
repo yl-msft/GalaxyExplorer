@@ -197,7 +197,7 @@
     </Content>
     <Compile Include="UnityGenerated.cs">
     </Compile>
-    <Compile Include="InputHandling.cs" />
+    <Compile Include="XamlInputHandling.cs" />
     <Reference Include="UnityEngine">
       <HintPath>.\Unprocessed\UnityEngine.dll</HintPath>
     </Reference>

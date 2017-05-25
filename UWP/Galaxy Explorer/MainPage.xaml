@@ -13,7 +13,11 @@
     mc:Ignorable="d"
     Background="#FFFFFF">
 
-    <SwapChainPanel x:Name="DXSwapChainPanel" PointerReleased="DXSwapChainPanel_PointerReleased" PointerMoved="DXSwapChainPanel_PointerMoved">
+    <SwapChainPanel x:Name="DXSwapChainPanel"
+                    PointerReleased="DXSwapChainPanel_PointerReleased"
+                    PointerMoved="DXSwapChainPanel_PointerMoved"
+                    ManipulationMode="Scale"
+                    PointerWheelChanged="DXSwapChainPanel_PointerWheelChanged">
         <Grid x:Name="ExtendedSplashGrid" Background="#FFFFFF">
             <Image x:Name="ExtendedSplashImage" Source="Assets/SplashScreen.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>

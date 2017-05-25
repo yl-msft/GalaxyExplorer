@@ -333,7 +333,7 @@ namespace GalaxyExplorer
             }
         }
 
-        private Bounds GetContentBounds()
+        public static Bounds GetContentBounds()
         {
             Bounds currentBounds = new Bounds();
             if (ViewLoader.Instance.GetCurrentContent() != null)
