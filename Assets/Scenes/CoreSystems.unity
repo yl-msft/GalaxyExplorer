@@ -3456,7 +3456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VoiceCommands: []
-  URL: https://microsoftstudios.com/hololens/shareyouridea
+  URL: https://developer.microsoft.com/en-us/windows/mixed-reality/Share_your_idea
 --- !u!1 &1931903294
 GameObject:
   m_ObjectHideFlags: 0
