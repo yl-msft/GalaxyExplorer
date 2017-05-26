@@ -329,13 +329,6 @@ namespace GalaxyExplorer
             {
 
                 // TODO: Normalize this zoom code with what is in Tool.HandleUpdatedInput
-                float smallestScale = ToolManager.Instance.TargetMinZoomSize;
-
-                Bounds currentBounds = Tool.GetContentBounds();
-
-                float contentXSize = currentBounds.extents.x == 0 ? smallestScale : currentBounds.extents.x;
-                float zoomContentSizeFactor = contentXSize / smallestScale;
-                float contentScalar = ToolManager.Instance.SmallestZoom / ToolManager.Instance.TargetMinZoomSize;
                 float newScale = ViewLoader.Instance.GetCurrentContent().transform.localScale.x * delta;
 
                 if (newScale < ToolManager.Instance.SmallestZoom)
