@@ -29,7 +29,7 @@ namespace GalaxyExplorer
         private SplashScreen splash;
         private Rect splashImageRect;
         private WindowSizeChangedEventHandler onResizeHandler;
-        private XamlInputHandling inputHandler = new XamlInputHandling();
+        private XamlInputHandling xamlInputHanlder = new XamlInputHandling();
 
         public MainPage()
         {
@@ -165,11 +165,11 @@ namespace GalaxyExplorer
         private void DXSwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             //UnityEngine.Debug.Log("DXSwapChainPanel_PointerReleased");
-            if (!manipulating)
+            if (currentManipulation == Manipulation.None)
             {
                 PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-                inputHandler.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y);
+                xamlInputHanlder.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y);
             }
         }
 
@@ -178,20 +178,42 @@ namespace GalaxyExplorer
             //UnityEngine.Debug.Log("DXSwapChainPanel_PointerMoved");
             PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-            inputHandler.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y);
+            xamlInputHanlder.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y);
         }
 
-        private bool manipulating = false;
+        private enum Manipulation
+        {
+            None,
+            Rotation,
+            Translate,
+            Zoom,
+        }
+
+        private Manipulation currentManipulation = Manipulation.None;
         private void DXSwapChainPanel_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
-            manipulating = true;
+            //manipulating = true;
         }
 
         private void DXSwapChainPanel_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            if (e.Delta.Scale != 1)
+            if ((currentManipulation == Manipulation.None && Math.Abs(e.Delta.Rotation) > 0.5f) ||
+                currentManipulation == Manipulation.Rotation)
             {
-                inputHandler.ZoomHappened(e.Delta.Scale);
+                currentManipulation = Manipulation.Rotation;
+                xamlInputHanlder.RotationHappened(-e.Delta.Rotation);
+            }
+            else if ((currentManipulation == Manipulation.None && e.Delta.Scale != 1) ||
+                currentManipulation == Manipulation.Zoom)
+            {
+                currentManipulation = Manipulation.Zoom;
+                xamlInputHanlder.ZoomHappened(e.Delta.Scale);
+            }
+            else if ((currentManipulation == Manipulation.None) ||
+                currentManipulation == Manipulation.Translate)
+            {
+                currentManipulation = Manipulation.Translate;
+                xamlInputHanlder.TranslateHappened(new UnityEngine.Vector2(-(float)e.Delta.Translation.X, (float)e.Delta.Translation.Y));
             }
         }
 
@@ -200,15 +222,15 @@ namespace GalaxyExplorer
             // delay toggling the manipulating flag by 500ms so
             // PointerReleased doesn't get processed unintentionally
             DispatcherTimer dt = new DispatcherTimer();
-            dt.Tick += EndManipulationDelay;
+            dt.Tick += DelayedManipulationComplete;
             dt.Interval = new TimeSpan(0, 0, 0, 0, 500);
             dt.Start();
         }
 
-        private void EndManipulationDelay(object sender, object e)
+        private void DelayedManipulationComplete(object sender, object e)
         {
             (sender as DispatcherTimer).Stop();
-            manipulating = false;
+            currentManipulation = Manipulation.None;
         }
 
         private void DXSwapChainPanel_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -220,7 +242,7 @@ namespace GalaxyExplorer
                 wheelDirection /= Math.Abs(wheelDirection);
 
                 // zoom - zoom
-                inputHandler.ZoomHappened(1 + (0.03f * wheelDirection));
+                xamlInputHanlder.ZoomHappened(1 + (0.03f * wheelDirection));
             }
         }
     }

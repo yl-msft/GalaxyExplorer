@@ -55,6 +55,28 @@ namespace GalaxyExplorer
                 }, waitUntilDone: false);
         }
 
+        public void RotationHappened(double rotationDelta)
+        {
+            UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
+            {
+                if (InputRouter.Instance != null)
+                {
+                    InputRouter.Instance.UpdateRotationFromXaml(rotationDelta);
+                }
+            }, waitUntilDone: false);
+        }
+
+        public void TranslateHappened(Vector2 translateDelta)
+        {
+            UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
+            {
+                if (InputRouter.Instance != null)
+                {
+                    InputRouter.Instance.UpdateCameraFromXaml(translateDelta);
+                }
+            }, waitUntilDone: false);
+        }
+
         /// <summary>
         /// Unity and XAML have different coordinate systems in two different ways that need to be accounted for.
         ///    1. Y == 0 for the top of the window in XAML and Y == 0 for the bottom of the window in Unity

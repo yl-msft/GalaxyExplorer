@@ -64,6 +64,11 @@ namespace GalaxyExplorer
             kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus,       keyEvent), HandleKeyboardZoomOut);
             kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
 
+            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Desktop ||
+                MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Phone)
+            {
+                LowerTools();
+            }
         }
 
         private bool ctrlKeyIsDown = false;
@@ -327,7 +332,6 @@ namespace GalaxyExplorer
         {
             if (!IsLocked)
             {
-
                 // TODO: Normalize this zoom code with what is in Tool.HandleUpdatedInput
                 float newScale = ViewLoader.Instance.GetCurrentContent().transform.localScale.x * delta;
 
@@ -342,7 +346,50 @@ namespace GalaxyExplorer
                 }
 
                 ViewLoader.Instance.GetCurrentContent().transform.localScale = new Vector3(newScale, newScale, newScale);
-                ToolManager.Instance.RaiseContentZoomChanged();
+                RaiseContentZoomChanged();
+            }
+        }
+
+        public void UpdateRotationFromXaml(float delta)
+        {
+            if (!IsLocked)
+            {
+                // TODO: Normalize this rotate code with what is in Tool.HandleUpdatedInput
+                var contentToManipulate = ViewLoader.Instance.GetCurrentContent();
+                Tool[] tools = gameObject.GetComponentsInChildren<Tool>();
+                Tool rotateTool = null;
+                for (int i=0; i<tools.Length; i++)
+                {
+                    if (tools[i].type == ToolType.Rotate)
+                    {
+                        rotateTool = tools[i];
+                        break;
+                    }
+                }
+                if (rotateTool == null)
+                {
+                    Debug.Log("Couldn't find the rotate tool.");
+                    return;
+                }
+                var cam = Camera.main;
+                var toContent = (contentToManipulate.transform.position - cam.transform.position).normalized;
+                var right = Vector3.Cross(Vector3.up, toContent).normalized;
+
+                var targetUp = Quaternion.AngleAxis(Mathf.Sign(delta) * rotateTool.MaxRotationAngle, right) * Vector3.up;
+
+                var currentRotationSpeed = rotateTool.TouchRotationSpeed;
+
+                // use the hero view to determine limits on rotation; however, move the content by the
+                // change in rotation, so we are consistently moving the same content/object everywhere
+                // (works with resetting content to hero view for example)
+                GameObject heroView = ViewLoader.Instance.GetHeroView();
+                var desiredUp = Vector3.Slerp(heroView.transform.up, targetUp, Mathf.Clamp01(Time.deltaTime * Mathf.Abs(delta) * currentRotationSpeed));
+                var upToNewUp = Quaternion.FromToRotation(heroView.transform.up, desiredUp);
+
+                contentToManipulate.transform.rotation =
+                    Quaternion.LookRotation(upToNewUp * heroView.transform.forward, desiredUp) *
+                        Quaternion.Inverse(heroView.transform.rotation) * // hero view rotation delta
+                        contentToManipulate.transform.rotation;
             }
         }
 

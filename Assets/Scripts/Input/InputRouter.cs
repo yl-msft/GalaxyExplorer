@@ -137,13 +137,38 @@ namespace GalaxyExplorer
 
         public void UpdateZoomFromXaml(double delta)
         {
-            // Don't allow zooming in until the introduction flow has
+            // Don't allow zooming in/out until the introduction flow has
             // gotten us to GalaxyView.
             if (IntroductionFlow.Instance == null || (
                 IntroductionFlow.Instance != null &&
                 IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
             {
                 ToolManager.Instance.UpdateZoomFromXaml((float)delta);
+            }
+        }
+
+        public void UpdateRotationFromXaml(double delta)
+        {
+            // Don't allow rotation until the introduction flow has
+            // gotten us to GalaxyView.
+            if (IntroductionFlow.Instance == null || (
+                IntroductionFlow.Instance != null &&
+                IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
+            {
+                ToolManager.Instance.UpdateRotationFromXaml((float)delta);
+            }
+        }
+
+        public void UpdateCameraFromXaml(Vector2 delta)
+        {
+            // Don't allow rotation until the introduction flow has
+            // gotten us to GalaxyView.
+            if (IntroductionFlow.Instance == null || (
+                IntroductionFlow.Instance != null &&
+                IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
+            {
+                delta *= 0.001f;
+                Camera.main.transform.parent.position += new Vector3(delta.x, delta.y, 0);
             }
         }
 

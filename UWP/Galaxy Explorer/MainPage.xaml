@@ -14,9 +14,9 @@
     Background="#FFFFFF">
 
     <SwapChainPanel x:Name="DXSwapChainPanel"
+                    ManipulationMode="Scale, Rotate, TranslateX, TranslateY"
                     PointerReleased="DXSwapChainPanel_PointerReleased"
                     PointerMoved="DXSwapChainPanel_PointerMoved"
-                    ManipulationMode="Scale"
                     PointerWheelChanged="DXSwapChainPanel_PointerWheelChanged">
         <Grid x:Name="ExtendedSplashGrid" Background="#FFFFFF">
             <Image x:Name="ExtendedSplashImage" Source="Assets/SplashScreen.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
