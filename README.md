@@ -19,7 +19,7 @@ interact.
 Download all of the developer tools from the
 [Microsoft Developer Website](http://lens.ms/Sa37sr)
 
-*note*, the currently supported version of Unity is 5.5.0f3 which can be
+*note*, the currently supported version of Unity is 5.5.1p4 which can be
 downloaded from the [Unity download site](https://store.unity.com/download)
 
 # Running in Unity
