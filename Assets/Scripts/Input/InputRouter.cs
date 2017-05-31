@@ -28,11 +28,8 @@ namespace GalaxyExplorer
         public Button BackButton;
 
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputStarted;
-
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputUpdated;
-
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputCompleted;
-
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputCanceled;
 
         public event Action InputTapped;
@@ -44,6 +41,10 @@ namespace GalaxyExplorer
 
         private GestureRecognizer gestureRecognizer;
         private bool eventsAreRegistered = false;
+
+        private bool ctrlKeyIsDown = false;
+        private bool lCtrlKeyIsDown = false;
+        private bool rCtrlKeyIsDown = false;
 
         private void TryToRegisterEvents()
         {
@@ -57,9 +58,19 @@ namespace GalaxyExplorer
 
                 InteractionManager.SourceDetected += SourceManager_SourceDetected;
                 InteractionManager.SourceLost += SourceManager_SourceLost;
-
                 InteractionManager.SourcePressed += SourceManager_SourcePressed;
                 InteractionManager.SourceReleased += SourceManager_SourceReleased;
+
+                KeyboardInput kbd = KeyboardInput.Instance;
+                if (kbd != null)
+                {
+                    KeyboardInput.KeyEvent keyEvent = KeyboardInput.KeyEvent.KeyDown;
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Equals, keyEvent), HandleKeyboardZoomIn);
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Plus, keyEvent), HandleKeyboardZoomIn);
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadPlus, keyEvent), HandleKeyboardZoomIn);
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus, keyEvent), HandleKeyboardZoomOut);
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
+                }
 
                 eventsAreRegistered = true;
             }
@@ -77,10 +88,19 @@ namespace GalaxyExplorer
 
                 InteractionManager.SourceDetected -= SourceManager_SourceDetected;
                 InteractionManager.SourceLost -= SourceManager_SourceLost;
-
                 InteractionManager.SourcePressed -= SourceManager_SourcePressed;
                 InteractionManager.SourceReleased -= SourceManager_SourceReleased;
 
+                KeyboardInput kbd = KeyboardInput.Instance;
+                if (kbd != null)
+                {
+                    KeyboardInput.KeyEvent keyEvent = KeyboardInput.KeyEvent.KeyDown;
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Equals, keyEvent), HandleKeyboardZoomIn);
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Plus, keyEvent), HandleKeyboardZoomIn);
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadPlus, keyEvent), HandleKeyboardZoomIn);
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus, keyEvent), HandleKeyboardZoomOut);
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
+                }
                 eventsAreRegistered = false;
             }
         }
@@ -135,40 +155,64 @@ namespace GalaxyExplorer
                 0));
         }
 
-        public void UpdateZoomFromXaml(double delta)
+        private void HandleKeyboardZoomOut(KeyboardInput.KeyCodeEventPair keyCodeEvent)
         {
-            // Don't allow zooming in/out until the introduction flow has
-            // gotten us to GalaxyView.
-            if (IntroductionFlow.Instance == null || (
-                IntroductionFlow.Instance != null &&
-                IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
+            HandleKeyboardZoom(-1);
+        }
+        private void HandleKeyboardZoomIn(KeyboardInput.KeyCodeEventPair keyCodeEvent)
+        {
+            HandleKeyboardZoom(1);
+        }
+        private void HandleKeyboardZoom(int direction)
+        {
+            if (ctrlKeyIsDown)
             {
-                ToolManager.Instance.UpdateZoomFromXaml((float)delta);
+                Instance.HandleZoomFromXaml(1 + (direction * 0.03f));
             }
         }
 
-        public void UpdateRotationFromXaml(double delta)
+        private bool ReadyForXamlInput
         {
-            // Don't allow rotation until the introduction flow has
-            // gotten us to GalaxyView.
-            if (IntroductionFlow.Instance == null || (
-                IntroductionFlow.Instance != null &&
-                IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
+            get
             {
-                ToolManager.Instance.UpdateRotationFromXaml((float)delta);
+                // Ignore input fromXaml until the introduction flow has
+                // gotten us to GalaxyView.
+                return IntroductionFlow.Instance == null || (
+                    IntroductionFlow.Instance != null &&
+                    IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete);
             }
         }
 
-        public void UpdateCameraFromXaml(Vector2 delta)
+        public void HandleZoomFromXaml(float delta)
         {
-            // Don't allow rotation until the introduction flow has
-            // gotten us to GalaxyView.
-            if (IntroductionFlow.Instance == null || (
-                IntroductionFlow.Instance != null &&
-                IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete))
+            if (ReadyForXamlInput)
             {
-                delta *= 0.001f;
-                Camera.main.transform.parent.position += new Vector3(delta.x, delta.y, 0);
+                ToolManager.Instance.UpdateZoomFromXaml(delta);
+            }
+        }
+
+        public void HandleRotationFromXaml(float delta)
+        {
+            if (ReadyForXamlInput)
+            {
+                ToolManager.Instance.UpdateRotationFromXaml(Math.Sign(delta));
+            }
+        }
+
+        public void HandleTranslateFromXaml(Vector2 delta)
+        {
+            if (ReadyForXamlInput)
+            {
+                if (ctrlKeyIsDown)
+                {
+                    // if a control key is down, perform a rotation instead of translation
+                    HandleRotationFromXaml(delta.y);
+                }
+                else
+                {
+                    delta *= 0.001f;
+                    Camera.main.transform.parent.position += new Vector3(delta.x, delta.y, 0);
+                }
             }
         }
 
@@ -204,6 +248,25 @@ namespace GalaxyExplorer
                     FakeTapUpdate = false;
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                lCtrlKeyIsDown = true;
+            }
+            if (Input.GetKeyDown(KeyCode.RightControl))
+            {
+                rCtrlKeyIsDown = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                lCtrlKeyIsDown = false;
+            }
+            if (Input.GetKeyUp(KeyCode.RightControl))
+            {
+                rCtrlKeyIsDown = false;
+            }
+            ctrlKeyIsDown = lCtrlKeyIsDown || rCtrlKeyIsDown;
+
         }
 
         private void OnDestroy()

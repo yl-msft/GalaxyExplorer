@@ -50,7 +50,7 @@ namespace GalaxyExplorer
                 {
                     if (InputRouter.Instance != null)
                     {
-                        InputRouter.Instance.UpdateZoomFromXaml(scaleDelta);
+                        InputRouter.Instance.HandleZoomFromXaml((float)scaleDelta);
                     }
                 }, waitUntilDone: false);
         }
@@ -61,7 +61,7 @@ namespace GalaxyExplorer
             {
                 if (InputRouter.Instance != null)
                 {
-                    InputRouter.Instance.UpdateRotationFromXaml(rotationDelta);
+                    InputRouter.Instance.HandleRotationFromXaml((float)rotationDelta);
                 }
             }, waitUntilDone: false);
         }
@@ -72,7 +72,7 @@ namespace GalaxyExplorer
             {
                 if (InputRouter.Instance != null)
                 {
-                    InputRouter.Instance.UpdateCameraFromXaml(translateDelta);
+                    InputRouter.Instance.HandleTranslateFromXaml(translateDelta);
                 }
             }, waitUntilDone: false);
         }

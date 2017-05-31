@@ -36,7 +36,7 @@ namespace GalaxyExplorer
 
         public float MaxRotationAngle = 40;
         public float ClickerRotationSpeed = .1f;
-        public float TouchRotationSpeed = 0.00001f;
+        public float XamlRotationSpeed = 1f;
 
         private float scalePercentValue = 0.6f;
         private GameObject contentToManipulate;

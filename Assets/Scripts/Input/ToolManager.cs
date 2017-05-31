@@ -56,58 +56,10 @@ namespace GalaxyExplorer
                 Debug.LogError("ToolManager couldn't find ToolSounds.");
             }
 
-            KeyboardInput kbd = KeyboardInput.Instance;
-            KeyboardInput.KeyEvent keyEvent = KeyboardInput.KeyEvent.KeyDown;
-            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Equals,      keyEvent), HandleKeyboardZoomIn);
-            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Plus,        keyEvent), HandleKeyboardZoomIn);
-            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadPlus,  keyEvent), HandleKeyboardZoomIn);
-            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus,       keyEvent), HandleKeyboardZoomOut);
-            kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
-
             if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Desktop ||
                 MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Phone)
             {
                 LowerTools();
-            }
-        }
-
-        private bool ctrlKeyIsDown = false;
-        private bool lCtrlKeyIsDown = false;
-        private bool rCtrlKeyIsDown = false;
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                lCtrlKeyIsDown = true;
-            }
-            if (Input.GetKeyDown(KeyCode.RightControl))
-            {
-                rCtrlKeyIsDown = true;
-            }
-            if (Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                lCtrlKeyIsDown = false;
-            }
-            if (Input.GetKeyUp(KeyCode.RightControl))
-            {
-                rCtrlKeyIsDown = false;
-            }
-            ctrlKeyIsDown = lCtrlKeyIsDown || rCtrlKeyIsDown;
-        }
-
-        private void HandleKeyboardZoomOut(KeyboardInput.KeyCodeEventPair keyCodeEvent)
-        {
-            HandleKeyboardZoom(-1);
-        }
-        private void HandleKeyboardZoomIn(KeyboardInput.KeyCodeEventPair keyCodeEvent)
-        {
-            HandleKeyboardZoom(1);
-        }
-        private void HandleKeyboardZoom(int direction)
-        {
-            if (ctrlKeyIsDown)
-            {
-                InputRouter.Instance.UpdateZoomFromXaml(1 + (direction * 0.03f));
             }
         }
 
@@ -304,6 +256,19 @@ namespace GalaxyExplorer
             yield return StartCoroutine(panel.FadeIn());
         }
 
+        private Tool FindToolByType(ToolType type)
+        {
+            Tool[] tools = gameObject.GetComponentsInChildren<Tool>();
+            for (int i = 0; i < tools.Length; i++)
+            {
+                if (tools[i].type == type)
+                {
+                    return tools[i];
+                }
+            }
+            return null;
+        }
+
         public void ShowBackButton()
         {
             if (ToolManager.BackButtonVisibilityChangeRequested != null)
@@ -350,22 +315,17 @@ namespace GalaxyExplorer
             }
         }
 
-        public void UpdateRotationFromXaml(float delta)
+        /// <summary>
+        /// Uses input from Xaml to rotate the current content
+        /// </summary>
+        /// <param name="direction">The direction to rotate; we only care about the sign (+/-) of this value.</param>
+        public void UpdateRotationFromXaml(int direction)
         {
             if (!IsLocked)
             {
                 // TODO: Normalize this rotate code with what is in Tool.HandleUpdatedInput
                 var contentToManipulate = ViewLoader.Instance.GetCurrentContent();
-                Tool[] tools = gameObject.GetComponentsInChildren<Tool>();
-                Tool rotateTool = null;
-                for (int i=0; i<tools.Length; i++)
-                {
-                    if (tools[i].type == ToolType.Rotate)
-                    {
-                        rotateTool = tools[i];
-                        break;
-                    }
-                }
+                Tool rotateTool = FindToolByType(ToolType.Rotate);
                 if (rotateTool == null)
                 {
                     Debug.Log("Couldn't find the rotate tool.");
@@ -375,15 +335,16 @@ namespace GalaxyExplorer
                 var toContent = (contentToManipulate.transform.position - cam.transform.position).normalized;
                 var right = Vector3.Cross(Vector3.up, toContent).normalized;
 
-                var targetUp = Quaternion.AngleAxis(Mathf.Sign(delta) * rotateTool.MaxRotationAngle, right) * Vector3.up;
+                var targetUp = Quaternion.AngleAxis(direction * rotateTool.MaxRotationAngle, right) * Vector3.up;
 
-                var currentRotationSpeed = rotateTool.TouchRotationSpeed;
+                float rotationSpeed = rotateTool.XamlRotationSpeed;
 
                 // use the hero view to determine limits on rotation; however, move the content by the
                 // change in rotation, so we are consistently moving the same content/object everywhere
                 // (works with resetting content to hero view for example)
                 GameObject heroView = ViewLoader.Instance.GetHeroView();
-                var desiredUp = Vector3.Slerp(heroView.transform.up, targetUp, Mathf.Clamp01(Time.deltaTime * Mathf.Abs(delta) * currentRotationSpeed));
+                Debug.LogFormat("{0} * {1} = {2}", Time.deltaTime, rotationSpeed, Mathf.Clamp01(Time.deltaTime * rotationSpeed));
+                var desiredUp = Vector3.Slerp(heroView.transform.up, targetUp, Mathf.Clamp01(Time.deltaTime * rotationSpeed));
                 var upToNewUp = Quaternion.FromToRotation(heroView.transform.up, desiredUp);
 
                 contentToManipulate.transform.rotation =
