@@ -245,5 +245,15 @@ namespace GalaxyExplorer
                 xamlInputHanlder.ZoomHappened(1 + (0.03f * wheelDirection));
             }
         }
+
+        private void DXSwapChainPanel_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            xamlInputHanlder.ResetHappened();
+        }
+
+        private void DXSwapChainPanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            xamlInputHanlder.ResetHappened();
+        }
     }
 }

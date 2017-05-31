@@ -17,7 +17,9 @@
                     ManipulationMode="Scale, Rotate, TranslateX, TranslateY"
                     PointerReleased="DXSwapChainPanel_PointerReleased"
                     PointerMoved="DXSwapChainPanel_PointerMoved"
-                    PointerWheelChanged="DXSwapChainPanel_PointerWheelChanged">
+                    PointerWheelChanged="DXSwapChainPanel_PointerWheelChanged"
+                    Holding="DXSwapChainPanel_Holding"
+                    RightTapped="DXSwapChainPanel_RightTapped">
         <Grid x:Name="ExtendedSplashGrid" Background="#FFFFFF">
             <Image x:Name="ExtendedSplashImage" Source="Assets/SplashScreen.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>

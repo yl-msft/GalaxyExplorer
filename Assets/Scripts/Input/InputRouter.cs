@@ -3,6 +3,7 @@
 
 using GalaxyExplorer.HoloToolkit.Unity.InputModule;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR.WSA.Input;
@@ -48,13 +49,16 @@ namespace GalaxyExplorer
 
         private void TryToRegisterEvents()
         {
-            if (!eventsAreRegistered && gestureRecognizer != null)
+            if (!eventsAreRegistered)
             {
-                gestureRecognizer.NavigationStartedEvent += OnNavigationStarted;
-                gestureRecognizer.NavigationUpdatedEvent += OnNavigationUpdated;
-                gestureRecognizer.NavigationCompletedEvent += OnNavigationCompleted;
-                gestureRecognizer.NavigationCanceledEvent += OnNavigationCanceled;
-                gestureRecognizer.TappedEvent += OnTapped;
+                if (gestureRecognizer != null)
+                {
+                    gestureRecognizer.NavigationStartedEvent += OnNavigationStarted;
+                    gestureRecognizer.NavigationUpdatedEvent += OnNavigationUpdated;
+                    gestureRecognizer.NavigationCompletedEvent += OnNavigationCompleted;
+                    gestureRecognizer.NavigationCanceledEvent += OnNavigationCanceled;
+                    gestureRecognizer.TappedEvent += OnTapped;
+                }
 
                 InteractionManager.SourceDetected += SourceManager_SourceDetected;
                 InteractionManager.SourceLost += SourceManager_SourceLost;
@@ -70,6 +74,10 @@ namespace GalaxyExplorer
                     kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadPlus, keyEvent), HandleKeyboardZoomIn);
                     kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus, keyEvent), HandleKeyboardZoomOut);
                     kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
+
+                    keyEvent = KeyboardInput.KeyEvent.KeyReleased;
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Space, keyEvent), FakeTapKeyboardHandler);
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, keyEvent), FakeBackKeyboardHandler);
                 }
 
                 eventsAreRegistered = true;
@@ -78,13 +86,16 @@ namespace GalaxyExplorer
 
         private void TryToUnregisterEvents()
         {
-            if (eventsAreRegistered && gestureRecognizer != null)
+            if (eventsAreRegistered)
             {
-                gestureRecognizer.NavigationStartedEvent -= OnNavigationStarted;
-                gestureRecognizer.NavigationUpdatedEvent -= OnNavigationUpdated;
-                gestureRecognizer.NavigationCompletedEvent -= OnNavigationCompleted;
-                gestureRecognizer.NavigationCanceledEvent -= OnNavigationCanceled;
-                gestureRecognizer.TappedEvent -= OnTapped;
+                if (gestureRecognizer != null)
+                {
+                    gestureRecognizer.NavigationStartedEvent -= OnNavigationStarted;
+                    gestureRecognizer.NavigationUpdatedEvent -= OnNavigationUpdated;
+                    gestureRecognizer.NavigationCompletedEvent -= OnNavigationCompleted;
+                    gestureRecognizer.NavigationCanceledEvent -= OnNavigationCanceled;
+                    gestureRecognizer.TappedEvent -= OnTapped;
+                }
 
                 InteractionManager.SourceDetected -= SourceManager_SourceDetected;
                 InteractionManager.SourceLost -= SourceManager_SourceLost;
@@ -100,6 +111,10 @@ namespace GalaxyExplorer
                     kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadPlus, keyEvent), HandleKeyboardZoomIn);
                     kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Minus, keyEvent), HandleKeyboardZoomOut);
                     kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.KeypadMinus, keyEvent), HandleKeyboardZoomOut);
+
+                    keyEvent = KeyboardInput.KeyEvent.KeyReleased;
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Space, keyEvent), FakeTapKeyboardHandler);
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, keyEvent), FakeBackKeyboardHandler);
                 }
                 eventsAreRegistered = false;
             }
@@ -112,12 +127,6 @@ namespace GalaxyExplorer
 
         private void Start()
         {
-            if (KeyboardInput.Instance)
-            {
-                KeyboardInput.Instance.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Space, KeyboardInput.KeyEvent.KeyReleased), FakeTapKeyboardHandler);
-                KeyboardInput.Instance.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, KeyboardInput.KeyEvent.KeyReleased), FakeBackKeyboardHandler);
-            }
-
             gestureRecognizer = new GestureRecognizer();
             gestureRecognizer.SetRecognizableGestures(GestureSettings.Hold | GestureSettings.Tap |
                                                       GestureSettings.NavigationY | GestureSettings.NavigationX);
@@ -216,6 +225,45 @@ namespace GalaxyExplorer
             }
         }
 
+        public void HandleResetFromXaml()
+        {
+            Button resetButton = ToolManager.Instance.FindButtonByType(ButtonType.Reset);
+            if (resetButton &&
+                TransitionManager.Instance &&
+                !TransitionManager.Instance.InTransition)
+            {
+                // tell the camera to go back to (0,0,0)
+                StartCoroutine(ResetCameraToOrigin());
+
+                // reset everything else
+                resetButton.ButtonAction();
+            }
+        }
+
+        private IEnumerator ResetCameraToOrigin()
+        {
+            Vector3 startPosition = Camera.main.transform.parent.position;
+
+            float time = 0.0f;
+            float timeFraction = 0.0f;
+            do
+            {
+                time += Time.deltaTime;
+                timeFraction = Mathf.Clamp01(time / TransitionManager.Instance.TransitionTimeCube);
+
+                Vector3 newPosition = Vector3.Lerp(
+                    startPosition,
+                    Vector3.zero,
+                    Mathf.Clamp01(TransitionManager.Instance.TransitionCurveCube.Evaluate(timeFraction)));
+
+                Camera.main.transform.parent.position = newPosition;
+                yield return null;
+
+            } while (timeFraction < 1f);
+
+            Camera.main.transform.parent.position = Vector3.zero;
+        }
+
         private void Update()
         {
             if (enableFakeInput)
@@ -266,7 +314,6 @@ namespace GalaxyExplorer
                 rCtrlKeyIsDown = false;
             }
             ctrlKeyIsDown = lCtrlKeyIsDown || rCtrlKeyIsDown;
-
         }
 
         private void OnDestroy()
@@ -274,14 +321,11 @@ namespace GalaxyExplorer
             if (gestureRecognizer != null)
             {
                 gestureRecognizer.StopCapturingGestures();
-                TryToUnregisterEvents();
                 gestureRecognizer.Dispose();
             }
-
-            if (KeyboardInput.Instance)
+            if (eventsAreRegistered)
             {
-                KeyboardInput.Instance.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Space, KeyboardInput.KeyEvent.KeyReleased), FakeTapKeyboardHandler);
-                KeyboardInput.Instance.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, KeyboardInput.KeyEvent.KeyReleased), FakeBackKeyboardHandler);
+                TryToUnregisterEvents();
             }
         }
 

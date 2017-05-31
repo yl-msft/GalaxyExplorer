@@ -256,7 +256,7 @@ namespace GalaxyExplorer
             yield return StartCoroutine(panel.FadeIn());
         }
 
-        private Tool FindToolByType(ToolType type)
+        public Tool FindToolByType(ToolType type)
         {
             Tool[] tools = gameObject.GetComponentsInChildren<Tool>();
             for (int i = 0; i < tools.Length; i++)
@@ -267,6 +267,20 @@ namespace GalaxyExplorer
                 }
             }
             return null;
+        }
+
+        public Button FindButtonByType(ButtonType type)
+        {
+            Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].type == type)
+                {
+                    return buttons[i];
+                }
+            }
+            return null;
+
         }
 
         public void ShowBackButton()
@@ -343,7 +357,6 @@ namespace GalaxyExplorer
                 // change in rotation, so we are consistently moving the same content/object everywhere
                 // (works with resetting content to hero view for example)
                 GameObject heroView = ViewLoader.Instance.GetHeroView();
-                Debug.LogFormat("{0} * {1} = {2}", Time.deltaTime, rotationSpeed, Mathf.Clamp01(Time.deltaTime * rotationSpeed));
                 var desiredUp = Vector3.Slerp(heroView.transform.up, targetUp, Mathf.Clamp01(Time.deltaTime * rotationSpeed));
                 var upToNewUp = Quaternion.FromToRotation(heroView.transform.up, desiredUp);
 

@@ -128,7 +128,7 @@ Galaxy Explorer\obj\x86\Master\PackageLayout\Assets\StoreLogo.scale-200.png: D5F
 Galaxy Explorer\obj\x86\Master\PackageLayout\Assets\StoreLogo.scale-400.png: F95C73B467976269365081CC6A6FA786
 Galaxy Explorer\obj\x86\Master\PackageLayout\Assets\Wide310x150Logo.scale-200.png: A287E3C81D97CE57C80FE54E7E0690EB
 Galaxy Explorer\obj\x86\Release\App.xaml: 52AB47B8710A51F1DE994AD9F3DD3B47
-Galaxy Explorer\obj\x86\Release\MainPage.xaml: F4AB6D5BEA172F487D0647D957EEC0B2
+Galaxy Explorer\obj\x86\Release\MainPage.xaml: modified
 Galaxy Explorer\Properties\AssemblyInfo.cs: modified
 Galaxy Explorer\Properties\Default.rd.xml: 72EB282657164E79A1C42F6240984826
 GeneratedProjects\UWP\Assembly-CSharp\project.json: 4FCF72A4D5EDB37E24C206A7BCFE7AF1
