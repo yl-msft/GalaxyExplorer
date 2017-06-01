@@ -240,6 +240,17 @@ namespace GalaxyExplorer
             }
         }
 
+        public void HandleAboutFromXaml()
+        {
+            Tool aboutTool = ToolManager.Instance.FindToolByType(ToolType.About);
+            if (aboutTool &&
+                TransitionManager.Instance &&
+                !TransitionManager.Instance.InTransition)
+            {
+                aboutTool.Select();
+            }
+        }
+
         private IEnumerator ResetCameraToOrigin()
         {
             Vector3 startPosition = Camera.main.transform.parent.position;

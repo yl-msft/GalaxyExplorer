@@ -21,7 +21,15 @@
                     Holding="DXSwapChainPanel_Holding"
                     RightTapped="DXSwapChainPanel_RightTapped">
         <Grid x:Name="ExtendedSplashGrid" Background="#FFFFFF">
-            <Image x:Name="ExtendedSplashImage" Source="Assets/SplashScreen.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image x:Name="ExtendedSplashImage" Source="Assets/SplashScreen.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Grid>
     </SwapChainPanel>
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal" RequestedTheme="Dark">
+            <AppBarButton x:Uid="MapPageAppBarLegend" Label="About" Icon="Globe"
+                          Click="AppBarButton_Click_About"/>
+            <AppBarButton x:Uid="MapPageAppBarLegend" Label="Reset" Icon="Refresh"
+                          Click="AppBarButton_Click_Reset"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

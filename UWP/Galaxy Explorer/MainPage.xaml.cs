@@ -169,7 +169,7 @@ namespace GalaxyExplorer
             {
                 PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-                xamlInputHanlder.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y);
+                xamlInputHanlder.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y, this);
             }
         }
 
@@ -178,7 +178,7 @@ namespace GalaxyExplorer
             //UnityEngine.Debug.Log("DXSwapChainPanel_PointerMoved");
             PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-            xamlInputHanlder.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y);
+            xamlInputHanlder.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y, this);
         }
 
         private enum Manipulation
@@ -254,6 +254,16 @@ namespace GalaxyExplorer
         private void DXSwapChainPanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             xamlInputHanlder.ResetHappened();
+        }
+
+        private void AppBarButton_Click_Reset(object sender, RoutedEventArgs e)
+        {
+            xamlInputHanlder.ResetHappened();
+        }
+
+        private void AppBarButton_Click_About(object sender, RoutedEventArgs e)
+        {
+            xamlInputHanlder.AboutHappened();
         }
     }
 }
