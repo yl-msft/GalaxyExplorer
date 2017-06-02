@@ -271,7 +271,7 @@ namespace GalaxyExplorer
 
         public Button FindButtonByType(ButtonType type)
         {
-            Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+            Button[] buttons = gameObject.GetComponentsInChildren<Button>(true);
             for (int i = 0; i < buttons.Length; i++)
             {
                 if (buttons[i].type == type)

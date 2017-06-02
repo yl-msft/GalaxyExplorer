@@ -111,21 +111,19 @@ namespace GalaxyExplorer
 
             Window.Current.Activate();
 
-            // Integrate with Shell back button behavior on non-Holographic UWP platforms such as Desktop and Mobile.
-            // Using DeviceFamily name here instead of an API Contract check since the UWP API we will subsequently 
-            // call when the back button should be visible (AppViewBackButtonVisibility) is present on all platforms
-            // and simply no-ops on some.  Unity has the UnityEngine.VR.VRDevice.isPresent which would work here but 
-            // since this will wind up including a check for SurfaceHub as well in the future which Unity does not 
-            // know about, this will consistently use DeviceFamily for these platform checks
+            // Integrate with Shell back button behavior on non-Holographic UWP
+            // platforms such as Desktop and Mobile. Using DeviceFamily name
+            // here instead of an API Contract check since the UWP API we will
+            // subsequently call when the back button should be visible
+            // (AppViewBackButtonVisibility) is present on all platforms and
+            // simply no-ops on some.
+            // Unity has the UnityEngine.VR.VRDevice.isPresent which would work
+            // here but since this will wind up including a check for
+            // SurfaceHub as well in the future which Unity does not know about,
+            // this will consistently use DeviceFamily for these platform checks
             AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
                     MyAppPlatformManager.MyAppPlatformManagerInitialized += RegisterForBackButtonChangeRequests;
-                    //System.Diagnostics.Debug.WriteLine("GalaxyExplorer::App::InitializeUnity: DeviceFamilyString = " + MyAppPlatformManager.DeviceFamilyString);
-                    //if (MyAppPlatformManager.DeviceFamilyString != "Windows.Holographic")/* &&
-                    //    ((MyAppPlatformManager.DeviceFamilyString == "Windows.Desktop") && !UnityEngine.VR.VRDevice.isPresent))*/
-                    //{
-                    //    ToolManager.BackButtonVisibilityChangeRequested += ToolManager_BackButtonVisibilityChangeRequested;
-                    //}
                 },
                 waitUntilDone: false);
         }
@@ -147,21 +145,29 @@ namespace GalaxyExplorer
         {
             AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
-                    if (InputRouter.Instance.BackButton != null)
+                    if (ToolManager.Instance)
                     {
-                        InputRouter.Instance.BackButton.ButtonAction();
+                        var backButton = ToolManager.Instance.FindButtonByType(ButtonType.Back);
+                        if (backButton)
+                        {
+                            backButton.ButtonAction();
+                        }
                     }
                 },
                 waitUntilDone: false);
 
-            // We will always handle back in the BackRequested callback.  In the case of an empty backstack, the
-            // callback itself should be removed from the BackRequested event's delegate list so this is not called
+            // We will always handle back in the BackRequested callback.  In
+            // the case of an empty backstack, the callback itself should be
+            // removed from the BackRequested event's delegate list so this is
+            // not called
             e.Handled = true;
         }
 
         /// <summary>
-        /// Callback from GalaxyExplorer's ToolManager indicating whether or not the BackButton should be visible.  Tell the Shell
-        /// the requested visual state for the BackButton and register for BackRequested callbacks if visible
+        /// Callback from GalaxyExplorer's ToolManager indicating whether or
+        /// not the BackButton should be visible.  Tell the Shell the requested
+        /// visual state for the BackButton and register for BackRequested
+        /// callbacks if visible
         /// </summary>
         /// <param name="visible"></param>
         private void ToolManager_BackButtonVisibilityChangeRequested(bool visible)

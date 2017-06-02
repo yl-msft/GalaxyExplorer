@@ -67,9 +67,13 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
             {
                 backButtonPressed = true;
             }
-            if (backButtonPressed && Input.GetButtonUp(GamePadButtonB))
+            if (backButtonPressed && Input.GetButtonUp(GamePadButtonB) && ToolManager.Instance)
             {
-                InputRouter.Instance.BackButton.ButtonAction();
+                var backButton = ToolManager.Instance.FindButtonByType(ButtonType.Back);
+                if (backButton)
+                {
+                    backButton.ButtonAction();
+                }
             }
         }
 

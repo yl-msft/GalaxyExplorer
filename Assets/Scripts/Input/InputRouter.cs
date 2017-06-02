@@ -26,8 +26,6 @@ namespace GalaxyExplorer
         /// </summary>
         public HashSet<InteractionSourceKind> PressedSources { get; private set; }
 
-        public Button BackButton;
-
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputStarted;
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputUpdated;
         public event Action<InteractionSourceKind, Vector3, HeadPose> InputCompleted;
@@ -77,7 +75,7 @@ namespace GalaxyExplorer
 
                     keyEvent = KeyboardInput.KeyEvent.KeyReleased;
                     kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Space, keyEvent), FakeTapKeyboardHandler);
-                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, keyEvent), FakeBackKeyboardHandler);
+                    kbd.RegisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, keyEvent), HandleBackButtonFromKeyboard);
                 }
 
                 eventsAreRegistered = true;
@@ -114,7 +112,7 @@ namespace GalaxyExplorer
 
                     keyEvent = KeyboardInput.KeyEvent.KeyReleased;
                     kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Space, keyEvent), FakeTapKeyboardHandler);
-                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, keyEvent), FakeBackKeyboardHandler);
+                    kbd.UnregisterKeyEvent(new KeyboardInput.KeyCodeEventPair(KeyCode.Backspace, keyEvent), HandleBackButtonFromKeyboard);
                 }
                 eventsAreRegistered = false;
             }
@@ -146,11 +144,12 @@ namespace GalaxyExplorer
             SendFakeTap();
         }
 
-        private void FakeBackKeyboardHandler(KeyboardInput.KeyCodeEventPair keyCodeEvent)
+        private void HandleBackButtonFromKeyboard(KeyboardInput.KeyCodeEventPair keyCodeEvent)
         {
-            if (BackButton != null)
+            var backButton = ToolManager.Instance.FindButtonByType(ButtonType.Back);
+            if (backButton != null)
             {
-                BackButton.ButtonAction();
+                backButton.ButtonAction();
             }
         }
 
@@ -253,6 +252,7 @@ namespace GalaxyExplorer
 
         private IEnumerator ResetCameraToOrigin()
         {
+            // TODO: Consider moving this code into TransitionManager
             Vector3 startPosition = Camera.main.transform.parent.position;
 
             float time = 0.0f;
@@ -273,6 +273,12 @@ namespace GalaxyExplorer
             } while (timeFraction < 1f);
 
             Camera.main.transform.parent.position = Vector3.zero;
+
+            // Resetting the view changes the content's lookRotation which might
+            // be confused if the camera was moving at the same time.
+            // Since the camera is now done moving, re-reset the content to
+            // get the final lookRotation just right.
+            ToolManager.Instance.FindButtonByType(ButtonType.Reset).ButtonAction();
         }
 
         private void Update()
