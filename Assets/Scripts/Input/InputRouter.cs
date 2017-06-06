@@ -274,6 +274,11 @@ namespace GalaxyExplorer
 
             Camera.main.transform.parent.position = Vector3.zero;
 
+            while (TransitionManager.Instance.InTransition)
+            {
+                // Wait for the TransitionManager to finish...
+                yield return null;
+            }
             // Resetting the view changes the content's lookRotation which might
             // be confused if the camera was moving at the same time.
             // Since the camera is now done moving, re-reset the content to
