@@ -15,7 +15,8 @@ namespace GalaxyExplorer
             if (currentScale != 1.0f && currentScale != 0.0f && localScale != 0.0f)
             {
                 float desiredScale = localScale / currentScale;
-                gameObject.transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
+                gameObject.transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale) *
+                    MyAppPlatformManager.Instance.MagicWindowScaleFactor;
             }
         }
     }

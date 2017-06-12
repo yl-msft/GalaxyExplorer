@@ -35,6 +35,23 @@ namespace GalaxyExplorer
             }
         }
 
+        public float MagicWindowScaleFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                        return 3.0f;
+                    case MyAppPlatformManager.PlatformId.HoloLens:
+                    case MyAppPlatformManager.PlatformId.Desktop:
+                        return 1.0f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
         public float OrbitalTrailFixedWidth
         {
             get

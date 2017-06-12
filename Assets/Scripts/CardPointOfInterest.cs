@@ -7,11 +7,15 @@ using System.Collections;
 
 namespace GalaxyExplorer
 {
-    // The card point of interest can be selected, which will animate the text next to the description card. This is complicated because
-    // the point of interest is a parent in the POI hierarchy to the description text and fading out all of the POIs on selection would
-    // then fade out the text. Also complicated is that the text needs to move with the magic window that is shown when the POI is selected,
-    // and this is not parented to the POI (shown when POI is hidden and is displaced). To get all of these systems to work together with
-    // clean animations between states, the description's parent changes.
+    // The card point of interest can be selected, which will animate the text
+    // next to the description card. This is complicated because the point of
+    // interest is a parent in the POI hierarchy to the description text and
+    // fading out all of the POIs on selection would then fade out the text.
+    // Also complicated is that the text needs to move with the magic window
+    // that is shown when the POI is selected, and this is not parented to the
+    // POI (shown when POI is hidden and is displaced). To get all of these
+    // systems to work together with clean animations between states, the
+    // description's parent changes.
     public class CardPointOfInterest : PointOfInterest
     {
         public Animator CardAnimator;
@@ -325,7 +329,9 @@ namespace GalaxyExplorer
             float time = 0.0f;
             targetOffsetObject.transform.position = Description.transform.position;
             Vector3 startPosition = targetOffsetObject.transform.localPosition;
-            Vector3 endPosition = targetOffsetObject.transform.localPosition + CardPOIManager.Instance.DescriptionSlideDirection;
+            Vector3 endPosition = targetOffsetObject.transform.localPosition +
+                (CardPOIManager.Instance.DescriptionSlideDirection *
+                    MyAppPlatformManager.Instance.MagicWindowScaleFactor / 2.0f);
 
             do
             {
