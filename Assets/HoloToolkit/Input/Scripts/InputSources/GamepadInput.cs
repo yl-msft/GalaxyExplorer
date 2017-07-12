@@ -29,17 +29,23 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
         [Tooltip("Name of the joystick axis that navigates around Y.")]
         public string NavigateAroundYAxisName = "ControllerLeftStickY";
 
-        [Tooltip("Name of the controller button that rotates the POV 90 degrees counter-clockwise")]
+        [Tooltip("Name of the controller button that rotates the POV 90 degrees counter-clockwise in RS2")]
         public string GamepadLeftBumper = "ControllerLeftBumper";
 
-        [Tooltip("Name of the controller button that rotates the POV 90 degrees clockwise")]
+        [Tooltip("Name of the controller button that rotates the POV 90 degrees clockwise in RS2")]
         public string GamepadRightBumper = "ControllerRightBumper";
+
+        [Tooltip("Name of the controller thumbstick that rotates the POV 45 degrees in RS3")]
+        public string GamepadRotationStick = "ControllerRightStickX";
 
         bool isAPressed = false;
         bool holdStarted = false;
         bool raiseOnce = false;
         bool navigationStarted = false;
         bool navigationCompleted = false;
+
+        [Tooltip("Set this to true in the inspector to use Windows Creator's Fall update style navigation on a pre-RS3 machine")]
+        public bool forceRS3Navigation = false;
 
         enum GestureState
         {
@@ -53,11 +59,31 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
 
         GestureState currentGestureState;
 
+        private void Start()
+        {
+#if NETFX_CORE
+            if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5, 0))
+            {
+                forceRS3Navigation=true;
+            }
+#endif
+        }
+
         private void Update()
         {
             HandleGamepadAPressed();
             HandleGamepadBPressed();
-            HandleGamepadBumperPressed();
+
+            if (forceRS3Navigation)
+            {
+                // Windows Creator's Fall Update uses right-stick to rotate left/right by 45 degrees
+                HandleRightStickX();
+            }
+            else
+            {
+                // Windows Creator's Update Shell used bumpers to rotate left/right by 90 degrees
+                HandleGamepadBumperPressed();
+            }
         }
 
         private bool backButtonPressed = false;
@@ -77,24 +103,37 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
             }
         }
 
-        public delegate void RotateCameraPovDelegate(bool clockwise);
+        public delegate void RotateCameraPovDelegate(float rotationAmount);
         public event RotateCameraPovDelegate RotateCameraPov;
 
-        private bool leftBumperPressed = false;
-        private bool rightBumperPressed = false;
+        private float intendedRotation = 0f;
         private void HandleGamepadBumperPressed()
         {
             if (Input.GetButtonDown(GamepadLeftBumper))
             {
-                leftBumperPressed = true;
+                intendedRotation = -90f;
             }
             if (Input.GetButtonDown(GamepadRightBumper))
             {
-                rightBumperPressed = true;
+                intendedRotation = 90f;
             }
-            if (leftBumperPressed || rightBumperPressed)
+            if (intendedRotation != 0f)
             {
                 HandleGamepadBumperReleased();
+            }
+        }
+
+        private void HandleRightStickX()
+        {
+            float x = Input.GetAxis(GamepadRotationStick);
+            if (intendedRotation != 0f && x == 0f)
+            {
+                RotateCameraPov(intendedRotation);
+                intendedRotation = 0f;
+            }
+            else if (Math.Abs(x) == 1f)
+            {
+                intendedRotation = 45f * x;
             }
         }
 
@@ -102,27 +141,14 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
         {
             bool handled = false;
 
-            if (leftBumperPressed && Input.GetButtonUp(GamepadLeftBumper))
-            {
-                handled = true;
-                if (RotateCameraPov != null)
-                {
-                    RotateCameraPov(false);
-                }
-            }
-            if (!handled && rightBumperPressed && Input.GetButtonUp(GamepadRightBumper))
-            {
-                handled = true;
-                if (RotateCameraPov != null)
-                {
-                    RotateCameraPov(true);
-                }
-            }
+            handled =
+                (intendedRotation < 0f && Input.GetButtonUp(GamepadLeftBumper)) ||
+                (intendedRotation > 0f && Input.GetButtonUp(GamepadRightBumper));
 
             if (handled)
             {
-                leftBumperPressed = false;
-                rightBumperPressed = false;
+                RotateCameraPov(intendedRotation);
+                intendedRotation = 0f;
             }
         }
 

@@ -20,6 +20,8 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
         public Material PlayspaceBoundsMaterial;
 
+        [Tooltip("If true, the floor grid is rendered, even if the device isn't an Opaque HMD; Useful for screenshots.")]
+        public bool useFakeFloor = false;
         private StageRoot StageRoot;
         private bool floorVisible = false;
         private bool recalculateFloor = false;
@@ -30,6 +32,15 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         {
             // Check to see if we are on an occluded HMD
             floorVisible = MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD;
+            if (!floorVisible)
+            {
+                floorVisible = useFakeFloor;
+            }
+            else
+            {
+                useFakeFloor = false;
+            }
+
             if (!floorVisible)
             {
                 // If not, disable the playspace manager
@@ -68,14 +79,14 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         private int itemsFadedSoFar = 0;
         private List<GameObject> itemsToFade = new List<GameObject>();
         private float rotationFadeInOutTime = 0.3f;
-        private void Gamepad_RotateCameraPov(bool clockwise)
+        private void Gamepad_RotateCameraPov(float rotationAmount)
         {
             if (isRotating)
             {
                 return;
             }
             // initiate fade-out prior to rotation
-            yRotationDelta = clockwise ? 90f : -90f;
+            yRotationDelta = rotationAmount;
             TransitionManager.Instance.FadeComplete += FadeoutComplete;
             itemsToFade.Clear();
             // add the floor and the stars to the items to fade
@@ -146,6 +157,16 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         {
             if (recalculateFloor)
             {
+                if (useFakeFloor)
+                {
+                    floorPosition.y = -0.5f;
+                    FloorQuad.transform.position = floorPosition;
+                    FloorQuad.transform.localScale = Vector3.one * 10f;
+                    FloorQuad.GetComponent<Renderer>().sharedMaterial.SetInt("_LinesPerMeter", 10);
+                    FloorQuad.GetComponent<Renderer>().sharedMaterial.SetFloat("_LineScale", 0.00075f);
+                    recalculateFloor = false;
+                    return;
+                }
                 // Get the stage bounds from the WorldManager and calculate the floor's dimensions
                 playspaceBounds = null;
                 bool getStageBoundsSucceeded = false;
@@ -183,6 +204,11 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
         private IEnumerator WaitForWorldManagerAndStageRootLocated()
         {
+            if (useFakeFloor)
+            {
+                yield break;
+            }
+
             // Default the floor to inactive
             FloorQuad.SetActive(false);
 
