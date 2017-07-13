@@ -85,4 +85,5 @@ UWP/Galaxy Explorer/Assets/*
 
 !UWP/GE_POIMaker/
 /Assets/UI/POIs/POIs_processed.log.meta
-App/**
+
+/D3D

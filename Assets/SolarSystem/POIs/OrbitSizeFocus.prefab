@@ -185,12 +185,13 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &2314202
 MeshRenderer:
@@ -216,12 +217,13 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &2341510
 MeshRenderer:
@@ -247,12 +249,13 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &3315514
 MeshFilter:
@@ -285,8 +288,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.019, y: 0.025400002, z: 0.0000000047311186}
-  m_Center: {x: -0.0095, y: 0.00000000842046, z: -0.000000005027008}
+  m_Size: {x: 0.016, y: 0.025400002, z: 0.0000000047311186}
+  m_Center: {x: -0.008, y: 0.00000000842046, z: -0.000000005027008}
 --- !u!65 &6529386
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -309,8 +312,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0195, y: 0.025400002, z: 0.0000000047311186}
-  m_Center: {x: -0.00975, y: 0.00000000842046, z: -0.000000005027008}
+  m_Size: {x: 0.016, y: 0.025400002, z: 0.0000000047311186}
+  m_Center: {x: -0.008, y: 0.00000000842046, z: -0.000000005027008}
 --- !u!82 &8279340
 AudioSource:
   m_ObjectHideFlags: 1
@@ -560,4 +563,4 @@ MonoBehaviour:
   PoiCard: {fileID: 138566}
   PoiAlternateCard: {fileID: 174982}
   PoiIndicator: {fileID: 140850}
-  scaleFactor: 3
+  movePoiStartingPosition: 0

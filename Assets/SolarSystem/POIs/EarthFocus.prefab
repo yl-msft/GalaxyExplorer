@@ -185,12 +185,13 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &2387832
 MeshRenderer:
@@ -216,12 +217,13 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &3342986
 MeshFilter:
@@ -259,8 +261,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.008, y: 0.025400002, z: 0.0000000047311186}
-  m_Center: {x: -0.004, y: 0.0000000014355406, z: -0.0000000011589352}
+  m_Size: {x: 0.01, y: 0.025400002, z: 0.0000000047311186}
+  m_Center: {x: -0.005, y: 0.0000000014355406, z: -0.0000000011589352}
 --- !u!82 &8283512
 AudioSource:
   m_ObjectHideFlags: 1
@@ -505,5 +507,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PoiCard: {fileID: 170878}
+  PoiAlternateCard: {fileID: 0}
   PoiIndicator: {fileID: 131690}
-  scaleFactor: 3
+  movePoiStartingPosition: 0
