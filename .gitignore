@@ -70,18 +70,6 @@ UWP/Galaxy Explorer/Properties/*
 
 !UWP/Galaxy Explorer/Assets/
 UWP/Galaxy Explorer/Assets/*
-!UWP/Galaxy Explorer/Assets/SplashScreen.scale-150.png
-!UWP/Galaxy Explorer/Assets/SplashScreen.scale-200.png
-!UWP/Galaxy Explorer/Assets/Square150x150Logo.scale-200.png
-!UWP/Galaxy Explorer/Assets/Square150x150Logo.scale-400.png
-!UWP/Galaxy Explorer/Assets/Square44x44Logo.scale-200.png
-!UWP/Galaxy Explorer/Assets/Square44x44Logo.targetsize-24_altform-unplated.png
-!UWP/Galaxy Explorer/Assets/Square44x44Logo.targetsize-256_altform-unplated.png
-!UWP/Galaxy Explorer/Assets/StoreLogo.png
-!UWP/Galaxy Explorer/Assets/StoreLogo.scale-100.png
-!UWP/Galaxy Explorer/Assets/StoreLogo.scale-200.png
-!UWP/Galaxy Explorer/Assets/StoreLogo.scale-400.png
-!UWP/Galaxy Explorer/Assets/Wide310x150Logo.scale-200.png
 
 !UWP/GE_POIMaker/
 /Assets/UI/POIs/POIs_processed.log.meta
