@@ -37,9 +37,9 @@ obj/
 WSATestCertificate.pfx
 WSATestCertificate.pfx.meta
 
-#  ============================================ #
+# ============================================= #
 # Exceptions to above rules for Galaxy Explorer #
-#  ============================================ #
+# ============================================= #
 UWP/*
 !UWP/UnityOverwrite.txt
 !UWP/Galaxy Explorer.sln
@@ -70,8 +70,19 @@ UWP/Galaxy Explorer/Properties/*
 
 !UWP/Galaxy Explorer/Assets/
 UWP/Galaxy Explorer/Assets/*
+!UWP/Galaxy Explorer/Assets/GE_LiveCube.glb
 
 !UWP/GE_POIMaker/
 /Assets/UI/POIs/POIs_processed.log.meta
 
-/D3D
+# ============================== #
+# Allow for a quick build of D3D #
+# ============================== #
+D3D/*
+!D3D/UnityOverwrite.txt
+!D3D/Galaxy Explorer/
+D3D/Galaxy Explorer/*
+!D3D/Galaxy Explorer/Package.appxmanifest
+!D3D/Galaxy Explorer/Assets/
+D3D/Galaxy Explorer/Assets/*
+!D3D/Galaxy Explorer/Assets/GE_LiveCube.glb
