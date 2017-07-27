@@ -48,11 +48,9 @@ namespace GalaxyExplorer
             bool isWindowsHolographic = false;
 
 #if UNITY_HOLOGRAPHIC
-            // If application was exported as Holographic check if the deviceFamily actually supports it,
-            // otherwise we treat this as a normal XAML application
-            string deviceFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
-            System.Diagnostics.Debug.WriteLine("GalaxyExplorer::MainPage::MainPage: DeviceFamilyString = " + MyAppPlatformManager.DeviceFamilyString);
-            isWindowsHolographic = deviceFamily.Equals("Windows.Holographic");
+            // If application was exported as Holographic assume they want to be holographic
+            // This does not handle starting in 2D and becoming holographic
+            isWindowsHolographic = true;
 #endif
 
             if (isWindowsHolographic)
