@@ -33,6 +33,7 @@ namespace GalaxyExplorer
         {
             contentVolume = TransitionManager.Instance.ViewVolume;
             volumeTightTagalong = contentVolume.GetComponent<TightTagalong>();
+            volumeTightTagalong.FollowMotionControllerIfAvailable = true;
             volumeInterpolator = contentVolume.GetComponent<Interpolator>();
         }
 

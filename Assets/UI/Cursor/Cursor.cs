@@ -57,6 +57,8 @@ namespace GalaxyExplorer
 
         private Dictionary<CursorState, CursorStageImage> stateImagesRepository;
 
+        private LineRenderer AlternateGazeRayLineRenderer;
+
         private void Awake()
         {
             // The cursor is hidden by default. It will get shown when we load the main scene
@@ -70,6 +72,14 @@ namespace GalaxyExplorer
             }
 
             originalAlpha = cursorMaterial.GetFloat("_Alpha");
+            AlternateGazeRayLineRenderer = gameObject.AddComponent<LineRenderer>();
+            //AlternateGazeRayLineRenderer.startColor = Color.red;
+            //AlternateGazeRayLineRenderer.endColor = Color.blue;
+            AlternateGazeRayLineRenderer.startWidth = .01f;
+            AlternateGazeRayLineRenderer.endWidth = .01f;
+            AlternateGazeRayLineRenderer.useWorldSpace = true;
+            AlternateGazeRayLineRenderer.textureMode = LineTextureMode.Tile;
+            AlternateGazeRayLineRenderer.material = new Material(Shader.Find("POI_Transparent"));
         }
 
         private IEnumerator Start()
@@ -318,6 +328,12 @@ namespace GalaxyExplorer
 
             // We do not want the cursor to collide with things inside the near clip plane. shift our gaze position forward by that amount.
             var originRay = new Ray(cam.transform.position + (cam.nearClipPlane * cam.transform.forward), cam.transform.forward);
+            if (MotionControllerInput.Instance.UseAlternateGazeRay)
+            {
+                originRay = MotionControllerInput.Instance.AlternateGazeRay;
+            }
+
+            Vector3 desiredPosition = originRay.origin + (originRay.direction * defaultCursorDistance);
 
             bool hasHit = false;
             bool hasUIHit = false;
@@ -325,7 +341,6 @@ namespace GalaxyExplorer
             isColliderGalaxyCardPOI = false;
 
             RaycastHit hitInfo;
-            Vector3 desiredPosition = cam.transform.position + (cam.transform.forward * defaultCursorDistance);
 
             foreach (PriorityLayerMask priorityMask in prioritizedCursorMask)
             {
@@ -339,7 +354,7 @@ namespace GalaxyExplorer
                             var poiReference = collider.GetComponentInParent<PointOfInterestReference>();
                             isColliderGalaxyCardPOI = poiReference && poiReference.pointOfInterest && poiReference.pointOfInterest is CardPointOfInterest;
 
-                            desiredPosition = hitInfo.point + (forwardImpactOffset * cam.transform.forward);
+                            desiredPosition = hitInfo.point + (forwardImpactOffset * originRay.direction);
                             hasHit = true;
                             hasUIHit = true;
                         }
@@ -349,7 +364,7 @@ namespace GalaxyExplorer
                     case CursorCollisionSearch.SphereCastSearch:
                         hasHit = Physics.SphereCast(originRay, visibilitySphereCastRadius, out hitInfo, float.MaxValue, priorityMask.layers);
 
-                        if (hasHit)
+                        if (hasHit && !MotionControllerInput.Instance.UseAlternateGazeRay)
                         {
                             var camSpaceHit = cam.transform.InverseTransformPoint(hitInfo.point);
 
@@ -376,7 +391,17 @@ namespace GalaxyExplorer
             var camSpaceFinalPos = Vector3.Lerp(camSpacePreviousPos, camSpaceDesiredPos, positionUpdateSpeed * Time.deltaTime);
             camSpaceFinalPos.z = Mathf.Lerp(camSpacePreviousPos.z, camSpaceDesiredPos.z, (hasUIHit ? positionUpdateSpeed : positionUpdateSpeedWhenNoCollision) * Time.deltaTime);
 
-            transform.position = previousPosition = cam.transform.TransformPoint(camSpaceFinalPos);
+            if (MotionControllerInput.Instance.UseAlternateGazeRay)
+            {
+                transform.position = previousPosition = desiredPosition;
+                AlternateGazeRayLineRenderer.SetPositions(new Vector3[] { originRay.origin, desiredPosition });
+                AlternateGazeRayLineRenderer.enabled = true;
+            }
+            else
+            {
+                AlternateGazeRayLineRenderer.enabled = false;
+                transform.position = previousPosition = cam.transform.TransformPoint(camSpaceFinalPos);
+            }
 
             var distance = (transform.position - Camera.main.transform.position).magnitude;
             transform.localScale = Vector3.one * Mathf.Min(targetScale, maxScreenSize * distance);

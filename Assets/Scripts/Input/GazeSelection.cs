@@ -73,7 +73,14 @@ namespace GalaxyExplorer
 
                 if (UnityEngine.VR.VRDevice.isPresent)
                 {
-                    gazeRay = new Ray(Camera.main.transform.position + (Camera.main.nearClipPlane * Camera.main.transform.forward), Camera.main.transform.forward);
+                    if (MotionControllerInput.Instance.UseAlternateGazeRay)
+                    {
+                        gazeRay = MotionControllerInput.Instance.AlternateGazeRay;
+                    }
+                    else
+                    {
+                        gazeRay = new Ray(Camera.main.transform.position + (Camera.main.nearClipPlane * Camera.main.transform.forward), Camera.main.transform.forward);
+                    }
                 }
                 else
                 {
@@ -105,8 +112,8 @@ namespace GalaxyExplorer
                                 // only consider target objects that are within the target spread angle specified on start
                                 foreach (RaycastHit target in hitTargets)
                                 {
-                                    Vector3 toTarget = Vector3.Normalize(target.transform.position - Camera.main.transform.position);
-                                    float dotProduct = Vector3.Dot(Camera.main.transform.forward, toTarget);
+                                    Vector3 toTarget = Vector3.Normalize(target.transform.position - gazeRay.origin);
+                                    float dotProduct = Vector3.Dot(gazeRay.direction, toTarget);
                                     // The dotProduct of our two vectors is equivalent to the cosine
                                     // of the angle between them. If it is larger than the targetSpreadValue
                                     // established in Start(), that means the hit occurred within the

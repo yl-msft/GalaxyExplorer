@@ -34,6 +34,9 @@ namespace GalaxyExplorer
 
         private Transform head;
 
+        [HideInInspector]
+        public bool FollowMotionControllerIfAvailable = false;
+
         private void Awake()
         {
             interpolator = GetComponent<Interpolator>();
@@ -57,7 +60,11 @@ namespace GalaxyExplorer
 
         private void Update()
         {
-            if (head)
+            if (FollowMotionControllerIfAvailable && MotionControllerInput.Instance.UseAlternateGazeRay)
+            {
+                SetTransform();
+            }
+            else if (head)
             {
                 if (hardLock)
                 {
@@ -83,7 +90,16 @@ namespace GalaxyExplorer
 
         public void SetTransform()
         {
-            transform.position = head.position + (head.forward * distanceToHead);
+            if (FollowMotionControllerIfAvailable && MotionControllerInput.Instance.UseAlternateGazeRay)
+            {
+                Ray ray = MotionControllerInput.Instance.AlternateGazeRay;
+                transform.position = ray.origin + (ray.direction * distanceToHead);
+            }
+            else
+            {
+                transform.position = head.position + (head.forward * distanceToHead);
+            }
+
             transform.rotation = Quaternion.Euler(head.rotation.eulerAngles) * Quaternion.Euler(rotationOffset);
 
             transform.localPosition += offset;
