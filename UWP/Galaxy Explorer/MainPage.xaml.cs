@@ -50,7 +50,7 @@ namespace GalaxyExplorer
 #if UNITY_HOLOGRAPHIC
             // If application was exported as Holographic assume they want to be holographic
             // This does not handle starting in 2D and becoming holographic
-            isWindowsHolographic = true;
+            isWindowsHolographic = Windows.Graphics.Holographic.HolographicSpace.IsAvailable;
 #endif
 
             if (isWindowsHolographic)
