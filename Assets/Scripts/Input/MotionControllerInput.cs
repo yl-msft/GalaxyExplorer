@@ -60,9 +60,9 @@ namespace GalaxyExplorer
             }
 
             // Check out the X value for the thumbstick to see if we are
-            // trying to rotate the POV. Only do this if the trigger isn't
-            // pressed.
-            if (!obj.state.pressed)
+            // trying to rotate the POV. Only do this if there isn't a
+            // tool selected.
+            if (ToolManager.Instance.SelectedTool == null)
             {
                 float x = (float)obj.state.controllerProperties.thumbstickX;
                 float irot = intendedRotation[obj.state.source.handedness];
@@ -77,6 +77,48 @@ namespace GalaxyExplorer
                     intendedRotation[obj.state.source.handedness] = 45f * Mathf.Sign(x);
                 }
             }
+            else
+            {
+                HandleNavigation(obj);
+            }
+        }
+
+        private bool navigationStarted = false;
+        private InteractionSourceHandedness navigatingHand = InteractionSourceHandedness.Unspecified;
+
+        private void HandleNavigation(InteractionManager.SourceEventArgs obj)
+        {
+            float displacementAlongX = (float)obj.state.controllerProperties.thumbstickX;
+            float displacementAlongY = (float)obj.state.controllerProperties.thumbstickY;
+
+            if (Mathf.Abs(displacementAlongX) >= 0.1f || Mathf.Abs(displacementAlongY) >= 0.1f || navigationStarted)
+            {
+                if (!navigationStarted)
+                {
+                    navigationStarted = true;
+                    navigatingHand = obj.state.source.handedness;
+
+                    //Raise navigation started event.
+                    var args = new NavigationStartedEventArgs(
+                        InteractionSourceKind.Controller,
+                        Vector3.zero,
+                        new HeadPose(),
+                        (int)obj.state.source.id);
+                    InputRouter.Instance.OnNavigationStarted(args);
+                }
+
+                if (obj.state.source.handedness == navigatingHand)
+                {
+                    Vector3 thumbValues = new Vector3(
+                        displacementAlongX,
+                        displacementAlongY,
+                        0f);
+
+                    InputRouter.Instance.OnNavigationUpdated(
+                        new NavigationUpdatedEventArgs(InteractionSourceKind.Controller,
+                            thumbValues, new HeadPose(), (int)obj.state.source.id));
+                }
+            }
         }
 
         [HideInInspector]
@@ -84,8 +126,10 @@ namespace GalaxyExplorer
         [HideInInspector]
         public Ray AlternateGazeRay;
 
-        // GE will only track a single grasped hand at a time;
-        // first one in wins.
+        // Using the grasp button will cause GE to replace the gaze cursor with
+        // the pointer ray from the grasped controller. Since GE (currently)
+        // only can handle input from a single source, we will only track one
+        // controller at a time. The first one in wins.
         InteractionSourceHandedness graspedHand = InteractionSourceHandedness.Unspecified;
 
         private void InteractionManager_SourceReleased(InteractionManager.SourceEventArgs obj)
@@ -102,7 +146,24 @@ namespace GalaxyExplorer
                     {
                         case InteractionSourceHandedness.Left:
                         case InteractionSourceHandedness.Right:
-                            PlayerInputManager.Instance.TriggerTapRelease();
+                            if (navigationStarted &&
+                                obj.state.source.handedness == navigatingHand)
+                            {
+                                navigationStarted = false;
+                                navigatingHand = InteractionSourceHandedness.Unspecified;
+
+                                var args = new NavigationCompletedEventArgs(
+                                    InteractionSourceKind.Controller,
+                                    Vector3.zero,
+                                    new HeadPose(),
+                                    (int)obj.state.source.id);
+                                InputRouter.Instance.OnNavigationCompleted(args);
+                                Debug.Log("SourceReleased -> OnNavigationCompleted");
+                            }
+                            else
+                            {
+                                PlayerInputManager.Instance.TriggerTapRelease();
+                            }
                             break;
                     }
                     break;
@@ -116,6 +177,7 @@ namespace GalaxyExplorer
                 case InteractionPressKind.Menu:
                     if (ToolManager.Instance.ToolsVisible)
                     {
+                        ToolManager.Instance.UnselectAllTools();
                         ToolManager.Instance.HideTools(false);
                     }
                     else
@@ -156,6 +218,7 @@ namespace GalaxyExplorer
             }
         }
 
+        #region Source_Lost_Detected
         private void InteractionManager_SourceLost(InteractionManager.SourceEventArgs obj)
         {
             // if we lost all (Motion)Controllers, enable the GamePad script
@@ -167,6 +230,7 @@ namespace GalaxyExplorer
                 UseAlternateGazeRay = false;
                 graspedHand = InteractionSourceHandedness.Unspecified;
                 GamepadInput.Instance.enabled = true;
+                InputRouter.Instance.SetGestureRecognitionState(true);
             }
         }
 
@@ -178,10 +242,12 @@ namespace GalaxyExplorer
             {
                 Debug.Log("Disabling GamepadInput instance");
                 GamepadInput.Instance.enabled = false;
+                InputRouter.Instance.SetGestureRecognitionState(false);
             }
         }
+        #endregion // Source_Lost_Detected
 
-         private void OnDestroy()
+        private void OnDestroy()
         {
             InteractionManager.SourceDetected -= InteractionManager_SourceDetected;
             InteractionManager.SourceLost -= InteractionManager_SourceLost;

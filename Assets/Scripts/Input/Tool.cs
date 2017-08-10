@@ -291,7 +291,8 @@ namespace GalaxyExplorer
                     var upToNewUp = Quaternion.FromToRotation(heroView.transform.up, desiredUp);
 
                     contentToManipulate.transform.rotation =
-                        Quaternion.LookRotation(upToNewUp * heroView.transform.forward, desiredUp) * Quaternion.Inverse(heroView.transform.rotation) * // hero view rotation delta
+                        Quaternion.LookRotation(upToNewUp * heroView.transform.forward, desiredUp) *
+                        Quaternion.Inverse(heroView.transform.rotation) * // hero view rotation delta
                         contentToManipulate.transform.rotation;
                     break;
 

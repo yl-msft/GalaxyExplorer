@@ -177,7 +177,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
                         navigationCompleted = true;
                         CancelInvoke("HandleHoldStarted");
                         CancelInvoke("HandleHoldCompleted");
-                        GalaxyExplorer.InputRouter.Instance.OnNavigationCompleted(
+                        InputRouter.Instance.OnNavigationCompleted(
                             new NavigationCompletedEventArgs(InteractionSourceKind.Controller,
                             Vector3.zero, new HeadPose(), (int)GamePadId));
                         Reset();

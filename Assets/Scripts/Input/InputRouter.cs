@@ -139,6 +139,19 @@ namespace GalaxyExplorer
             TryToRegisterEvents();
         }
 
+        public void SetGestureRecognitionState(bool enabled)
+        {
+            if (enabled)
+            {
+                gestureRecognizer.SetRecognizableGestures(GestureSettings.Hold | GestureSettings.Tap |
+                                                          GestureSettings.NavigationY | GestureSettings.NavigationX);
+            }
+            else
+            {
+                gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
+            }
+        }
+
         private void FakeTapKeyboardHandler(KeyboardInput.KeyCodeEventPair keyCodeEvent)
         {
             SendFakeTap();
