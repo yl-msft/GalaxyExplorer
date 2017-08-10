@@ -16,6 +16,9 @@ namespace GalaxyExplorer
         public float TargetMinZoomSize = 0.15f;
         public float LargestZoom = 3.0f;
 
+        [HideInInspector]
+        public bool ToolsVisible = false;
+
         public event Action ContentZoomChanged;
 
         private bool locked = false;
@@ -59,7 +62,7 @@ namespace GalaxyExplorer
             if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Desktop ||
                 MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Phone)
             {
-                LowerTools();
+                HideTools(true);
             }
         }
 
@@ -248,11 +251,13 @@ namespace GalaxyExplorer
 
         public IEnumerator HideToolsAsync(bool instant)
         {
+            ToolsVisible = false;
             yield return StartCoroutine(panel.FadeOut(instant));
         }
 
         public IEnumerator ShowToolsAsync()
         {
+            ToolsVisible = true;
             yield return StartCoroutine(panel.FadeIn());
         }
 

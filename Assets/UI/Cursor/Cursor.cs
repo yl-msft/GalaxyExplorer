@@ -76,7 +76,7 @@ namespace GalaxyExplorer
             //AlternateGazeRayLineRenderer.startColor = Color.red;
             //AlternateGazeRayLineRenderer.endColor = Color.blue;
             AlternateGazeRayLineRenderer.startWidth = .01f;
-            AlternateGazeRayLineRenderer.endWidth = .01f;
+            AlternateGazeRayLineRenderer.endWidth = .005f;
             AlternateGazeRayLineRenderer.useWorldSpace = true;
             AlternateGazeRayLineRenderer.textureMode = LineTextureMode.Tile;
             AlternateGazeRayLineRenderer.material = new Material(Shader.Find("POI_Transparent"));
@@ -354,7 +354,9 @@ namespace GalaxyExplorer
                             var poiReference = collider.GetComponentInParent<PointOfInterestReference>();
                             isColliderGalaxyCardPOI = poiReference && poiReference.pointOfInterest && poiReference.pointOfInterest is CardPointOfInterest;
 
-                            desiredPosition = hitInfo.point + (forwardImpactOffset * originRay.direction);
+                            desiredPosition = hitInfo.point + 
+                                (((isOverToolbar && MotionControllerInput.Instance.UseAlternateGazeRay)?0f:forwardImpactOffset) *
+                                originRay.direction);
                             hasHit = true;
                             hasUIHit = true;
                         }

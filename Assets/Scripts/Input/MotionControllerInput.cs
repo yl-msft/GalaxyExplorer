@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using GalaxyExplorer.HoloToolkit.Unity.InputModule;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR.WSA.Input;
 
@@ -9,7 +10,11 @@ namespace GalaxyExplorer
 {
     public class MotionControllerInput : GE_Singleton<MotionControllerInput>
     {
-        // Use this for initialization
+        public delegate void RotateCameraPovDelegate(float rotationAmount);
+        public event RotateCameraPovDelegate RotateCameraPov;
+
+        Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
+
         void Start()
         {
             InteractionManager.SourceDetected += InteractionManager_SourceDetected;
@@ -17,33 +22,60 @@ namespace GalaxyExplorer
             InteractionManager.SourcePressed += InteractionManager_SourcePressed;
             InteractionManager.SourceReleased += InteractionManager_SourceReleased;
             InteractionManager.SourceUpdated += InteractionManager_SourceUpdated;
+
+            intendedRotation[InteractionSourceHandedness.Left] = 0f;
+            intendedRotation[InteractionSourceHandedness.Right] = 0f;
         }
 
-        private bool ValidateGraspStateTracking(bool trackedState, InteractionSourceHandedness hand, InteractionManager.SourceEventArgs args)
+        private InteractionSourceHandedness ValidateGraspStateTracking(InteractionManager.SourceEventArgs args)
         {
-            if (args.state.source.sourceKind == InteractionSourceKind.Controller &&
-                args.state.source.handedness == hand)
+            if (args.state.source.handedness == graspedHand)
             {
-                if (trackedState != args.state.grasped)
+                if (!args.state.grasped)
                 {
                     Debug.LogFormat("grasp state mismatch for {0} hand", args.state.source.handedness.ToString());
                     UseAlternateGazeRay = false;
-                    return false;
+                    return InteractionSourceHandedness.Unspecified;
                 }
             }
-            return trackedState;
+            return graspedHand;
         }
 
         private void InteractionManager_SourceUpdated(InteractionManager.SourceEventArgs obj)
         {
-            leftGraspPressed = ValidateGraspStateTracking(leftGraspPressed, InteractionSourceHandedness.Left, obj);
-            rightGraspPressed = ValidateGraspStateTracking(rightGraspPressed, InteractionSourceHandedness.Right, obj);
+            if (obj.state.source.sourceKind != InteractionSourceKind.Controller ||
+                obj.state.source.handedness == InteractionSourceHandedness.Unspecified)
+            {
+                return;
+            }
 
-            if (obj.state.source.sourceKind == InteractionSourceKind.Controller &&
-                ((leftGraspPressed && obj.state.source.handedness == InteractionSourceHandedness.Left) ||
-                 (rightGraspPressed && obj.state.source.handedness == InteractionSourceHandedness.Right)))
+            // If the controller is grasped and this event is for that controller,
+            // verify the controller is still being grasped and then try to update
+            // the AlternateGazeRay.
+            graspedHand = ValidateGraspStateTracking(obj);
+            if (graspedHand != InteractionSourceHandedness.Unspecified &&
+                graspedHand == obj.state.source.handedness)
             {
                 UseAlternateGazeRay = obj.state.sourcePose.TryGetPointerRay(out AlternateGazeRay);
+            }
+
+            // Check out the X value for the thumbstick to see if we are
+            // trying to rotate the POV. Only do this if the trigger isn't
+            // pressed.
+            if (!obj.state.pressed)
+            {
+                float x = (float)obj.state.controllerProperties.thumbstickX;
+                float irot = intendedRotation[obj.state.source.handedness];
+
+                if (irot != 0f && x < 0.1f)
+                {
+                    RotateCameraPov(irot);
+                    intendedRotation[obj.state.source.handedness] = 0f;
+                }
+                else if (Mathf.Abs(x) >= 0.9f)
+                {
+                    intendedRotation[obj.state.source.handedness] = 45f * Mathf.Sign(x);
+                }
             }
         }
 
@@ -52,45 +84,43 @@ namespace GalaxyExplorer
         [HideInInspector]
         public Ray AlternateGazeRay;
 
-        bool leftTriggerPressed = false;
-        bool rightTriggerPressed = false;
-        bool leftGraspPressed = false;
-        bool rightGraspPressed = false;
+        // GE will only track a single grasped hand at a time;
+        // first one in wins.
+        InteractionSourceHandedness graspedHand = InteractionSourceHandedness.Unspecified;
 
         private void InteractionManager_SourceReleased(InteractionManager.SourceEventArgs obj)
         {
+            if (obj.state.source.sourceKind != InteractionSourceKind.Controller)
+            {
+                return;
+            }
+
             switch (obj.pressKind)
             {
                 case InteractionPressKind.Select:
                     switch (obj.state.source.handedness)
                     {
                         case InteractionSourceHandedness.Left:
-                            leftTriggerPressed = false;
-                            PlayerInputManager.Instance.TriggerTapRelease();
-                            break;
                         case InteractionSourceHandedness.Right:
-                            rightGraspPressed = false;
                             PlayerInputManager.Instance.TriggerTapRelease();
                             break;
                     }
                     break;
                 case InteractionPressKind.Grasp:
-                    switch (obj.state.source.handedness)
+                    if (graspedHand == obj.state.source.handedness)
                     {
-                        case InteractionSourceHandedness.Left:
-                            if (leftGraspPressed)
-                            {
-                                UseAlternateGazeRay = false;
-                                leftGraspPressed = false;
-                            }
-                            break;
-                        case InteractionSourceHandedness.Right:
-                            if (rightGraspPressed)
-                            {
-                                UseAlternateGazeRay = false;
-                                rightGraspPressed = false;
-                            }
-                            break;
+                        UseAlternateGazeRay = false;
+                        graspedHand = InteractionSourceHandedness.Unspecified;
+                    }
+                    break;
+                case InteractionPressKind.Menu:
+                    if (ToolManager.Instance.ToolsVisible)
+                    {
+                        ToolManager.Instance.HideTools(false);
+                    }
+                    else
+                    {
+                        ToolManager.Instance.ShowTools();
                     }
                     break;
             }
@@ -98,34 +128,28 @@ namespace GalaxyExplorer
 
         private void InteractionManager_SourcePressed(InteractionManager.SourceEventArgs obj)
         {
+            if (obj.state.source.sourceKind != InteractionSourceKind.Controller)
+            {
+                return;
+            }
+
             switch (obj.pressKind)
             {
                 case InteractionPressKind.Select:
                     switch (obj.state.source.handedness)
                     {
                         case InteractionSourceHandedness.Left:
-                            leftTriggerPressed = true;
-                            break;
                         case InteractionSourceHandedness.Right:
-                            rightTriggerPressed = true;
+                            PlayerInputManager.Instance.TriggerTapPress();
                             break;
                     }
-                    PlayerInputManager.Instance.TriggerTapPress();
                     break;
                 case InteractionPressKind.Grasp:
                     switch (obj.state.source.handedness)
                     {
                         case InteractionSourceHandedness.Left:
-                            if (!rightGraspPressed)
-                            {
-                                leftGraspPressed = true;
-                            }
-                            break;
                         case InteractionSourceHandedness.Right:
-                            if (!leftGraspPressed)
-                            {
-                                rightGraspPressed = true;
-                            }
+                            graspedHand = obj.state.source.handedness;
                             break;
                     }
                     break;
@@ -141,10 +165,7 @@ namespace GalaxyExplorer
             {
                 Debug.Log("Enabling GamepadInput instance");
                 UseAlternateGazeRay = false;
-                rightGraspPressed = false;
-                rightTriggerPressed = false;
-                leftGraspPressed = false;
-                leftTriggerPressed = false;
+                graspedHand = InteractionSourceHandedness.Unspecified;
                 GamepadInput.Instance.enabled = true;
             }
         }

@@ -67,10 +67,15 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             FadeInOut(floorVisible);
             recalculateFloor = true;
 
-            // Hook up the controller bumper buttons to rotate the camera
+            // Hook up the controller to rotate the camera
             if (InputModule.GamepadInput.Instance)
             {
-                InputModule.GamepadInput.Instance.RotateCameraPov += Gamepad_RotateCameraPov;
+                InputModule.GamepadInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
+            }
+            // Hook up the motion controller to rotate the camera
+            if (MotionControllerInput.Instance)
+            {
+                MotionControllerInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
             }
         }
 
@@ -79,7 +84,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         private int itemsFadedSoFar = 0;
         private List<GameObject> itemsToFade = new List<GameObject>();
         private float rotationFadeInOutTime = 0.3f;
-        private void Gamepad_RotateCameraPov(float rotationAmount)
+        private void Controller_RotateCameraPov(float rotationAmount)
         {
             if (isRotating)
             {
@@ -193,7 +198,11 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             }
             if (InputModule.GamepadInput.Instance)
             {
-                InputModule.GamepadInput.Instance.RotateCameraPov -= Gamepad_RotateCameraPov;
+                InputModule.GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
+            }
+            if (MotionControllerInput.Instance)
+            {
+                MotionControllerInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
             }
         }
 
