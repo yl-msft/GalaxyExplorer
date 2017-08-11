@@ -253,11 +253,13 @@ namespace GalaxyExplorer
         {
             ToolsVisible = false;
             yield return StartCoroutine(panel.FadeOut(instant));
+            GetComponentInChildren<ToolSounds>(true).gameObject.SetActive(false);
         }
 
         public IEnumerator ShowToolsAsync()
         {
             ToolsVisible = true;
+            GetComponentInChildren<ToolSounds>(true).gameObject.SetActive(true);
             yield return StartCoroutine(panel.FadeIn());
         }
 

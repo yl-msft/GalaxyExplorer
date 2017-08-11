@@ -1329,7 +1329,10 @@ namespace GalaxyExplorer
                 }
             }
 
-            ToolManager.Instance.ShowTools();
+            if (!IsIntro)
+            {
+                ToolManager.Instance.ShowTools();
+            }
         }
 
         private IEnumerator TransitionOrbitSpeed(GameObject content, SpeedType speedType, float duration, AnimationCurve speedCurve, float transitionTimeOffset = 0.0f)
