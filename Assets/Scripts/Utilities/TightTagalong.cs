@@ -98,11 +98,9 @@ namespace GalaxyExplorer
             else
             {
                 transform.position = head.position + (head.forward * distanceToHead);
+                transform.rotation = Quaternion.Euler(head.rotation.eulerAngles) * Quaternion.Euler(rotationOffset);
+                transform.localPosition += offset;
             }
-
-            transform.rotation = Quaternion.Euler(head.rotation.eulerAngles) * Quaternion.Euler(rotationOffset);
-
-            transform.localPosition += offset;
         }
 
         public void UpdateTransform()
