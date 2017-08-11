@@ -15,7 +15,7 @@ namespace GalaxyExplorer
 
         Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
 
-        void Start()
+        void Awake()
         {
             InteractionManager.SourceDetected += InteractionManager_SourceDetected;
             InteractionManager.SourceLost += InteractionManager_SourceLost;
@@ -91,7 +91,9 @@ namespace GalaxyExplorer
             float displacementAlongX = (float)obj.state.controllerProperties.thumbstickX;
             float displacementAlongY = (float)obj.state.controllerProperties.thumbstickY;
 
-            if (Mathf.Abs(displacementAlongX) >= 0.1f || Mathf.Abs(displacementAlongY) >= 0.1f || navigationStarted)
+            if (Mathf.Abs(displacementAlongX) >= 0.1f ||
+                Mathf.Abs(displacementAlongY) >= 0.1f ||
+                navigationStarted)
             {
                 if (!navigationStarted)
                 {
