@@ -62,14 +62,18 @@ namespace GalaxyExplorer
             // Check out the X value for the thumbstick to see if we are
             // trying to rotate the POV. Only do this if there isn't a
             // tool selected.
-            if (ToolManager.Instance.SelectedTool == null)
+            if (ToolManager.Instance.SelectedTool == null &&
+                obj.state.source.handedness != InteractionSourceHandedness.Unspecified)
             {
                 float x = (float)obj.state.controllerProperties.thumbstickX;
                 float irot = intendedRotation[obj.state.source.handedness];
 
                 if (irot != 0f && x < 0.1f)
                 {
-                    RotateCameraPov(irot);
+                    if (RotateCameraPov != null)
+                    {
+                        RotateCameraPov(irot);
+                    }
                     intendedRotation[obj.state.source.handedness] = 0f;
                 }
                 else if (Mathf.Abs(x) >= 0.9f)
