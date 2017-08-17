@@ -63,7 +63,7 @@ namespace GalaxyExplorer
                 // Unity 2017.2.0b8 changed something. Commenting out this line
                 // allows you to select things other than the center of the
                 // galaxy using the mouse in a 2d Xaml app running on a desktop
-                UseSphericalConeSearch = false;
+                //UseSphericalConeSearch = false;
 #endif
             }
         }
