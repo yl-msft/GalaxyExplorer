@@ -269,7 +269,7 @@ namespace GalaxyExplorer
 
         public Tool FindToolByType(ToolType type)
         {
-            Tool[] tools = gameObject.GetComponentsInChildren<Tool>();
+            Tool[] tools = gameObject.GetComponentsInChildren<Tool>(true);
             for (int i = 0; i < tools.Length; i++)
             {
                 if (tools[i].type == type)
