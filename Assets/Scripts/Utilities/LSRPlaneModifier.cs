@@ -3,7 +3,7 @@
 
 using GalaxyExplorer.HoloToolkit.Unity;
 using UnityEngine;
-using UnityEngine.VR.WSA;
+
 
 namespace GalaxyExplorer
 {
@@ -86,7 +86,7 @@ namespace GalaxyExplorer
         private void ApplyCurrentDistanceToFocusPoint()
         {
             Vector3 scaledForward = head.forward * lastDistance;
-            HolographicSettings.SetFocusPointForFrame(head.position + scaledForward, -head.forward);
+            UnityEngine.XR.WSA.HolographicSettings.SetFocusPointForFrame(head.position + scaledForward, -head.forward);
         }
     }
 }

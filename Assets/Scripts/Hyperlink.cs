@@ -3,7 +3,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
 
 namespace GalaxyExplorer
 {

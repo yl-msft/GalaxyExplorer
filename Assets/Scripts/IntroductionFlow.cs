@@ -4,7 +4,6 @@
 
 using GalaxyExplorer.HoloToolkit.Unity;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
 
 namespace GalaxyExplorer
 {
@@ -60,7 +59,7 @@ namespace GalaxyExplorer
             IntroductionStateComplete
         }
 
-        public IntroductionState currentState = IntroductionState.IntroductionStateAppDescription;
+        public IntroductionState currentState = IntroductionState.IntroductionStateSlateFadeout;
 
         private float timeInState = 0.0f;
         private bool coreSystemsLoaded = false;
@@ -71,7 +70,7 @@ namespace GalaxyExplorer
         // Skip placing the earth if we aren't in a VR device.
         // We do this check in a !UNITY_EDITOR block to allow for testing
         // from inside the editor without having to change code.
-        SkipPlaceEarth = !UnityEngine.VR.VRDevice.isPresent;
+        SkipPlaceEarth = !UnityEngine.XR.XRDevice.isPresent;
 #endif
         }
         private void Start()
@@ -255,10 +254,10 @@ namespace GalaxyExplorer
 
             MusicManager.Instance.FindSnapshotAndTransition(MusicManager.Instance.Welcome);
             VOManager.Instance.Stop(clearQueue: true);
-            VOManager.Instance.PlayClip(Title);
-            VOManager.Instance.PlayClip(Description);
-            VOManager.Instance.PlayClip(Goal);
-            VOManager.Instance.PlayClip(Invitation);
+            //VOManager.Instance.PlayClip(Title);
+            //VOManager.Instance.PlayClip(Description);
+            //VOManager.Instance.PlayClip(Goal);
+            //VOManager.Instance.PlayClip(Invitation);
 
             UpdateInstructions();
         }
@@ -404,7 +403,7 @@ namespace GalaxyExplorer
                     break;
 
                 case IntroductionState.IntroductionStateSlateFadeout:
-                    InstructionSlate.Hide();
+                    //InstructionSlate.Hide();
                     break;
             }
         }

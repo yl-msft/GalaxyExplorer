@@ -4,7 +4,6 @@
 using GalaxyExplorer.HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
 
 namespace GalaxyExplorer
 {

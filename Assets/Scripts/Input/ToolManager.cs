@@ -258,9 +258,13 @@ namespace GalaxyExplorer
 
         public IEnumerator ShowToolsAsync()
         {
-            ToolsVisible = true;
-            GetComponentInChildren<ToolSounds>(true).gameObject.SetActive(true);
-            yield return StartCoroutine(panel.FadeIn());
+            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.HoloLens ||
+                MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+            {
+                ToolsVisible = true;
+                GetComponentInChildren<ToolSounds>(true).gameObject.SetActive(true);
+                yield return StartCoroutine(panel.FadeIn());
+            }
         }
 
         public Tool FindToolByType(ToolType type)

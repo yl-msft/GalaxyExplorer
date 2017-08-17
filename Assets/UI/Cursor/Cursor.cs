@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
 
 namespace GalaxyExplorer
 {
@@ -61,7 +60,8 @@ namespace GalaxyExplorer
 
         private void Awake()
         {
-            // The cursor is hidden by default. It will get shown when we load the main scene
+            // The cursor is hidden by default. It will get shown when we load
+            // the main scene.
             visible = false;
 
             stateImagesRepository = stateImages.ToDictionary(s => s.mode, s => s);
@@ -72,9 +72,8 @@ namespace GalaxyExplorer
             }
 
             originalAlpha = cursorMaterial.GetFloat("_Alpha");
+
             AlternateGazeRayLineRenderer = gameObject.AddComponent<LineRenderer>();
-            //AlternateGazeRayLineRenderer.startColor = Color.red;
-            //AlternateGazeRayLineRenderer.endColor = Color.blue;
             AlternateGazeRayLineRenderer.startWidth = .01f;
             AlternateGazeRayLineRenderer.endWidth = .005f;
             AlternateGazeRayLineRenderer.useWorldSpace = true;

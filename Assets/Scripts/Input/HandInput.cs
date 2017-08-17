@@ -1,10 +1,9 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using GalaxyExplorer.HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
@@ -74,11 +73,11 @@ namespace GalaxyExplorer
         {
             if (!eventsAreRegistered)
             {
-                InteractionManager.SourceDetected += OtherThreadHandEntered;
-                InteractionManager.SourceUpdated += OtherThreadHandMoved;
-                InteractionManager.SourceLost += OtherThreadHandExited;
-                InteractionManager.SourcePressed += OtherThreadFingerPressed;
-                InteractionManager.SourceReleased += OtherThreadFingerReleased;
+                InteractionManager.InteractionSourceDetected += OtherThread_OnInteractionSourceDetected;
+                InteractionManager.InteractionSourceUpdated += OtherThread_OnInteractionSourceUpdated;
+                InteractionManager.InteractionSourceLost += OtherThread_OnInteractionSourceLost;
+                InteractionManager.InteractionSourcePressed += OtherThread_InteractionSourcePressed;
+                InteractionManager.InteractionSourceReleased += OtherThread_InteractionSourceReleased;
                 eventsAreRegistered = true;
             }
         }
@@ -87,11 +86,11 @@ namespace GalaxyExplorer
         {
             if (eventsAreRegistered)
             {
-                InteractionManager.SourceDetected -= OtherThreadFingerReleased;
-                InteractionManager.SourceUpdated -= OtherThreadFingerPressed;
-                InteractionManager.SourceLost -= OtherThreadHandExited;
-                InteractionManager.SourcePressed -= OtherThreadHandMoved;
-                InteractionManager.SourceReleased -= OtherThreadHandEntered;
+                InteractionManager.InteractionSourceDetected -= OtherThread_OnInteractionSourceDetected;
+                InteractionManager.InteractionSourceUpdated -= OtherThread_OnInteractionSourceUpdated;
+                InteractionManager.InteractionSourceLost -= OtherThread_OnInteractionSourceLost;
+                InteractionManager.InteractionSourcePressed -= OtherThread_InteractionSourcePressed;
+                InteractionManager.InteractionSourceReleased -= OtherThread_InteractionSourceReleased;
                 eventsAreRegistered = false;
             }
         }
@@ -335,11 +334,11 @@ namespace GalaxyExplorer
         // Everything below this point is executed on a separate thread.  For thread safety,
         // the only code these functions should execute is pushing a task into a synchronized
         // queue for later analysis on the main thread.
-        private void OtherThreadHandEntered(InteractionManager.SourceEventArgs args)
+        private void OtherThread_OnInteractionSourceDetected(InteractionSourceDetectedEventArgs args)
         {
             Vector3 handPosition;
 
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
+            if (args.state.source.kind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
             {
                 Vector3 position = Camera.main.transform.rotation * handPosition;
 
@@ -352,11 +351,11 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OtherThreadHandMoved(InteractionManager.SourceEventArgs args)
+        private void OtherThread_OnInteractionSourceUpdated(InteractionSourceUpdatedEventArgs args)
         {
             Vector3 handPosition;
 
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
+            if (args.state.source.kind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
             {
                 Vector3 position = Camera.main.transform.rotation * handPosition;
                 QueuedAction newAction = new QueuedAction { actionType = QueuedActionType.HandMoved, id = args.state.source.id, position = position, timestamp = Time.time };
@@ -368,11 +367,11 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OtherThreadHandExited(InteractionManager.SourceEventArgs args)
+        private void OtherThread_OnInteractionSourceLost(InteractionSourceLostEventArgs args)
         {
             Vector3 handPosition;
 
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
+            if (args.state.source.kind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
             {
                 Vector3 position = Camera.main.transform.rotation * handPosition;
                 QueuedAction newAction = new QueuedAction { actionType = QueuedActionType.HandExit, id = args.state.source.id, position = position, timestamp = Time.time };
@@ -384,11 +383,11 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OtherThreadFingerPressed(InteractionManager.SourceEventArgs args)
+        private void OtherThread_InteractionSourcePressed(InteractionSourcePressedEventArgs args)
         {
             Vector3 handPosition;
 
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
+            if (args.state.source.kind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
             {
                 QueuedAction newAction = new QueuedAction { actionType = QueuedActionType.TapPressed, id = args.state.source.id, position = handPosition, timestamp = Time.time };
 
@@ -399,11 +398,11 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OtherThreadFingerReleased(InteractionManager.SourceEventArgs args)
+        private void OtherThread_InteractionSourceReleased(InteractionSourceReleasedEventArgs args)
         {
             Vector3 handPosition;
 
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
+            if (args.state.source.kind == InteractionSourceKind.Hand && args.state.sourcePose.TryGetPosition(out handPosition))
             {
                 QueuedAction newAction = new QueuedAction { actionType = QueuedActionType.TapReleased, id = args.state.source.id, position = handPosition, timestamp = Time.time };
 

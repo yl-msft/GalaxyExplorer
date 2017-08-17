@@ -6,6 +6,7 @@ Obj/
 Bin/
 UnityGenerated/
 Library/
+Packages/
 Assets/AssetStoreTools*
 project.json
 project.lock.json

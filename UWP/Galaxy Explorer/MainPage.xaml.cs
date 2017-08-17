@@ -44,12 +44,12 @@ namespace GalaxyExplorer
             // Setup scripting bridge
             _bridge = new WinRTBridge.WinRTBridge();
             appCallbacks.SetBridge(_bridge);
-
+            appCallbacks.AddCommandLineArg("-force-d3d11-no-singlethreaded"); // REMOVE THIS LINE !!!
             bool isWindowsHolographic = false;
 
 #if UNITY_HOLOGRAPHIC
-            // If application was exported as Holographic assume they want to be holographic
-            // This does not handle starting in 2D and becoming holographic
+            // If application was exported as Holographic make sure there is a
+            // HolographicSpace available.
             isWindowsHolographic = Windows.Graphics.Holographic.HolographicSpace.IsAvailable;
 #endif
 

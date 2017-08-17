@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
 using System.Collections.Generic;
 
 namespace GalaxyExplorer
@@ -250,7 +250,7 @@ namespace GalaxyExplorer
             }
         }
 
-        private void HandleUpdatedInput(InteractionSourceKind kind, Vector3 direction, HeadPose headPose)
+        private void HandleUpdatedInput(InteractionSourceKind kind, Vector3 direction, Ray ray)
         {
             if (!contentToManipulate)
             {

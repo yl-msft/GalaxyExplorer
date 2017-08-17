@@ -1,16 +1,17 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+//#define USE_STAGE_ROOT
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR.WSA;
+using UnityEngine.Experimental.XR;
 
 namespace GalaxyExplorer.HoloToolkit.Unity
 {
     public class PlayspaceManager : GE_Singleton<PlayspaceManager>
     {
-        public GameObject FloorQuad;
         public AnimationCurve FloorFadeCurve;
         public float FadeInOutTime = 1.0f;
         public GameObject SpaceBackground;
@@ -22,7 +23,10 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
         [Tooltip("If true, the floor grid is rendered, even if the device isn't an Opaque HMD; Useful for screenshots.")]
         public bool useFakeFloor = false;
+        public GameObject FloorQuad;
+#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
         private StageRoot StageRoot;
+#endif
         private bool floorVisible = false;
         private bool recalculateFloor = false;
         private Vector3[] playspaceBounds;
@@ -50,6 +54,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             }
 
             // Get our StageRoot component if it is missing
+#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
             StageRoot = GetComponent<StageRoot>();
             if (!StageRoot)
             {
@@ -57,7 +62,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             }
 
             yield return WaitForWorldManagerAndStageRootLocated();
-
+#endif
             // Move the starfield out of the hierarchy
             SpaceBackground.transform.SetParent(null);
 
@@ -174,6 +179,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                 }
                 // Get the stage bounds from the WorldManager and calculate the floor's dimensions
                 playspaceBounds = null;
+#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
                 bool getStageBoundsSucceeded = false;
                 if (StageRoot)
                 {
@@ -187,15 +193,18 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
                     recalculateFloor = false;
                 }
+#endif
             }
         }
 
         private void OnDestroy()
         {
+#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
             if (StageRoot)
             {
                 StageRoot.OnTrackingChanged -= StageRoot_OnTrackingChanged;
             }
+#endif
             if (InputModule.GamepadInput.Instance)
             {
                 InputModule.GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
@@ -206,6 +215,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             }
         }
 
+#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
         private void StageRoot_OnTrackingChanged(StageRoot self, bool located)
         {
             recalculateFloor = located;
@@ -222,7 +232,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             FloorQuad.SetActive(false);
 
             // Wait until we acquire an Active tracking state
-            while (WorldManager.state != PositionalLocatorState.Active)
+            while (UnityEngine.XR.WSA.WorldManager.state != UnityEngine.XR.WSA.PositionalLocatorState.Active)
             {
                 yield return null;
             }
@@ -235,6 +245,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
             StageRoot.OnTrackingChanged += StageRoot_OnTrackingChanged;
         }
+#endif
 
         private void CalculateFloorDimensions()
         {

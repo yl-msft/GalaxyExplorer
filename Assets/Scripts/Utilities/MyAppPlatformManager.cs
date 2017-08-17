@@ -167,13 +167,13 @@ namespace GalaxyExplorer
                     Platform = MyAppPlatformManager.PlatformId.HoloLens;
                     break;
                 case "Windows.Desktop":
-                    if (!UnityEngine.VR.VRDevice.isPresent)
+                    if (!UnityEngine.XR.XRDevice.isPresent)
                     {
                         Platform = MyAppPlatformManager.PlatformId.Desktop;
                     }
                     else
                     {
-                        if (UnityEngine.VR.WSA.HolographicSettings.IsDisplayOpaque)
+                        if (UnityEngine.XR.WSA.HolographicSettings.IsDisplayOpaque)
                         {
                             Platform = MyAppPlatformManager.PlatformId.ImmersiveHMD;
                         }

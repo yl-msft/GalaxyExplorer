@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
@@ -25,22 +25,22 @@ namespace GalaxyExplorer
         {
         }
 
-        public virtual bool OnNavigationStarted(InteractionSourceKind source, Vector3 relativePosition, HeadPose headPose)
+        public virtual bool OnNavigationStarted(InteractionSourceKind source, Vector3 relativePosition, Ray headRay)
         {
             return false;
         }
 
-        public virtual bool OnNavigationUpdated(InteractionSourceKind source, Vector3 relativePosition, HeadPose headPose)
+        public virtual bool OnNavigationUpdated(InteractionSourceKind source, Vector3 relativePosition, Ray headRay)
         {
             return false;
         }
 
-        public virtual bool OnNavigationCompleted(InteractionSourceKind source, Vector3 relativePosition, HeadPose headPose)
+        public virtual bool OnNavigationCompleted(InteractionSourceKind source, Vector3 relativePosition, Ray headRay)
         {
             return false;
         }
 
-        public virtual bool OnNavigationCanceled(InteractionSourceKind source, Vector3 relativePosition, HeadPose headPose)
+        public virtual bool OnNavigationCanceled(InteractionSourceKind source)
         {
             return false;
         }

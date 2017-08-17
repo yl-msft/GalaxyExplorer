@@ -27,6 +27,8 @@ namespace GalaxyExplorer
         private float targetSpreadMinValue;
         private PlacementControl placementControl;
 
+        private Ray gazeRay;
+
         private void Start()
         {
             if (Camera.main == null)
@@ -54,9 +56,13 @@ namespace GalaxyExplorer
 
             selectedTargets = new SortedList<float, RaycastHit>();
             targetSpreadMinValue = Mathf.Cos(Mathf.Deg2Rad * GazeSpreadDegrees);
-            if (!UnityEngine.VR.VRDevice.isPresent)
+
+            if (!UnityEngine.XR.XRDevice.isPresent)
             {
 #if !UNITY_EDITOR
+                // Unity 2017.2.0b8 changed something. Commenting out this line
+                // allows you to select things other than the center of the
+                // galaxy using the mouse in a 2d Xaml app running on a desktop
                 UseSphericalConeSearch = false;
 #endif
             }
@@ -66,27 +72,30 @@ namespace GalaxyExplorer
         {
             selectedTargets.Clear();
 
-            if ((TransitionManager.Instance == null || (!TransitionManager.Instance.InTransition && !TransitionManager.Instance.IsIntro)) &&     // in the middle of a scene transition or if it is the intro, prevent gaze selection
-                (placementControl == null || !placementControl.IsHolding))                                                                       // the cube is being placed, prevent gaze selection
+            // disable GazeSelection if we are in the introduction, in the
+            // middle of a transition, or we are in placement mode.
+            if (TransitionManager.Instance != null &&
+                !TransitionManager.Instance.InTransition &&
+                !TransitionManager.Instance.IsIntro &&
+                (placementControl == null || !placementControl.IsHolding))                                                                       
             {
-                Ray gazeRay;
+                Transform camTrans = Camera.main.transform;
 
-                if (UnityEngine.VR.VRDevice.isPresent)
+                gazeRay.origin = camTrans.position + (Camera.main.nearClipPlane * camTrans.forward);
+                gazeRay.direction = camTrans.forward;
+
+                if (UnityEngine.XR.XRDevice.isPresent &&
+                    MotionControllerInput.Instance.UseAlternateGazeRay)
                 {
-                    if (MotionControllerInput.Instance.UseAlternateGazeRay)
-                    {
-                        gazeRay = MotionControllerInput.Instance.AlternateGazeRay;
-                    }
-                    else
-                    {
-                        gazeRay = new Ray(Camera.main.transform.position + (Camera.main.nearClipPlane * Camera.main.transform.forward), Camera.main.transform.forward);
-                    }
+                    gazeRay = MotionControllerInput.Instance.AlternateGazeRay;
                 }
+#if !UNITY_EDITOR
                 else
                 {
                     gazeRay = Camera.main.ScreenPointToRay(InputRouter.Instance.XamlMousePosition);
                     gazeRay.origin += (Camera.main.nearClipPlane * gazeRay.direction);
                 }
+#endif
 
                 foreach (Cursor.PriorityLayerMask priorityMask in Cursor.Instance.prioritizedCursorMask)
                 {

@@ -3,13 +3,13 @@
 
 using GalaxyExplorer.HoloToolkit.Unity;
 using UnityEngine;
-using UnityEngine.VR.WSA;
+
 
 namespace GalaxyExplorer
 {
     public class WorldAnchorHandler : GE_Singleton<WorldAnchorHandler>
     {
-        private WorldAnchor viewLoaderAnchor;
+        private UnityEngine.XR.WSA.WorldAnchor viewLoaderAnchor;
         private bool viewLoaderAnchorActivelyTracking = true;
 
         private const float placeViewLoaderWaitTime = 5.0f; // seconds
@@ -51,7 +51,7 @@ namespace GalaxyExplorer
         {
             GameObject sourceObject = ViewLoader.Instance.gameObject;
 
-            viewLoaderAnchor = sourceObject.AddComponent<WorldAnchor>();
+            viewLoaderAnchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
 
             viewLoaderAnchor.OnTrackingChanged += GalaxyWorldAnchor_OnTrackingChanged;
 
@@ -96,7 +96,7 @@ namespace GalaxyExplorer
             }
         }
 
-        private void GalaxyWorldAnchor_OnTrackingChanged(WorldAnchor self, bool located)
+        private void GalaxyWorldAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
         {
             viewLoaderAnchorActivelyTracking = located;
 

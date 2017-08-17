@@ -209,7 +209,7 @@ namespace GalaxyExplorer
 #if UNITY_EDITOR
             Cursor.Instance.visible = true;
 #else
-        Cursor.Instance.visible = UnityEngine.VR.VRDevice.isPresent;
+            Cursor.Instance.visible = UnityEngine.XR.XRDevice.isPresent;
 #endif
         }
 

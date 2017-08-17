@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using GalaxyExplorer.HoloToolkit.Unity;
 
 namespace GalaxyExplorer
 {
@@ -15,7 +14,7 @@ namespace GalaxyExplorer
         private void Start()
         {
             gameObject.SetActive(
-                PlayspaceManager.Instance.useFakeFloor ||
+                //PlayspaceManager.Instance.useFakeFloor ||
                 (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
             );
             TransitionManager.Instance.ViewVolume.GetComponent<PlacementControl>().ContentPlaced += UpdateShaderProperties;

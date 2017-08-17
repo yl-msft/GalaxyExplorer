@@ -3,7 +3,7 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
 {
@@ -101,7 +101,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
                 isAPressed = true;
                 navigationCompleted = false;
                 currentGestureState = GestureState.APressed;
-                GalaxyExplorer.InputRouter.Instance.PressedSources.Add(InteractionSourceKind.Controller);
+                InputRouter.Instance.PressedSources.Add(InteractionSourceKind.Controller);
             }
 
             if (isAPressed)
@@ -146,9 +146,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
                 {
                     //Raise navigation started event.
                     //Debug.Log("GamePad: Navigation started");
-                    GalaxyExplorer.InputRouter.Instance.OnNavigationStarted(
-                        new NavigationStartedEventArgs(InteractionSourceKind.Controller,
-                        Vector3.zero, new HeadPose(), (int)GamePadId));
+                    InputRouter.Instance.OnNavigationStartedWorker(InteractionSourceKind.Controller, Vector3.zero, new Ray());
                     navigationStarted = true;
                     currentGestureState = GestureState.NavigationStarted;
                 }
@@ -159,9 +157,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
 
                 //Raise navigation updated event.
                 //inputManager.RaiseNavigationUpdated(this, GamePadId, normalizedOffset);
-                InputRouter.Instance.OnNavigationUpdated(
-                    new NavigationUpdatedEventArgs(InteractionSourceKind.Controller,
-                    normalizedOffset, new HeadPose(), (int)GamePadId));
+                InputRouter.Instance.OnNavigationUpdatedWorker(InteractionSourceKind.Controller, normalizedOffset, new Ray());
             }
         }
 
@@ -177,9 +173,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
                         navigationCompleted = true;
                         CancelInvoke("HandleHoldStarted");
                         CancelInvoke("HandleHoldCompleted");
-                        InputRouter.Instance.OnNavigationCompleted(
-                            new NavigationCompletedEventArgs(InteractionSourceKind.Controller,
-                            Vector3.zero, new HeadPose(), (int)GamePadId));
+                        InputRouter.Instance.OnNavigationCompletedWorker(InteractionSourceKind.Controller, Vector3.zero, new Ray());
                         Reset();
                         break;
 

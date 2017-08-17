@@ -6,14 +6,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
     public class InputRouter : GE_Singleton<InputRouter>
     {
         public Vector3 fakeInput;
+#if false
         public bool enableFakeInput = false;
+#endif
         public bool FakeTapUpdate;
 
         public bool HandsVisible { get; private set; }
@@ -26,10 +28,10 @@ namespace GalaxyExplorer
         /// </summary>
         public HashSet<InteractionSourceKind> PressedSources { get; private set; }
 
-        public event Action<InteractionSourceKind, Vector3, HeadPose> InputStarted;
-        public event Action<InteractionSourceKind, Vector3, HeadPose> InputUpdated;
-        public event Action<InteractionSourceKind, Vector3, HeadPose> InputCompleted;
-        public event Action<InteractionSourceKind, Vector3, HeadPose> InputCanceled;
+        public event Action<InteractionSourceKind, Vector3, Ray> InputStarted;
+        public event Action<InteractionSourceKind, Vector3, Ray> InputUpdated;
+        public event Action<InteractionSourceKind, Vector3, Ray> InputCompleted;
+        public event Action<InteractionSourceKind> InputCanceled;
 
         public event Action InputTapped;
 
@@ -51,17 +53,17 @@ namespace GalaxyExplorer
             {
                 if (gestureRecognizer != null)
                 {
-                    gestureRecognizer.NavigationStartedEvent += OnNavigationStarted;
-                    gestureRecognizer.NavigationUpdatedEvent += OnNavigationUpdated;
-                    gestureRecognizer.NavigationCompletedEvent += OnNavigationCompleted;
-                    gestureRecognizer.NavigationCanceledEvent += OnNavigationCanceled;
-                    gestureRecognizer.TappedEvent += OnTapped;
+                    gestureRecognizer.NavigationStarted += OnNavigationStarted;
+                    gestureRecognizer.NavigationUpdated += OnNavigationUpdated;
+                    gestureRecognizer.NavigationCompleted += OnNavigationCompleted;
+                    gestureRecognizer.NavigationCanceled += OnNavigationCanceled;
+                    gestureRecognizer.Tapped += OnTapped;
                 }
 
-                InteractionManager.SourceDetected += SourceManager_SourceDetected;
-                InteractionManager.SourceLost += SourceManager_SourceLost;
-                InteractionManager.SourcePressed += SourceManager_SourcePressed;
-                InteractionManager.SourceReleased += SourceManager_SourceReleased;
+                InteractionManager.InteractionSourceDetected += SourceManager_OnInteractionSourceDetected;
+                InteractionManager.InteractionSourceLost += SourceManager_OnInteractionSourceLost;
+                InteractionManager.InteractionSourcePressed += SourceManager_OnInteractionSourcePressed;
+                InteractionManager.InteractionSourceReleased += SourceManager_OnInteractionSourceReleased;
 
                 KeyboardInput kbd = KeyboardInput.Instance;
                 if (kbd != null)
@@ -88,17 +90,17 @@ namespace GalaxyExplorer
             {
                 if (gestureRecognizer != null)
                 {
-                    gestureRecognizer.NavigationStartedEvent -= OnNavigationStarted;
-                    gestureRecognizer.NavigationUpdatedEvent -= OnNavigationUpdated;
-                    gestureRecognizer.NavigationCompletedEvent -= OnNavigationCompleted;
-                    gestureRecognizer.NavigationCanceledEvent -= OnNavigationCanceled;
-                    gestureRecognizer.TappedEvent -= OnTapped;
+                    gestureRecognizer.NavigationStarted -= OnNavigationStarted;
+                    gestureRecognizer.NavigationUpdated -= OnNavigationUpdated;
+                    gestureRecognizer.NavigationCompleted -= OnNavigationCompleted;
+                    gestureRecognizer.NavigationCanceled -= OnNavigationCanceled;
+                    gestureRecognizer.Tapped -= OnTapped;
                 }
 
-                InteractionManager.SourceDetected -= SourceManager_SourceDetected;
-                InteractionManager.SourceLost -= SourceManager_SourceLost;
-                InteractionManager.SourcePressed -= SourceManager_SourcePressed;
-                InteractionManager.SourceReleased -= SourceManager_SourceReleased;
+                InteractionManager.InteractionSourceDetected -= SourceManager_OnInteractionSourceDetected;
+                InteractionManager.InteractionSourceLost -= SourceManager_OnInteractionSourceLost;
+                InteractionManager.InteractionSourcePressed -= SourceManager_OnInteractionSourcePressed;
+                InteractionManager.InteractionSourceReleased -= SourceManager_OnInteractionSourceReleased;
 
                 KeyboardInput kbd = KeyboardInput.Instance;
                 if (kbd != null)
@@ -168,12 +170,7 @@ namespace GalaxyExplorer
 
         public void SendFakeTap()
         {
-            OnTapped(new TappedEventArgs(
-                InteractionSourceKind.Other,
-                0,
-                new HeadPose(),
-                new InteractionSourcePose(),
-                0));
+            OnTapped(new TappedEventArgs());
         }
 
         private void HandleKeyboardZoomOut(KeyboardInput.KeyCodeEventPair keyCodeEvent)
@@ -301,6 +298,7 @@ namespace GalaxyExplorer
 
         private void Update()
         {
+#if false
             if (enableFakeInput)
             {
                 if (fakeInput == Vector3.zero)
@@ -331,7 +329,7 @@ namespace GalaxyExplorer
                     FakeTapUpdate = false;
                 }
             }
-
+#endif
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 lCtrlKeyIsDown = true;
@@ -364,73 +362,103 @@ namespace GalaxyExplorer
             }
         }
 
-        #region EventCallbacks
+#region EventCallbacks
 
-        private void SourceManager_SourceLost(InteractionManager.SourceEventArgs args)
+        private void SourceManager_OnInteractionSourceLost(InteractionSourceLostEventArgs args)
         {
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand)
+            if (args.state.source.kind == InteractionSourceKind.Hand)
             {
                 HandsVisible = false;
             }
         }
 
-        private void SourceManager_SourceDetected(InteractionManager.SourceEventArgs args)
+        private void SourceManager_OnInteractionSourceDetected(InteractionSourceDetectedEventArgs args)
         {
-            if (args.state.source.sourceKind == InteractionSourceKind.Hand)
+            if (args.state.source.kind == InteractionSourceKind.Hand)
             {
                 HandsVisible = true;
             }
         }
 
-        private void SourceManager_SourcePressed(InteractionManager.SourceEventArgs args)
+        private void SourceManager_OnInteractionSourcePressed(InteractionSourcePressedEventArgs args)
         {
-            PressedSources.Add(args.state.source.sourceKind);
+            PressedSources.Add(args.state.source.kind);
         }
 
-        private void SourceManager_SourceReleased(InteractionManager.SourceEventArgs args)
+        private void SourceManager_OnInteractionSourceReleased(InteractionSourceReleasedEventArgs args)
         {
-            PressedSources.Remove(args.state.source.sourceKind);
+            PressedSources.Remove(args.state.source.kind);
         }
 
-        public void OnNavigationStarted(NavigationStartedEventArgs args)
+        private void OnNavigationStarted(NavigationStartedEventArgs args)
         {
+        }
+        public void OnNavigationStartedWorker(InteractionSourceKind kind, Vector3 normalizedOffset, Ray headRay)
+        { 
             bool handled = false;
             if (GazeSelectionManager.Instance && GazeSelectionManager.Instance.SelectedTarget)
             {
-                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationStarted(args.sourceKind, args.normalizedOffset, args.headPose);
+                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationStarted(kind, normalizedOffset, headRay);
             }
 
             if (!handled && InputStarted != null)
             {
-                InputStarted(args.sourceKind, args.normalizedOffset, args.headPose);
+                InputStarted(kind, normalizedOffset, headRay);
             }
         }
 
-        public void OnNavigationUpdated(NavigationUpdatedEventArgs args)
+        private bool TryGetInteractionSourcePoseRay(InteractionSourcePose pose, out Ray ray)
+        {
+            Vector3 forward;
+            Vector3 position;
+            if (pose.TryGetForward(out forward) &&
+                pose.TryGetPosition(out position))
+            {
+                ray = new Ray(position, forward);
+                return true;
+            }
+            ray = new Ray();
+            return false;
+        }
+
+        private void OnNavigationUpdated(NavigationUpdatedEventArgs args)
+        {
+            Ray ray = new Ray();
+            OnNavigationUpdatedWorker(args.source.kind, args.normalizedOffset, ray);
+        }
+
+        public void OnNavigationUpdatedWorker(InteractionSourceKind kind, Vector3 normalizedOffset, Ray headRay)
         {
             bool handled = false;
             if (GazeSelectionManager.Instance && GazeSelectionManager.Instance.SelectedTarget)
             {
-                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationUpdated(args.sourceKind, args.normalizedOffset, args.headPose);
+                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationUpdated(kind, normalizedOffset, headRay);
             }
 
             if (!handled && InputUpdated != null)
             {
-                InputUpdated(args.sourceKind, args.normalizedOffset, args.headPose);
+                InputUpdated(kind, normalizedOffset, headRay);
             }
         }
 
-        public void OnNavigationCompleted(NavigationCompletedEventArgs args)
+        private void OnNavigationCompleted(NavigationCompletedEventArgs args)
+        {
+            Ray ray;
+            TryGetInteractionSourcePoseRay(args.sourcePose, out ray);
+            OnNavigationCompletedWorker(args.source.kind, args.normalizedOffset, ray);
+        }
+
+        public void OnNavigationCompletedWorker(InteractionSourceKind kind, Vector3 normalizedOffset, Ray headRay)
         {
             bool handled = false;
             if (GazeSelectionManager.Instance && GazeSelectionManager.Instance.SelectedTarget)
             {
-                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationCompleted(args.sourceKind, args.normalizedOffset, args.headPose);
+                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationCompleted(kind, normalizedOffset, headRay);
             }
 
             if (!handled && InputCompleted != null)
             {
-                InputCompleted(args.sourceKind, args.normalizedOffset, args.headPose);
+                InputCompleted(kind, normalizedOffset, headRay);
             }
         }
 
@@ -439,12 +467,12 @@ namespace GalaxyExplorer
             bool handled = false;
             if (GazeSelectionManager.Instance && GazeSelectionManager.Instance.SelectedTarget)
             {
-                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationCanceled(args.sourceKind, args.normalizedOffset, args.headPose);
+                handled = GazeSelectionManager.Instance.SelectedTarget.OnNavigationCanceled(args.source.kind);
             }
 
             if (!handled && InputCanceled != null)
             {
-                InputCanceled(args.sourceKind, args.normalizedOffset, args.headPose);
+                InputCanceled(args.source.kind);
             }
         }
 
@@ -488,6 +516,6 @@ namespace GalaxyExplorer
             }
         }
 
-        #endregion
+#endregion
     }
 }

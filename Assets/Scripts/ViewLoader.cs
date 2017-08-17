@@ -106,7 +106,7 @@ namespace GalaxyExplorer
         public IEnumerator LoadStartingView()
         {
 #if NETFX_CORE
-        System.Runtime.GCSettings.LatencyMode = System.Runtime.GCLatencyMode.SustainedLowLatency;
+        System.Runtime.GCSettings.LatencyMode = System.Runtime.GCLatencyMode.LowLatency;
 #endif
 
             TransitionManager.Instance.PreLoadScene("SolarSystemView");

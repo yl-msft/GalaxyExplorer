@@ -4,7 +4,8 @@
 using GalaxyExplorer.HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
+
 
 namespace GalaxyExplorer
 {
@@ -17,17 +18,17 @@ namespace GalaxyExplorer
 
         void Awake()
         {
-            InteractionManager.SourceDetected += InteractionManager_SourceDetected;
-            InteractionManager.SourceLost += InteractionManager_SourceLost;
-            InteractionManager.SourcePressed += InteractionManager_SourcePressed;
-            InteractionManager.SourceReleased += InteractionManager_SourceReleased;
-            InteractionManager.SourceUpdated += InteractionManager_SourceUpdated;
+            InteractionManager.InteractionSourceDetected += InteractionManager_OnInteractionSourceDetected;
+            InteractionManager.InteractionSourceLost += InteractionManager_OnInteractionSourceLost;
+            InteractionManager.InteractionSourcePressed += InteractionManager_OnInteractionSourcePressed;
+            InteractionManager.InteractionSourceReleased += InteractionManager_OnInteractionSourceReleased;
+            InteractionManager.InteractionSourceUpdated += InteractionManager_OnInteractionSourceUpdated;
 
             intendedRotation[InteractionSourceHandedness.Left] = 0f;
             intendedRotation[InteractionSourceHandedness.Right] = 0f;
         }
 
-        private InteractionSourceHandedness ValidateGraspStateTracking(InteractionManager.SourceEventArgs args)
+        private InteractionSourceHandedness ValidateGraspStateTracking(InteractionSourceUpdatedEventArgs args)
         {
             if (args.state.source.handedness == graspedHand)
             {
@@ -35,16 +36,16 @@ namespace GalaxyExplorer
                 {
                     Debug.LogFormat("grasp state mismatch for {0} hand", args.state.source.handedness.ToString());
                     UseAlternateGazeRay = false;
-                    return InteractionSourceHandedness.Unspecified;
+                    return InteractionSourceHandedness.Unknown;
                 }
             }
             return graspedHand;
         }
 
-        private void InteractionManager_SourceUpdated(InteractionManager.SourceEventArgs obj)
+        private void InteractionManager_OnInteractionSourceUpdated(InteractionSourceUpdatedEventArgs obj)
         {
-            if (obj.state.source.sourceKind != InteractionSourceKind.Controller ||
-                obj.state.source.handedness == InteractionSourceHandedness.Unspecified)
+            if (obj.state.source.kind != InteractionSourceKind.Controller ||
+                obj.state.source.handedness == InteractionSourceHandedness.Unknown)
             {
                 return;
             }
@@ -53,19 +54,31 @@ namespace GalaxyExplorer
             // verify the controller is still being grasped and then try to update
             // the AlternateGazeRay.
             graspedHand = ValidateGraspStateTracking(obj);
-            if (graspedHand != InteractionSourceHandedness.Unspecified &&
+            if (graspedHand != InteractionSourceHandedness.Unknown &&
                 graspedHand == obj.state.source.handedness)
             {
-                UseAlternateGazeRay = obj.state.sourcePose.TryGetPointerRay(out AlternateGazeRay);
+                Vector3 origin;
+                Vector3 direction;
+                if (obj.state.sourcePose.TryGetPosition(out origin) &&
+                    obj.state.sourcePose.TryGetForward(out direction))
+                {
+                    AlternateGazeRay.origin = origin;
+                    AlternateGazeRay.direction = direction;
+                    UseAlternateGazeRay = true;
+                }
+                else
+                {
+                    UseAlternateGazeRay = false;
+                }
             }
 
             // Check out the X value for the thumbstick to see if we are
             // trying to rotate the POV. Only do this if there isn't a
             // tool selected.
             if (ToolManager.Instance.SelectedTool == null &&
-                obj.state.source.handedness != InteractionSourceHandedness.Unspecified)
+                obj.state.source.handedness != InteractionSourceHandedness.Unknown)
             {
-                float x = (float)obj.state.controllerProperties.thumbstickX;
+                float x = obj.state.thumbstickPosition.x;
                 float irot = intendedRotation[obj.state.source.handedness];
 
                 if (irot != 0f && x < 0.1f)
@@ -88,12 +101,12 @@ namespace GalaxyExplorer
         }
 
         private bool navigationStarted = false;
-        private InteractionSourceHandedness navigatingHand = InteractionSourceHandedness.Unspecified;
+        private InteractionSourceHandedness navigatingHand = InteractionSourceHandedness.Unknown;
 
-        private void HandleNavigation(InteractionManager.SourceEventArgs obj)
+        private void HandleNavigation(InteractionSourceUpdatedEventArgs obj)
         {
-            float displacementAlongX = (float)obj.state.controllerProperties.thumbstickX;
-            float displacementAlongY = (float)obj.state.controllerProperties.thumbstickY;
+            float displacementAlongX = obj.state.thumbstickPosition.x;
+            float displacementAlongY = obj.state.thumbstickPosition.y;
 
             if (Mathf.Abs(displacementAlongX) >= 0.1f ||
                 Mathf.Abs(displacementAlongY) >= 0.1f ||
@@ -105,12 +118,7 @@ namespace GalaxyExplorer
                     navigatingHand = obj.state.source.handedness;
 
                     //Raise navigation started event.
-                    var args = new NavigationStartedEventArgs(
-                        InteractionSourceKind.Controller,
-                        Vector3.zero,
-                        new HeadPose(),
-                        (int)obj.state.source.id);
-                    InputRouter.Instance.OnNavigationStarted(args);
+                    InputRouter.Instance.OnNavigationStartedWorker(InteractionSourceKind.Controller, Vector3.zero, new Ray());
                 }
 
                 if (obj.state.source.handedness == navigatingHand)
@@ -120,9 +128,7 @@ namespace GalaxyExplorer
                         displacementAlongY,
                         0f);
 
-                    InputRouter.Instance.OnNavigationUpdated(
-                        new NavigationUpdatedEventArgs(InteractionSourceKind.Controller,
-                            thumbValues, new HeadPose(), (int)obj.state.source.id));
+                    InputRouter.Instance.OnNavigationUpdatedWorker(InteractionSourceKind.Controller, thumbValues, new Ray());
                 }
             }
         }
@@ -136,18 +142,18 @@ namespace GalaxyExplorer
         // the pointer ray from the grasped controller. Since GE (currently)
         // only can handle input from a single source, we will only track one
         // controller at a time. The first one in wins.
-        InteractionSourceHandedness graspedHand = InteractionSourceHandedness.Unspecified;
+        InteractionSourceHandedness graspedHand = InteractionSourceHandedness.Unknown;
 
-        private void InteractionManager_SourceReleased(InteractionManager.SourceEventArgs obj)
+        private void InteractionManager_OnInteractionSourceReleased(InteractionSourceReleasedEventArgs obj)
         {
-            if (obj.state.source.sourceKind != InteractionSourceKind.Controller)
+            if (obj.state.source.kind != InteractionSourceKind.Controller)
             {
                 return;
             }
 
-            switch (obj.pressKind)
+            switch (obj.pressType)
             {
-                case InteractionPressKind.Select:
+                case InteractionSourcePressType.Select:
                     switch (obj.state.source.handedness)
                     {
                         case InteractionSourceHandedness.Left:
@@ -156,14 +162,8 @@ namespace GalaxyExplorer
                                 obj.state.source.handedness == navigatingHand)
                             {
                                 navigationStarted = false;
-                                navigatingHand = InteractionSourceHandedness.Unspecified;
-
-                                var args = new NavigationCompletedEventArgs(
-                                    InteractionSourceKind.Controller,
-                                    Vector3.zero,
-                                    new HeadPose(),
-                                    (int)obj.state.source.id);
-                                InputRouter.Instance.OnNavigationCompleted(args);
+                                navigatingHand = InteractionSourceHandedness.Unknown;
+                                InputRouter.Instance.OnNavigationCompletedWorker(InteractionSourceKind.Controller, Vector3.zero, new Ray());
                                 Debug.Log("SourceReleased -> OnNavigationCompleted");
                             }
                             else
@@ -173,14 +173,14 @@ namespace GalaxyExplorer
                             break;
                     }
                     break;
-                case InteractionPressKind.Grasp:
+                case InteractionSourcePressType.Grasp:
                     if (graspedHand == obj.state.source.handedness)
                     {
                         UseAlternateGazeRay = false;
-                        graspedHand = InteractionSourceHandedness.Unspecified;
+                        graspedHand = InteractionSourceHandedness.Unknown;
                     }
                     break;
-                case InteractionPressKind.Menu:
+                case InteractionSourcePressType.Menu:
                     if (ToolManager.Instance.ToolsVisible)
                     {
                         ToolManager.Instance.UnselectAllTools();
@@ -194,16 +194,16 @@ namespace GalaxyExplorer
             }
         }
 
-        private void InteractionManager_SourcePressed(InteractionManager.SourceEventArgs obj)
+        private void InteractionManager_OnInteractionSourcePressed(InteractionSourcePressedEventArgs obj)
         {
-            if (obj.state.source.sourceKind != InteractionSourceKind.Controller)
+            if (obj.state.source.kind != InteractionSourceKind.Controller)
             {
                 return;
             }
 
-            switch (obj.pressKind)
+            switch (obj.pressType)
             {
-                case InteractionPressKind.Select:
+                case InteractionSourcePressType.Select:
                     switch (obj.state.source.handedness)
                     {
                         case InteractionSourceHandedness.Left:
@@ -212,7 +212,7 @@ namespace GalaxyExplorer
                             break;
                     }
                     break;
-                case InteractionPressKind.Grasp:
+                case InteractionSourcePressType.Grasp:
                     switch (obj.state.source.handedness)
                     {
                         case InteractionSourceHandedness.Left:
@@ -225,25 +225,25 @@ namespace GalaxyExplorer
         }
 
         #region Source_Lost_Detected
-        private void InteractionManager_SourceLost(InteractionManager.SourceEventArgs obj)
+        private void InteractionManager_OnInteractionSourceLost(InteractionSourceLostEventArgs obj)
         {
             // if we lost all (Motion)Controllers, enable the GamePad script
-            if (obj.state.source.sourceKind == InteractionSourceKind.Controller && 
+            if (obj.state.source.kind == InteractionSourceKind.Controller && 
                 GamepadInput.Instance && 
                 InteractionManager.numSourceStates == 0)
             {
                 Debug.Log("Enabling GamepadInput instance");
                 UseAlternateGazeRay = false;
-                graspedHand = InteractionSourceHandedness.Unspecified;
+                graspedHand = InteractionSourceHandedness.Unknown;
                 GamepadInput.Instance.enabled = true;
                 InputRouter.Instance.SetGestureRecognitionState(true);
             }
         }
 
-        private void InteractionManager_SourceDetected(InteractionManager.SourceEventArgs obj)
+        private void InteractionManager_OnInteractionSourceDetected(InteractionSourceDetectedEventArgs obj)
         {
             // if we detected a (Motion)Controller, disable the GamePad script
-            if (obj.state.source.sourceKind == InteractionSourceKind.Controller &&
+            if (obj.state.source.kind == InteractionSourceKind.Controller &&
                 GamepadInput.Instance)
             {
                 Debug.Log("Disabling GamepadInput instance");
@@ -255,11 +255,11 @@ namespace GalaxyExplorer
 
         private void OnDestroy()
         {
-            InteractionManager.SourceDetected -= InteractionManager_SourceDetected;
-            InteractionManager.SourceLost -= InteractionManager_SourceLost;
-            InteractionManager.SourcePressed -= InteractionManager_SourcePressed;
-            InteractionManager.SourceReleased -= InteractionManager_SourceReleased;
-            InteractionManager.SourceUpdated -= InteractionManager_SourceUpdated;
+            InteractionManager.InteractionSourceDetected -= InteractionManager_OnInteractionSourceDetected;
+            InteractionManager.InteractionSourceLost -= InteractionManager_OnInteractionSourceLost;
+            InteractionManager.InteractionSourcePressed -= InteractionManager_OnInteractionSourcePressed;
+            InteractionManager.InteractionSourceReleased -= InteractionManager_OnInteractionSourceReleased;
+            InteractionManager.InteractionSourceUpdated -= InteractionManager_OnInteractionSourceUpdated;
         }
     }
 }
