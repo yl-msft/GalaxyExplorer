@@ -173,7 +173,8 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                     // Try to get the Boundary's bounds to calculate the floor's dimensions
                     playspaceBounds.Clear();
                     Vector3 newScale = FloorQuad.transform.localScale;
-                    if (Boundary.TryGetDimensions(out newScale))
+                    // TODO: TryGetDimensions always returns false on Unity 2017.2.0b8
+                    if (Boundary.TryGetDimensions(out newScale) || true)
                     {
                         // inflate bounds by 1 meter all around
                         newScale.x += 2.0f;

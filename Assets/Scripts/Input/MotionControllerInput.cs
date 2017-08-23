@@ -14,7 +14,12 @@ namespace GalaxyExplorer
         public delegate void RotateCameraPovDelegate(float rotationAmount);
         public event RotateCameraPovDelegate RotateCameraPov;
 
-        Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
+        [HideInInspector]
+        public bool UseAlternateGazeRay = false;
+        [HideInInspector]
+        public Ray AlternateGazeRay;
+
+        private Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
 
         void Awake()
         {
@@ -62,6 +67,8 @@ namespace GalaxyExplorer
                 if (obj.state.sourcePose.TryGetPosition(out origin) &&
                     obj.state.sourcePose.TryGetForward(out direction))
                 {
+                    // TODO: shouldn't need to do this; results aren't perfect either.
+                    origin += Camera.main.transform.position;
                     AlternateGazeRay.origin = origin;
                     AlternateGazeRay.direction = direction;
                     UseAlternateGazeRay = true;
@@ -133,11 +140,6 @@ namespace GalaxyExplorer
             }
         }
 
-        [HideInInspector]
-        public bool UseAlternateGazeRay = false;
-        [HideInInspector]
-        public Ray AlternateGazeRay;
-
         // Using the grasp button will cause GE to replace the gaze cursor with
         // the pointer ray from the grasped controller. Since GE (currently)
         // only can handle input from a single source, we will only track one
@@ -208,7 +210,10 @@ namespace GalaxyExplorer
                     {
                         case InteractionSourceHandedness.Left:
                         case InteractionSourceHandedness.Right:
-                            PlayerInputManager.Instance.TriggerTapPress();
+                            if (PlayerInputManager.Instance)
+                            {
+                                PlayerInputManager.Instance.TriggerTapPress();
+                            }
                             break;
                     }
                     break;
