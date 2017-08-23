@@ -1,8 +1,6 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-//#define USE_STAGE_ROOT
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,24 +22,25 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         [Tooltip("If true, the floor grid is rendered, even if the device isn't an Opaque HMD; Useful for screenshots.")]
         public bool useFakeFloor = false;
         public GameObject FloorQuad;
-#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
-        private StageRoot StageRoot;
-#endif
         private bool floorVisible = false;
         private bool recalculateFloor = false;
-        private Vector3[] playspaceBounds;
+        private List<Vector3> playspaceBounds;
 
         // Use this for initialization
         private IEnumerator Start()
         {
+            Debug.Log("PlayspaceManager.Start");
             // Check to see if we are on an occluded HMD
             floorVisible = MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD;
             if (!floorVisible)
             {
                 floorVisible = useFakeFloor;
+                Debug.LogFormat("PlayspaceManager.Start: floorVisible: {0} via useFakeFloor", floorVisible.ToString());
             }
             else
             {
+                playspaceBounds = new List<Vector3>();
+                Boundary.TryGetGeometry(playspaceBounds);
                 useFakeFloor = false;
             }
 
@@ -53,16 +52,11 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                 yield break;
             }
 
-            // Get our StageRoot component if it is missing
-#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
-            StageRoot = GetComponent<StageRoot>();
-            if (!StageRoot)
-            {
-                StageRoot = gameObject.AddComponent<StageRoot>();
-            }
-
-            yield return WaitForWorldManagerAndStageRootLocated();
-#endif
+            // Position our floor at (0,0,0) which should be where the
+            // shell says it is supposed to be from OOBE calibration
+            FloorQuad.transform.position = Vector3.zero;
+            CalculateFloorDimensions();
+            
             // Move the starfield out of the hierarchy
             SpaceBackground.transform.SetParent(null);
 
@@ -177,34 +171,19 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                     recalculateFloor = false;
                     return;
                 }
-                // Get the stage bounds from the WorldManager and calculate the floor's dimensions
-                playspaceBounds = null;
-#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
-                bool getStageBoundsSucceeded = false;
-                if (StageRoot)
-                {
-                    getStageBoundsSucceeded = StageRoot.TryGetBounds(out playspaceBounds);
-                }
-                if (getStageBoundsSucceeded && playspaceBounds != null)
+
+                // Try to get the Boundary's bounds to calculate the floor's dimensions
+                playspaceBounds.Clear();
+                if (Boundary.TryGetGeometry(playspaceBounds))
                 {
                     CalculateFloorDimensions();
-                    floorPosition.y = StageRoot.transform.position.y;
-                    FloorQuad.transform.position = floorPosition;
-
                     recalculateFloor = false;
                 }
-#endif
             }
         }
 
         private void OnDestroy()
         {
-#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
-            if (StageRoot)
-            {
-                StageRoot.OnTrackingChanged -= StageRoot_OnTrackingChanged;
-            }
-#endif
             if (InputModule.GamepadInput.Instance)
             {
                 InputModule.GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
@@ -214,38 +193,6 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                 MotionControllerInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
             }
         }
-
-#if USE_STAGE_ROOT // waiting for StageRoot replacement implementation.
-        private void StageRoot_OnTrackingChanged(StageRoot self, bool located)
-        {
-            recalculateFloor = located;
-        }
-
-        private IEnumerator WaitForWorldManagerAndStageRootLocated()
-        {
-            if (useFakeFloor)
-            {
-                yield break;
-            }
-
-            // Default the floor to inactive
-            FloorQuad.SetActive(false);
-
-            // Wait until we acquire an Active tracking state
-            while (UnityEngine.XR.WSA.WorldManager.state != UnityEngine.XR.WSA.PositionalLocatorState.Active)
-            {
-                yield return null;
-            }
-
-            // Make sure our stage root is located
-            while (!StageRoot.isLocated)
-            {
-                yield return null;
-            }
-
-            StageRoot.OnTrackingChanged += StageRoot_OnTrackingChanged;
-        }
-#endif
 
         private void CalculateFloorDimensions()
         {
@@ -262,13 +209,13 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
         private void CalculateFloorDimensionsFromBounds(ref Vector3 dimensions)
         {
-            if (this.playspaceBounds != null && this.playspaceBounds.Length > 0)
+            if (playspaceBounds.Count > 0)
             {
                 float maxX, minX, maxY, minY;
                 maxY = maxX = float.MinValue;
                 minY = minX = float.MaxValue;
 
-                for (int i = 0; i < playspaceBounds.Length; i++)
+                for (int i = 0; i < playspaceBounds.Count; i++)
                 {
                     // Note, The extents of the bounds are in X and Z, but our Quad's dimensions are X and Y.
                     maxY = Mathf.Max(maxY, playspaceBounds[i].z);

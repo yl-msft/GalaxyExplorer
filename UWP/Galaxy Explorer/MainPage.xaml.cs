@@ -44,7 +44,6 @@ namespace GalaxyExplorer
             // Setup scripting bridge
             _bridge = new WinRTBridge.WinRTBridge();
             appCallbacks.SetBridge(_bridge);
-            appCallbacks.AddCommandLineArg("-force-d3d11-no-singlethreaded"); // REMOVE THIS LINE !!!
             bool isWindowsHolographic = false;
 
 #if UNITY_HOLOGRAPHIC
