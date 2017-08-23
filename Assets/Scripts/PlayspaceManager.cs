@@ -24,24 +24,22 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         public GameObject FloorQuad;
         private bool floorVisible = false;
         private bool recalculateFloor = false;
-        private List<Vector3> playspaceBounds;
+        private List<Vector3> playspaceBounds = new List<Vector3>();
 
         // Use this for initialization
         private IEnumerator Start()
         {
-            Debug.Log("PlayspaceManager.Start");
             // Check to see if we are on an occluded HMD
             floorVisible = MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD;
-            if (!floorVisible)
+
+            // determine if we are overriding the floor's visibility
+            if (!floorVisible && useFakeFloor)
             {
-                floorVisible = useFakeFloor;
-                Debug.LogFormat("PlayspaceManager.Start: floorVisible: {0} via useFakeFloor", floorVisible.ToString());
+                floorVisible = true; // using fake floor
             }
             else
             {
-                playspaceBounds = new List<Vector3>();
-                Boundary.TryGetGeometry(playspaceBounds);
-                useFakeFloor = false;
+                useFakeFloor = false;// don't use fake floor
             }
 
             if (!floorVisible)
@@ -55,7 +53,6 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             // Position our floor at (0,0,0) which should be where the
             // shell says it is supposed to be from OOBE calibration
             FloorQuad.transform.position = Vector3.zero;
-            CalculateFloorDimensions();
             
             // Move the starfield out of the hierarchy
             SpaceBackground.transform.SetParent(null);
@@ -163,21 +160,31 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             {
                 if (useFakeFloor)
                 {
+                    var floorPosition = FloorQuad.transform.position;
                     floorPosition.y = -0.5f;
                     FloorQuad.transform.position = floorPosition;
                     FloorQuad.transform.localScale = Vector3.one * 10f;
                     FloorQuad.GetComponent<Renderer>().sharedMaterial.SetInt("_LinesPerMeter", 10);
                     FloorQuad.GetComponent<Renderer>().sharedMaterial.SetFloat("_LineScale", 0.00075f);
                     recalculateFloor = false;
-                    return;
                 }
-
-                // Try to get the Boundary's bounds to calculate the floor's dimensions
-                playspaceBounds.Clear();
-                if (Boundary.TryGetGeometry(playspaceBounds))
+                else
                 {
-                    CalculateFloorDimensions();
-                    recalculateFloor = false;
+                    // Try to get the Boundary's bounds to calculate the floor's dimensions
+                    playspaceBounds.Clear();
+                    Vector3 newScale = FloorQuad.transform.localScale;
+                    if (Boundary.TryGetDimensions(out newScale))
+                    {
+                        // inflate bounds by 1 meter all around
+                        newScale.x += 2.0f;
+                        newScale.y += 2.0f;
+                        FloorQuad.transform.localScale = newScale;
+                        recalculateFloor = false;
+                    }
+                    Debug.Log(string.Format("FloorQuad.localScale  is: {0}", FloorQuad.transform.localScale.ToString()));
+
+                    Vector3 lossyScale = FloorQuad.transform.lossyScale;
+                    FloorQuad.GetComponent<Renderer>().sharedMaterial.SetVector("_WorldScale", new Vector4(lossyScale.x, lossyScale.y, lossyScale.z, 0));
                 }
             }
         }
@@ -191,48 +198,6 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             if (MotionControllerInput.Instance)
             {
                 MotionControllerInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
-            }
-        }
-
-        private void CalculateFloorDimensions()
-        {
-            Vector3 newScale = FloorQuad.transform.localScale;
-            CalculateFloorDimensionsFromBounds(ref newScale);
-            FloorQuad.transform.localScale = newScale;
-            Debug.Log(string.Format("FloorQuad.localScale  is: {0}", FloorQuad.transform.localScale.ToString()));
-
-            Vector3 lossyScale = FloorQuad.transform.lossyScale;
-            FloorQuad.GetComponent<Renderer>().sharedMaterial.SetVector("_WorldScale", new Vector4(lossyScale.x, lossyScale.y, lossyScale.z, 0));
-        }
-
-        Vector3 floorPosition = Vector3.zero;
-
-        private void CalculateFloorDimensionsFromBounds(ref Vector3 dimensions)
-        {
-            if (playspaceBounds.Count > 0)
-            {
-                float maxX, minX, maxY, minY;
-                maxY = maxX = float.MinValue;
-                minY = minX = float.MaxValue;
-
-                for (int i = 0; i < playspaceBounds.Count; i++)
-                {
-                    // Note, The extents of the bounds are in X and Z, but our Quad's dimensions are X and Y.
-                    maxY = Mathf.Max(maxY, playspaceBounds[i].z);
-                    maxX = Mathf.Max(maxX, playspaceBounds[i].x);
-                    minY = Mathf.Min(minY, playspaceBounds[i].z);
-                    minX = Mathf.Min(minX, playspaceBounds[i].x);
-                }
-
-                dimensions.x = (maxX - minX) + 2f; // extend the floor quad by 1m on each side
-                dimensions.y = (maxY - minY) + 2f;
-                //dimensions.z is unchanged
-                floorPosition = new Vector3((maxX + minX) / 2f, floorPosition.y, (maxY + minY) / 2f);
-                Debug.LogFormat("FloorPosition: {0}", floorPosition.ToString());
-            }
-            else
-            {
-                Debug.Log("bounds was null or an empty array");
             }
         }
 
