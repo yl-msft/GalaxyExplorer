@@ -90,7 +90,7 @@ namespace GalaxyExplorer
                     gazeRay = MotionControllerInput.Instance.AlternateGazeRay;
                 }
 #if !UNITY_EDITOR
-                else
+                else if (!UnityEngine.XR.XRDevice.isPresent)
                 {
                     gazeRay = Camera.main.ScreenPointToRay(InputRouter.Instance.XamlMousePosition);
                     gazeRay.origin += (Camera.main.nearClipPlane * gazeRay.direction);
