@@ -97,7 +97,7 @@ namespace GalaxyExplorer
             if (heroView == null)
             {
                 heroView = GetCurrentContent();
-                Debug.LogWarning("Couldn't find HeroView in Scene. Falling back to the Current Content");
+                //Debug.LogWarning("Couldn't find HeroView in Scene. Falling back to the Current Content");
             }
 
             return heroView;
