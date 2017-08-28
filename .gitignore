@@ -46,14 +46,6 @@ UWP/*
 !UWP/Galaxy Explorer.sln
 !UWP/project.json
 
-!UWP/Assembly-CSharp/
-UWP/Assembly-CSharp/*
-!UWP/Assembly-CSharp/project.json
-
-!UWP/Assembly-CSharp-firstpass/
-UWP/Assembly-CSharp-firstpass/*
-!UWP/Assembly-CSharp-firstpass/project.json
-
 !UWP/Galaxy Explorer/
 UWP/Galaxy Explorer/*
 !UWP/Galaxy Explorer/App.xaml
