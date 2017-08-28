@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.XR;
+using UnityEngine.XR;
 
 namespace GalaxyExplorer.HoloToolkit.Unity
 {
@@ -24,22 +25,28 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         public GameObject FloorQuad;
         private bool floorVisible = false;
         private bool recalculateFloor = false;
-        private List<Vector3> playspaceBounds = new List<Vector3>();
 
         // Use this for initialization
         private IEnumerator Start()
         {
             // Check to see if we are on an occluded HMD
-            floorVisible = MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD;
-
-            // determine if we are overriding the floor's visibility
-            if (!floorVisible && useFakeFloor)
+            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
             {
-                floorVisible = true; // using fake floor
-            }
-            else
-            {
-                useFakeFloor = false;// don't use fake floor
+                floorVisible = XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
+                if (floorVisible)
+                {
+                    // Position our floor at (0,0,0) which should be where the
+                    // shell says it is supposed to be from OOBE calibration
+                    FloorQuad.transform.position = Vector3.zero;
+                    useFakeFloor = false;
+                }
+                else
+                {
+                    // Theoretically, Unity does this automatically...
+                    XRDevice.SetTrackingSpaceType(TrackingSpaceType.Stationary);
+                    InputTracking.Recenter();
+                    floorVisible = useFakeFloor = true;
+                }
             }
 
             if (!floorVisible)
@@ -50,10 +57,6 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                 yield break;
             }
 
-            // Position our floor at (0,0,0) which should be where the
-            // shell says it is supposed to be from OOBE calibration
-            FloorQuad.transform.position = Vector3.zero;
-            
             // Move the starfield out of the hierarchy
             SpaceBackground.transform.SetParent(null);
 
@@ -170,10 +173,8 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                 }
                 else
                 {
-                    // Try to get the Boundary's bounds to calculate the floor's dimensions
-                    playspaceBounds.Clear();
                     Vector3 newScale = FloorQuad.transform.localScale;
-                    // TODO: TryGetDimensions always returns false on Unity 2017.2.0b8
+                    // TODO: TryGetDimensions always returns false on Unity 2017.2.0b9
                     if (Boundary.TryGetDimensions(out newScale) || true)
                     {
                         // inflate bounds by 1 meter all around
