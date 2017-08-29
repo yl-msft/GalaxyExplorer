@@ -1002,7 +1002,7 @@ MonoBehaviour:
   leftControllerOverride: {fileID: 0}
   rightControllerOverride: {fileID: 0}
   touchpadTouchedOverride: {fileID: 0}
-  GLTFShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  GLTFShader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &636860372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,7 +2403,6 @@ GameObject:
   - component: {fileID: 1311969409}
   - component: {fileID: 1311969408}
   - component: {fileID: 1311969411}
-  - component: {fileID: 1311969412}
   m_Layer: 0
   m_Name: CameraRigMain
   m_TagString: MainCamera
@@ -2483,42 +2482,6 @@ AudioListener:
   m_GameObject: {fileID: 1311969407}
   m_Enabled: 1
   m_ExtensionPropertyValues: []
---- !u!108 &1311969412
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1311969407}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1001 &1410223119
 Prefab:
   m_ObjectHideFlags: 0
