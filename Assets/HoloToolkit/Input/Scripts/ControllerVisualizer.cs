@@ -351,16 +351,17 @@ namespace HoloToolkit.Unity.InputModule
                     }
                 }
 
+                InteractionSourceNode sourceNode = InteractionSourceNode.Pointer;
                 Vector3 newPosition;
-                if (obj.state.sourcePose.TryGetPosition(out newPosition, InteractionSourceNode.Pointer /*Grip*/) && newPosition != currentController.lastPosition)
+                if (obj.state.sourcePose.TryGetPosition(out newPosition, sourceNode) && newPosition != currentController.lastPosition)
                 {
-                    newPosition += cameraTransformStartPosition;
+                    newPosition += cameraTransformStartPosition; // hack; remove
                     currentController.gameObject.transform.localPosition = newPosition;
                     currentController.lastPosition = newPosition;
                 }
 
                 Quaternion newRotation;
-                if (obj.state.sourcePose.TryGetRotation(out newRotation, InteractionSourceNode.Pointer /*Grip*/) && newRotation != currentController.lastRotation)
+                if (obj.state.sourcePose.TryGetRotation(out newRotation, sourceNode) && newRotation != currentController.lastRotation)
                 {
                     currentController.gameObject.transform.localRotation = newRotation;
                     currentController.lastRotation = newRotation;
