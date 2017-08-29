@@ -46,9 +46,12 @@ namespace HoloToolkit.Unity.InputModule
         // This will be used to keep track of our controllers, indexed by their unique source ID.
         private Dictionary<uint, ControllerInfo> controllerDictionary;
 
+        private Vector3 cameraTransformStartPosition = Vector3.zero;
+
         private void Start()
         {
             controllerDictionary = new Dictionary<uint, ControllerInfo>();
+            cameraTransformStartPosition = UnityEngine.Camera.main.transform.position;
 
 #if !UNITY_EDITOR && UNITY_WSA
             // Since the SpatialInteractionManager exists in the current CoreWindow, this call needs to run on the UI thread.
@@ -349,14 +352,15 @@ namespace HoloToolkit.Unity.InputModule
                 }
 
                 Vector3 newPosition;
-                if (obj.state.sourcePose.TryGetPosition(out newPosition, InteractionSourceNode.Grip) && newPosition != currentController.lastPosition)
+                if (obj.state.sourcePose.TryGetPosition(out newPosition, InteractionSourceNode.Pointer /*Grip*/) && newPosition != currentController.lastPosition)
                 {
+                    newPosition += cameraTransformStartPosition;
                     currentController.gameObject.transform.localPosition = newPosition;
                     currentController.lastPosition = newPosition;
                 }
 
                 Quaternion newRotation;
-                if (obj.state.sourcePose.TryGetRotation(out newRotation, InteractionSourceNode.Grip) && newRotation != currentController.lastRotation)
+                if (obj.state.sourcePose.TryGetRotation(out newRotation, InteractionSourceNode.Pointer /*Grip*/) && newRotation != currentController.lastRotation)
                 {
                     currentController.gameObject.transform.localRotation = newRotation;
                     currentController.lastRotation = newRotation;
