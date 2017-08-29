@@ -202,7 +202,8 @@ namespace GalaxyExplorer
                     break;
 
                 case InteractionSourcePressType.Grasp:
-                    if (graspedHand.id == ci.id)
+                    if (graspedHand != null &&
+                        graspedHand.id == ci.id)
                     {
                         ci.grasped = false;
                         graspedHand = null;
