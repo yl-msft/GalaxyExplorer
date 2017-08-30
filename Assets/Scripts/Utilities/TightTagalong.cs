@@ -51,7 +51,8 @@ namespace GalaxyExplorer
                 snapToTarget = true;
             }
 
-            // coroutines are ended when the component is disabled, so look for the head transform on enable
+            // coroutines are ended when the component is disabled, so look for
+            // the head transform on enable
             if (head == null)
             {
                 StartCoroutine(FindHeadTransform());
@@ -60,18 +61,23 @@ namespace GalaxyExplorer
 
         private void Update()
         {
-            if (FollowMotionControllerIfAvailable && MotionControllerInput.Instance.UseAlternateGazeRay)
+            if (FollowMotionControllerIfAvailable &&
+                MotionControllerInput.Instance &&
+                MotionControllerInput.Instance.UseAlternateGazeRay)
             {
+                interpolator.enabled = false;
                 SetTransform();
             }
             else if (head)
             {
                 if (hardLock)
                 {
+                    interpolator.enabled = false;
                     SetTransform();
                 }
                 else
                 {
+                    interpolator.enabled = true;
                     UpdateTransform();
                 }
             }
@@ -90,10 +96,13 @@ namespace GalaxyExplorer
 
         public void SetTransform()
         {
-            if (FollowMotionControllerIfAvailable && MotionControllerInput.Instance.UseAlternateGazeRay)
+            if (FollowMotionControllerIfAvailable &&
+                MotionControllerInput.Instance &&
+                MotionControllerInput.Instance.UseAlternateGazeRay)
             {
                 Ray ray = MotionControllerInput.Instance.AlternateGazeRay;
                 transform.position = ray.origin + (ray.direction * distanceToHead);
+                transform.rotation = Quaternion.LookRotation(-ray.direction, Vector3.up);
             }
             else
             {
@@ -114,10 +123,12 @@ namespace GalaxyExplorer
 
             RaycastHit rayCastHit;
 
-            // Do a initial simple ray cast against the world and adjust the target position if it hits something
+            // Do a initial simple ray cast against the world and adjust the
+            // target position if it hits something
             if (collisionPhysicsLayer != 0 && Physics.Raycast(cameraPosition, targetDirection, out rayCastHit, distanceToHead, collisionPhysicsLayer))
             {
-                // the collision point is too close, so push it back min distance away along the target direction
+                // the collision point is too close, so push it back min
+                // distance away along the target direction
                 if ((cameraPosition - rayCastHit.point).magnitude < minCollisionDistanceToHead)
                 {
                     targetPosition = cameraPosition + (targetDirection * minCollisionDistanceToHead);
