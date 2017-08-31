@@ -27,19 +27,26 @@ namespace GalaxyExplorer
             }
         }
 
+        public ControllerInformation AlternateGazeRayControlerInformation
+        {
+            get { return graspedHand;  }
+        }
+
         private Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
 
         // hack offset because sourcePose.TryGetPosition returns position
         // relative to the re-set origin.
         private Vector3 cameraFirstFramePosition;
 
-        class ControllerInformation
+        public class ControllerInformation
         {
             public uint id = 0;
             public Vector3 position = Vector3.zero;
             public Vector3 direction = Vector3.zero;
             public bool grasped = false;
             public InteractionSourceHandedness handedness = InteractionSourceHandedness.Unknown;
+            public float accumulatedY = 0f;
+            public float accumulatedX = 0f;
         }
 
         // Using the grasp button will cause GE to replace the gaze cursor with
@@ -142,6 +149,16 @@ namespace GalaxyExplorer
             {
                 HandleNavigation(ci, obj);
             }
+
+            // Update the x/y accumulators for the grasped controler
+            if (graspedHand != null &&
+                graspedHand.handedness == ci.handedness)
+            {
+                float x = obj.state.thumbstickPosition.x;
+                float y = obj.state.thumbstickPosition.y;
+                if (Mathf.Abs(x) >= 0.1f) ci.accumulatedX += x;
+                if (Mathf.Abs(y) >= 0.1f) ci.accumulatedY += y;
+            }
         }
 
         private ControllerInformation navigatingHand = null;
@@ -210,6 +227,8 @@ namespace GalaxyExplorer
                         graspedHand.id == ci.id)
                     {
                         ci.grasped = false;
+                        ci.accumulatedX = 0f;
+                        ci.accumulatedY = 0f;
                         graspedHand = null;
                     }
                     break;

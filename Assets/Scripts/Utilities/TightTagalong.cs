@@ -98,10 +98,13 @@ namespace GalaxyExplorer
         {
             if (FollowMotionControllerIfAvailable &&
                 MotionControllerInput.Instance &&
-                MotionControllerInput.Instance.UseAlternateGazeRay)
+                MotionControllerInput.Instance.UseAlternateGazeRay &&
+                MotionControllerInput.Instance.AlternateGazeRayControlerInformation != null)
             {
                 Ray ray = MotionControllerInput.Instance.AlternateGazeRay;
-                transform.position = ray.origin + (ray.direction * distanceToHead);
+                var ci = MotionControllerInput.Instance.AlternateGazeRayControlerInformation;
+                float distance = Mathf.Clamp(distanceToHead + (ci.accumulatedY / 10f), distanceToHead / 2f, Cursor.Instance.defaultCursorDistance);
+                transform.position = ray.origin + (ray.direction * distance);
                 transform.rotation = Quaternion.LookRotation(-ray.direction, Vector3.up);
             }
             else
