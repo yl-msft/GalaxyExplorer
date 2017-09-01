@@ -18,22 +18,22 @@ namespace GalaxyExplorer
             if (PoiCard)
             {
                 PoiCard.transform.localScale = new Vector3(
-                    PoiCard.transform.localScale.x * MyAppPlatformManager.Instance.PoiScaleFactor,
-                    PoiCard.transform.localScale.y * MyAppPlatformManager.Instance.PoiScaleFactor,
+                    PoiCard.transform.localScale.x * MyAppPlatformManager.PoiScaleFactor,
+                    PoiCard.transform.localScale.y * MyAppPlatformManager.PoiScaleFactor,
                     PoiCard.transform.localScale.z);
             }
             if (PoiAlternateCard)
             {
                 PoiAlternateCard.transform.localScale = new Vector3(
-                    PoiAlternateCard.transform.localScale.x * MyAppPlatformManager.Instance.PoiScaleFactor,
-                    PoiAlternateCard.transform.localScale.y * MyAppPlatformManager.Instance.PoiScaleFactor,
+                    PoiAlternateCard.transform.localScale.x * MyAppPlatformManager.PoiScaleFactor,
+                    PoiAlternateCard.transform.localScale.y * MyAppPlatformManager.PoiScaleFactor,
                     PoiAlternateCard.transform.localScale.z);
             }
             if (PoiIndicator)
             {
                 PoiIndicator.transform.localScale = new Vector3(
-                    PoiIndicator.transform.localScale.x * MyAppPlatformManager.Instance.PoiScaleFactor,
-                    PoiIndicator.transform.localScale.y * MyAppPlatformManager.Instance.PoiScaleFactor,
+                    PoiIndicator.transform.localScale.x * MyAppPlatformManager.PoiScaleFactor,
+                    PoiIndicator.transform.localScale.y * MyAppPlatformManager.PoiScaleFactor,
                     PoiIndicator.transform.localScale.z);
 
                 if (ViewLoader.Instance.CurrentView.Equals("SolarSystemView"))
@@ -41,19 +41,19 @@ namespace GalaxyExplorer
                     PointOfInterest poi = GetComponentInParent<PointOfInterest>();
                     if (poi)
                     {
-                        poi.IndicatorOffset *= MyAppPlatformManager.Instance.PoiMoveFactor;
+                        poi.IndicatorOffset *= MyAppPlatformManager.PoiMoveFactor;
                     }
                 }
 
                 Transform transformToMove = PoiIndicator.transform;
                 transformToMove.localPosition = new Vector3(
                     transformToMove.localPosition.x,
-                    transformToMove.localPosition.y * MyAppPlatformManager.Instance.PoiMoveFactor,
+                    transformToMove.localPosition.y * MyAppPlatformManager.PoiMoveFactor,
                     transformToMove.localPosition.z);
             }
             if (movePoiStartingPosition)
             {
-                transform.localPosition = transform.localPosition * MyAppPlatformManager.Instance.GalaxyScaleFactor;
+                transform.localPosition = transform.localPosition * MyAppPlatformManager.GalaxyScaleFactor;
             }
         }
     }

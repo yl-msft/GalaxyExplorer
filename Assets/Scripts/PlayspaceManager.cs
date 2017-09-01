@@ -30,7 +30,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         private IEnumerator Start()
         {
             // Check to see if we are on an occluded HMD
-            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
             {
                 floorVisible = XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
                 if (floorVisible)

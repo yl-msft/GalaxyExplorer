@@ -12,10 +12,11 @@ namespace GalaxyExplorer
 {
     public class InputRouter : GE_Singleton<InputRouter>
     {
+        // These fields are used for fake input manipulation in the editor.
+        // They aren't defined in an #if UNITY_EDITOR block so serialization
+        // doesn't get messed up.
         public Vector3 fakeInput;
-#if false
         public bool enableFakeInput = false;
-#endif
         public bool FakeTapUpdate;
 
         public bool HandsVisible { get; private set; }
@@ -60,10 +61,14 @@ namespace GalaxyExplorer
                     gestureRecognizer.Tapped += OnTapped;
                 }
 
-                InteractionManager.InteractionSourceDetected += SourceManager_OnInteractionSourceDetected;
-                InteractionManager.InteractionSourceLost += SourceManager_OnInteractionSourceLost;
-                InteractionManager.InteractionSourcePressed += SourceManager_OnInteractionSourcePressed;
-                InteractionManager.InteractionSourceReleased += SourceManager_OnInteractionSourceReleased;
+                if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.HoloLens ||
+                    MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+                {
+                    InteractionManager.InteractionSourceDetected += SourceManager_OnInteractionSourceDetected;
+                    InteractionManager.InteractionSourceLost += SourceManager_OnInteractionSourceLost;
+                    InteractionManager.InteractionSourcePressed += SourceManager_OnInteractionSourcePressed;
+                    InteractionManager.InteractionSourceReleased += SourceManager_OnInteractionSourceReleased;
+                }
 
                 KeyboardInput kbd = KeyboardInput.Instance;
                 if (kbd != null)
@@ -97,10 +102,14 @@ namespace GalaxyExplorer
                     gestureRecognizer.Tapped -= OnTapped;
                 }
 
-                InteractionManager.InteractionSourceDetected -= SourceManager_OnInteractionSourceDetected;
-                InteractionManager.InteractionSourceLost -= SourceManager_OnInteractionSourceLost;
-                InteractionManager.InteractionSourcePressed -= SourceManager_OnInteractionSourcePressed;
-                InteractionManager.InteractionSourceReleased -= SourceManager_OnInteractionSourceReleased;
+                if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.HoloLens ||
+                    MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+                {
+                    InteractionManager.InteractionSourceDetected -= SourceManager_OnInteractionSourceDetected;
+                    InteractionManager.InteractionSourceLost -= SourceManager_OnInteractionSourceLost;
+                    InteractionManager.InteractionSourcePressed -= SourceManager_OnInteractionSourcePressed;
+                    InteractionManager.InteractionSourceReleased -= SourceManager_OnInteractionSourceReleased;
+                }
 
                 KeyboardInput kbd = KeyboardInput.Instance;
                 if (kbd != null)
@@ -127,13 +136,17 @@ namespace GalaxyExplorer
 
         private void Start()
         {
-            gestureRecognizer = new GestureRecognizer();
-            gestureRecognizer.SetRecognizableGestures(GestureSettings.Hold | GestureSettings.Tap |
-                                                      GestureSettings.NavigationY | GestureSettings.NavigationX);
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.HoloLens ||
+                MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+            {
+                gestureRecognizer = new GestureRecognizer();
+                gestureRecognizer.SetRecognizableGestures(GestureSettings.Hold | GestureSettings.Tap |
+                                                          GestureSettings.NavigationY | GestureSettings.NavigationX);
 
-            gestureRecognizer.StartCapturingGestures();
+                gestureRecognizer.StartCapturingGestures();
+            }
 
-            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
             {
                 gameObject.AddComponent<GamepadInput>();
             }
@@ -298,34 +311,27 @@ namespace GalaxyExplorer
 
         private void Update()
         {
-#if false
+#if UNITY_EDITOR
             if (enableFakeInput)
             {
                 if (fakeInput == Vector3.zero)
                 {
-                    OnNavigationCompleted(new NavigationCompletedEventArgs(
+                    OnNavigationCompletedWorker(
                         InteractionSourceKind.Controller,
                         fakeInput,
-                        new HeadPose(),
-                        0));
+                        new Ray());
                 }
                 else
                 {
-                    OnNavigationUpdated(new NavigationUpdatedEventArgs(
+                    OnNavigationUpdatedWorker(
                         InteractionSourceKind.Controller,
                         fakeInput,
-                        new HeadPose(),
-                        0));
+                        new Ray());
                 }
 
                 if (FakeTapUpdate)
                 {
-                    OnTapped(new TappedEventArgs(
-                        InteractionSourceKind.Other,
-                        0,
-                        new HeadPose(),
-                        new InteractionSourcePose(),
-                        0));
+                    InternalHandleOnTapped();
                     FakeTapUpdate = false;
                 }
             }

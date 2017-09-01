@@ -45,7 +45,7 @@ namespace HoloToolkit.Unity
 
         private void Start()
         {
-            transform.localScale *= GalaxyExplorer.MyAppPlatformManager.Instance.PoiScaleFactor;
+            transform.localScale *= GalaxyExplorer.MyAppPlatformManager.PoiScaleFactor;
         }
 
         private void Update()

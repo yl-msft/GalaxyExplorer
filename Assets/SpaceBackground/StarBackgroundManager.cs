@@ -15,7 +15,7 @@ namespace GalaxyExplorer
         {
             gameObject.SetActive(
                 //PlayspaceManager.Instance.useFakeFloor ||
-                (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+                (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
             );
             TransitionManager.Instance.ViewVolume.GetComponent<PlacementControl>().ContentPlaced += UpdateShaderProperties;
             TransitionManager.Instance.ContentLoaded += UpdateShaderProperties;

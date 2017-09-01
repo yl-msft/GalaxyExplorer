@@ -297,8 +297,8 @@ namespace GalaxyExplorer
                         screenComposeMaterial.SetPass(1);
                     }
 #else
-                    if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Desktop ||
-                        MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Phone)
+                    if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.Desktop ||
+                        MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.Phone)
                     {
                         screenComposeMaterial.SetPass(1);
                     }

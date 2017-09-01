@@ -59,8 +59,8 @@ namespace GalaxyExplorer
                 Debug.LogError("ToolManager couldn't find ToolSounds.");
             }
 
-            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Desktop ||
-                MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.Phone)
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.Desktop ||
+                MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.Phone)
             {
                 HideTools(true);
             }
@@ -240,12 +240,16 @@ namespace GalaxyExplorer
 
         public void HideTools(bool instant)
         {
-            StartCoroutine(HideToolsAsync(instant));
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(HideToolsAsync(instant));
+            }
         }
 
         [ContextMenu("Show Tools")]
         public void ShowTools()
         {
+            gameObject.SetActive(true);
             StartCoroutine(ShowToolsAsync());
         }
 
@@ -254,12 +258,13 @@ namespace GalaxyExplorer
             ToolsVisible = false;
             yield return StartCoroutine(panel.FadeOut(instant));
             GetComponentInChildren<ToolSounds>(true).gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public IEnumerator ShowToolsAsync()
         {
-            if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.HoloLens ||
-                MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.HoloLens ||
+                MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
             {
                 ToolsVisible = true;
                 GetComponentInChildren<ToolSounds>(true).gameObject.SetActive(true);

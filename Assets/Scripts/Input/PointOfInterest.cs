@@ -129,7 +129,7 @@ namespace GalaxyExplorer
                 else
                 {
                     targetPosition = new Vector3(transform.localPosition.x, 0.0f, transform.localPosition.z);
-                    targetOffset = new Vector3(0.0f, transform.localPosition.y, 0.0f) * MyAppPlatformManager.Instance.PoiMoveFactor;
+                    targetOffset = new Vector3(0.0f, transform.localPosition.y, 0.0f) * MyAppPlatformManager.PoiMoveFactor;
                 }
             }
 

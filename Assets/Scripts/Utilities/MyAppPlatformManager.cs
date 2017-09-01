@@ -16,18 +16,18 @@ namespace GalaxyExplorer
             Phone
         };
 
-        public PlatformId Platform { get; private set; }
+        public static PlatformId Platform { get; private set; }
 
-        public float SlateScaleFactor
+        public static float SlateScaleFactor
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                    case PlatformId.ImmersiveHMD:
                         return 3.0f;
-                    case MyAppPlatformManager.PlatformId.HoloLens:
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
                         return 1.0f;
                     default:
                         throw new System.Exception();
@@ -35,16 +35,16 @@ namespace GalaxyExplorer
             }
         }
 
-        public float MagicWindowScaleFactor
+        public static float MagicWindowScaleFactor
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                    case PlatformId.ImmersiveHMD:
                         return 3.0f;
-                    case MyAppPlatformManager.PlatformId.HoloLens:
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
                         return 1.0f;
                     default:
                         throw new System.Exception();
@@ -52,33 +52,33 @@ namespace GalaxyExplorer
             }
         }
 
-        public float OrbitalTrailFixedWidth
+        public static float OrbitalTrailFixedWidth
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                    case PlatformId.ImmersiveHMD:
                         return 0.0035f;
-                    case MyAppPlatformManager.PlatformId.HoloLens:
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
                     default:
                         throw new System.Exception();
                 }
             }
         }
 
-        public float GalaxyScaleFactor
+        public static float GalaxyScaleFactor
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                    case PlatformId.ImmersiveHMD:
                         return 3.0f;
-                    case MyAppPlatformManager.PlatformId.HoloLens:
+                    case PlatformId.HoloLens:
                         return 1.0f;
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.Desktop:
                         return 0.75f;
                     default:
                         throw new System.Exception();
@@ -86,16 +86,16 @@ namespace GalaxyExplorer
             }
         }
 
-        public float SolarSystemScaleFactor
+        public static float SolarSystemScaleFactor
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
-                    case MyAppPlatformManager.PlatformId.HoloLens:
+                    case PlatformId.ImmersiveHMD:
+                    case PlatformId.HoloLens:
                         return 1.0f;
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.Desktop:
                         return 0.35f;
                     default:
                         throw new System.Exception();
@@ -103,7 +103,7 @@ namespace GalaxyExplorer
             }
         }
 
-        public float PoiMoveFactor
+        public static float PoiMoveFactor
         {
             get
             {
@@ -120,17 +120,17 @@ namespace GalaxyExplorer
             }
         }
 
-        public float PoiScaleFactor
+        public static float PoiScaleFactor
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                    case PlatformId.ImmersiveHMD:
                         return 3.0f;
-                    case MyAppPlatformManager.PlatformId.HoloLens:
+                    case PlatformId.HoloLens:
                         return 1.0f;
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.Desktop:
                         return 0.75f;
                     default:
                         throw new System.Exception();
@@ -138,16 +138,16 @@ namespace GalaxyExplorer
             }
         }
 
-        public float SpiralGalaxyTintMultConstant
+        public static float SpiralGalaxyTintMultConstant
         {
             get
             {
                 switch (Platform)
                 {
-                    case MyAppPlatformManager.PlatformId.ImmersiveHMD:
+                    case PlatformId.ImmersiveHMD:
                         return 0.22f;
-                    case MyAppPlatformManager.PlatformId.HoloLens:
-                    case MyAppPlatformManager.PlatformId.Desktop:
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
                         return 0.3f;
                     default:
                         throw new System.Exception();
@@ -164,30 +164,30 @@ namespace GalaxyExplorer
             switch (DeviceFamilyString)
             {
                 case "Windows.Holographic":
-                    Platform = MyAppPlatformManager.PlatformId.HoloLens;
+                    Platform = PlatformId.HoloLens;
                     break;
                 case "Windows.Desktop":
                     if (!UnityEngine.XR.XRDevice.isPresent)
                     {
-                        Platform = MyAppPlatformManager.PlatformId.Desktop;
+                        Platform = PlatformId.Desktop;
                     }
                     else
                     {
                         if (UnityEngine.XR.WSA.HolographicSettings.IsDisplayOpaque)
                         {
-                            Platform = MyAppPlatformManager.PlatformId.ImmersiveHMD;
+                            Platform = PlatformId.ImmersiveHMD;
                         }
                         else
                         {
-                            Platform = MyAppPlatformManager.PlatformId.HoloLens;
+                            Platform = PlatformId.HoloLens;
                         }
                     }
                     break;
                 case "Windows.Mobile":
-                    Platform = MyAppPlatformManager.PlatformId.Phone;
+                    Platform = PlatformId.Phone;
                     break;
                 default:
-                    Platform = MyAppPlatformManager.PlatformId.Desktop;
+                    Platform = PlatformId.Desktop;
                     break;
             }
             Debug.LogFormat("MyAppPlatformManager says its Platform is {0}", Platform.ToString());

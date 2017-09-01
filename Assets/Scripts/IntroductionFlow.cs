@@ -149,7 +149,7 @@ namespace GalaxyExplorer
                 case IntroductionState.IntroductionStatePreloadSolarSystem:
                     if (TransitionManager.Instance.InTransition == false)
                     {
-                        if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+                        if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
                         {
                             StarBackgroundManager.Instance.FadeInOut(false);
                         }
@@ -195,7 +195,7 @@ namespace GalaxyExplorer
                 case IntroductionState.IntroductionStateEarthFadeout:
                     if (timeInState > SecondsToFadeOutEarth)
                     {
-                        if (MyAppPlatformManager.Instance.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+                        if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
                         {
                             StarBackgroundManager.Instance.FadeInOut(true);
                         }

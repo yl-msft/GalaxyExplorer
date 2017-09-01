@@ -330,7 +330,7 @@ namespace GalaxyExplorer
             Vector3 startPosition = targetOffsetObject.transform.localPosition;
             Vector3 endPosition = targetOffsetObject.transform.localPosition +
                 (CardPOIManager.Instance.DescriptionSlideDirection *
-                    MyAppPlatformManager.Instance.MagicWindowScaleFactor / 2.0f);
+                    MyAppPlatformManager.MagicWindowScaleFactor / 2.0f);
 
             do
             {

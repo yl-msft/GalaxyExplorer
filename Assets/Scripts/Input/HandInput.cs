@@ -60,6 +60,11 @@ namespace GalaxyExplorer
 
         protected void Awake()
         {
+            if (MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.HoloLens)
+            {
+                DestroyObject(this);
+                return;
+            }
             // Start out with a clean state by resetting both hand structures.
             for (int i = 0; i < handStates.Length; ++i)
             {

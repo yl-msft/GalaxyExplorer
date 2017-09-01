@@ -9,7 +9,7 @@ namespace GalaxyExplorer
     {
         void Awake()
         {
-            transform.localScale = transform.localScale * MyAppPlatformManager.Instance.GalaxyScaleFactor;
+            transform.localScale = transform.localScale * MyAppPlatformManager.GalaxyScaleFactor;
         }
         void Start()
         {
@@ -18,7 +18,7 @@ namespace GalaxyExplorer
             {
                 if (spiral.tintMult < 1)
                 {
-                    spiral.tintMult = MyAppPlatformManager.Instance.SpiralGalaxyTintMultConstant;
+                    spiral.tintMult = MyAppPlatformManager.SpiralGalaxyTintMultConstant;
                     break;
                 }
             }

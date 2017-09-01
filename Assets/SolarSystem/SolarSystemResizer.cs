@@ -9,7 +9,7 @@ namespace GalaxyExplorer
     {
         void Awake()
         {
-            transform.localScale = transform.localScale * MyAppPlatformManager.Instance.SolarSystemScaleFactor;
+            transform.localScale = transform.localScale * MyAppPlatformManager.SolarSystemScaleFactor;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace GalaxyExplorer
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            transform.localScale = transform.localScale * MyAppPlatformManager.Instance.SlateScaleFactor;
+            transform.localScale = transform.localScale * MyAppPlatformManager.SlateScaleFactor;
         }
 
         public void DisplayMessage(InstructionText text)
