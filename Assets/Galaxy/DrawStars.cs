@@ -287,25 +287,13 @@ namespace GalaxyExplorer
                     GL.PopMatrix();
 
                     screenComposeMaterial.mainTexture = RenderTexturesBucket.Instance.downRezHigh;
-#if (UNITY_EDITORx)
+#if (UNITY_EDITOR)
                     if (isEditor)
                     {
                         screenComposeMaterial.SetPass(2);
                     }
-                    else
-                    {
-                        screenComposeMaterial.SetPass(1);
-                    }
 #else
-                    if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.Desktop ||
-                        MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.Phone)
-                    {
-                        screenComposeMaterial.SetPass(1);
-                    }
-                    else // ImmersiveHMD || HoloLens
-                    {
-                        screenComposeMaterial.SetPass(1);
-                    }
+                    screenComposeMaterial.SetPass(1);
 #endif
                     Graphics.DrawMeshNow(cubeMeshProxy, Matrix4x4.TRS(galaxy.transform.position, galaxy.transform.rotation, renderCubeScale));
                 }
