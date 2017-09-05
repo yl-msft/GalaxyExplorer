@@ -29,21 +29,18 @@ namespace GalaxyExplorer
         private SplashScreen splash;
         private Rect splashImageRect;
         private WindowSizeChangedEventHandler onResizeHandler;
-        private XamlInputHandling xamlInputHanlder = new XamlInputHandling();
+        private XamlInputHandling xamlInputHandler;
 
         public MainPage()
         {
             this.InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Required;
 
-            DXSwapChainPanel.ManipulationDelta += DXSwapChainPanel_ManipulationDelta;
-            DXSwapChainPanel.ManipulationStarted += DXSwapChainPanel_ManipulationStarted;
-            DXSwapChainPanel.ManipulationCompleted += DXSwapChainPanel_ManipulationCompleted;
-
             AppCallbacks appCallbacks = AppCallbacks.Instance;
             // Setup scripting bridge
             _bridge = new WinRTBridge.WinRTBridge();
             appCallbacks.SetBridge(_bridge);
+
             bool isWindowsHolographic = false;
 
 #if UNITY_HOLOGRAPHIC
@@ -70,6 +67,21 @@ namespace GalaxyExplorer
                 OnResize();
                 onResizeHandler = new WindowSizeChangedEventHandler((o, e) => OnResize());
                 Window.Current.SizeChanged += onResizeHandler;
+
+                xamlInputHandler = new XamlInputHandling();
+
+                DXSwapChainPanel.ManipulationMode = ManipulationModes.Scale | ManipulationModes.Rotate | ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+                DXSwapChainPanel.ManipulationDelta += DXSwapChainPanel_ManipulationDelta;
+                DXSwapChainPanel.ManipulationStarted += DXSwapChainPanel_ManipulationStarted;
+                DXSwapChainPanel.ManipulationCompleted += DXSwapChainPanel_ManipulationCompleted;
+                DXSwapChainPanel.PointerReleased += DXSwapChainPanel_PointerReleased;
+                DXSwapChainPanel.PointerMoved += DXSwapChainPanel_PointerMoved;
+                DXSwapChainPanel.PointerWheelChanged += DXSwapChainPanel_PointerWheelChanged;
+                DXSwapChainPanel.Holding += DXSwapChainPanel_Holding;
+                DXSwapChainPanel.RightTapped += DXSwapChainPanel_RightTapped;
+
+                AppBarButton_About.Click += AppBarButton_About_Click;
+                AppBarButton_Reset.Click += AppBarButton_Reset_Click;
             }
         }
 
@@ -166,7 +178,7 @@ namespace GalaxyExplorer
             {
                 PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-                xamlInputHanlder.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y, this);
+                xamlInputHandler.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y, this);
             }
         }
 
@@ -175,7 +187,7 @@ namespace GalaxyExplorer
             //UnityEngine.Debug.Log("DXSwapChainPanel_PointerMoved");
             PointerPoint releasePoint = e.GetCurrentPoint(null);
 
-            xamlInputHanlder.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y, this);
+            xamlInputHandler.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y, this);
         }
 
         private enum Manipulation
@@ -198,19 +210,19 @@ namespace GalaxyExplorer
                 currentManipulation == Manipulation.Rotation)
             {
                 currentManipulation = Manipulation.Rotation;
-                xamlInputHanlder.RotationHappened(-e.Delta.Rotation);
+                xamlInputHandler.RotationHappened(-e.Delta.Rotation);
             }
             else if ((currentManipulation == Manipulation.None && e.Delta.Scale != 1) ||
                 currentManipulation == Manipulation.Zoom)
             {
                 currentManipulation = Manipulation.Zoom;
-                xamlInputHanlder.ZoomHappened(e.Delta.Scale);
+                xamlInputHandler.ZoomHappened(e.Delta.Scale);
             }
             else if ((currentManipulation == Manipulation.None) ||
                 currentManipulation == Manipulation.Translate)
             {
                 currentManipulation = Manipulation.Translate;
-                xamlInputHanlder.TranslateHappened(new UnityEngine.Vector2(-(float)e.Delta.Translation.X, (float)e.Delta.Translation.Y));
+                xamlInputHandler.TranslateHappened(new UnityEngine.Vector2(-(float)e.Delta.Translation.X, (float)e.Delta.Translation.Y));
             }
         }
 
@@ -239,28 +251,28 @@ namespace GalaxyExplorer
                 wheelDirection /= Math.Abs(wheelDirection);
 
                 // zoom - zoom
-                xamlInputHanlder.ZoomHappened(1 + (0.03f * wheelDirection));
+                xamlInputHandler.ZoomHappened(1 + (0.03f * wheelDirection));
             }
         }
 
         private void DXSwapChainPanel_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            xamlInputHanlder.ResetHappened();
+            xamlInputHandler.ResetHappened();
         }
 
         private void DXSwapChainPanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            xamlInputHanlder.ResetHappened();
+            xamlInputHandler.ResetHappened();
         }
 
-        private void AppBarButton_Click_Reset(object sender, RoutedEventArgs e)
+        private void AppBarButton_Reset_Click(object sender, RoutedEventArgs e)
         {
-            xamlInputHanlder.ResetHappened();
+            xamlInputHandler.ResetHappened();
         }
 
-        private void AppBarButton_Click_About(object sender, RoutedEventArgs e)
+        private void AppBarButton_About_Click(object sender, RoutedEventArgs e)
         {
-            xamlInputHanlder.AboutHappened();
+            xamlInputHandler.AboutHappened();
         }
     }
 }
