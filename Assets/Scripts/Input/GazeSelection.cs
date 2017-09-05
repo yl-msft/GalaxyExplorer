@@ -85,6 +85,7 @@ namespace GalaxyExplorer
                 gazeRay.direction = camTrans.forward;
 
                 if (UnityEngine.XR.XRDevice.isPresent &&
+                    MotionControllerInput.Instance &&
                     MotionControllerInput.Instance.UseAlternateGazeRay)
                 {
                     gazeRay = MotionControllerInput.Instance.AlternateGazeRay;
