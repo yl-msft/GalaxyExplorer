@@ -290,7 +290,12 @@ namespace GalaxyExplorer
 #if (UNITY_EDITOR)
                     if (isEditor)
                     {
+                        // true if called from DrawGizmos...
                         screenComposeMaterial.SetPass(2);
+                    }
+                    else
+                    {
+                        screenComposeMaterial.SetPass(1);
                     }
 #else
                     screenComposeMaterial.SetPass(1);
