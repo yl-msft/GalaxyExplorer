@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using GalaxyExplorer.HoloToolkit.Unity.InputModule;
+using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
@@ -29,14 +30,10 @@ namespace GalaxyExplorer
 
         public ControllerInformation AlternateGazeRayControlerInformation
         {
-            get { return graspedHand;  }
+            get { return graspedHand; }
         }
 
         private Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
-
-        // hack offset because sourcePose.TryGetPosition returns position
-        // relative to the re-set origin.
-        private Vector3 cameraFirstFramePosition;
 
         public class ControllerInformation
         {
@@ -55,28 +52,35 @@ namespace GalaxyExplorer
         // controller at a time. The first one in wins.
         private ControllerInformation graspedHand = null;
 
+        ControllerVisualizer controllerVisualizer;
+
         private Dictionary<uint, ControllerInformation> controllerDictionary = new Dictionary<uint, ControllerInformation>();
+
+        private bool eventsRegistered = false;
 
         void Awake()
         {
+            if (MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.ImmersiveHMD)
+            {
+                DestroyImmediate(this);
+                return;
+            }
+
+            controllerVisualizer = GetComponent<ControllerVisualizer>();
+            if (controllerVisualizer)
+            {
+                controllerVisualizer.enabled = true;
+            }
+
             InteractionManager.InteractionSourceDetected += InteractionManager_OnInteractionSourceDetected;
             InteractionManager.InteractionSourceLost += InteractionManager_OnInteractionSourceLost;
             InteractionManager.InteractionSourcePressed += InteractionManager_OnInteractionSourcePressed;
             InteractionManager.InteractionSourceReleased += InteractionManager_OnInteractionSourceReleased;
             InteractionManager.InteractionSourceUpdated += InteractionManager_OnInteractionSourceUpdated;
+            eventsRegistered = true;
 
             intendedRotation[InteractionSourceHandedness.Left] = 0f;
             intendedRotation[InteractionSourceHandedness.Right] = 0f;
-        }
-
-        private void Update()
-        {
-            if (Camera.main && Camera.main.transform)
-            {
-                cameraFirstFramePosition = Camera.main.transform.position;
-                Debug.LogFormat("cameraFirstFramePosition={0}", cameraFirstFramePosition.ToString());
-                enabled = false;
-            }
         }
 
         private void ValidateGraspStateTracking(ControllerInformation ci, InteractionSourceUpdatedEventArgs args)
@@ -114,12 +118,12 @@ namespace GalaxyExplorer
             // Update position and forward
             if (obj.state.sourcePose.TryGetPosition(out ci.position, InteractionSourceNode.Pointer))
             {
-                // HACK
-                ci.position += cameraFirstFramePosition;
+                // convert local position into world position
                 ci.position = transform.TransformPoint(ci.position);
             }
             if (obj.state.sourcePose.TryGetForward(out ci.direction, InteractionSourceNode.Pointer))
             {
+                // convert local rotation into world rotation
                 ci.direction = transform.TransformDirection(ci.direction);
             }
 
@@ -234,14 +238,17 @@ namespace GalaxyExplorer
                     break;
 
                 case InteractionSourcePressType.Menu:
-                    if (ToolManager.Instance.ToolsVisible)
+                    if (ToolManager.Instance)
                     {
-                        ToolManager.Instance.UnselectAllTools();
-                        ToolManager.Instance.HideTools(false);
-                    }
-                    else
-                    {
-                        ToolManager.Instance.ShowTools();
+                        if (ToolManager.Instance.ToolsVisible)
+                        {
+                            ToolManager.Instance.UnselectAllTools();
+                            ToolManager.Instance.HideTools(false);
+                        }
+                        else
+                        {
+                            ToolManager.Instance.ShowTools();
+                        }
                     }
                     break;
             }
@@ -276,7 +283,7 @@ namespace GalaxyExplorer
             }
         }
 
-#region Source_Lost_Detected
+        #region Source_Lost_Detected
         private void InteractionManager_OnInteractionSourceLost(InteractionSourceLostEventArgs obj)
         {
             // update controllerDictionary
@@ -346,15 +353,18 @@ namespace GalaxyExplorer
             // update controllerDictionary
             AddNewControllerToDictionary(obj.state);
         }
-#endregion // Source_Lost_Detected
+        #endregion // Source_Lost_Detected
 
         private void OnDestroy()
         {
-            InteractionManager.InteractionSourceDetected -= InteractionManager_OnInteractionSourceDetected;
-            InteractionManager.InteractionSourceLost -= InteractionManager_OnInteractionSourceLost;
-            InteractionManager.InteractionSourcePressed -= InteractionManager_OnInteractionSourcePressed;
-            InteractionManager.InteractionSourceReleased -= InteractionManager_OnInteractionSourceReleased;
-            InteractionManager.InteractionSourceUpdated -= InteractionManager_OnInteractionSourceUpdated;
+            if (eventsRegistered)
+            {
+                InteractionManager.InteractionSourceDetected -= InteractionManager_OnInteractionSourceDetected;
+                InteractionManager.InteractionSourceLost -= InteractionManager_OnInteractionSourceLost;
+                InteractionManager.InteractionSourcePressed -= InteractionManager_OnInteractionSourcePressed;
+                InteractionManager.InteractionSourceReleased -= InteractionManager_OnInteractionSourceReleased;
+                InteractionManager.InteractionSourceUpdated -= InteractionManager_OnInteractionSourceUpdated;
+            }
         }
     }
 }
