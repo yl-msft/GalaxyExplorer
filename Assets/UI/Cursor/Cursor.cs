@@ -316,23 +316,28 @@ namespace GalaxyExplorer
             tapped = true;
         }
 
+        private Ray cursorOriginRay;
         private void Update()
         {
             var cam = Camera.main;
+            if (!cam) return;
 
-            if (!cam)
+            if (UnityEngine.XR.XRDevice.isPresent &&
+                MotionControllerInput.Instance &&
+                MotionControllerInput.Instance.UseAlternateGazeRay)
             {
-                return;
+                cursorOriginRay = MotionControllerInput.Instance.AlternateGazeRay;
+            }
+            else
+            {
+                // We do not want the cursor to collide with things inside the
+                // near clip plane. shift our gaze position forward by that
+                // amount.
+                cursorOriginRay.origin = cam.transform.position + (cam.nearClipPlane * cam.transform.forward);
+                cursorOriginRay.direction = cam.transform.forward;
             }
 
-            // We do not want the cursor to collide with things inside the near clip plane. shift our gaze position forward by that amount.
-            var originRay = new Ray(cam.transform.position + (cam.nearClipPlane * cam.transform.forward), cam.transform.forward);
-            if (MotionControllerInput.Instance.UseAlternateGazeRay)
-            {
-                originRay = MotionControllerInput.Instance.AlternateGazeRay;
-            }
-
-            Vector3 desiredPosition = originRay.origin + (originRay.direction * defaultCursorDistance);
+            Vector3 desiredPosition = cursorOriginRay.origin + (cursorOriginRay.direction * defaultCursorDistance);
 
             bool hasHit = false;
             bool hasUIHit = false;
@@ -346,16 +351,25 @@ namespace GalaxyExplorer
                 switch (priorityMask.collisionType)
                 {
                     case CursorCollisionSearch.RaycastSearch:
-                        if (Physics.Raycast(originRay, out hitInfo, float.MaxValue, priorityMask.layers))
+                        if (Physics.Raycast(cursorOriginRay, out hitInfo, float.MaxValue, priorityMask.layers))
                         {
                             var collider = hitInfo.collider;
                             isOverToolbar = collider.GetComponent<Button>() != null || collider.GetComponent<Tool>() != null;
                             var poiReference = collider.GetComponentInParent<PointOfInterestReference>();
                             isColliderGalaxyCardPOI = poiReference && poiReference.pointOfInterest && poiReference.pointOfInterest is CardPointOfInterest;
 
-                            desiredPosition = hitInfo.point + 
-                                (((isOverToolbar && MotionControllerInput.Instance.UseAlternateGazeRay)?0f:forwardImpactOffset) *
-                                originRay.direction);
+                            float offset = forwardImpactOffset;
+                            if (isOverToolbar &&
+                                MotionControllerInput.Instance &&
+                                MotionControllerInput.Instance.UseAlternateGazeRay)
+                            {
+                                // if we are over the toolbar and using the motion
+                                // controller make the offset zero so the cursor
+                                // actually hits the target
+                                offset = 0f;
+                            }
+
+                            desiredPosition = hitInfo.point + (offset * cursorOriginRay.direction);
                             hasHit = true;
                             hasUIHit = true;
                         }
@@ -363,16 +377,24 @@ namespace GalaxyExplorer
                         break;
 
                     case CursorCollisionSearch.SphereCastSearch:
-                        hasHit = Physics.SphereCast(originRay, visibilitySphereCastRadius, out hitInfo, float.MaxValue, priorityMask.layers);
+                        hasHit = Physics.SphereCast(cursorOriginRay, visibilitySphereCastRadius, out hitInfo, float.MaxValue, priorityMask.layers);
 
-                        if (hasHit && !MotionControllerInput.Instance.UseAlternateGazeRay)
+                        if (hasHit)
                         {
-                            var camSpaceHit = cam.transform.InverseTransformPoint(hitInfo.point);
+                            if (MotionControllerInput.Instance &&
+                                MotionControllerInput.Instance.UseAlternateGazeRay)
+                            {
+                                desiredPosition = cursorOriginRay.origin + cursorOriginRay.direction * hitInfo.distance;
+                            }
+                            else
+                            {
+                                var camSpaceHit = cam.transform.InverseTransformPoint(hitInfo.point);
 
-                            var camSpaceDesiredPosition = cam.transform.InverseTransformPoint(desiredPosition);
-                            camSpaceDesiredPosition.z = camSpaceHit.z;
+                                var camSpaceDesiredPosition = cam.transform.InverseTransformPoint(desiredPosition);
+                                camSpaceDesiredPosition.z = camSpaceHit.z;
 
-                            desiredPosition = cam.transform.TransformPoint(camSpaceDesiredPosition);
+                                desiredPosition = cam.transform.TransformPoint(camSpaceDesiredPosition);
+                            }
                         }
 
                         break;
@@ -384,28 +406,35 @@ namespace GalaxyExplorer
                 }
             }
 
-            transform.rotation = Quaternion.LookRotation(cam.transform.forward, cam.transform.up);
-
-            var camSpacePreviousPos = cam.transform.InverseTransformPoint(previousPosition);
-            var camSpaceDesiredPos = cam.transform.InverseTransformPoint(desiredPosition);
-
-            var camSpaceFinalPos = Vector3.Lerp(camSpacePreviousPos, camSpaceDesiredPos, positionUpdateSpeed * Time.deltaTime);
-            camSpaceFinalPos.z = Mathf.Lerp(camSpacePreviousPos.z, camSpaceDesiredPos.z, (hasUIHit ? positionUpdateSpeed : positionUpdateSpeedWhenNoCollision) * Time.deltaTime);
-
-            if (MotionControllerInput.Instance.UseAlternateGazeRay)
+            if (MotionControllerInput.Instance &&
+                MotionControllerInput.Instance.UseAlternateGazeRay)
             {
+                transform.rotation = Quaternion.LookRotation(cam.transform.forward, cam.transform.up);
                 transform.position = previousPosition = desiredPosition;
-                AlternateGazeRayLineRenderer.SetPositions(new Vector3[] { originRay.origin, desiredPosition });
+
+                AlternateGazeRayLineRenderer.SetPositions(new Vector3[] { cursorOriginRay.origin, desiredPosition });
                 AlternateGazeRayLineRenderer.enabled = true;
             }
             else
             {
-                AlternateGazeRayLineRenderer.enabled = false;
+                transform.rotation = Quaternion.LookRotation(cursorOriginRay.direction, Vector3.up);
+
+                var camSpacePreviousPos = cam.transform.InverseTransformPoint(previousPosition);
+                var camSpaceDesiredPos = cam.transform.InverseTransformPoint(desiredPosition);
+                var camSpaceFinalPos = Vector3.Lerp(camSpacePreviousPos, camSpaceDesiredPos, positionUpdateSpeed * Time.deltaTime);
+                camSpaceFinalPos.z = Mathf.Lerp(camSpacePreviousPos.z, camSpaceDesiredPos.z, (hasUIHit ? positionUpdateSpeed : positionUpdateSpeedWhenNoCollision) * Time.deltaTime);
+
                 transform.position = previousPosition = cam.transform.TransformPoint(camSpaceFinalPos);
+
+                AlternateGazeRayLineRenderer.enabled = false;
             }
 
-            var distance = (transform.position - Camera.main.transform.position).magnitude;
+            var distance = (transform.position - cursorOriginRay.origin).magnitude;
             transform.localScale = Vector3.one * Mathf.Min(targetScale, maxScreenSize * distance);
+
+#if !UNITY_EDITOR
+            Debug.DrawLine(cursorOriginRay.origin, transform.position);
+#endif
         }
 
         public void ApplyCursorState(CursorState state)
