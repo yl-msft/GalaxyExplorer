@@ -55,6 +55,13 @@ namespace GalaxyExplorer
             }
 
             selectedTargets = new SortedList<float, RaycastHit>();
+
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
+                GazeSpreadDegrees < 10f)
+            {
+                GazeSpreadDegrees = 10f;
+            }
+
             targetSpreadMinValue = Mathf.Cos(Mathf.Deg2Rad * GazeSpreadDegrees);
 
             if (!UnityEngine.XR.XRDevice.isPresent)
@@ -81,9 +88,6 @@ namespace GalaxyExplorer
             {
                 Transform camTrans = Camera.main.transform;
 
-                gazeRay.origin = camTrans.position + (Camera.main.nearClipPlane * camTrans.forward);
-                gazeRay.direction = camTrans.forward;
-
                 if (UnityEngine.XR.XRDevice.isPresent &&
                     MotionControllerInput.Instance &&
                     MotionControllerInput.Instance.UseAlternateGazeRay)
@@ -97,6 +101,11 @@ namespace GalaxyExplorer
                     gazeRay.origin += (Camera.main.nearClipPlane * gazeRay.direction);
                 }
 #endif
+                else
+                {
+                    gazeRay.origin = camTrans.position + (Camera.main.nearClipPlane * camTrans.forward);
+                    gazeRay.direction = camTrans.forward;
+                }
 
                 foreach (Cursor.PriorityLayerMask priorityMask in Cursor.Instance.prioritizedCursorMask)
                 {
@@ -124,6 +133,7 @@ namespace GalaxyExplorer
                                 {
                                     Vector3 toTarget = Vector3.Normalize(target.transform.position - gazeRay.origin);
                                     float dotProduct = Vector3.Dot(gazeRay.direction, toTarget);
+
                                     // The dotProduct of our two vectors is equivalent to the cosine
                                     // of the angle between them. If it is larger than the targetSpreadValue
                                     // established in Start(), that means the hit occurred within the
