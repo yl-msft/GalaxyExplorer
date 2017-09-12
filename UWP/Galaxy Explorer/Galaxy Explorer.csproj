@@ -9,7 +9,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Galaxy_Explorer</RootNamespace>
-    <AssemblyName>GalaxyExplorer</AssemblyName>
+    <AssemblyName>Galaxy Explorer</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16232.0</TargetPlatformVersion>
@@ -288,14 +288,14 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>.\Unprocessed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>.\Unprocessed\UnityEngine.AccessibilityModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>.\Unprocessed\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>.\Unprocessed\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>.\Unprocessed\UnityEngine.AccessibilityModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>.\Unprocessed\UnityEngine.dll</HintPath>
@@ -357,22 +357,13 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="WSATestCertificate.pfx" />
-    <!--
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj">
-      <Project>{fa367816-0e45-41b8-a2af-e7be76ed4a85}</Project>
+      <Project>{0a47c937-cd7b-46e6-96fd-b9fcc4f77265}</Project>
       <Name>Assembly-CSharp</Name>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj">
-      <Project>{da9ddd18-23b9-4d23-9631-8881c14e4daa}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-      <Private>False</Private>
-    </ProjectReference>
--->
-  </ItemGroup>
-  <ItemGroup>
+  </ItemGroup>  <ItemGroup>
     <Reference Include="UnityPlayer">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityPlayer.winmd</HintPath>
@@ -837,10 +828,6 @@
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.UI.pdb">
         <TargetPath>UnityEngine.UI.pdb</TargetPath>
       </AppxPackagePayload>
-      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.AR.pdb'" />
-      <AppxPackagePayload Include="$(ProjectDir)UnityEngine.AR.pdb">
-        <TargetPath>UnityEngine.AR.pdb</TargetPath>
-      </AppxPackagePayload>
       <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.HoloLens.dll'" />
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.HoloLens.dll">
         <TargetPath>UnityEngine.HoloLens.dll</TargetPath>
@@ -857,25 +844,15 @@
       <AppxPackagePayload Include="$(ProjectDir)UnityEngine.Networking.pdb">
         <TargetPath>UnityEngine.Networking.pdb</TargetPath>
       </AppxPackagePayload>
-      <!--      
-            <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.VR.dll'" />
-            <AppxPackagePayload Include="$(ProjectDir)UnityEngine.VR.dll">
-                <TargetPath>UnityEngine.VR.dll</TargetPath>
-            </AppxPackagePayload>
-            <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'UnityEngine.VR.pdb'" />
-            <AppxPackagePayload Include="$(ProjectDir)UnityEngine.VR.pdb">
-                <TargetPath>UnityEngine.VR.pdb</TargetPath>
-            </AppxPackagePayload>
-            <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp-firstpass.dll'" />
-            <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp-firstpass.dll">
-                <TargetPath>Assembly-CSharp-firstpass.dll</TargetPath>
-            </AppxPackagePayload>
-            <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp-firstpass.pdb'" />
-            <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp-firstpass.pdb">
-                <TargetPath>Assembly-CSharp-firstpass.pdb</TargetPath>
-            </AppxPackagePayload>
--->
-    </ItemGroup>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp.dll'" />
+      <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp.dll">
+        <TargetPath>Assembly-CSharp.dll</TargetPath>
+      </AppxPackagePayload>
+      <AppxPackagePayload Remove="@(AppxPackagePayload)" Condition="'%(TargetPath)' == 'Assembly-CSharp.pdb'" />
+      <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp.pdb">
+        <TargetPath>Assembly-CSharp.pdb</TargetPath>
+      </AppxPackagePayload>
+  </ItemGroup>
   </Target>
   <PropertyGroup>
     <Win32Resource>Resource.res</Win32Resource>

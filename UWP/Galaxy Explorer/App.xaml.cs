@@ -130,10 +130,10 @@ namespace GalaxyExplorer
 
         private void RegisterForBackButtonChangeRequests()
         {
-            if ((MyAppPlatformManager.Instance.Platform != MyAppPlatformManager.PlatformId.HoloLens) &&
-                (MyAppPlatformManager.Instance.Platform != MyAppPlatformManager.PlatformId.ImmersiveHMD))
+            if ((MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.HoloLens) &&
+                (MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.ImmersiveHMD))
             {
-                UnityEngine.Debug.LogFormat("RegisterForBackButtonChangeRequests on platform {0}", MyAppPlatformManager.Instance.Platform.ToString());
+                UnityEngine.Debug.LogFormat("RegisterForBackButtonChangeRequests on platform {0}", MyAppPlatformManager.Platform.ToString());
                 ToolManager.BackButtonVisibilityChangeRequested += ToolManager_BackButtonVisibilityChangeRequested;
             }
         }
