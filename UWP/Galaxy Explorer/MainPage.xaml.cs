@@ -46,7 +46,16 @@ namespace GalaxyExplorer
 #if UNITY_HOLOGRAPHIC
             // If application was exported as Holographic make sure there is a
             // HolographicSpace available.
-            isWindowsHolographic = Windows.Graphics.Holographic.HolographicSpace.IsAvailable;
+            MyAppPlatformManager.DeviceFamilyString = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (MyAppPlatformManager.DeviceFamilyString.Equals("Windows.Holographic"))
+            {
+                // App is running on a HoloLens.
+                isWindowsHolographic = true;
+            }
+            else
+            {
+                isWindowsHolographic = Windows.Graphics.Holographic.HolographicSpace.IsAvailable;
+            }
 #endif
 
             if (isWindowsHolographic)
