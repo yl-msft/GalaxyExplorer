@@ -101,18 +101,23 @@ namespace GalaxyExplorer
                 MotionControllerInput.Instance.UseAlternateGazeRay &&
                 MotionControllerInput.Instance.AlternateGazeRayControlerInformation != null)
             {
-                Ray ray = MotionControllerInput.Instance.AlternateGazeRay;
                 var ci = MotionControllerInput.Instance.AlternateGazeRayControlerInformation;
-                float distance = Mathf.Clamp(distanceToHead + (ci.accumulatedY / 10f), distanceToHead / 2f, Cursor.Instance.defaultCursorDistance);
+                ci.accumulatedY = Mathf.Clamp(ci.accumulatedY, -distanceToHead, Cursor.Instance.defaultCursorDistance * 5f);
+                var distance = distanceToHead + (ci.accumulatedY / 10f);
+
+                Ray ray = MotionControllerInput.Instance.AlternateGazeRay;
                 transform.position = ray.origin + (ray.direction * distance);
-                transform.rotation = Quaternion.LookRotation(-ray.direction, Vector3.up);
+
+                Vector3 look = ray.origin - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(look, Vector3.up);
+                transform.rotation = Quaternion.Euler(rotation.eulerAngles) * Quaternion.Euler(rotationOffset);
             }
             else
             {
                 transform.position = head.position + (head.forward * distanceToHead);
                 transform.rotation = Quaternion.Euler(head.rotation.eulerAngles) * Quaternion.Euler(rotationOffset);
-                transform.localPosition += offset;
             }
+            transform.localPosition += offset;
         }
 
         public void UpdateTransform()
