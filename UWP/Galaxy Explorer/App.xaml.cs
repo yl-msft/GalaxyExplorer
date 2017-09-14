@@ -25,6 +25,7 @@ namespace GalaxyExplorer
         public App()
         {
             this.InitializeComponent();
+            //SetupOrientation();
             appCallbacks = new AppCallbacks();
         }
 
@@ -84,15 +85,14 @@ namespace GalaxyExplorer
 
         private void InitializeUnity(string args)
         {
-#if UNITY_UWP
-            ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
-            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-#pragma warning disable 4014
-            {
-                StatusBar.GetForCurrentView().HideAsync();
-            }
-#pragma warning restore 4014
+#if UNITY_WP_8_1 || UNITY_UWP
+            ApplicationView.GetForCurrentView().SuppressSystemOverlays = true;
 #endif
+
+#if UNITY_WP_8_1
+            StatusBar.GetForCurrentView().HideAsync();
+#endif
+
             appCallbacks.SetAppArguments(args);
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -103,9 +103,8 @@ namespace GalaxyExplorer
                 rootFrame = new Frame();
                 Window.Current.Content = rootFrame;
 #if !UNITY_HOLOGRAPHIC
-				Window.Current.Activate();
+                Window.Current.Activate();
 #endif
-
                 rootFrame.Navigate(typeof(MainPage));
             }
 
@@ -128,6 +127,13 @@ namespace GalaxyExplorer
                 waitUntilDone: false);
         }
 
+        void SetupOrientation()
+        {
+#if UNITY_UWP
+            Unity.UnityGenerated.SetupDisplay();
+#endif					
+        }
+		
         private void RegisterForBackButtonChangeRequests()
         {
             if ((MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.HoloLens) &&

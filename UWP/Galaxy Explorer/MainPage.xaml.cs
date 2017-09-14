@@ -44,18 +44,15 @@ namespace GalaxyExplorer
             bool isWindowsHolographic = false;
 
 #if UNITY_HOLOGRAPHIC
-            // If application was exported as Holographic make sure there is a
-            // HolographicSpace available.
-            MyAppPlatformManager.DeviceFamilyString = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
-            if (MyAppPlatformManager.DeviceFamilyString.Equals("Windows.Holographic"))
-            {
-                // App is running on a HoloLens.
-                isWindowsHolographic = true;
-            }
-            else
+            // If application was exported as Holographic check if the deviceFamily actually supports it,
+            // otherwise we treat this as a normal XAML application
+            string deviceFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+            isWindowsHolographic = String.Compare("Windows.Holographic", deviceFamily) == 0;
+            if (!isWindowsHolographic)
             {
                 isWindowsHolographic = Windows.Graphics.Holographic.HolographicSpace.IsAvailable;
             }
+            MyAppPlatformManager.DeviceFamilyString = deviceFamily;
 #endif
 
             if (isWindowsHolographic)
@@ -150,14 +147,14 @@ namespace GalaxyExplorer
                 byte g = (byte)((value & 0x0000FF00) >> 8);
                 byte b = (byte)(value & 0x000000FF);
 
-                await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.High, delegate ()
-                {
-                    byte a = (byte)(transparent ? 0x00 : 0xFF);
-                    ExtendedSplashGrid.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                });
+                await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.High, delegate()
+                    {
+                        byte a = (byte)(transparent ? 0x00 : 0xFF);
+                        ExtendedSplashGrid.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+                    });
             }
             catch (Exception)
-            { }
+            {}
         }
 
         public SwapChainPanel GetSwapChainPanel()
