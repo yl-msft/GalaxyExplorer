@@ -146,11 +146,6 @@ namespace GalaxyExplorer
                 gestureRecognizer.StartCapturingGestures();
             }
 
-            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
-            {
-                gameObject.AddComponent<GamepadInput>();
-            }
-
             TryToRegisterEvents();
         }
 

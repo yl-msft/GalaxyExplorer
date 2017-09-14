@@ -84,7 +84,10 @@ namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
             float x = Input.GetAxis(GamepadRotationStick);
             if (intendedRotation != 0f && x == 0f)
             {
-                RotateCameraPov(intendedRotation);
+                if (RotateCameraPov != null)
+                {
+                    RotateCameraPov(intendedRotation);
+                }
                 intendedRotation = 0f;
             }
             else if (Math.Abs(x) == 1f)

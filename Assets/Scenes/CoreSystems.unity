@@ -966,6 +966,7 @@ GameObject:
   - component: {fileID: 636860372}
   - component: {fileID: 636860371}
   - component: {fileID: 636860373}
+  - component: {fileID: 636860374}
   m_Layer: 0
   m_Name: CameraRigs
   m_TagString: Untagged
@@ -1027,6 +1028,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7f152f79ed3624b8294cb7e3a6455e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &636860374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636860369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcb7138f5d041941b8b548c286a3521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GamePadButtonA: Fire1
+  GamePadButtonB: Go Back
+  GamePadId: 50000
+  HoldStartedInterval: 2
+  HoldCompletedInterval: 3
+  NavigateAroundXAxisName: ControllerLeftStickX
+  NavigateAroundYAxisName: ControllerLeftStickY
+  GamepadRotationStick: ControllerRightStickX
 --- !u!1 &655872930
 GameObject:
   m_ObjectHideFlags: 0
