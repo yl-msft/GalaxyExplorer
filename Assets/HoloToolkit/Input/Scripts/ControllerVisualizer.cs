@@ -293,6 +293,15 @@ namespace HoloToolkit.Unity.InputModule
             {
                 newControllerInfo.LoadInfo(controllerModelGameObject.GetComponentsInChildren<Transform>(), this);
             }
+
+            // clean up the dictionary if there is already a controller with this ID.
+            ControllerInfo alreadyAddedController;
+            if (controllerDictionary.TryGetValue(id, out alreadyAddedController))
+            {
+                controllerDictionary.Remove(id);
+                Destroy(alreadyAddedController);
+            }
+
             controllerDictionary.Add(id, newControllerInfo);
         }
 #endif
