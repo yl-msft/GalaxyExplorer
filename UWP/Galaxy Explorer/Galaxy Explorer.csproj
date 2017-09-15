@@ -12,7 +12,7 @@
     <AssemblyName>Galaxy Explorer</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16232.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.16278.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -26,7 +26,7 @@
       _UAP_$(Platform)_$(Configuration)_dotnet.pdb;
       .pdb;
     </AllowedReferenceRelatedFileExtensions>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
@@ -151,7 +151,7 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.16232.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.16278.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
@@ -363,7 +363,8 @@
       <Project>{0a47c937-cd7b-46e6-96fd-b9fcc4f77265}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
-  </ItemGroup>  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityPlayer">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(UnityWSAPlayerDir)Players\UAP\dotnet\$(PlatformTarget)\$(Configuration)\UnityPlayer.winmd</HintPath>
@@ -852,7 +853,7 @@
       <AppxPackagePayload Include="$(ProjectDir)Assembly-CSharp.pdb">
         <TargetPath>Assembly-CSharp.pdb</TargetPath>
       </AppxPackagePayload>
-  </ItemGroup>
+    </ItemGroup>
   </Target>
   <PropertyGroup>
     <Win32Resource>Resource.res</Win32Resource>
