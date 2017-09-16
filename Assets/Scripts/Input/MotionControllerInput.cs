@@ -334,7 +334,8 @@ namespace GalaxyExplorer
                 controllerDictionary.Add(ci.id, ci);
 
                 if (GamepadInput.Instance &&
-                    GamepadInput.Instance.enabled)
+                    GamepadInput.Instance.enabled &&
+                    InputRouter.Instance)
                 {
                     // if we detected a (Motion)Controller, disable the GamePad script
                     Debug.Log("Disabling GamepadInput instance");
