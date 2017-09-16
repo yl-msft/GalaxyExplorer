@@ -307,7 +307,7 @@ namespace GalaxyExplorer
                     // if we lost all (Motion)Controllers, enable the GamePad script
                     Debug.Log("Enabling GamepadInput instance");
                     GamepadInput.Instance.enabled = true;
-                    InputRouter.Instance.SetGestureRecognitionState(true);
+                    InputRouter.Instance.EnableHoldAndNavigationGestures(true);
                 }
             }
         }
@@ -340,7 +340,7 @@ namespace GalaxyExplorer
                     // if we detected a (Motion)Controller, disable the GamePad script
                     Debug.Log("Disabling GamepadInput instance");
                     GamepadInput.Instance.enabled = false;
-                    InputRouter.Instance.SetGestureRecognitionState(false);
+                    InputRouter.Instance.EnableHoldAndNavigationGestures(false);
                 }
 
                 return ci;

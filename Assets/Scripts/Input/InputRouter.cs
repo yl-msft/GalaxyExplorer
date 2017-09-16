@@ -149,7 +149,7 @@ namespace GalaxyExplorer
             TryToRegisterEvents();
         }
 
-        public void SetGestureRecognitionState(bool enabled)
+        public void EnableHoldAndNavigationGestures(bool enabled)
         {
             if (gestureRecognizer == null) return;
 
