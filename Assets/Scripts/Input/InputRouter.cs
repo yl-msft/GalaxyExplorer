@@ -151,6 +151,8 @@ namespace GalaxyExplorer
 
         public void SetGestureRecognitionState(bool enabled)
         {
+            if (gestureRecognizer == null) return;
+
             if (enabled)
             {
                 gestureRecognizer.SetRecognizableGestures(GestureSettings.Hold | GestureSettings.Tap |
