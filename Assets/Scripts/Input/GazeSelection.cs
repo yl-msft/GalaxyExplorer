@@ -132,9 +132,9 @@ namespace GalaxyExplorer
                                 foreach (RaycastHit target in hitTargets)
                                 {
                                     Vector3 toTarget = Vector3.Normalize(target.transform.position - gazeRay.origin);
-                                    float dotProduct = Vector3.Dot(gazeRay.direction, toTarget);
+                                    float dotProduct = Vector3.Dot(gazeRay.direction.normalized, toTarget.normalized);
 
-                                    // The dotProduct of our two vectors is equivalent to the cosine
+                                    // The dotProduct of our two normalized vectors is equivalent to the cosine
                                     // of the angle between them. If it is larger than the targetSpreadValue
                                     // established in Start(), that means the hit occurred within the
                                     // cone and the hitTarget should be added to our list of selectedTargets.
