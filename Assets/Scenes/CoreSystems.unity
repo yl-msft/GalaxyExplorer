@@ -581,6 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb69de839bd015f4099b5bd2c45e53e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnscaledTime: 1
   PositionPerSecond: 30
   RotationDegreesPerSecond: 720
   RotationSpeedScaler: 0
@@ -1036,7 +1037,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 636860369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fcb7138f5d041941b8b548c286a3521, type: 3}
+  m_Script: {fileID: 11500000, guid: ef7d866386841064db13b68ce22de4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GamePadButtonA: Fire1
@@ -1154,6 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb69de839bd015f4099b5bd2c45e53e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnscaledTime: 1
   PositionPerSecond: 30
   RotationDegreesPerSecond: 720
   RotationSpeedScaler: 0
@@ -1297,7 +1299,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  m_ExtensionPropertyValues: []
 --- !u!114 &671734373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2513,7 +2514,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1311969407}
   m_Enabled: 1
-  m_ExtensionPropertyValues: []
 --- !u!1001 &1410223119
 Prefab:
   m_ObjectHideFlags: 0
@@ -2984,6 +2984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb69de839bd015f4099b5bd2c45e53e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnscaledTime: 1
   PositionPerSecond: 30
   RotationDegreesPerSecond: 720
   RotationSpeedScaler: 0
