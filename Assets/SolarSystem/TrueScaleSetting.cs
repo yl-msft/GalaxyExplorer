@@ -96,7 +96,7 @@ namespace GalaxyExplorer
                 }
             }
         }
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (AsteroidMaterial)
             {
@@ -106,6 +106,7 @@ namespace GalaxyExplorer
             {
                 OrbitsMaterial.SetFloat("_Truthfulness", originalRealismScale);
             }
+            base.OnDestroy();
         }
     }
 }

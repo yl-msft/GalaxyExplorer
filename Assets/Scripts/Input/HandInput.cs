@@ -111,7 +111,7 @@ namespace GalaxyExplorer
             TryToRegisterEvents();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             TryToUnregisterEvents();
 
@@ -120,6 +120,7 @@ namespace GalaxyExplorer
             {
                 UnregisterHandByIndex(i);
             }
+            base.OnDestroy();
         }
 
         private void OnEnable()

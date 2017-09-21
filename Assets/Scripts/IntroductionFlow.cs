@@ -99,7 +99,7 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (coreSystemsLoaded)
             {
@@ -112,6 +112,7 @@ namespace GalaxyExplorer
             {
                 ViewLoader.Instance.CoreSystemsLoaded -= CoreSystemsLoaded;
             }
+            base.OnDestroy();
         }
 
         private void Update()

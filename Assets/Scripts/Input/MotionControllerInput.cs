@@ -356,7 +356,7 @@ namespace GalaxyExplorer
         }
         #endregion // Source_Lost_Detected
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (eventsRegistered)
             {
@@ -366,6 +366,7 @@ namespace GalaxyExplorer
                 InteractionManager.InteractionSourceReleased -= InteractionManager_OnInteractionSourceReleased;
                 InteractionManager.InteractionSourceUpdated -= InteractionManager_OnInteractionSourceUpdated;
             }
+            base.OnDestroy();
         }
     }
 }

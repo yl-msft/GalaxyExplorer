@@ -352,7 +352,7 @@ namespace GalaxyExplorer
             ctrlKeyIsDown = lCtrlKeyIsDown || rCtrlKeyIsDown;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (gestureRecognizer != null)
             {
@@ -363,6 +363,7 @@ namespace GalaxyExplorer
             {
                 TryToUnregisterEvents();
             }
+            base.OnDestroy();
         }
 
 #region EventCallbacks

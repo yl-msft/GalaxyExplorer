@@ -90,12 +90,13 @@ namespace GalaxyExplorer
             toolSounds.gameObject.SetActive(false);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (TransitionManager.Instance)
             {
                 TransitionManager.Instance.ContentLoaded -= ViewContentLoaded;
             }
+            base.OnDestroy();
         }
 
         private void ViewContentLoaded()

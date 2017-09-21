@@ -149,9 +149,10 @@ namespace GalaxyExplorer
                 }
             }
 
-            private void OnDestroy()
+            protected override void OnDestroy()
             {
                 DestroyBuffers();
+                base.OnDestroy();
             }
 
             private void DestroyBuffers()

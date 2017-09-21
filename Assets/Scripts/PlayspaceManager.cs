@@ -193,7 +193,7 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (GamepadInput.Instance)
             {
@@ -203,6 +203,7 @@ namespace GalaxyExplorer
             {
                 MotionControllerInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
             }
+            base.OnDestroy();
         }
 
         private void FadeInOut(bool fadeIn)

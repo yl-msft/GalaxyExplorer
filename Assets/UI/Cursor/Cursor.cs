@@ -468,9 +468,10 @@ namespace GalaxyExplorer
             ApplyCursorState(CursorState.Default);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             cursorMaterial.SetFloat("_Alpha", originalAlpha);
+            base.OnDestroy();
         }
     }
 }

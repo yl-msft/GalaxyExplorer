@@ -44,12 +44,13 @@ namespace GalaxyExplorer
             InputRouter.Instance.InputTapped += InputTapped;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             if (InputRouter.Instance != null)
             {
                 InputRouter.Instance.InputTapped -= InputTapped;
             }
+            base.OnDestroy();
         }
 
         private void InputTapped()

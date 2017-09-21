@@ -32,7 +32,7 @@ namespace HoloToolkit.Unity
             }
         }
 
-        protected void OnDestroy()
+        protected virtual void OnDestroy()
         {
             _Instance = null;
         }
