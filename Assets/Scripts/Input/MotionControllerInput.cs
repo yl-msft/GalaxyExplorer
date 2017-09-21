@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
-    public class MotionControllerInput : GE_Singleton<MotionControllerInput>
+    public class MotionControllerInput : SingleInstance<MotionControllerInput>
     {
         public delegate void RotateCameraPovDelegate(float rotationAmount);
         public event RotateCameraPovDelegate RotateCameraPov;

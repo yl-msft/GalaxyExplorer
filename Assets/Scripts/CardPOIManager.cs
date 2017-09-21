@@ -1,11 +1,12 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class CardPOIManager : GE_Singleton<CardPOIManager>
+    public class CardPOIManager : SingleInstance<CardPOIManager>
     {
         [Header("Galaxy Card POI Fading")]
         [Tooltip("The time it takes for all points of interest to completely fade out when a card point of interest is selected.")]

@@ -1,11 +1,12 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class StarBackgroundManager : GE_Singleton<StarBackgroundManager>
+    public class StarBackgroundManager : SingleInstance<StarBackgroundManager>
     {
         public float FadeInOutTime = 1.0f;
         public AnimationCurve StarBackgroundFadeCurve;

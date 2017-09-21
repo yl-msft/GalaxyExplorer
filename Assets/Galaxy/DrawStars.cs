@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace GalaxyExplorer
 #endif
     }
 
-    public class RenderTexturesBucket : GE_Singleton<RenderTexturesBucket>
+    public class RenderTexturesBucket : SingleInstance<RenderTexturesBucket>
     {
         public RenderTexture downRez;
         public RenderTexture downRezMed;

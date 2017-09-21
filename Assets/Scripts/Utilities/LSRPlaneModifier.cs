@@ -1,12 +1,12 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using UnityEngine;
-
 
 namespace GalaxyExplorer
 {
-    public class LSRPlaneModifier : GE_Singleton<LSRPlaneModifier>
+    public class LSRPlaneModifier : SingleInstance<LSRPlaneModifier>
     {
         public LayerMask TargetCollisionLayers;
         public LayerMask FallbackCollisionLayers;

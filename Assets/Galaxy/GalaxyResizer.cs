@@ -1,11 +1,12 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class GalaxyResizer : GE_Singleton<GalaxyResizer>
+    public class GalaxyResizer : SingleInstance<GalaxyResizer>
     {
         private BoxCollider cursorCollisionBackground = null;
 

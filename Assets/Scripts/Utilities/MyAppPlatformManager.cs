@@ -1,12 +1,13 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class MyAppPlatformManager : GE_Singleton<MyAppPlatformManager>
+    public class MyAppPlatformManager : SingleInstance<MyAppPlatformManager>
     {
         public enum PlatformId
         {

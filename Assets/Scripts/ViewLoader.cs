@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace GalaxyExplorer
 {
     public delegate void SceneLoaded(GameObject content, string oldSceneName);
 
-    public class ViewLoader : GE_Singleton<ViewLoader>
+    public class ViewLoader : SingleInstance<ViewLoader>
     {
         public static float AudioFadeoutTime = 1.0f;
 

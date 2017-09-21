@@ -1,13 +1,14 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using System.Collections;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class ToolManager : GE_Singleton<ToolManager>
+    public class ToolManager : SingleInstance<ToolManager>
     {
         public Tool SelectedTool = null;
         public GameObject BackButton;

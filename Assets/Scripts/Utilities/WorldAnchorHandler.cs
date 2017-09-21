@@ -1,11 +1,12 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class WorldAnchorHandler : GE_Singleton<WorldAnchorHandler>
+    public class WorldAnchorHandler : SingleInstance<WorldAnchorHandler>
     {
         private UnityEngine.XR.WSA.WorldAnchor viewLoaderAnchor;
         private bool viewLoaderAnchorActivelyTracking = true;

@@ -1,13 +1,14 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class VOManager : GE_Singleton<VOManager>
+    public class VOManager : SingleInstance<VOManager>
     {
         [Serializable]
         public class QueuedAudioClip

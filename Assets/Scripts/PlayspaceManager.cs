@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using UnityEngine.XR;
 
 namespace GalaxyExplorer
 {
-    public class PlayspaceManager : GE_Singleton<PlayspaceManager>
+    public class PlayspaceManager : SingleInstance<PlayspaceManager>
     {
         public AnimationCurve FloorFadeCurve;
         public float FadeInOutTime = 1.0f;

@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
-    public class InputRouter : GE_Singleton<InputRouter>
+    public class InputRouter : SingleInstance<InputRouter>
     {
         // These fields are used for fake input manipulation in the editor.
         // They aren't defined in an #if UNITY_EDITOR block so serialization

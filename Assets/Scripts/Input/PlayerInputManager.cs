@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using UnityEngine.Windows.Speech;
 
 namespace GalaxyExplorer
 {
-    public sealed class PlayerInputManager : GE_Singleton<PlayerInputManager>, ISpeechInputManager
+    public sealed class PlayerInputManager : SingleInstance<PlayerInputManager>, ISpeechInputManager
     {
         public event Action TapPressAction;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class ToolSounds : GE_Singleton<ToolSounds>
+    public class ToolSounds : SingleInstance<ToolSounds>
     {
         public string HighlightEvent;
         public AudioClip RemoveHighlightClip;

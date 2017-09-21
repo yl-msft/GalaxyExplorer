@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
-    public class GamepadInput : GE_Singleton<GamepadInput>
+    public class GamepadInput : SingleInstance<GamepadInput>
     {
         [Tooltip("Game pad button to press for air tap.")]
         public string GamePadButtonA = "Fire1";

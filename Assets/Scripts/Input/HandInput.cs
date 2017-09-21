@@ -1,13 +1,14 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
 namespace GalaxyExplorer
 {
-    public class HandInput : GE_Singleton<HandInput>
+    public class HandInput : SingleInstance<HandInput>
     {
         public struct HandState
         {

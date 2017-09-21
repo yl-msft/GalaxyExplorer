@@ -1,12 +1,13 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System.Linq;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class TrueScaleSetting : GE_Singleton<TrueScaleSetting>
+    public class TrueScaleSetting : SingleInstance<TrueScaleSetting>
     {
         [Range(0, 1)]
         public float CurrentRealismScale = 0;

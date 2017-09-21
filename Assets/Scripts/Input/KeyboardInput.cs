@@ -1,12 +1,13 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class KeyboardInput : GE_Singleton<KeyboardInput>
+    public class KeyboardInput : SingleInstance<KeyboardInput>
     {
         // Different events for keys
         public enum KeyEvent
