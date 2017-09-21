@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// Room sizes for the Microsoft Spatial Sound Spatializer.

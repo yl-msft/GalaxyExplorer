@@ -2,9 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using HoloToolkit.Unity;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// A Tagalong that stays at a fixed distance from the camera and always
@@ -44,7 +43,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         protected const int frustumBottom = 2;
         protected const int frustumTop = 3;
 
-        virtual protected void Start()
+        protected virtual void Start()
         {
             // Make sure the Tagalong object has a BoxCollider.
             tagalongCollider = GetComponent<BoxCollider>();

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     public class UAudioProfiler : EditorWindow
     {
@@ -22,7 +21,7 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             public string BusName = "";
         }
 
-        [MenuItem("Addons/UAudioTools/Profiler")]
+        [MenuItem("HoloToolkit/UAudioTools/Profiler", false, 200)]
         static void ShowEditor()
         {
             UAudioProfiler profilerWindow = GetWindow<UAudioProfiler>();
@@ -100,18 +99,23 @@ namespace GalaxyExplorer.HoloToolkit.Unity
                 return;
             }
 
-            this.currentFrame = EditorGUILayout.IntSlider(this.currentFrame, 0, this.eventTimeline.Count - 1);
-            scrollOffset = EditorGUILayout.BeginScrollView(scrollOffset);
-
-            if (this.eventTimeline.Count > this.currentFrame)
+            //Fix null reference exception when launching with profiler is open
+            if(eventTimeline!=null)
             {
-                for (int i = 0; i < this.eventTimeline[this.currentFrame].Length; i++)
-                {
-                    DrawEventButton(this.eventTimeline[this.currentFrame][i], i);
-                }
-            }
+                this.currentFrame = EditorGUILayout.IntSlider(this.currentFrame, 0, this.eventTimeline.Count - 1);
+                scrollOffset = EditorGUILayout.BeginScrollView(scrollOffset);
 
-            EditorGUILayout.EndScrollView();
+                if (this.eventTimeline.Count > this.currentFrame)
+                {
+                    for (int i = 0; i < this.eventTimeline[this.currentFrame].Length; i++)
+                    {
+                        DrawEventButton(this.eventTimeline[this.currentFrame][i], i);
+                    }
+                }
+
+                EditorGUILayout.EndScrollView();
+            }
+           
         }
 
         private void DrawEventButton(ProfilerEvent currentEvent, int id)

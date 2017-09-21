@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
-namespace GalaxyExplorer.HoloToolkit.Unity.InputModule
+namespace GalaxyExplorer
 {
     public class GamepadInput : GE_Singleton<GamepadInput>
     {

@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// The MiniAudioEvent class is the main component of UAudioMiniManager and contains settings and a container for playing audio clips.

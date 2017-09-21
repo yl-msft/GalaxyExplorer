@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// Encapsulate a single Unity AudioClip with playback settings.

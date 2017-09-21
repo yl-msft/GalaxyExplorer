@@ -1,13 +1,14 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity.InputModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.XR;
 using UnityEngine.XR;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace GalaxyExplorer
 {
     public class PlayspaceManager : GE_Singleton<PlayspaceManager>
     {
@@ -67,9 +68,9 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             recalculateFloor = true;
 
             // Hook up the controller to rotate the camera
-            if (InputModule.GamepadInput.Instance)
+            if (GamepadInput.Instance)
             {
-                InputModule.GamepadInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
+                GamepadInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
             }
             // Hook up the motion controller to rotate the camera
             if (MotionControllerInput.Instance)
@@ -193,9 +194,9 @@ namespace GalaxyExplorer.HoloToolkit.Unity
 
         private void OnDestroy()
         {
-            if (InputModule.GamepadInput.Instance)
+            if (GamepadInput.Instance)
             {
-                InputModule.GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
+                GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
             }
             if (MotionControllerInput.Instance)
             {

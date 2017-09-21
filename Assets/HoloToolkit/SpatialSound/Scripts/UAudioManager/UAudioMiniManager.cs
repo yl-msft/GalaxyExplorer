@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// The UAudioMiniManager class organization and control of a GameObject's MiniAudioEvents.

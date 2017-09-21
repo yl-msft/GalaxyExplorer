@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using GalaxyExplorer.HoloToolkit.Unity;
+using HoloToolkit.Unity;
 using UnityEngine;
 
 namespace GalaxyExplorer

@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// Currently active AudioEvents along with their AudioSource components for instance limiting events
@@ -61,6 +61,12 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             private set;
         }
 
+        public string MessageOnAudioEnd
+        {
+            get;
+            private set;
+        }
+
         public AudioEvent audioEvent = null;
         public bool isStoppable = true;
         public float volDest = 1;
@@ -71,12 +77,13 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         public float activeTime = 0;
         public bool cancelEvent = false;
 
-        public ActiveEvent(AudioEvent audioEvent, GameObject emitter, AudioSource primarySource, AudioSource secondarySource)
+        public ActiveEvent(AudioEvent audioEvent, GameObject emitter, AudioSource primarySource, AudioSource secondarySource, string messageOnAudioEnd = null)
         {
             this.audioEvent = audioEvent;
             AudioEmitter = emitter;
             PrimarySource = primarySource;
             SecondarySource = secondarySource;
+            MessageOnAudioEnd = messageOnAudioEnd;
             SetSourceProperties();
         }
 
@@ -142,7 +149,19 @@ namespace GalaxyExplorer.HoloToolkit.Unity
             {
                 forEachSource((source) =>
                 {
-                    source.rolloffMode = AudioRolloffMode.Logarithmic;
+                    if (audioEvent.spatialization == SpatialPositioningType.ThreeD)
+                    {
+                        source.rolloffMode = AudioRolloffMode.Custom;
+                        source.maxDistance = audioEvent.maxDistanceAttenuation3D;
+                        source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, audioEvent.attenuationCurve);
+                        source.SetCustomCurve(AudioSourceCurveType.SpatialBlend, audioEvent.spatialCurve);
+                        source.SetCustomCurve(AudioSourceCurveType.Spread, audioEvent.spreadCurve);
+                        source.SetCustomCurve(AudioSourceCurveType.ReverbZoneMix, audioEvent.reverbCurve);
+                    }
+                    else
+                    {
+                        source.rolloffMode = AudioRolloffMode.Logarithmic;
+                    }
                 });
             }
 

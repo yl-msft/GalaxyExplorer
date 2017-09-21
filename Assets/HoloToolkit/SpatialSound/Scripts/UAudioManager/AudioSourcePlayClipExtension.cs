@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// A shortcut to assign a clip to an AudioSource component and play the source

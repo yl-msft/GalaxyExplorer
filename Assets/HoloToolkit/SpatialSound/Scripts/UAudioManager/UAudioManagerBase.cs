@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GalaxyExplorer.HoloToolkit.Unity
+namespace HoloToolkit.Unity
 {
     /// <summary>
     /// UAudioManagerBase provides the base functionality for UAudioManager classes.
@@ -618,6 +618,13 @@ namespace GalaxyExplorer.HoloToolkit.Unity
         private void RemoveEventInstance(ActiveEvent activeEvent)
         {
             activeEvents.Remove(activeEvent);
+
+            // Send message notifying user that sound is complete
+            if (!string.IsNullOrEmpty(activeEvent.MessageOnAudioEnd))
+            {
+                activeEvent.AudioEmitter.SendMessage(activeEvent.MessageOnAudioEnd);
+            }
+
             activeEvent.Dispose();
         }
 

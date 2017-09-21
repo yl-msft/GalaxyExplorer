@@ -712,7 +712,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 394949679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6accc1ed022f6934d9adf1f59c4be6c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f2795b3e072e1745a4f8c670d64284f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RecognizerStart: 0
@@ -964,10 +964,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 636860370}
-  - component: {fileID: 636860372}
-  - component: {fileID: 636860371}
   - component: {fileID: 636860373}
   - component: {fileID: 636860374}
+  - component: {fileID: 636860372}
+  - component: {fileID: 636860371}
   m_Layer: 0
   m_Name: CameraRigs
   m_TagString: Untagged
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 636860369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7d866386841064db13b68ce22de4d2, type: 3}
+  m_Script: {fileID: 11500000, guid: dc1388be9f5e9084799e08422bf34dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GamePadButtonA: Fire1
