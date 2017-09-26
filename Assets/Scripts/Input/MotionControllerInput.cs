@@ -24,7 +24,7 @@ namespace GalaxyExplorer
             get
             {
                 Debug.Assert(graspedHand != null, "ERROR: Don't use AlternateGazeRay without checking UseAlternateGazeRay first");
-                return new Ray(graspedHand.position, graspedHand.direction);
+                return new Ray(graspedHand.position, graspedHand.forward);
             }
         }
 
@@ -39,7 +39,7 @@ namespace GalaxyExplorer
         {
             public uint id = 0;
             public Vector3 position = Vector3.zero;
-            public Vector3 direction = Vector3.zero;
+            public Vector3 forward = Vector3.zero;
             public bool grasped = false;
             public InteractionSourceHandedness handedness = InteractionSourceHandedness.Unknown;
             public float accumulatedY = 0f;
@@ -121,10 +121,10 @@ namespace GalaxyExplorer
                 // convert local position into world position
                 ci.position = transform.TransformPoint(ci.position);
             }
-            if (obj.state.sourcePose.TryGetForward(out ci.direction, InteractionSourceNode.Pointer))
+            if (obj.state.sourcePose.TryGetForward(out ci.forward, InteractionSourceNode.Pointer))
             {
                 // convert local rotation into world rotation
-                ci.direction = transform.TransformDirection(ci.direction);
+                ci.forward = transform.TransformDirection(ci.forward);
             }
 
             // Check out the X value for the thumbstick to see if we are
