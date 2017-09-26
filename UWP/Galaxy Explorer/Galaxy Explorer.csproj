@@ -26,7 +26,7 @@
       _UAP_$(Platform)_$(Configuration)_dotnet.pdb;
       .pdb;
     </AllowedReferenceRelatedFileExtensions>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
@@ -193,6 +193,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png">
     </Content>
     <Content Include="Assets\GE_LiveCube.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Properties\AssemblyInfo.cs">
     </Compile>
