@@ -62,7 +62,7 @@ namespace GalaxyExplorer
         {
             if (MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.ImmersiveHMD)
             {
-                DestroyImmediate(this);
+                enabled = false;
                 return;
             }
 
