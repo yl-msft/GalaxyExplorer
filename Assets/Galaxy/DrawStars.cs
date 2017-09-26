@@ -100,8 +100,6 @@ namespace GalaxyExplorer
         public MeshRenderer referenceQuad;
         private float originalTransitionAlpha;
 
-        private HoloCube holoCube;
-
         private Mesh cubeMeshProxy;
 
         private IEnumerator Start()
@@ -113,12 +111,6 @@ namespace GalaxyExplorer
 
             var renderProxy = Camera.main.gameObject.AddComponent<RenderProxy>();
             renderProxy.owner = this;
-
-            // The Tesseract doesn't play well with the galaxy, so we kill it
-            if (TransitionManager.Instance)
-            {
-                holoCube = TransitionManager.Instance.ViewVolume.GetComponentInChildren<HoloCube>(includeInactive: true);
-            }
 
             if (referenceQuad && referenceQuad.sharedMaterial)
             {
@@ -155,14 +147,6 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OnDisable()
-        {
-            if (holoCube)
-            {
-                holoCube.gameObject.SetActive(true);
-            }
-        }
-
         private void OnDestroy()
         {
             if (referenceQuad && referenceQuad.sharedMaterial)
@@ -171,11 +155,6 @@ namespace GalaxyExplorer
             }
 
             DisposeBuffer(ref starsData);
-
-            if (holoCube)
-            {
-                holoCube.gameObject.SetActive(true);
-            }
         }
 
         public void Render(bool isEditor)
