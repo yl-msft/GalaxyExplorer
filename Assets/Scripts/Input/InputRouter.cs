@@ -205,8 +205,8 @@ namespace GalaxyExplorer
             {
                 // Ignore input fromXaml until the introduction flow has
                 // gotten us to GalaxyView.
-                return IntroductionFlow.Instance == null || (
-                    IntroductionFlow.Instance != null &&
+                return !IntroductionFlow.Instance.enabled || (
+                    IntroductionFlow.Instance.enabled &&
                     IntroductionFlow.Instance.currentState == IntroductionFlow.IntroductionState.IntroductionStateComplete);
             }
         }

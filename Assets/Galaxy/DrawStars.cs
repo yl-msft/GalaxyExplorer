@@ -60,9 +60,10 @@ namespace GalaxyExplorer
             downRezHigh = new RenderTexture(Camera.main.pixelWidth >> (downRezFactor - 2), Camera.main.pixelHeight >> (downRezFactor - 2), 0, RenderTextureFormat.ARGB32);
         }
 
+        static bool isInitialized = false;
         public static bool CreateIfNeeded(GameObject owner)
         {
-            if (Instance == null)
+            if (!isInitialized)
             {
                 var go = new GameObject("Galaxy Render Textures");
                 go.transform.parent = owner.transform;
@@ -71,12 +72,19 @@ namespace GalaxyExplorer
 
                 inst.CreateBuffers();
 
+                isInitialized = true;
                 return true;
             }
             else
             {
                 return false;
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            isInitialized = false;
+            base.OnDestroy();
         }
     }
 

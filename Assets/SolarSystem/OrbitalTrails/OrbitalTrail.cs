@@ -69,11 +69,10 @@ namespace GalaxyExplorer
             {
             }
 
+            static bool isInitialized = false;
             public static OrbitsRenderer GetOrCreate(Transform world)
             {
-                var currentInstance = OrbitsRenderer.Instance;
-
-                if (currentInstance == null)
+                if (!isInitialized)
                 {
                     var go = new GameObject("Orbits Renderer Hook");
                     go.transform.SetParent(world, worldPositionStays: false);
@@ -82,11 +81,12 @@ namespace GalaxyExplorer
                     var renderer = go.AddComponent<OrbitsRenderer>();
                     renderer.orbitsWorld = world;
 
+                    isInitialized = true;
                     return renderer;
                 }
                 else
                 {
-                    return currentInstance;
+                    return OrbitsRenderer.Instance;
                 }
             }
 
@@ -152,6 +152,7 @@ namespace GalaxyExplorer
             protected override void OnDestroy()
             {
                 DestroyBuffers();
+                isInitialized = false;
                 base.OnDestroy();
             }
 

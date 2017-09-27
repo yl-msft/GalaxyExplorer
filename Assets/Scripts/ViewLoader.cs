@@ -211,7 +211,7 @@ namespace GalaxyExplorer
                 return;
             }
 
-            if (forwardNavigation && CurrentView != null && !IntroductionFlow.Instance)
+            if (forwardNavigation && CurrentView != null && !IntroductionFlow.Instance.enabled)
             {
                 viewBackStack.Push(CurrentView);
                 ToolManager.Instance.ShowBackButton();

@@ -69,8 +69,9 @@ namespace GalaxyExplorer
         // Skip placing the earth if we aren't in a VR device.
         // We do this check in a !UNITY_EDITOR block to allow for testing
         // from inside the editor without having to change code.
-        SkipPlaceEarth = !UnityEngine.XR.XRDevice.isPresent;
+            SkipPlaceEarth = !UnityEngine.XR.XRDevice.isPresent;
 #endif
+            DontDestroyOnLoad(this);
         }
         private void Start()
         {
@@ -344,7 +345,7 @@ namespace GalaxyExplorer
                 if (currentState == IntroductionState.IntroductionStateComplete)
                 {
                     TransitionManager.Instance.ShowToolsAndCursor();
-                    Destroy(gameObject);
+                    enabled = false;
                     return;
                 }
 

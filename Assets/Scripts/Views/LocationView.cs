@@ -94,7 +94,7 @@ namespace GalaxyExplorer
 
         private bool InIntro()
         {
-            return IntroductionFlow.Instance != null;
+            return IntroductionFlow.Instance.enabled;
         }
     }
 }
