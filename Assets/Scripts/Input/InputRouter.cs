@@ -501,7 +501,9 @@ namespace GalaxyExplorer
                     if (placementControl != null && placementControl.IsHolding)
                     {
                         handled = placementControl.OnTapped();
-                        if (ToolSounds.Instance)
+                        if (ToolSounds.Instance &&
+                            ToolManager.Instance &&
+                            ToolManager.Instance.ToolsVisible)
                         {
                             ToolSounds.Instance.PlaySelectSound();
                         }
