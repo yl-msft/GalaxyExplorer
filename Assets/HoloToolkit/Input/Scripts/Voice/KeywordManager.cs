@@ -5,7 +5,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+#if UNITY_WSA || UNITY_STANDALONE_WIN
 using UnityEngine.Windows.Speech;
+#endif
 
 namespace HoloToolkit.Unity.InputModule
 {
@@ -43,8 +46,10 @@ namespace HoloToolkit.Unity.InputModule
         [Tooltip("An array of string keywords and UnityEvents, to be set in the Inspector.")]
         public KeywordAndResponse[] KeywordsAndResponses;
 
-        private KeywordRecognizer keywordRecognizer;
+#if UNITY_WSA || UNITY_STANDALONE_WIN
         private readonly Dictionary<string, UnityEvent> responses = new Dictionary<string, UnityEvent>();
+
+        private KeywordRecognizer keywordRecognizer;
 
         void Start()
         {
@@ -115,6 +120,7 @@ namespace HoloToolkit.Unity.InputModule
                 StartKeywordRecognizer();
             }
         }
+#endif
 
         private void ProcessKeyBindings()
         {
@@ -128,6 +134,7 @@ namespace HoloToolkit.Unity.InputModule
             }
         }
 
+#if UNITY_WSA || UNITY_STANDALONE_WIN
         private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
         {
             UnityEvent keywordResponse;
@@ -138,6 +145,7 @@ namespace HoloToolkit.Unity.InputModule
                 keywordResponse.Invoke();
             }
         }
+#endif
 
         /// <summary>
         /// Make sure the keyword recognizer is off, then start it.
@@ -145,10 +153,12 @@ namespace HoloToolkit.Unity.InputModule
         /// </summary>
         public void StartKeywordRecognizer()
         {
+#if UNITY_WSA || UNITY_STANDALONE_WIN
             if (keywordRecognizer != null && !keywordRecognizer.IsRunning)
             {
                 keywordRecognizer.Start();
             }
+#endif
         }
 
         /// <summary>
@@ -157,10 +167,12 @@ namespace HoloToolkit.Unity.InputModule
         /// </summary>
         public void StopKeywordRecognizer()
         {
+#if UNITY_WSA || UNITY_STANDALONE_WIN
             if (keywordRecognizer != null && keywordRecognizer.IsRunning)
             {
                 keywordRecognizer.Stop();
             }
+#endif
         }
     }
 }
