@@ -275,8 +275,18 @@ namespace GalaxyExplorer
                         y = -y;
                     }
 
-                    var cam = Camera.main;
-                    var toContent = (contentToManipulate.transform.position - cam.transform.position).normalized;
+                    Vector3 rotationOrigin;
+                    if (kind == InteractionSourceKind.Controller &&
+                        MotionControllerInput.Instance &&
+                        MotionControllerInput.Instance.UseAlternateGazeRay)
+                    {
+                        rotationOrigin = MotionControllerInput.Instance.AlternateGazeRayControlerInformation.position;
+                    }
+                    else
+                    {
+                        rotationOrigin = Camera.main.transform.position;
+                    }
+                    var toContent = (contentToManipulate.transform.position - rotationOrigin).normalized;
                     var right = Vector3.Cross(Vector3.up, toContent).normalized;
 
                     var targetUp = Quaternion.AngleAxis(Mathf.Sign(y) * MaxRotationAngle, right) * Vector3.up;
