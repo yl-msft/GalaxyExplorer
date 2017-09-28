@@ -91,6 +91,8 @@ namespace GalaxyExplorer
                 yield return null;
             }
 
+            transform.localScale = transform.localScale * MyAppPlatformManager.PoiScaleFactor;
+
             previousPosition = Camera.main.transform.position + (Camera.main.transform.forward * defaultCursorDistance);
         }
 
