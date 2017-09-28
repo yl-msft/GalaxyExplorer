@@ -501,9 +501,10 @@ namespace GalaxyExplorer
                     if (placementControl != null && placementControl.IsHolding)
                     {
                         handled = placementControl.OnTapped();
-                        if (ToolSounds.Instance &&
-                            ToolManager.Instance &&
-                            ToolManager.Instance.ToolsVisible)
+                        if (ToolSounds.isInitialized &&         // Starts out on an inactive object so Instance will be null
+                            ToolSounds.Instance &&              // Make sure we have an instance
+                            ToolManager.Instance &&             // Make sure we have an instance
+                            ToolManager.Instance.ToolsVisible)  // Can we start a Co-routine on this object?
                         {
                             ToolSounds.Instance.PlaySelectSound();
                         }

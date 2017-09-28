@@ -22,6 +22,13 @@ namespace GalaxyExplorer
 
         private AudioSource audioSource;
 
+        public static bool isInitialized = false;
+
+        private void Awake()
+        {
+            isInitialized = true;
+        }
+
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
@@ -30,6 +37,12 @@ namespace GalaxyExplorer
             {
                 Debug.LogWarning("ToolSounds has no way to play sounds!");
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            isInitialized = false;
+            base.OnDestroy();
         }
 
         public void PlayHighlightSound()
