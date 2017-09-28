@@ -77,7 +77,7 @@ Transform:
   m_GameObject: {fileID: 102208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.75, y: 1, z: 1.75}
+  m_LocalScale: {x: 1.75, y: 0.1, z: 1.75}
   m_Children: []
   m_Father: {fileID: 441348}
   m_RootOrder: 1
@@ -104,6 +104,7 @@ MeshRenderer:
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -119,12 +120,14 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &3353010
 MeshFilter:
@@ -139,7 +142,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102208}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &6546566
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -150,7 +153,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 0.02, z: 1.2}
+  m_Size: {x: 1.2, y: 0, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11423916
 MonoBehaviour:
@@ -223,30 +226,15 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   centerToRimGradient:
-    key0:
-      serializedVersion: 2
-      rgba: 4293327615
-    key1:
-      serializedVersion: 2
-      rgba: 4290439926
-    key2:
-      serializedVersion: 2
-      rgba: 13225192
-    key3:
-      serializedVersion: 2
-      rgba: 16537691
-    key4:
-      serializedVersion: 2
-      rgba: 16732755
-    key5:
-      serializedVersion: 2
-      rgba: 16777215
-    key6:
-      serializedVersion: 2
-      rgba: 16777215
-    key7:
-      serializedVersion: 2
-      rgba: 527140
+    serializedVersion: 2
+    key0: {r: 1, g: 0.98039216, b: 0.9019608, a: 1}
+    key1: {r: 0.9647059, g: 0.91764706, b: 0.7294118, a: 1}
+    key2: {r: 0.9098039, g: 0.8, b: 0.7882353, a: 0}
+    key3: {r: 0.35686275, g: 0.34509805, b: 0.9882353, a: 0}
+    key4: {r: 0.3254902, g: 0.32156864, b: 1, a: 0}
+    key5: {r: 1, g: 1, b: 1, a: 0}
+    key6: {r: 1, g: 1, b: 1, a: 0}
+    key7: {r: 0.14117648, g: 0.043137256, b: 0.03137255, a: 0}
     ctime0: 0
     ctime1: 3146
     ctime2: 5872
@@ -271,30 +259,15 @@ MonoBehaviour:
     Percentage: 20
     UseColorRange: 0
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4278190080
-      key1:
-        serializedVersion: 2
-        rgba: 4278190080
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 0
@@ -322,30 +295,15 @@ MonoBehaviour:
     Percentage: 2
     UseColorRange: 0
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4279571733
-      key1:
-        serializedVersion: 2
-        rgba: 4279571750
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
+      key1: {r: 0.14901961, g: 0.08235294, b: 0.08235294, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 0
@@ -463,30 +421,15 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   centerToRimGradient:
-    key0:
-      serializedVersion: 2
-      rgba: 4293327615
-    key1:
-      serializedVersion: 2
-      rgba: 4291421672
-    key2:
-      serializedVersion: 2
-      rgba: 12237558
-    key3:
-      serializedVersion: 2
-      rgba: 16622244
-    key4:
-      serializedVersion: 2
-      rgba: 16751772
-    key5:
-      serializedVersion: 2
-      rgba: 13347163
-    key6:
-      serializedVersion: 2
-      rgba: 11833425
-    key7:
-      serializedVersion: 2
-      rgba: 0
+    serializedVersion: 2
+    key0: {r: 1, g: 0.98039216, b: 0.9019608, a: 1}
+    key1: {r: 0.9098039, g: 0.8980392, b: 0.7882353, a: 1}
+    key2: {r: 0.9647059, g: 0.7294118, b: 0.7294118, a: 0}
+    key3: {r: 0.6431373, g: 0.63529414, b: 0.99215686, a: 0}
+    key4: {r: 0.6117647, g: 0.6117647, b: 1, a: 0}
+    key5: {r: 0.35686275, g: 0.6627451, b: 0.79607844, a: 0}
+    key6: {r: 0.31764707, g: 0.5647059, b: 0.7058824, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 3023
     ctime2: 5770
@@ -511,30 +454,15 @@ MonoBehaviour:
     Percentage: 83
     UseColorRange: 1
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4293327615
-      key1:
-        serializedVersion: 2
-        rgba: 4291421672
-      key2:
-        serializedVersion: 2
-        rgba: 12237558
-      key3:
-        serializedVersion: 2
-        rgba: 16622244
-      key4:
-        serializedVersion: 2
-        rgba: 16751772
-      key5:
-        serializedVersion: 2
-        rgba: 13347163
-      key6:
-        serializedVersion: 2
-        rgba: 11833425
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 0.98039216, b: 0.9019608, a: 1}
+      key1: {r: 0.9098039, g: 0.8980392, b: 0.7882353, a: 1}
+      key2: {r: 0.9647059, g: 0.7294118, b: 0.7294118, a: 0}
+      key3: {r: 0.6431373, g: 0.63529414, b: 0.99215686, a: 0}
+      key4: {r: 0.6117647, g: 0.6117647, b: 1, a: 0}
+      key5: {r: 0.35686275, g: 0.6627451, b: 0.79607844, a: 0}
+      key6: {r: 0.31764707, g: 0.5647059, b: 0.7058824, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 3023
       ctime2: 5770
@@ -562,30 +490,15 @@ MonoBehaviour:
     Percentage: 3
     UseColorRange: 1
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4293327615
-      key1:
-        serializedVersion: 2
-        rgba: 4291421672
-      key2:
-        serializedVersion: 2
-        rgba: 12237558
-      key3:
-        serializedVersion: 2
-        rgba: 16622244
-      key4:
-        serializedVersion: 2
-        rgba: 16751772
-      key5:
-        serializedVersion: 2
-        rgba: 13347163
-      key6:
-        serializedVersion: 2
-        rgba: 11833425
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 0.98039216, b: 0.9019608, a: 1}
+      key1: {r: 0.9098039, g: 0.8980392, b: 0.7882353, a: 1}
+      key2: {r: 0.9647059, g: 0.7294118, b: 0.7294118, a: 0}
+      key3: {r: 0.6431373, g: 0.63529414, b: 0.99215686, a: 0}
+      key4: {r: 0.6117647, g: 0.6117647, b: 1, a: 0}
+      key5: {r: 0.35686275, g: 0.6627451, b: 0.79607844, a: 0}
+      key6: {r: 0.31764707, g: 0.5647059, b: 0.7058824, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 3023
       ctime2: 5770
@@ -613,30 +526,15 @@ MonoBehaviour:
     Percentage: 3
     UseColorRange: 1
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4279322623
-      key1:
-        serializedVersion: 2
-        rgba: 4284001023
-      key2:
-        serializedVersion: 2
-        rgba: 3604476
-      key3:
-        serializedVersion: 2
-        rgba: 16736456
-      key4:
-        serializedVersion: 2
-        rgba: 16757129
-      key5:
-        serializedVersion: 2
-        rgba: 16757129
-      key6:
-        serializedVersion: 2
-        rgba: 16757129
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 0.2784314, b: 0.06666667, a: 1}
+      key1: {r: 1, g: 0.6666667, b: 0.34509805, a: 1}
+      key2: {r: 0.9882353, g: 1, b: 0.21176471, a: 0}
+      key3: {r: 0.78431374, g: 0.3764706, b: 1, a: 0}
+      key4: {r: 0.5372549, g: 0.69411767, b: 1, a: 0}
+      key5: {r: 0.5372549, g: 0.69411767, b: 1, a: 0}
+      key6: {r: 0.5372549, g: 0.69411767, b: 1, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 21627
       ctime2: 43253
@@ -664,30 +562,15 @@ MonoBehaviour:
     Percentage: 3
     UseColorRange: 1
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4285726606
-      key1:
-        serializedVersion: 2
-        rgba: 4294961756
-      key2:
-        serializedVersion: 2
-        rgba: 16479096
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 0.5568628, g: 1, b: 0.44705883, a: 1}
+      key1: {r: 0.36078432, g: 0.91764706, b: 1, a: 1}
+      key2: {r: 0.47058824, g: 0.4509804, b: 0.9843137, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 32768
       ctime2: 65535
@@ -715,30 +598,15 @@ MonoBehaviour:
     Percentage: 8
     UseColorRange: 1
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4293327615
-      key1:
-        serializedVersion: 2
-        rgba: 4291421672
-      key2:
-        serializedVersion: 2
-        rgba: 12237558
-      key3:
-        serializedVersion: 2
-        rgba: 16622244
-      key4:
-        serializedVersion: 2
-        rgba: 16751772
-      key5:
-        serializedVersion: 2
-        rgba: 13347163
-      key6:
-        serializedVersion: 2
-        rgba: 11833425
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 1, g: 0.98039216, b: 0.9019608, a: 1}
+      key1: {r: 0.9098039, g: 0.8980392, b: 0.7882353, a: 1}
+      key2: {r: 0.9647059, g: 0.7294118, b: 0.7294118, a: 0}
+      key3: {r: 0.6431373, g: 0.63529414, b: 0.99215686, a: 0}
+      key4: {r: 0.6117647, g: 0.6117647, b: 1, a: 0}
+      key5: {r: 0.35686275, g: 0.6627451, b: 0.79607844, a: 0}
+      key6: {r: 0.31764707, g: 0.5647059, b: 0.7058824, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 3023
       ctime2: 5770
@@ -855,30 +723,15 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   centerToRimGradient:
-    key0:
-      serializedVersion: 2
-      rgba: 4281150765
-    key1:
-      serializedVersion: 2
-      rgba: 4285436054
-    key2:
-      serializedVersion: 2
-      rgba: 16765323
-    key3:
-      serializedVersion: 2
-      rgba: 16751945
-    key4:
-      serializedVersion: 2
-      rgba: 16751945
-    key5:
-      serializedVersion: 2
-      rgba: 16751945
-    key6:
-      serializedVersion: 2
-      rgba: 16751945
-    key7:
-      serializedVersion: 2
-      rgba: 0
+    serializedVersion: 2
+    key0: {r: 0.1764706, g: 0.1764706, b: 0.1764706, a: 1}
+    key1: {r: 0.5882353, g: 0.5647059, b: 0.43137255, a: 1}
+    key2: {r: 0.54509807, g: 0.81960785, b: 1, a: 0}
+    key3: {r: 0.28627452, g: 0.6156863, b: 1, a: 0}
+    key4: {r: 0.28627452, g: 0.6156863, b: 1, a: 0}
+    key5: {r: 0.28627452, g: 0.6156863, b: 1, a: 0}
+    key6: {r: 0.28627452, g: 0.6156863, b: 1, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 12529
     ctime2: 34310
@@ -903,30 +756,15 @@ MonoBehaviour:
     Percentage: 88
     UseColorRange: 0
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4294901501
-      key1:
-        serializedVersion: 2
-        rgba: 4289446352
-      key2:
-        serializedVersion: 2
-        rgba: 10661301
-      key3:
-        serializedVersion: 2
-        rgba: 16636378
-      key4:
-        serializedVersion: 2
-        rgba: 15063753
-      key5:
-        serializedVersion: 2
-        rgba: 10061940
-      key6:
-        serializedVersion: 2
-        rgba: 5457209
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 0.99215686, g: 0.99607843, b: 0.99607843, a: 1}
+      key1: {r: 0.8156863, g: 0.75686276, b: 0.67058825, a: 1}
+      key2: {r: 0.70980394, g: 0.6784314, b: 0.63529414, a: 0}
+      key3: {r: 0.85490197, g: 0.8509804, b: 0.99215686, a: 0}
+      key4: {r: 0.7882353, g: 0.85490197, b: 0.8980392, a: 0}
+      key5: {r: 0.45490196, g: 0.53333336, b: 0.6, a: 0}
+      key6: {r: 0.22352941, g: 0.27058825, b: 0.3254902, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 3023
       ctime2: 5770
@@ -954,30 +792,15 @@ MonoBehaviour:
     Percentage: 11.7
     UseColorRange: 0
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4278219934
-      key1:
-        serializedVersion: 2
-        rgba: 4294915637
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 0.61960787, g: 0.45490196, b: 0, a: 1}
+      key1: {r: 0.20784314, g: 0.21176471, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 65535
@@ -1005,30 +828,15 @@ MonoBehaviour:
     Percentage: 0.3
     UseColorRange: 1
     ColorRange:
-      key0:
-        serializedVersion: 2
-        rgba: 4278190238
-      key1:
-        serializedVersion: 2
-        rgba: 4278190335
-      key2:
-        serializedVersion: 2
-        rgba: 0
-      key3:
-        serializedVersion: 2
-        rgba: 0
-      key4:
-        serializedVersion: 2
-        rgba: 0
-      key5:
-        serializedVersion: 2
-        rgba: 0
-      key6:
-        serializedVersion: 2
-        rgba: 0
-      key7:
-        serializedVersion: 2
-        rgba: 0
+      serializedVersion: 2
+      key0: {r: 0.61960787, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 0, b: 0, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
       ctime2: 65535
@@ -1109,4 +917,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6e7145b27a88c419b164754ac97759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScaleFactor: 3

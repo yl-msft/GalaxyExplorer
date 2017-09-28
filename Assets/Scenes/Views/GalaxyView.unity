@@ -584,10 +584,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 469478, guid: 9a291ad8ef4469c41bd12ddca4fd2999, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a291ad8ef4469c41bd12ddca4fd2999, type: 2}
   m_IsPrefabParent: 0
@@ -1096,7 +1092,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  m_ExtensionPropertyValues: []
 --- !u!4 &1752822994 stripped
 Transform:
   m_PrefabParentObject: {fileID: 490906, guid: 4f26b92d8d5712d4db1381c636fc91a5, type: 2}
