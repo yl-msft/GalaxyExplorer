@@ -47,21 +47,24 @@ namespace GalaxyExplorer
                     element.SetBool("Selected", true);
                 }
 
-                // Enable TightTagalong, which enabled the interpolator by default
-                volumeTightTagalong.enabled = true;
-                volumeTightTagalong.distanceToHead = TightTagalongDistance;
+                // Fire the ContentHeld event. WorldAnchorHandler pays attention
+                // to this event. It needs to destroy the world anchor before we
+                // can safely move the content.
+                if (ContentHeld != null)
+                {
+                    ContentHeld();
+                }
 
-                // Start moving content
+                // Parent the content to the volume we are going to move
                 ViewLoader.Instance.transform.SetParent(contentVolume.transform, true);
+
+                // Enable TightTagalong, which enabled the interpolator by default
+                volumeTightTagalong.distanceToHead = TightTagalongDistance;
+                volumeTightTagalong.enabled = true;
 
                 if (Cursor.Instance)
                 {
                     Cursor.Instance.ApplyCursorState(CursorState.Pin);
-                }
-
-                if (ContentHeld != null)
-                {
-                    ContentHeld();
                 }
 
                 isHolding = true;

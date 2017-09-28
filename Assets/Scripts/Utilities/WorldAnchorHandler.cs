@@ -62,7 +62,7 @@ namespace GalaxyExplorer
             if (viewLoaderAnchor != null)
             {
                 viewLoaderAnchor.OnTrackingChanged -= GalaxyWorldAnchor_OnTrackingChanged;
-                Destroy(viewLoaderAnchor);
+                DestroyImmediate(viewLoaderAnchor);
             }
         }
 
