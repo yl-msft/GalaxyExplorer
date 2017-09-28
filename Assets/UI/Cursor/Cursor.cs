@@ -410,7 +410,6 @@ namespace GalaxyExplorer
             if (MotionControllerInput.Instance &&
                 MotionControllerInput.Instance.UseAlternateGazeRay)
             {
-                transform.rotation = Quaternion.LookRotation(cam.transform.forward, cam.transform.up);
                 transform.position = previousPosition = desiredPosition;
 
                 AlternateGazeRayLineRenderer.SetPositions(new Vector3[] { cursorOriginRay.origin, desiredPosition });
@@ -418,8 +417,6 @@ namespace GalaxyExplorer
             }
             else
             {
-                transform.rotation = Quaternion.LookRotation(cursorOriginRay.direction, Vector3.up);
-
                 var camSpacePreviousPos = cam.transform.InverseTransformPoint(previousPosition);
                 var camSpaceDesiredPos = cam.transform.InverseTransformPoint(desiredPosition);
                 var camSpaceFinalPos = Vector3.Lerp(camSpacePreviousPos, camSpaceDesiredPos, positionUpdateSpeed * Time.deltaTime);
@@ -429,6 +426,7 @@ namespace GalaxyExplorer
 
                 AlternateGazeRayLineRenderer.enabled = false;
             }
+            transform.rotation = Quaternion.LookRotation(cursorOriginRay.direction, Vector3.up);
 
             var distance = (transform.position - cursorOriginRay.origin).magnitude;
             transform.localScale = Vector3.one * Mathf.Min(targetScale, maxScreenSize * distance);
