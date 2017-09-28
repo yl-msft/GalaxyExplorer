@@ -24,13 +24,9 @@ namespace GalaxyExplorer
 
         public static bool isInitialized = false;
 
-        private void Awake()
-        {
-            isInitialized = true;
-        }
-
         private void Start()
         {
+            isInitialized = true;
             audioSource = GetComponent<AudioSource>();
 
             if (audioSource == null)
