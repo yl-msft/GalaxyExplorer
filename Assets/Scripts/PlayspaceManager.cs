@@ -28,6 +28,14 @@ namespace GalaxyExplorer
         private bool floorVisible = false;
         private bool recalculateFloor = false;
 
+        private KeywordManager keywordManager = null;
+
+        private void Awake()
+        {
+            keywordManager = GetComponent<KeywordManager>();
+            keywordManager.enabled = MyAppPlatformManager.SpeechEnabled;
+        }
+
         // Use this for initialization
         private IEnumerator Start()
         {
@@ -55,7 +63,10 @@ namespace GalaxyExplorer
             {
                 // If not, disable the playspace manager
                 gameObject.SetActive(false);
-                GetComponent<KeywordManager>().StopKeywordRecognizer();
+                if (keywordManager.enabled)
+                {
+                    keywordManager.StopKeywordRecognizer();
+                }
                 yield break;
             }
 

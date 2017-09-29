@@ -702,7 +702,7 @@ PlayerSettings:
       InternetClient: True
       InternetClientServer: False
       Location: False
-      Microphone: True
+      Microphone: False
       MusicLibrary: False
       Objects3D: False
       PhoneCall: False

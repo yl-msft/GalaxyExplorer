@@ -19,6 +19,8 @@ namespace GalaxyExplorer
 
         public static PlatformId Platform { get; private set; }
 
+        public static readonly bool SpeechEnabled = false;
+
         public static float SlateScaleFactor
         {
             get
