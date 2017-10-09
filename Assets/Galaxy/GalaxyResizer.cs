@@ -41,7 +41,10 @@ namespace GalaxyExplorer
 
         void Update()
         {
-            cursorCollisionBackground.enabled = !MotionControllerInput.Instance.UseAlternateGazeRay;
+            if (MotionControllerInput.Instance)
+            {
+                cursorCollisionBackground.enabled = !MotionControllerInput.Instance.UseAlternateGazeRay;
+            }
         }
     }
 }

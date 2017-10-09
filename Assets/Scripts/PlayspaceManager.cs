@@ -84,11 +84,6 @@ namespace GalaxyExplorer
             {
                 GamepadInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
             }
-            // Hook up the motion controller to rotate the camera
-            if (MotionControllerInput.Instance)
-            {
-                MotionControllerInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
-            }
         }
 
         private bool isRotating = false;
@@ -209,10 +204,6 @@ namespace GalaxyExplorer
             if (GamepadInput.Instance)
             {
                 GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
-            }
-            if (MotionControllerInput.Instance)
-            {
-                MotionControllerInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
             }
             base.OnDestroy();
         }

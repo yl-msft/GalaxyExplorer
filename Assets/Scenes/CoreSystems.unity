@@ -636,6 +636,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &286223567
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 636860370}
+    m_Modifications:
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: fa4aec5413103264c884daee464826d9, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &286223568 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4307559140576838, guid: fa4aec5413103264c884daee464826d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 286223567}
 --- !u!1 &394949679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1119,7 @@ Transform:
   - {fileID: 1311969410}
   - {fileID: 1677304038}
   - {fileID: 1910063177}
+  - {fileID: 286223568}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1081,16 +1129,21 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 636860369}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03314f8008ae1ed4fbd45c95a7ed5182, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bc175d33f66e6647aabac1b65e7e632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimateControllerModel: 1
-  LeftControllerOverride: {fileID: 0}
-  RightControllerOverride: {fileID: 0}
-  TouchpadTouchedOverride: {fileID: 0}
-  GLTFMaterial: {fileID: 2100000, guid: 2ac78523d661e954c83d799f582b22e8, type: 2}
+  LeftThumbstickX: CONTROLLER_LEFT_STICK_HORIZONTAL
+  LeftThumbstickY: CONTROLLER_LEFT_STICK_VERTICAL
+  RightThumbstickX: CONTROLLER_RIGHT_STICK_HORIZONTAL
+  RightThumbstickY: CONTROLLER_RIGHT_STICK_VERTICAL
+  EnableTeleport: 0
+  EnableRotation: 1
+  EnableStrafe: 0
+  RotationSize: 45
+  StrafeAmount: 0.5
+  TeleportMarker: {fileID: 0}
 --- !u!114 &636860372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,7 +1152,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 636860369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc81e7ec02337d43a6df792a0c8278e, type: 3}
+  m_Script: {fileID: 11500000, guid: cae8f3c88e9704a4393cb8d904b62372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &636860373
