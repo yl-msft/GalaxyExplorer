@@ -10,6 +10,7 @@ Packages/
 Assets/AssetStoreTools*
 project.json
 project.lock.json
+UnityPackageManager/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
