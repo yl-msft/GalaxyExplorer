@@ -11,6 +11,9 @@ namespace GalaxyExplorer
 {
     public class MotionControllerInput : SingleInstance<MotionControllerInput>
     {
+        public delegate void RotateCameraPovDelegate(float rotationAmount);
+        public event RotateCameraPovDelegate RotateCameraPov;
+
         public bool UseAlternateGazeRay
         {
             get { return graspedHand != null; }
@@ -115,15 +118,41 @@ namespace GalaxyExplorer
             if (obj.state.sourcePose.TryGetPosition(out ci.position, InteractionSourceNode.Pointer))
             {
                 // convert local position into world position
-                //ci.position = transform.TransformPoint(ci.position);
+                ci.position = CameraCache.Main.transform.parent.TransformPoint(ci.position);
             }
             if (obj.state.sourcePose.TryGetForward(out ci.forward, InteractionSourceNode.Pointer))
             {
                 // convert local rotation into world rotation
-                //ci.forward = transform.TransformDirection(ci.forward);
+                ci.forward = CameraCache.Main.transform.parent.TransformDirection(ci.forward);
             }
 
-            HandleNavigation(ci, obj);
+
+            // Check out the X value for the thumbstick to see if we are
+            // trying to rotate the POV. Only do this if there isn't a
+            // tool selected.
+            if (ToolManager.Instance.SelectedTool == null &&
+                ci.handedness != InteractionSourceHandedness.Unknown)
+            {
+                float x = obj.state.thumbstickPosition.x;
+                float irot = intendedRotation[ci.handedness];
+
+                if (irot != 0f && x < 0.1f)
+                {
+                    if (RotateCameraPov != null)
+                    {
+                        RotateCameraPov(irot);
+                    }
+                    intendedRotation[ci.handedness] = 0f;
+                }
+                else if (Mathf.Abs(x) >= 0.9f)
+                {
+                    intendedRotation[ci.handedness] = 45f * Mathf.Sign(x);
+                }
+            }
+            else
+            {
+                HandleNavigation(ci, obj);
+            }
 
             // Update the x/y accumulators for the grasped controler
             if (graspedHand != null &&
@@ -248,7 +277,10 @@ namespace GalaxyExplorer
                         break;
 
                     case InteractionSourcePressType.Grasp:
-                        graspedHand = ci;
+                        if (graspedHand == null)
+                        {
+                            graspedHand = ci;
+                        }
                         break;
                 }
             }
