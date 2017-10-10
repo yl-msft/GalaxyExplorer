@@ -86,11 +86,6 @@ namespace GalaxyExplorer
             }
         }
 
-        private bool isRotating = false;
-        private float yRotationDelta = 0f;
-        private int itemsFadedSoFar = 0;
-        private List<GameObject> itemsToFade = new List<GameObject>();
-        private float rotationFadeInOutTime = 0.3f;
         private void Controller_RotateCameraPov(float rotationAmount)
         {
             if (MixedRealityTeleport.Instance)
