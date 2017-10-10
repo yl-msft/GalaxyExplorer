@@ -11,10 +11,10 @@ namespace GalaxyExplorer
     public class GamepadInput : SingleInstance<GamepadInput>
     {
         [Tooltip("Game pad button to press for air tap.")]
-        public string GamePadButtonA = "Fire1";
+        public string GamePadButtonA = "XBOX_A";
 
         [Tooltip("Game pad button to press to navigate back.")]
-        public string GamePadButtonB = "Go Back";
+        public string GamePadButtonB = "XBOX_B";
 
         [Tooltip("Change this value to give a different source id to your controller.")]
         public uint GamePadId = 50000;
@@ -25,13 +25,10 @@ namespace GalaxyExplorer
         public float HoldCompletedInterval = 3.0f;
 
         [Tooltip("Name of the joystick axis that navigates around X.")]
-        public string NavigateAroundXAxisName = "ControllerLeftStickX";
+        public string NavigateAroundXAxisName = "CONTROLLER_LEFT_STICK_HORIZONTAL";
 
         [Tooltip("Name of the joystick axis that navigates around Y.")]
-        public string NavigateAroundYAxisName = "ControllerLeftStickY";
-
-        [Tooltip("Name of the controller thumbstick that rotates the POV 45 degrees")]
-        public string GamepadRotationStick = "ControllerRightStickX";
+        public string NavigateAroundYAxisName = "CONTROLLER_LEFT_STICK_VERTICAL";
 
         bool isAPressed = false;
         bool holdStarted = false;
@@ -55,7 +52,6 @@ namespace GalaxyExplorer
         {
             HandleGamepadAPressed();
             HandleGamepadBPressed();
-            HandleRightStickX();
         }
 
         private bool backButtonPressed = false;
@@ -72,28 +68,6 @@ namespace GalaxyExplorer
                 {
                     backButton.ButtonAction();
                 }
-            }
-        }
-
-        public delegate void RotateCameraPovDelegate(float rotationAmount);
-        public event RotateCameraPovDelegate RotateCameraPov;
-
-        private float intendedRotation = 0f;
-
-        private void HandleRightStickX()
-        {
-            float x = Input.GetAxis(GamepadRotationStick);
-            if (intendedRotation != 0f && x == 0f)
-            {
-                if (RotateCameraPov != null)
-                {
-                    RotateCameraPov(intendedRotation);
-                }
-                intendedRotation = 0f;
-            }
-            else if (Math.Abs(x) == 1f)
-            {
-                intendedRotation = 45f * x;
             }
         }
 

@@ -78,20 +78,6 @@ namespace GalaxyExplorer
             FloorQuad.SetActive(true);
             FadeInOut(floorVisible);
             recalculateFloor = true;
-
-            // Hook up the controller to rotate the camera
-            if (GamepadInput.Instance)
-            {
-                GamepadInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
-            }
-        }
-
-        private void Controller_RotateCameraPov(float rotationAmount)
-        {
-            if (MixedRealityTeleport.Instance)
-            {
-                MixedRealityTeleport.Instance.DoRotation(rotationAmount);
-            }
         }
 
         private void OnDrawGizmos()
@@ -132,15 +118,6 @@ namespace GalaxyExplorer
                     FloorQuad.GetComponent<Renderer>().sharedMaterial.SetVector("_WorldScale", new Vector4(lossyScale.x, lossyScale.y, lossyScale.z, 0));
                 }
             }
-        }
-
-        protected override void OnDestroy()
-        {
-            if (GamepadInput.Instance)
-            {
-                GamepadInput.Instance.RotateCameraPov -= Controller_RotateCameraPov;
-            }
-            base.OnDestroy();
         }
 
         private void FadeInOut(bool fadeIn)
