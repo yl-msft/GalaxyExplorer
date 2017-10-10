@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 using System.Collections.Generic;
@@ -220,6 +221,12 @@ namespace GalaxyExplorer
                 {
                     ToolSounds.Instance.PlayDisabledSelectSound();
                 }
+
+                if (type == ToolType.Zoom &&
+                    MixedRealityTeleport.Instance)
+                {
+                    MixedRealityTeleport.Instance.EnableRotation = !selected;
+                }
             }
         }
 
@@ -247,6 +254,12 @@ namespace GalaxyExplorer
                 ToolManager.Instance.DeselectTool(this);
                 selected = false;
                 meshRenderer.material = DefaultMaterial;
+
+                if (type == ToolType.Zoom &&
+                    MixedRealityTeleport.Instance)
+                {
+                    MixedRealityTeleport.Instance.EnableRotation = !selected;
+                }
             }
         }
 

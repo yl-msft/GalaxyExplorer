@@ -84,11 +84,6 @@ namespace GalaxyExplorer
             {
                 GamepadInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
             }
-            // Hook up the motion controller to rotate the camera
-            if (MotionControllerInput.Instance)
-            {
-                //MotionControllerInput.Instance.RotateCameraPov += Controller_RotateCameraPov;
-            }
         }
 
         private bool isRotating = false;
@@ -98,70 +93,10 @@ namespace GalaxyExplorer
         private float rotationFadeInOutTime = 0.3f;
         private void Controller_RotateCameraPov(float rotationAmount)
         {
-            if (isRotating)
+            if (MixedRealityTeleport.Instance)
             {
-                return;
+                MixedRealityTeleport.Instance.DoRotation(rotationAmount);
             }
-            // initiate fade-out prior to rotation
-            yRotationDelta = rotationAmount;
-            TransitionManager.Instance.FadeComplete += FadeoutComplete;
-            itemsToFade.Clear();
-            // add the floor and the stars to the items to fade
-            itemsToFade.Add(FloorQuad);
-            itemsToFade.Add(StarBackgroundManager.Instance.Stars);
-            // If there is current content, fade it.
-            GameObject currentContent = ViewLoader.Instance.GetCurrentContent();
-            if (currentContent)
-            {
-                itemsToFade.Add(currentContent);
-                // Deal with points of interest
-                PointOfInterest[] pois = currentContent.GetComponentsInChildren<PointOfInterest>();
-                foreach (PointOfInterest poi in pois)
-                {
-                    itemsToFade.Add(poi.gameObject);
-                    poi.OnGazeDeselect();
-                }
-            }
-
-            itemsFadedSoFar = 0;
-            foreach (GameObject go in itemsToFade)
-            {
-                StartCoroutine(TransitionManager.Instance.FadeContent(go, TransitionManager.FadeType.FadeOut, rotationFadeInOutTime, FloorFadeCurve, deactivateOnFadeout: false));
-            }
-            isRotating = itemsToFade.Count > 0;
-            if (isRotating)
-            {
-                CardPOIManager.Instance.HideAllCards();
-            }
-        }
-
-        private void FadeoutComplete()
-        {
-            if (++itemsFadedSoFar < itemsToFade.Count)
-            {
-                return;
-            }
-            TransitionManager.Instance.FadeComplete -= FadeoutComplete;
-
-            // rotate the camera
-            CameraRigs.transform.RotateAround(Camera.main.transform.position, Vector3.up, yRotationDelta);
-
-            TransitionManager.Instance.FadeComplete += FadeinComplete;
-            itemsFadedSoFar = 0;
-            foreach (GameObject go in itemsToFade)
-            {
-                StartCoroutine(TransitionManager.Instance.FadeContent(go, TransitionManager.FadeType.FadeIn, rotationFadeInOutTime, FloorFadeCurve));
-            }
-        }
-
-        private void FadeinComplete()
-        {
-            if (++itemsFadedSoFar < itemsToFade.Count)
-            {
-                return;
-            }
-            TransitionManager.Instance.FadeComplete -= FadeinComplete;
-            isRotating = false;
         }
 
         private void OnDrawGizmos()

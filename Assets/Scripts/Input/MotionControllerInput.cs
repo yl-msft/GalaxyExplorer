@@ -11,9 +11,6 @@ namespace GalaxyExplorer
 {
     public class MotionControllerInput : SingleInstance<MotionControllerInput>
     {
-        public delegate void RotateCameraPovDelegate(float rotationAmount);
-        public event RotateCameraPovDelegate RotateCameraPov;
-
         public bool UseAlternateGazeRay
         {
             get { return graspedHand != null; }
@@ -89,12 +86,10 @@ namespace GalaxyExplorer
 
             if (ci.grasped && graspedHand == null)
             {
-                Debug.LogFormat("Setting graspedHand to controllerId {0} with handedness {1}", ci.id, ci.handedness.ToString());
                 graspedHand = ci;
             }
             else if (!ci.grasped && graspedHand != null && ci.id == graspedHand.id)
             {
-                Debug.LogFormat("Un-setting graspedHand to controllerId {0} with handedness {1}", ci.id, ci.handedness.ToString());
                 graspedHand = null;
             }
         }
@@ -127,32 +122,7 @@ namespace GalaxyExplorer
             }
 
 
-            // Check out the X value for the thumbstick to see if we are
-            // trying to rotate the POV. Only do this if there isn't a
-            // tool selected.
-            if (ToolManager.Instance.SelectedTool == null &&
-                ci.handedness != InteractionSourceHandedness.Unknown)
-            {
-                float x = obj.state.thumbstickPosition.x;
-                float irot = intendedRotation[ci.handedness];
-
-                if (irot != 0f && x < 0.1f)
-                {
-                    if (RotateCameraPov != null)
-                    {
-                        RotateCameraPov(irot);
-                    }
-                    intendedRotation[ci.handedness] = 0f;
-                }
-                else if (Mathf.Abs(x) >= 0.9f)
-                {
-                    intendedRotation[ci.handedness] = 45f * Mathf.Sign(x);
-                }
-            }
-            else
-            {
-                HandleNavigation(ci, obj);
-            }
+            HandleNavigation(ci, obj);
 
             // Update the x/y accumulators for the grasped controler
             if (graspedHand != null &&
@@ -217,7 +187,6 @@ namespace GalaxyExplorer
                         {
                             navigatingHand = null;
                             InputRouter.Instance.OnNavigationCompletedWorker(InteractionSourceKind.Controller, Vector3.zero, new Ray());
-                            Debug.Log("SourceReleased -> OnNavigationCompleted");
                         }
                         else
                         {
