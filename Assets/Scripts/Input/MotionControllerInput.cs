@@ -48,8 +48,6 @@ namespace GalaxyExplorer
         // controller at a time. The first one in wins.
         private ControllerInformation graspedHand = null;
 
-        ControllerVisualizer controllerVisualizer;
-
         private Dictionary<uint, ControllerInformation> controllerDictionary = new Dictionary<uint, ControllerInformation>();
 
         private bool eventsRegistered = false;
@@ -60,12 +58,6 @@ namespace GalaxyExplorer
             {
                 enabled = false;
                 return;
-            }
-
-            controllerVisualizer = GetComponent<ControllerVisualizer>();
-            if (controllerVisualizer)
-            {
-                controllerVisualizer.enabled = true;
             }
 
             InteractionManager.InteractionSourceDetected += InteractionManager_OnInteractionSourceDetected;
