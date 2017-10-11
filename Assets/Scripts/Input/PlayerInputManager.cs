@@ -32,16 +32,19 @@ namespace GalaxyExplorer
             {
                 string[] keywords = new string[speechCallbacks.Keys.Count];
                 speechCallbacks.Keys.CopyTo(keywords, 0);
-                keywordRecognizer = new KeywordRecognizer(keywords);
-                keywordRecognizer.OnPhraseRecognized += SpeechCallbackHandler;
                 try
                 {
+                    keywordRecognizer = new KeywordRecognizer(keywords);
+                    keywordRecognizer.OnPhraseRecognized += SpeechCallbackHandler;
                     keywordRecognizer.Start();
                 }
                 catch
                 {
                     Debug.Log("Failed to start the keywordRecognizer.");
-                    keywordRecognizer.OnPhraseRecognized -= SpeechCallbackHandler;
+                    if (keywordRecognizer != null)
+                    {
+                        keywordRecognizer.OnPhraseRecognized -= SpeechCallbackHandler;
+                    }
                     keywordRecognizer = null;
                 }
             }

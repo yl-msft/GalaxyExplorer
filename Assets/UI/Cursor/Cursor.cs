@@ -363,7 +363,8 @@ namespace GalaxyExplorer
                             isColliderGalaxyCardPOI = poiReference && poiReference.pointOfInterest && poiReference.pointOfInterest is CardPointOfInterest;
 
                             float offset = forwardImpactOffset;
-                            if (isOverToolbar &&
+                            if (UnityEngine.XR.XRDevice.isPresent &&
+                                isOverToolbar &&
                                 MotionControllerInput.Instance &&
                                 MotionControllerInput.Instance.UseAlternateGazeRay)
                             {
@@ -385,7 +386,8 @@ namespace GalaxyExplorer
 
                         if (hasHit)
                         {
-                            if (MotionControllerInput.Instance &&
+                            if (UnityEngine.XR.XRDevice.isPresent &&
+                                MotionControllerInput.Instance &&
                                 MotionControllerInput.Instance.UseAlternateGazeRay)
                             {
                                 desiredPosition = cursorOriginRay.origin + cursorOriginRay.direction * hitInfo.distance;
@@ -410,7 +412,8 @@ namespace GalaxyExplorer
                 }
             }
 
-            if (MotionControllerInput.Instance &&
+            if (UnityEngine.XR.XRDevice.isPresent &&
+                MotionControllerInput.Instance &&
                 MotionControllerInput.Instance.UseAlternateGazeRay)
             {
                 transform.position = previousPosition = desiredPosition;
