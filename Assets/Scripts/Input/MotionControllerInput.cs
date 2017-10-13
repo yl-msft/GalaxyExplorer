@@ -29,8 +29,6 @@ namespace GalaxyExplorer
             get { return graspedHand; }
         }
 
-        private Dictionary<InteractionSourceHandedness, float> intendedRotation = new Dictionary<InteractionSourceHandedness, float>();
-
         public class ControllerInformation
         {
             public uint id = 0;
@@ -52,8 +50,9 @@ namespace GalaxyExplorer
 
         private bool eventsRegistered = false;
 
-        void Awake()
+        void Start()
         {
+            Debug.Log("MotionControllerInput.Start()");
             if (MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.ImmersiveHMD)
             {
                 enabled = false;
@@ -66,9 +65,6 @@ namespace GalaxyExplorer
             InteractionManager.InteractionSourceReleased += InteractionManager_OnInteractionSourceReleased;
             InteractionManager.InteractionSourceUpdated += InteractionManager_OnInteractionSourceUpdated;
             eventsRegistered = true;
-
-            intendedRotation[InteractionSourceHandedness.Left] = 0f;
-            intendedRotation[InteractionSourceHandedness.Right] = 0f;
         }
 
         private void ValidateGraspStateTracking(ControllerInformation ci, InteractionSourceUpdatedEventArgs args)

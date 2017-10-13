@@ -9,14 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 6a3307c5160512e4d8936d05d63fff20
   - enabled: 1
+    path: Assets/Scenes/CoreSystems.unity
+    guid: ff05f0687ee5c42409126f25c15edda8
+  - enabled: 1
+    path: Assets/Scenes/CoreSystems_MixedReality.unity
+    guid: d1ab4701e5b33cf4b85e1107fdd6fa1e
+  - enabled: 1
     path: Assets/Scenes/Views/GalaxyView.unity
     guid: fa40bd475d6ebd7498f13b32a8222e0c
   - enabled: 1
     path: Assets/Scenes/Views/SolarSystemView.unity
     guid: 73c433306d1f43f49b1760549d73900a
-  - enabled: 1
-    path: Assets/Scenes/CoreSystems.unity
-    guid: ff05f0687ee5c42409126f25c15edda8
   - enabled: 1
     path: Assets/Scenes/Views/EarthView.unity
     guid: 8d5a752b7e7daaf45b1b07702ad4061f

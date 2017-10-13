@@ -17,8 +17,8 @@ namespace GalaxyExplorer
         public float FadeInOutTime = 1.0f;
         public GameObject SpaceBackground;
 
-        [Tooltip("Drag the CameraRigs game object from CoreSystems here.")]
-        public GameObject CameraRigs;
+        [Tooltip("Drag the MotionControllers prefab here.")]
+        public GameObject MotionControllers;
 
         public Material PlayspaceBoundsMaterial;
 
@@ -34,6 +34,42 @@ namespace GalaxyExplorer
         {
             keywordManager = GetComponent<KeywordManager>();
             keywordManager.enabled = MyAppPlatformManager.SpeechEnabled;
+
+            // parent the MotionControllers to the Camera rigs
+            if (MotionControllers != null)
+            {
+                Debug.LogFormat("Moving MotionControllers parent from {0}...", MotionControllers.transform.parent.gameObject.name);
+                MotionControllers.transform.SetParent(CameraCache.Main.transform.parent, true);
+                Debug.LogFormat("... to {0}", MotionControllers.transform.parent.gameObject.name);
+            }
+
+            // Grab the MixedRealityTeleport component from here and use it as
+            // a template for a new one added to CameraRigs
+            var mrt = GetComponent<MixedRealityTeleport>();
+            if (mrt)
+            {
+                var mrtNew = CameraCache.Main.transform.parent.gameObject.AddComponent<MixedRealityTeleport>();
+                mrtNew.gameObject.AddComponent<SetGlobalListener>();
+
+                mrtNew.LeftThumbstickX = mrt.LeftThumbstickX;
+                mrtNew.LeftThumbstickY = mrt.LeftThumbstickY;
+                mrtNew.RightThumbstickX = mrt.RightThumbstickX;
+                mrtNew.RightThumbstickY = mrt.RightThumbstickY;
+                mrtNew.EnableTeleport = mrt.EnableTeleport;
+                mrtNew.EnableRotation = mrt.EnableRotation;
+                mrtNew.EnableStrafe = mrt.EnableStrafe;
+                mrtNew.RotationSize = mrt.RotationSize;
+                mrtNew.StrafeAmount = mrt.StrafeAmount;
+                mrtNew.TeleportMarker = mrt.TeleportMarker;
+                mrtNew.enabled = true;
+
+                var sgl = GetComponent<SetGlobalListener>();
+                if (sgl)
+                {
+                    DestroyImmediate(sgl);
+                }
+                DestroyImmediate(mrt);
+            }
         }
 
         // Use this for initialization
@@ -74,7 +110,7 @@ namespace GalaxyExplorer
             SpaceBackground.transform.SetParent(null);
 
             // parent the FloorQuad to the Camera rigs so it stays "locked" to the real world
-            FloorQuad.transform.SetParent(CameraRigs.transform, true);
+            FloorQuad.transform.SetParent(CameraCache.Main.transform.parent, true);
             FloorQuad.SetActive(true);
             FadeInOut(floorVisible);
             recalculateFloor = true;

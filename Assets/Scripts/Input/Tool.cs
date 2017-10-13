@@ -223,6 +223,7 @@ namespace GalaxyExplorer
                 }
 
                 if (type == ToolType.Zoom &&
+                    MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                     MixedRealityTeleport.Instance)
                 {
                     MixedRealityTeleport.Instance.EnableRotation = !selected;
@@ -256,6 +257,7 @@ namespace GalaxyExplorer
                 meshRenderer.material = DefaultMaterial;
 
                 if (type == ToolType.Zoom &&
+                    MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                     MixedRealityTeleport.Instance)
                 {
                     MixedRealityTeleport.Instance.EnableRotation = !selected;

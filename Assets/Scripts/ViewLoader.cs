@@ -179,6 +179,17 @@ namespace GalaxyExplorer
                 {
                     yield return new WaitForEndOfFrame();
                 }
+
+                // If we are on Windows Mixed Reality, load scene with MR-specific stuff
+                if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
+                {
+                    coreSystemsOp = SceneManager.LoadSceneAsync(String.Format("{0}_ImmersiveHMD", CoreSystems), LoadSceneMode.Additive);
+
+                    while (!coreSystemsOp.isDone)
+                    {
+                        yield return new WaitForEndOfFrame();
+                    }
+                }
             }
 
             if (!coreSystemsLoaded)
