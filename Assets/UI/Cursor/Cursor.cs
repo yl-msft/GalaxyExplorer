@@ -326,7 +326,7 @@ namespace GalaxyExplorer
             var cam = Camera.main;
             if (!cam) return;
 
-            if (UnityEngine.XR.XRDevice.isPresent &&
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                 MotionControllerInput.Instance &&
                 MotionControllerInput.Instance.UseAlternateGazeRay)
             {
@@ -363,10 +363,10 @@ namespace GalaxyExplorer
                             isColliderGalaxyCardPOI = poiReference && poiReference.pointOfInterest && poiReference.pointOfInterest is CardPointOfInterest;
 
                             float offset = forwardImpactOffset;
-                            if (UnityEngine.XR.XRDevice.isPresent &&
-                                isOverToolbar &&
+                            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                                 MotionControllerInput.Instance &&
-                                MotionControllerInput.Instance.UseAlternateGazeRay)
+                                MotionControllerInput.Instance.UseAlternateGazeRay &&
+                                isOverToolbar)
                             {
                                 // if we are over the toolbar and using the motion
                                 // controller make the offset zero so the cursor
@@ -386,7 +386,7 @@ namespace GalaxyExplorer
 
                         if (hasHit)
                         {
-                            if (UnityEngine.XR.XRDevice.isPresent &&
+                            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                                 MotionControllerInput.Instance &&
                                 MotionControllerInput.Instance.UseAlternateGazeRay)
                             {
@@ -412,7 +412,7 @@ namespace GalaxyExplorer
                 }
             }
 
-            if (UnityEngine.XR.XRDevice.isPresent &&
+            if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                 MotionControllerInput.Instance &&
                 MotionControllerInput.Instance.UseAlternateGazeRay)
             {

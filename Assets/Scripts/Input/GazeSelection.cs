@@ -88,7 +88,7 @@ namespace GalaxyExplorer
             {
                 Transform camTrans = Camera.main.transform;
 
-                if (UnityEngine.XR.XRDevice.isPresent &&
+                if (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD &&
                     MotionControllerInput.Instance &&
                     MotionControllerInput.Instance.UseAlternateGazeRay)
                 {
