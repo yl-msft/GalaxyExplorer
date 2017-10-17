@@ -201,13 +201,16 @@ Parts of a PointOfInterest:
 * Description - a text card that fades in when GazeSelection collides with any collider in the POI hierarchy.
 * Transition Scene (optional) - the scene that is loaded through the TransitionManager when the POI is selected.
 
-OrbitScalePointOfInterest is a toggle that converts between Realistic and Simplified
-orbit and size views in the solar system.
+## OrbitScalePointOfInterest
+Is a toggle that converts between Realistic and Simplified orbit and size views
+in the solar system.
 
-CardPointOfInterest is used in the galaxy to inspect images through a magic window.
-Parallax for the window and settings are incorporated in the POI_Porthole shader, and
-the window depth is hidden with the POI_Occlusion shader. The magic window points of
-interest have a moving target, but the cards are outside of the POI hierarchy.
+## CardPointOfInterest
+Is used in the galaxy to inspect images through a magic window. Parallax for
+the window and settings are incorporated in the POI_Porthole shader, and the
+window depth is hidden with the POI_Occlusion shader. The magic window points
+of interest have a moving target, but the cards are outside of the POI
+hierarchy.
 
 POI controls are used outside of the POI hierarchy using a PointOfInterestReference.
 Any colliders that respond to GazeSelection in the reference's hierarchy are treated
