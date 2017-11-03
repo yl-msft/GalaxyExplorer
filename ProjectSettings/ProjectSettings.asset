@@ -327,6 +327,7 @@ PlayerSettings:
   - m_BuildTarget: Metro
     m_Enabled: 1
     m_Devices:
+    - None
     - WindowsMR
   - m_BuildTarget: N3DS
     m_Enabled: 0
@@ -665,7 +666,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: Microsoft Corporation
   metroCertificateIssuer: Microsoft Corporation
-  metroCertificateNotAfter: 0056d9aa5f63d401
+  metroCertificateNotAfter: 006f2730b170d401
   metroApplicationDescription: Galaxy Explorer
   wsaImages:
     65636: Assets/Textures/StoreIcons/GE_icon_store_blue_50x50.png
