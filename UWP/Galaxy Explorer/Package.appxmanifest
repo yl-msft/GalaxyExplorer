@@ -10,7 +10,7 @@
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Holographic" MinVersion="10.0.14393.1770" MaxVersionTested="10.0.14393.1770" />
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.16299.19" MaxVersionTested="10.0.16299.19" />
-    <TargetDeviceFamily Name="Windows.Mobile" MinVersion="10.0.14393.1770" MaxVersionTested="10.0.14393.1770" />
+    <TargetDeviceFamily Name="Windows.Mobile" MinVersion="10.0.15252.0" MaxVersionTested="10.0.15252.0" />
   </Dependencies>
   <Resources>
     <Resource Language="x-generate" />
