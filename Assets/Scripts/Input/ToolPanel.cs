@@ -69,21 +69,36 @@ namespace GalaxyExplorer
             RecenterTools();
         }
 
+        private bool showHideToolsInTransition = false;
+
         public IEnumerator FadeOut(bool instant)
         {
+            while (showHideToolsInTransition)
+            {
+                yield return null;
+            }
+
             if (instant)
             {
                 toolsFader.SetAlpha(0);
             }
             else
             {
+                showHideToolsInTransition = true;
                 yield return StartCoroutine(TransitionManager.Instance.FadeContent(toolsFader.gameObject, TransitionManager.FadeType.FadeOut, FadeTransitionDuration, FadeOutTransitionCurve));
+                showHideToolsInTransition = false;
             }
         }
 
         public IEnumerator FadeIn()
         {
+            while (showHideToolsInTransition)
+            {
+                yield return null;
+            }
+            showHideToolsInTransition = true;
             yield return StartCoroutine(TransitionManager.Instance.FadeContent(toolsFader.gameObject, TransitionManager.FadeType.FadeIn, FadeTransitionDuration, FadeInTransitionCurve));
+            showHideToolsInTransition = false;
         }
 
         private void Update()
