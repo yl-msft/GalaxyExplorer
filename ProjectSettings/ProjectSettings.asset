@@ -691,13 +691,15 @@ PlayerSettings:
     65636: Assets/Textures/StoreIcons/GE_icon_store_blue_50x50.png
     65736: Assets/Textures/StoreIcons/GE_icon_store_blue_100x100.png
     65936: Assets/Textures/StoreIcons/GE_icon_store_blue.png
-    131222: Assets/Textures/StoreIcons/GE_icon_930x450.png
+    131222: Assets/Textures/StoreIcons/GE_splash_930x450.jpg
+    131272: Assets/Textures/StoreIcons/GE_splash_1240x600.jpg
     2031640: Assets/Textures/StoreIcons/GE_icon_square44_blue_24x24.png
     2031816: Assets/Textures/StoreIcons/GE_icon_square44_blue_88x88.png
     2031872: Assets/Textures/StoreIcons/GE_icon_square44_blue.png
     2162888: Assets/Textures/StoreIcons/GE_icon_square150_blue300x300.png
     2163088: Assets/Textures/StoreIcons/GE_icon_square150_blue.png
-    2293960: Assets/Textures/StoreIcons/GE_icon_620x300.png
+    2293960: Assets/Textures/StoreIcons/GE_wide_620x300.jpg
+    2294160: Assets/Textures/StoreIcons/GE_wide_1240x600.jpg
   metroTileShortName: GE
   metroCommandLineArgsFile: 
   metroTileShowName: 0

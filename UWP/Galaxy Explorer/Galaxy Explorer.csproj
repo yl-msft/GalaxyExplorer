@@ -28,7 +28,7 @@
     </AllowedReferenceRelatedFileExtensions>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
@@ -168,11 +168,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\SplashScreen.scale-150.jpg" />
+    <Content Include="Assets\SplashScreen.scale-200.jpg" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.jpg" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.jpg" />
     <Content Include="Resource.res">
-    </Content>
-    <Content Include="Assets\SplashScreen.scale-150.png">
-    </Content>
-    <Content Include="Assets\SplashScreen.scale-200.png">
     </Content>
     <Content Include="Assets\Square150x150Logo.scale-200.png">
     </Content>
@@ -189,8 +189,6 @@
     <Content Include="Assets\StoreLogo.scale-200.png">
     </Content>
     <Content Include="Assets\StoreLogo.scale-400.png">
-    </Content>
-    <Content Include="Assets\Wide310x150Logo.scale-200.png">
     </Content>
     <Content Include="Assets\GE_LiveCube.glb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
