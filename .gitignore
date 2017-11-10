@@ -68,15 +68,3 @@ UWP/Galaxy Explorer/Assets/*
 
 !UWP/GE_POIMaker/
 /Assets/UI/POIs/POIs_processed.log.meta
-
-# ============================== #
-# Allow for a quick build of D3D #
-# ============================== #
-D3D/*
-!D3D/UnityOverwrite.txt
-!D3D/Galaxy Explorer/
-D3D/Galaxy Explorer/*
-!D3D/Galaxy Explorer/Package.appxmanifest
-!D3D/Galaxy Explorer/Assets/
-D3D/Galaxy Explorer/Assets/*
-!D3D/Galaxy Explorer/Assets/GE_LiveCube.glb
