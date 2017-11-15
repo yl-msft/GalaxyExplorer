@@ -168,11 +168,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\SplashScreen.scale-150.jpg" />
+    <Content Include="Assets\SplashScreen.scale-200.jpg" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.jpg" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.jpg" />
     <Content Include="Resource.res">
-    </Content>
-    <Content Include="Assets\SplashScreen.scale-150.png">
-    </Content>
-    <Content Include="Assets\SplashScreen.scale-200.png">
     </Content>
     <Content Include="Assets\Square150x150Logo.scale-200.png">
     </Content>
@@ -189,8 +189,6 @@
     <Content Include="Assets\StoreLogo.scale-200.png">
     </Content>
     <Content Include="Assets\StoreLogo.scale-400.png">
-    </Content>
-    <Content Include="Assets\Wide310x150Logo.scale-200.png">
     </Content>
     <Content Include="Assets\GE_LiveCube.glb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
