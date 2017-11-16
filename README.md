@@ -19,14 +19,10 @@ interact.
 Download all of the developer tools from the
 [Microsoft Developer Website](http://lens.ms/Sa37sr)
 
-*note*, the currently supported version of Unity is 2017.2.0f3-MRTP3 which will be
-available from the [Unity Beta Program site](https://unity3d.com/unity/beta#download)
-soon.
+*note*, the currently supported version of Unity is 2017.2.0p1-MRTP4 which can be
+found on the [Unity Beta Program site](http://beta.unity3d.com/download/b1565bfe4a0c/download.html).
 
 # Running in Unity
-
-This project is built with the Unity HoloLens Technical Preview. A link to
-download the latest version can be found with the rest of the HoloLens tools.
 
 Note that by default when you point Unity at this repo, it will open a new
 scene. Navigate to /Scenes and double-click MainScene to setup the editor
@@ -36,13 +32,13 @@ properly. After that, hitting Play will start the experience.
 
 From Unity, choose File->Build Settings to bring up the Build Settings
 window. All of the scenes in the Scenes to Build section should be checked.
-Choose Windows Store as the Platform. On the right side, choose Universal 10
-as the SDK, "any device" as the Target device, XAML as the UWP Build Type,
-check "Unity C# Projects" and then click Build. Select the folder called 'UWP'
-and choose this folder.
+Choose Universal Windows Platform as the Platform. On the right side, choose
+"any device" as the Target device, XAML as the UWP Build Type, 10.0.16299.0
+as the SDK, check "Unity C# Projects" and then click Build. Select the folder
+called 'UWP' and choose this folder.
 
 After the build completes successfully, an explorer window will pop up.
-Navigate into the UWP folder and double-click GalaxyExplorer.sln to launch
+Navigate into the UWP folder and double-click `Galaxy Explorer.sln` to launch
 Visual Studio. From Visual Studio, set the Configuration to **Release**
 for faster builds (doesn't use .NET Native) or **Master** to build the
 type of package the Store needs (uses .NET Native).
@@ -79,7 +75,7 @@ hierarchy is ready.
 ## CoreSystems_ImmersiveHMD
 
 CoreSystems_ImmersiveHMD is a scene that adds game objects and scripts required
-when running in Windows Mixed Reality on and Immersive HMD. It is loaded by
+when running in Windows Mixed Reality on an Immersive HMD. It is loaded by
 ViewLoader after CoreSystems is loaded. It controlls things like rendering a
 floor plane and a star-field background which help the user feel grounded. It
 also adds visualizers for Mixed Reality motion controllers
@@ -103,7 +99,7 @@ When a next scene is loaded, the name of the scene is provided by a
 PointOfInterest. The scene is added to a stack that the ViewLoader maintains,
 and the stack is popped to determine which scene to load for prev scenes.
 
-For all scene loaded, an optional callback for the loaded scene can be provided.
+For all scenes loaded, an optional callback for the loaded scene can be provided.
 Scenes are loaded asynchronously, so the TransitionManager uses this callback
 to know when new content is ready to be shown and moved for a transitions.
 
