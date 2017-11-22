@@ -73,6 +73,8 @@ PlayerSettings:
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
+  deferSystemGesturesMode: 0
+  hideHomeButton: 0
   submitAnalytics: 1
   usePlayerLog: 1
   bakeCollisionMeshes: 0
@@ -250,6 +252,8 @@ PlayerSettings:
   iPhone47inSplashScreen: {fileID: 0}
   iPhone55inPortraitSplashScreen: {fileID: 0}
   iPhone55inLandscapeSplashScreen: {fileID: 0}
+  iPhone58inPortraitSplashScreen: {fileID: 0}
+  iPhone58inLandscapeSplashScreen: {fileID: 0}
   iPadPortraitSplashScreen: {fileID: 0}
   iPadHighResPortraitSplashScreen: {fileID: 0}
   iPadLandscapeSplashScreen: {fileID: 0}
@@ -685,7 +689,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: Microsoft Corporation
   metroCertificateIssuer: Microsoft Corporation
-  metroCertificateNotAfter: 007f0fedc777d401
+  metroCertificateNotAfter: 00065ff9b682d401
   metroApplicationDescription: Galaxy Explorer
   wsaImages:
     65636: Assets/Textures/StoreIcons/GE_icon_store_blue_50x50.png
@@ -700,7 +704,7 @@ PlayerSettings:
     2163088: Assets/Textures/StoreIcons/GE_icon_square150_blue.png
     2293960: Assets/Textures/StoreIcons/GE_wide_620x300.jpg
     2294160: Assets/Textures/StoreIcons/GE_wide_1240x600.jpg
-  metroTileShortName: GE
+  metroTileShortName: Galaxy Explorer
   metroCommandLineArgsFile: 
   metroTileShowName: 0
   metroMediumTileShowName: 1
