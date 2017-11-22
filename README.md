@@ -1,4 +1,4 @@
-# Galaxy Explorer
+﻿# Galaxy Explorer
 
 Galaxy Explorer is an open-source HoloLens application that was developed
 in 6-weeks as part of the Share Your Idea program where the community
@@ -19,8 +19,8 @@ interact.
 Download all of the developer tools from the
 [Microsoft Developer Website](http://lens.ms/Sa37sr)
 
-*note*, the currently supported version of Unity is 2017.2.0p1-MRTP4 which can be
-found on the [Unity Beta Program site](http://beta.unity3d.com/download/b1565bfe4a0c/download.html).
+*note*, the currently supported version of Unity is 2017.2.0p2-MRTP5 which can be
+found on the [Unity Beta Program site](http://beta.unity3d.com/download/a07ad30bae31/download.html).
 
 # Running in Unity
 
