@@ -17,3 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GalaxyExplorer/Scenes/SolarSystemView.unity
     guid: d73ecf9fee4ffab47b24e988b2490fa4
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Scenes/JupiterView.unity
+    guid: a4dc4194e7073a945aa6ae85487365a7
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Scenes/EarthView.unity
+    guid: 924a76efd161e80458a8e2b215bbb254
