@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 1446444110}
   - component: {fileID: 1446444112}
   - component: {fileID: 1446444111}
+  - component: {fileID: 1446444113}
   m_Layer: 0
   m_Name: Volume
   m_TagString: Untagged
@@ -315,6 +316,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1446444113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446444109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a160e0633b1df064ba351f6add15dd0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneObject: {fileID: 1446444109}
+  SceneFocusCollider: {fileID: 285979363}
+  IsSinglePlanet: 0
 --- !u!114 &1446444114
 MonoBehaviour:
   m_ObjectHideFlags: 0

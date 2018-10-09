@@ -567,7 +567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281915116}
   - component: {fileID: 281915117}
-  - component: {fileID: 281915118}
+  - component: {fileID: 281915119}
   m_Layer: 0
   m_Name: Loader
   m_TagString: Untagged
@@ -602,7 +602,7 @@ MonoBehaviour:
   IntroScene: LogoScene
   CoreSystemsScene: CoreSystems
   EarthPinScene: EarthPin
---- !u!114 &281915118
+--- !u!114 &281915119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -610,9 +610,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 281915115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4999c6b0853cc0c438045e310d5556bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cb7c1cc5766c50498da808233d31ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransformSourceId: 0
 --- !u!1 &385411636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,7 +1114,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 281915118}
+          - m_Target: {fileID: 2129510197}
             m_MethodName: LoadNextScene
             m_Mode: 5
             m_Arguments:
@@ -1139,7 +1140,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 281915118}
+          - m_Target: {fileID: 2129510197}
             m_MethodName: LoadNextScene
             m_Mode: 5
             m_Arguments:
@@ -1598,6 +1599,11 @@ GameObject:
   - component: {fileID: 2129510193}
   - component: {fileID: 2129510194}
   - component: {fileID: 2129510195}
+  - component: {fileID: 2129510197}
+  - component: {fileID: 2129510196}
+  - component: {fileID: 2129510198}
+  - component: {fileID: 2129510199}
+  - component: {fileID: 2129510200}
   m_Layer: 0
   m_Name: GEManagers
   m_TagString: Untagged
@@ -1651,3 +1657,437 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ec706f6127798438ebfab9a28b4a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2129510196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129510192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194396cd47f580840849c0f229a9b789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextScene: {fileID: 0}
+--- !u!114 &2129510197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129510192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4999c6b0853cc0c438045e310d5556bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IntroTransitionCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.45257157
+      value: 0.7271557
+      inSlope: 1.7373049
+      outSlope: 1.7373049
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  GalaxyToSSTransitionCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.4010886
+      value: 0.04821229
+      inSlope: 0.4536993
+      outSlope: 0.4536993
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.8036351
+      value: 0.6534681
+      inSlope: 2.6494193
+      outSlope: 2.6494193
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.899425
+      value: 0.9515679
+      inSlope: 1.8612128
+      outSlope: 1.8612128
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  SSToGalaxyTransitionCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.15080746
+      value: 0.71501344
+      inSlope: 2.695074
+      outSlope: 2.695074
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.39734554
+      value: 0.95383716
+      inSlope: 0.14690155
+      outSlope: 0.14690155
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  SSToPlanetTransitionCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.2984301
+      value: 0.09084731
+      inSlope: 0.80370754
+      outSlope: 0.80370754
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.6028335
+      value: 0.7862285
+      inSlope: 1.7735362
+      outSlope: 1.7735362
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  PlanetToSSPositionScaleCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.3009811
+      value: 0.6921779
+      inSlope: 2.2222102
+      outSlope: 2.2222102
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.60025173
+      value: 0.93665075
+      inSlope: 0.17084232
+      outSlope: 0.17084232
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  PlanetToSSRotationCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.30263448
+      value: 0.021173552
+      inSlope: 0.41883957
+      outSlope: 0.41883957
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5990048
+      value: 0.21709196
+      inSlope: 1.2281027
+      outSlope: 1.2281027
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  SpiralGalaxyCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  TransitionTimeOpeningScene: 3.25
+  BackTransitionOpacityCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.19845858
+      value: 0.022221185
+      inSlope: 0.58442366
+      outSlope: 0.58442366
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.6922477
+      value: 0.93999356
+      inSlope: 0.7428184
+      outSlope: 0.7428184
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  PlanetToSSTransitionOpacityCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.601704
+      value: 0.02545958
+      inSlope: 0.15719445
+      outSlope: 0.15719445
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.8000452
+      value: 0.23284608
+      inSlope: 2.4407825
+      outSlope: 2.4407825
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  GalaxyVisibilityTimeClosingScene: 1.5
+  SolarSystemVisibilityTimeClosingScene: 1.5
+  PlanetVisibilityTimeClosingScene: 2
+  OpacityCurveClosingScene:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.006011963
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.29875574
+      value: 0.10640621
+      inSlope: 1.1951532
+      outSlope: 1.1951532
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7992505
+      value: 0.98650026
+      inSlope: 0.57213515
+      outSlope: 0.57213515
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1.006012
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  StartTransitionTime: 1
+  POIOpacityCurveStartTransition:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  EndTransitionTimeOffset: -1
+  POIOpacityChangeTimeEndTransition: 2
+  POIOpacityTimeOffsetEndTransition: 0.5
+  POIOpacityCurveEndTransition:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &2129510198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129510192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a16a84050bb5b4786671c0f2e42da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2129510199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129510192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4a37627e9d9374696066a4d1a65809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POIFadeOutTime: 1
+  POIOpacityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  DescriptionSlideOutTime: 1
+  DescriptionSlideInTime: 0.5
+  DescriptionSlideDirection: {x: 0.7, y: 0.7, z: 0}
+  DescriptionSlideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &2129510200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129510192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e071d3b0f2f3ea44e84a63328e862e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GalaxyScaleFactor: 1
+  SpiralGalaxyTintMultConstant: 1
+  SlateScaleFactor: 1
+  MagicWindowScaleFactor: 1
+  SolarSystemScaleFactor: 1
+  PoiScaleFactor: 1
