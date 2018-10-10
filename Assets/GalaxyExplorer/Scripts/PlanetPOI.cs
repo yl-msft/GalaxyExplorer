@@ -14,6 +14,9 @@ namespace GalaxyExplorer
         [SerializeField]
         private string SceneToLoad = "";
 
+        [SerializeField]
+        private GameObject Planet = null;
+
         private TransitionManager Transition = null;
         private GameObject planetObject = null;
 
@@ -24,17 +27,13 @@ namespace GalaxyExplorer
 
         public GameObject PlanetObject
         {
-            get { return planetObject; }
+            get { return Planet; }
         }
 
         protected override void Start()
         {
             base.Start();
             Transition = FindObjectOfType<TransitionManager>();
-
-            // Find planet
-            PlanetTransform planet = transform.parent.GetComponentInChildren<PlanetTransform>();
-            planetObject = (planet) ? planet.gameObject : null;
         }
 
         public override void OnInputDown(InputEventData eventData)

@@ -100,7 +100,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4640650779751016}
   - component: {fileID: 114907045661616050}
-  - component: {fileID: 114616912510909510}
   - component: {fileID: 114315646980297778}
   m_Layer: 0
   m_Name: Earth
@@ -800,17 +799,6 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
---- !u!114 &114616912510909510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1203304799000996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d89296c24b4b9d4c85cd81f545623ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114671670587053394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -843,6 +831,7 @@ MonoBehaviour:
   indicatorOffset: {x: 0, y: 0.4, z: 0}
   MaterialToFade: {fileID: 0}
   SceneToLoad: EarthView
+  Planet: {fileID: 1203304799000996}
 --- !u!114 &114841244463962512
 MonoBehaviour:
   m_ObjectHideFlags: 1
