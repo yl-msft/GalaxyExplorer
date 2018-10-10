@@ -44,30 +44,25 @@ namespace GalaxyExplorer
         [Tooltip("Drives the opacity animation for the scene that is closing.")]
         public AnimationCurve OpacityCurveClosingScene;
 
-        [Header("Start Transition")]
-        public float StartTransitionTime = 1.0f;
-        [Tooltip("Drives the POI opacity animation for the closing scene before content is loaded and starts moving into position.")]
+        [Header("Points Of Interest")]
+        [Tooltip("The time it takes for one point of interest to completely fade out.")]
+        public float PoiFadeOutDuration = 1.0f;
+        [Tooltip("Drives the POI opacity animation for the closing scene.")]
         public AnimationCurve POIOpacityCurveStartTransition;
-
-        [Header("End Transition")]
-        [Tooltip("This offset is applied to the time it takes to completely transition, so the end transition can start slightly before content has completely moved into place.")]
-        public float EndTransitionTimeOffset = -1.0f;
-        [Tooltip("The time it takes for one point of interest to completely fade out and the end of a transition.")]
-        public float POIOpacityChangeTimeEndTransition = 1.0f;
-        [Tooltip("The time between the previous and next points of interest fading out at the end of a transition.")]
-        public float POIOpacityTimeOffsetEndTransition = 0.5f;
+        [Tooltip("The time it takes for one point of interest to completely fade in.")]
+        public float PoiFadeInDuration = 2.0f;
         [Tooltip("Drives the POI opacity animation for the opening scene after it has completely moved into place.")]
         public AnimationCurve POIOpacityCurveEndTransition;
 
-        private GameObject prevSceneLoaded;     // tracks the last scene loaded for transitions when loading new scenes
-
-        private bool inTransition = false;
 
         private ViewLoader ViewLoaderScript = null;
         private GEFadeManager FadeManager = null;
         private ZoomInOut ZoomInOutBehaviour = null;
+        private GameObject prevSceneLoaded;     // tracks the last scene loaded for transitions when loading new scenes
 
         private bool isIntro = true;
+        private bool inTransition = false;
+
 
         public bool IsIntro
         {
@@ -208,22 +203,26 @@ namespace GalaxyExplorer
             Debug.Log("All unload functionality has ended");
         }
 
+        /// <summary>
+        /// Callback when next scene is loaded
+        /// Has the logic of the flow related to previous and next scene
+        /// </summary>
         private IEnumerator NextSceneLoadedCoroutine()
         {
-            GameObject content = FindContent();
+            GameObject nextSceneContent = FindContent();
             ZoomInOutBehaviour.ZoomInIsDone = false;
             ZoomInOutBehaviour.ZoomOutIsDone = false;
 
             // Initialize zoom in and out transition properties
-            StartCoroutine(ZoomInOutBehaviour.ZoomInOutInitialization(content, prevSceneLoaded));
+            StartCoroutine(ZoomInOutBehaviour.ZoomInOutInitialization(nextSceneContent, prevSceneLoaded));
 
             SceneTransition previousTransition = (prevSceneLoaded) ? prevSceneLoaded.GetComponentInChildren<SceneTransition>() : null;
-            SceneTransition newTransition = content.GetComponentInChildren<SceneTransition>();
+            SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
 
             // In order for the next scene not being visible while the previous is fading, set scale to zero
-            if (ZoomInOutBehaviour.NextScene)
+            if (ZoomInOutBehaviour.GetNextScene)
             {
-                ZoomInOutBehaviour.NextScene.transform.localScale = Vector3.zero;
+                ZoomInOutBehaviour.GetNextScene.transform.localScale = Vector3.zero;
             }
 
             bool zoomInOutSimultaneously = newTransition.IsSinglePlanetTransition || (previousTransition && previousTransition.IsSinglePlanetTransition);
@@ -251,14 +250,14 @@ namespace GalaxyExplorer
                 UnloadScene(ViewLoader.PreviousView, true);
             }
 
-            // Wait until transition is done
+            // Wait until next scene transition is done
             while (!ZoomInOutBehaviour.ZoomInIsDone)
             {
                 yield return null;
             }
 
             // Fade in pois of next scene
-            newTransition.Fade(newTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, POIOpacityChangeTimeEndTransition, POIOpacityCurveEndTransition);
+            newTransition.Fade(newTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, PoiFadeInDuration, POIOpacityCurveEndTransition);
 
             while (newTransition.IsFading)
             {
@@ -280,7 +279,7 @@ namespace GalaxyExplorer
             // In previous scene, fade out pois and then fade the rest of the scene
             if (previousTransition)
             {
-                previousTransition.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, StartTransitionTime, POIOpacityCurveStartTransition);
+                previousTransition.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
                 while (previousTransition.IsFading)
                 {
                     yield return null;
@@ -308,7 +307,7 @@ namespace GalaxyExplorer
                 newTransition.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
             }
 
-            StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+            StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
             yield return null;
         }
@@ -319,14 +318,14 @@ namespace GalaxyExplorer
             // Zoom out previous scene. First fade out  pois and when that ends then zoom out previous scene
             if (previousTransition)
             {
-                previousTransition.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, StartTransitionTime, POIOpacityCurveStartTransition);
+                previousTransition.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
 
                 while (previousTransition.IsFading)
                 {
                     yield return null;
                 }
 
-                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(GetContentRotationCurve(previousTransition.gameObject.scene.name), GetContentTransitionCurve(previousTransition.gameObject.scene.name)));
+                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene, GetContentRotationCurve(previousTransition.gameObject.scene.name), GetContentTransitionCurve(previousTransition.gameObject.scene.name)));
 
                 // wait until prev scene transition finishes
                 while (!ZoomInOutBehaviour.ZoomOutIsDone)
@@ -349,7 +348,7 @@ namespace GalaxyExplorer
             AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystemView") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
             newTransition.Fade(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
 
-            StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+            StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
             yield return null;
         }

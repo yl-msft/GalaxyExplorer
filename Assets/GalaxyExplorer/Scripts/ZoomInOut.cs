@@ -15,13 +15,11 @@ namespace GalaxyExplorer
         private Transform PreviousScene;
         private SphereCollider PreviousSceneFocusCollider;
 
-        public Transform NextScene;
+        private Transform NextScene;
         private SphereCollider NextSceneFocusCollider;
 
         [Range(0f, 1f)]
         private float transitionAmount = 0f;
-
-        private float TransitionDuration = 3.0f;
 
         private float previousFocusInitialScale = 0f;
         private float previousSceneInitialScale = 0f;
@@ -47,6 +45,11 @@ namespace GalaxyExplorer
         public bool ZoomInIsDone
         {
             get; set;
+        }
+
+        public Transform GetNextScene
+        {
+            get { return NextScene; }
         }
 
 
@@ -113,7 +116,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public IEnumerator ZoomOutCoroutine(AnimationCurve rotationCurve, AnimationCurve scaleCurve)
+        public IEnumerator ZoomOutCoroutine(float duration, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
         {
             if (PreviousScene == null || PreviousSceneFocusCollider == null)
             {
@@ -125,7 +128,7 @@ namespace GalaxyExplorer
 
             while (transitionAmount <= 1.0f)
             {
-                transitionAmount += Time.deltaTime / TransitionDuration;
+                transitionAmount += Time.deltaTime / duration;
 
                 // Rotate scenes. Previous scene need to rotate around a pivot point which is the previous scene's focus point
                 //Vector3 noRotPivot = Quaternion.Inverse(PreviousScene.transform.rotation) * (PreviousSceneFocusCollider.transform.position - PreviousScene.position);
@@ -152,7 +155,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public IEnumerator ZoomInCoroutine(AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
+        public IEnumerator ZoomInCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
         {
             if (NextScene == null || NextSceneFocusCollider == null)
             {
@@ -164,7 +167,7 @@ namespace GalaxyExplorer
 
             while (transitionAmount <= 1.0f)
             {
-                transitionAmount += Time.deltaTime / TransitionDuration;
+                transitionAmount += Time.deltaTime / duration;
 
                 // Rotate scenes. Previous scene need to rotate around a pivot point which is the previous scene's focus point
                 NextScene.transform.rotation = Quaternion.Slerp(nextInitQuaternion, nextSceneInitialRotation, Mathf.Clamp01(rotationCurve.Evaluate(transitionAmount)));
@@ -185,7 +188,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public IEnumerator ZoomInOutCoroutine(AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
+        public IEnumerator ZoomInOutCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
         {
             if (PreviousScene == null || NextScene == null || PreviousSceneFocusCollider == null || NextSceneFocusCollider == null)
             {
@@ -198,7 +201,7 @@ namespace GalaxyExplorer
 
             while (transitionAmount <= 1.0f)
             {
-                transitionAmount += Time.deltaTime / TransitionDuration;
+                transitionAmount += Time.deltaTime / duration;
 
                 // Rotate scenes. Previous scene need to rotate around a pivot point which is the previous scene's focus point
                 Vector3 noRotPivot = Quaternion.Inverse(PreviousScene.transform.rotation) * (PreviousSceneFocusCollider.transform.position - PreviousScene.position);
