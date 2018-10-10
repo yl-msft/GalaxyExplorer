@@ -8,8 +8,8 @@ namespace GalaxyExplorer
 {
     public class WorldAnchorHandler : SingleInstance<WorldAnchorHandler>
     {
-        private UnityEngine.XR.WSA.WorldAnchor viewLoaderAnchor;
-        private bool viewLoaderAnchorActivelyTracking = true;
+        private UnityEngine.XR.WSA.WorldAnchor anchor;
+        private bool anchorActivelyTracking = true;
 
         private void Start()
         {
@@ -30,22 +30,22 @@ namespace GalaxyExplorer
    
         public void CreateWorldAnchor()
         {
-            GameObject sourceObject = FindObjectOfType<ViewLoader>().gameObject;
+            GameObject sourceObject = FindObjectOfType<TransformSource>().gameObject;
 
-            viewLoaderAnchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
+            anchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
 
-            if (viewLoaderAnchor)
+            if (anchor)
             {
-                viewLoaderAnchor.OnTrackingChanged += GalaxyWorldAnchor_OnTrackingChanged;
+                anchor.OnTrackingChanged += GalaxyWorldAnchor_OnTrackingChanged;
             }
         }
 
         public void DestroyWorldAnchor()
         {
-            if (viewLoaderAnchor != null)
+            if (anchor != null)
             {
-                viewLoaderAnchor.OnTrackingChanged -= GalaxyWorldAnchor_OnTrackingChanged;
-                DestroyImmediate(viewLoaderAnchor);
+                anchor.OnTrackingChanged -= GalaxyWorldAnchor_OnTrackingChanged;
+                DestroyImmediate(anchor);
             }
         }
 
@@ -53,12 +53,12 @@ namespace GalaxyExplorer
     
         private void GalaxyWorldAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
         {
-            viewLoaderAnchorActivelyTracking = located;
+            anchorActivelyTracking = located;
         }
 
         private void ResetStarted()
         {
-            if (viewLoaderAnchor != null)
+            if (anchor != null)
             {
                 DestroyWorldAnchor();
             }

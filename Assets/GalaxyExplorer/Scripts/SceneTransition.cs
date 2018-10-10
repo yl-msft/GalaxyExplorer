@@ -19,14 +19,12 @@ namespace GalaxyExplorer
         protected SphereCollider SceneFocusCollider = null;
 
         [SerializeField]
+        [Tooltip("True if this scene is a single planet scene.")]
         protected bool IsSinglePlanet = false;
 
         protected bool isFading = false;
 
         protected GEFadeManager fadeManager = null;
-
-        public delegate void UnloadCompleteCallback();
-        public UnloadCompleteCallback OnUnloadComplete;
 
         public GameObject ThisSceneObject
         {

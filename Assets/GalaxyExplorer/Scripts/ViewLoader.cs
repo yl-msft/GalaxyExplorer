@@ -39,7 +39,23 @@ namespace GalaxyExplorer
         }
 
         private static Stack<string> viewBackStack = new Stack<string>();
-     
+
+        private void Start()
+        {
+            ViewLoader[] allLoaders = FindObjectsOfType<ViewLoader>();
+            if (allLoaders != null && allLoaders.Length > 1)
+            {
+                Destroy(this);
+                return;
+            }
+
+            LoadCoreSystemsScene();
+        }
+
+        public void LoadCoreSystemsScene()
+        {
+            StartCoroutine(LoadViewAsyncInternal(CoreSystemsScene, null));
+        }
 
         public void LoadViewAsync(string viewName, SceneLoaded sceneLoadedCallback = null)
         {

@@ -38,6 +38,7 @@ namespace GalaxyExplorer
         private MusicManager musicManagerScript = null;
         private FlowManager flowManagerScript = null;
         private ViewLoader viewLoaderScript = null;
+        private Transform sourceTransform = null;
 
         public delegate void IntroFinishedCallback();
         public IntroFinishedCallback OnIntroFinished;
@@ -72,39 +73,69 @@ namespace GalaxyExplorer
 
         public void OnSceneIsLoaded()
         {
-            PlacementControl placement = FindObjectOfType<PlacementControl>();
-            if (placement)
-            {
-                placement.OnContentPlaced += OnPlacementFinished;
-            }
+            Initialization();
         }
 
         public void OnPlacementFinished(Vector3 position)
         {
             flowManagerScript.AdvanceStage();
 
-            viewLoaderScript.transform.position = position;
+            sourceTransform.position = position;
 
             // rotate to face camera
             var lookPos = Camera.main.transform.position - position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(-lookPos);
-            viewLoaderScript.transform.rotation = rotation;
+            sourceTransform.rotation = rotation;
 
             FindObjectOfType<WorldAnchorHandler>().CreateWorldAnchor();
         }
 
         void Start()
         {
-            musicManagerScript = FindObjectOfType<MusicManager>();
+            Initialization();
+        }
 
-            flowManagerScript = FindObjectOfType<FlowManager>();
-            flowManagerScript.OnStageTransition += OnStageTransition;
+        private void Initialization()
+        {
+            PlacementControl placement = FindObjectOfType<PlacementControl>();
+            if (placement)
+            {
+                placement.OnContentPlaced += OnPlacementFinished;
+            }
 
-            viewLoaderScript = FindObjectOfType<ViewLoader>();
-            viewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
+            if (viewLoaderScript == null)
+            {
+                viewLoaderScript = FindObjectOfType<ViewLoader>();
+                viewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
+            }
 
-            StartCoroutine(PlayWelcomeMusic());
+            if (flowManagerScript == null)
+            {
+                FlowManager[] allFlowManagers = Resources.FindObjectsOfTypeAll<FlowManager>();
+                flowManagerScript = (allFlowManagers != null && allFlowManagers.Length >= 1) ? allFlowManagers[0] : null;
+                if (flowManagerScript)
+                {
+                    flowManagerScript.enabled = true;
+                    flowManagerScript.OnStageTransition += OnStageTransition;
+                }
+            }
+
+            if (sourceTransform == null)
+            {
+                TransformSource source = FindObjectOfType<TransformSource>();
+                sourceTransform = source ? source.transform : null;
+            }
+
+            if (musicManagerScript == null)
+            {
+                musicManagerScript = FindObjectOfType<MusicManager>();
+
+                if (musicManagerScript)
+                {
+                    StartCoroutine(PlayWelcomeMusic());
+                }
+            }
         }
 
         private IEnumerator PlayWelcomeMusic()
