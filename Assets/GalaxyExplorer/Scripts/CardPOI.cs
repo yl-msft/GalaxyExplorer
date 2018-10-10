@@ -26,15 +26,15 @@ namespace GalaxyExplorer
         private Quaternion descriptionStoppedLocalRotation = Quaternion.identity;
 
         private GalaxyExplorerManager geManager = null;
-        private GEFadeManager geFadeManager = null;
-        
+        private POIMaterialsFader poiFader = null;
+
 
         protected override void Start()
         {
             base.Start();
 
             geManager = FindObjectOfType<GalaxyExplorerManager>();
-            geFadeManager = FindObjectOfType<GEFadeManager>();
+            poiFader = FindObjectOfType<POIMaterialsFader>();
 
             descriptionStoppedLocalPosition = CardDescription.transform.localPosition;
             descriptionStoppedLocalRotation = CardDescription.transform.localRotation;
@@ -74,7 +74,7 @@ namespace GalaxyExplorer
                         fader.DisableFade();
                     }
 
-                    StartCoroutine(geFadeManager.FadeContent(FindObjectOfType<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                    StartCoroutine(geFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
 
                     CardObject.SetActive(true);
 
@@ -107,7 +107,7 @@ namespace GalaxyExplorer
                         fader.DisableFade();
                     }
 
-                    StartCoroutine(geFadeManager.FadeContent(FindObjectOfType<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                    StartCoroutine(geFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
 
                     // TODO this need to be removed and happen in the animation, but it doesnt
                     CardObject.SetActive(false);

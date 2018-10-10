@@ -18,7 +18,6 @@ namespace GalaxyExplorer
         private GameObject Planet = null;
 
         private TransitionManager Transition = null;
-        private GameObject planetObject = null;
 
         public string GetSceneToLoad
         {
@@ -43,6 +42,12 @@ namespace GalaxyExplorer
 
         public override void OnInputUp(InputEventData eventData)
         {
+            // Fade out card description material
+            if (CardDescription)
+            {
+                StartCoroutine(geFadeManager.FadeMaterial(CardDescriptionMaterial, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+            }
+
             if (Transition)
             {
                 Transition.LoadNextScene(SceneToLoad, true);

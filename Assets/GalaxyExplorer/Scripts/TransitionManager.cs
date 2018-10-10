@@ -223,6 +223,7 @@ namespace GalaxyExplorer
             if (ZoomInOutBehaviour.GetNextScene)
             {
                 ZoomInOutBehaviour.GetNextScene.transform.localScale = Vector3.zero;
+                SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), false);
             }
 
             bool zoomInOutSimultaneously = newTransition.IsSinglePlanetTransition || (previousTransition && previousTransition.IsSinglePlanetTransition);
@@ -262,6 +263,12 @@ namespace GalaxyExplorer
             while (newTransition.IsFading)
             {
                 yield return null;
+            }
+
+            // Activate colliders of next scene
+            if (ZoomInOutBehaviour.GetNextScene)
+            {
+                SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), true);
             }
 
             inTransition = false;
@@ -351,6 +358,14 @@ namespace GalaxyExplorer
             StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
             yield return null;
+        }
+
+        private void SetCollidersActivation(Collider[] allColliders, bool areActive)
+        {
+            foreach (var collider in allColliders)
+            {
+                collider.enabled = areActive;
+            }
         }
 
         private void SetRenderersVisibility(GameObject source, bool isVisible)

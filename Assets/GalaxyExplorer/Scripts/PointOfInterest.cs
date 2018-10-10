@@ -54,7 +54,7 @@ namespace GalaxyExplorer
         protected GameObject CardDescription = null;
 
         [SerializeField]
-        private GameObject Indicator = null;
+        protected GameObject Indicator = null;
 
         [SerializeField]
         private BillboardLine IndicatorLine = null;
@@ -77,6 +77,7 @@ namespace GalaxyExplorer
         
 
         protected CardPOIManager cardPoiManager = null;
+        protected GEFadeManager geFadeManager = null;
 
         public Vector3 IndicatorOffset
         {
@@ -102,6 +103,11 @@ namespace GalaxyExplorer
         public Collider IndicatorCollider
         {
             get { return indicatorCollider; }
+        }
+
+        public Material CardDescriptionMaterial
+        {
+            get; set;
         }
 
 
@@ -147,9 +153,12 @@ namespace GalaxyExplorer
             // InputManager.Instance.AddGlobalListener(gameObject);
 
             cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
+            CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
 
             cardPoiManager = FindObjectOfType<CardPOIManager>();
             cardPoiManager.RegisterPOI(this);
+
+            geFadeManager = FindObjectOfType<GEFadeManager>();
 
             if (Indicator)
             {

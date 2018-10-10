@@ -103,6 +103,25 @@ namespace GalaxyExplorer
                 OnFadeComplete.Invoke(fadeType);
             }
         }
-        
+
+        public IEnumerator FadeMaterial(Material content, FadeType fadeType, float fadeDuration, AnimationCurve opacityCurve)
+        {
+            Vector2 alpha = (fadeType == FadeType.FadeIn) ? Vector2.up : Vector2.right;
+            float timeFraction = 0.0f;
+            float time = 0.0f;
+
+            do
+            {
+                time += Time.deltaTime;
+                timeFraction = Mathf.Clamp01(time / fadeDuration);
+
+                float alphaValue = opacityCurve != null ? Mathf.Lerp(alpha.x, alpha.y, Mathf.Clamp01(opacityCurve.Evaluate(timeFraction))) : timeFraction;
+                content.SetFloat("_TransitionAlpha", alphaValue);
+
+                yield return null;
+            }
+            while (timeFraction < 1.0f && content != null);
+        }
+
     }
 }
