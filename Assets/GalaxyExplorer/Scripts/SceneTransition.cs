@@ -6,25 +6,24 @@ using UnityEngine;
 
 /// <summary>
 /// Scene transition used when loaded and unloaded
-/// Each scene needs tohave one on the top parent entity
+/// Each scene needs to have one on the top parent entity
+/// In order to specify the entities for the transitions
 /// </summary>
 namespace GalaxyExplorer
 {
     public class SceneTransition : MonoBehaviour {
 
         [SerializeField]
+        [Tooltip("Parent entity of all scene content. NOT a gameobject with a TransformHandler")]
         protected GameObject SceneObject = null;
 
         [SerializeField]
+        [Tooltip("The collider that its the .")]
         protected SphereCollider SceneFocusCollider = null;
 
         [SerializeField]
         [Tooltip("True if this scene is a single planet scene.")]
         protected bool IsSinglePlanet = false;
-
-        protected bool isFading = false;
-
-        protected GEFadeManager fadeManager = null;
 
         public GameObject ThisSceneObject
         {
@@ -43,58 +42,6 @@ namespace GalaxyExplorer
             get { return IsSinglePlanet; }
             private set { }
         }
-
-        public bool IsFading
-        {
-            get { return isFading; }
-        }
-
-        protected virtual void Start()
-        {
-            fadeManager = FindObjectOfType<GEFadeManager>();
-            fadeManager.OnFadeComplete += OnFadeComplete;
-        }
-
-        // Callback received when fade coroutine is completed
-        protected void OnFadeComplete(GEFadeManager.FadeType type)
-        {
-            isFading = false;
-        }
-
-        public void Fade(Fader fader, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
-        {
-            if (fader)
-            {
-                isFading = true;
-                StartCoroutine(fadeManager.FadeContent(fader, type, fadeDuration, opacityCurve));
-            }
-        }
-
-        public void Fade(Fader[] allFaders, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
-        {
-            foreach (var fader in allFaders)
-            {
-                Fade(fader, type, fadeDuration, opacityCurve);
-            }
-        }
-
-        public void FadeExcept(Fader fader, Type exceptType, GameObject exceptObj, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
-        {
-            if (fader)
-            {
-                if (fader.GetType() != exceptType && fader.gameObject != exceptObj)
-                {
-                    Fade(fader, type, fadeDuration, opacityCurve);
-                }
-            }
-        }
-
-        public void FadeExcept(Fader[] faders, Type except, GameObject exceptObj, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
-        {
-            foreach (var fader in faders)
-            {
-                FadeExcept(fader, except, exceptObj, type, fadeDuration, opacityCurve);
-            }
-        }
+  
     }
 }

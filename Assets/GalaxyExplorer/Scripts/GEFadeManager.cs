@@ -39,12 +39,9 @@ namespace GalaxyExplorer
 
         public void SetAlphaOnFaderExcept(Fader fader, Type exceptType, float alpha)
         {
-            if (fader)
+            if (fader && fader.GetType() != exceptType)
             {
-                if (fader.GetType() != exceptType)
-                {
-                    SetAlphaOnFader(fader, alpha);
-                }
+                SetAlphaOnFader(fader, alpha);
             }
         }
 
@@ -53,6 +50,35 @@ namespace GalaxyExplorer
             foreach (var fader in faders)
             {
                 SetAlphaOnFaderExcept(fader, exceptType, alpha);
+            }
+        }
+
+        public void Fade(Fader fader, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
+        {
+            StartCoroutine(FadeContent(fader, type, fadeDuration, opacityCurve));
+        }
+
+        public void Fade(Fader[] allFaders, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
+        {
+            foreach (var fader in allFaders)
+            {
+                Fade(fader, type, fadeDuration, opacityCurve);
+            }
+        }
+
+        public void FadeExcept(Fader fader, Type exceptType, GameObject exceptObj, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
+        {
+            if (fader && fader.GetType() != exceptType && fader.gameObject != exceptObj)
+            {
+                Fade(fader, type, fadeDuration, opacityCurve);
+            }
+        }
+
+        public void FadeExcept(Fader[] faders, Type except, GameObject exceptObj, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
+        {
+            foreach (var fader in faders)
+            {
+                FadeExcept(fader, except, exceptObj, type, fadeDuration, opacityCurve);
             }
         }
 
