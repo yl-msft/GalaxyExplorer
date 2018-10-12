@@ -34,7 +34,17 @@ namespace GalaxyExplorer
             base.Start();
 
             geManager = FindObjectOfType<GalaxyExplorerManager>();
-            poiFader = FindObjectOfType<POIMaterialsFader>();
+
+            // Find poi fader which lives in the same scene as this object and not the one that might exist in the previous scene
+            POIMaterialsFader[] allPoiFaders = FindObjectsOfType<POIMaterialsFader>();
+            foreach (var fader in allPoiFaders)
+            {
+                if (fader.gameObject.scene.name == gameObject.scene.name)
+                {
+                    poiFader = fader;
+                    break;
+                }
+            }
 
             descriptionStoppedLocalPosition = CardDescription.transform.localPosition;
             descriptionStoppedLocalRotation = CardDescription.transform.localRotation;
@@ -68,12 +78,6 @@ namespace GalaxyExplorer
                 {
                     isCardActive = true;
 
-                    Fader[] faders = GetComponentsInChildren<Fader>(true);
-                    foreach (Fader fader in faders)
-                    {
-                        fader.DisableFade();
-                    }
-
                     StartCoroutine(geFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
 
                     CardObject.SetActive(true);
@@ -100,12 +104,6 @@ namespace GalaxyExplorer
                 else
                 {
                     isCardActive = false;
-
-                    Fader[] faders = GetComponentsInChildren<Fader>(true);
-                    foreach (Fader fader in faders)
-                    {
-                        fader.DisableFade();
-                    }
 
                     StartCoroutine(geFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
 
