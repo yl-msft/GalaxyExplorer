@@ -201,10 +201,5 @@ namespace GalaxyExplorer
             }
         }
 
-        protected bool IsThisTheSelectedObject()
-        {
-            PointOfInterest poi = (GazeManager.Instance.HitObject) ? GazeManager.Instance.HitObject.GetComponentInParent<PointOfInterest>() : null;
-            return (poi && poi.gameObject) ? gameObject == poi.gameObject : false;
-        }
     }
 }

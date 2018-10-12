@@ -59,6 +59,7 @@ namespace GalaxyExplorer
         private GEFadeManager FadeManager = null;
         private ZoomInOut ZoomInOutBehaviour = null;
         private GameObject prevSceneLoaded;     // tracks the last scene loaded for transitions when loading new scenes
+        private string prevSceneLoadedName = "";
 
         private bool isIntro = true;
         private bool inTransition = false;
@@ -96,14 +97,6 @@ namespace GalaxyExplorer
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
         }
 
-        private void Update()
-        {
-            if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
-            {
-                LoadPrevScene();
-            }
-        }
-
         // Called when fade is complete
         private void OnFadeComplete(GEFadeManager.FadeType fadeType)
         {
@@ -131,6 +124,7 @@ namespace GalaxyExplorer
 
             inTransition = true;
             prevSceneLoaded = FindContent();
+            prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
             ViewLoaderScript.PopSceneFromStack();
             ViewLoaderScript.LoadPreviousScene(PrevSceneLoaded);
@@ -161,6 +155,7 @@ namespace GalaxyExplorer
 
             inTransition = true;
             prevSceneLoaded = FindContent();
+            prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
             ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
         }
@@ -315,7 +310,7 @@ namespace GalaxyExplorer
                 FadeManager.SetAlphaOnFader(relatedPlanet.GetComponent<Fader>(), 1.0f);
 
                 isFading = true;
-                AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystemView") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
+                AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
                 FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
             }
 
@@ -338,7 +333,7 @@ namespace GalaxyExplorer
                     yield return null;
                 }
 
-                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene, GetContentRotationCurve(previousTransition.gameObject.scene.name), GetContentTransitionCurve(previousTransition.gameObject.scene.name)));
+                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene, GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
                 // wait until prev scene transition finishes
                 while (!ZoomInOutBehaviour.ZoomOutIsDone)
@@ -360,7 +355,7 @@ namespace GalaxyExplorer
             FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), 0.0f);
 
             isFading = true;
-            AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystemView") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
+            AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
             FadeManager.Fade(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
 
             StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
@@ -404,7 +399,7 @@ namespace GalaxyExplorer
 
         private AnimationCurve GetContentTransitionCurve(string loadedSceneName)
         {
-            if (prevSceneLoaded == null)
+            if (prevSceneLoadedName.CompareTo("") == 0)
             {
                 return IntroTransitionCurveContentChange;
             }
@@ -414,9 +409,9 @@ namespace GalaxyExplorer
                 return SSToGalaxyTransitionCurveContentChange;
             }
 
-            if (loadedSceneName.Contains("SolarSystemView"))
+            if (loadedSceneName.Contains("SolarSystem"))
             {
-                if (prevSceneLoaded.name.Contains("GalaxyView"))
+                if (prevSceneLoadedName.Contains("Galaxy"))
                 {
                     return GalaxyToSSTransitionCurveContentChange;
                 }
@@ -431,19 +426,19 @@ namespace GalaxyExplorer
 
         private AnimationCurve GetContentRotationCurve(string loadedSceneName)
         {
-            if (prevSceneLoaded == null)
+            if (prevSceneLoadedName.CompareTo("") == 0)
             {
                 return IntroTransitionCurveContentChange;
             }
 
-            if (loadedSceneName.Contains("GalaxyView"))
+            if (loadedSceneName.Contains("Galaxy"))
             {
                 return SSToGalaxyTransitionCurveContentChange;
             }
 
-            if (loadedSceneName.Contains("SolarSystemView"))
+            if (loadedSceneName.Contains("SolarSystem"))
             {
-                if (prevSceneLoaded.name.Contains("GalaxyView"))
+                if (prevSceneLoadedName.Contains("Galaxy"))
                 {
                     return GalaxyToSSTransitionCurveContentChange;
                 }
@@ -458,18 +453,17 @@ namespace GalaxyExplorer
 
         private float GetClosingSceneVisibilityTime()
         {
-            if (prevSceneLoaded == null)
+            if (prevSceneLoadedName.CompareTo("") == 0)
             {
-                Debug.LogError("TransitionManager: Unable to find the time it takes to fade the last loaded scene because no previous loaded scene was found.");
                 return 0.0f;
             }
 
-            if (prevSceneLoaded.gameObject.scene.name.Contains("GalaxyView"))
+            if (prevSceneLoadedName.Contains("Galaxy"))
             {
                 return GalaxyVisibilityTimeClosingScene;
             }
 
-            if (prevSceneLoaded.gameObject.scene.name.Contains("SolarSystemView"))
+            if (prevSceneLoadedName.Contains("SolarSystem"))
             {
                 return SolarSystemVisibilityTimeClosingScene;
             }
