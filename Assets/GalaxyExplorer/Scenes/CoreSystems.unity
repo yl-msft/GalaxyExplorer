@@ -1288,6 +1288,8 @@ GameObject:
   - component: {fileID: 1701178536}
   - component: {fileID: 1701178535}
   - component: {fileID: 1701178534}
+  - component: {fileID: 1701178540}
+  - component: {fileID: 1701178541}
   m_Layer: 0
   m_Name: GEManagers
   m_TagString: Untagged
@@ -1730,6 +1732,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ec706f6127798438ebfab9a28b4a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1701178540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701178532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16c92d59af8a9a4a9a0db824132b067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1701178541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701178532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200fb8ca4db602940924f963a508a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1771526014
