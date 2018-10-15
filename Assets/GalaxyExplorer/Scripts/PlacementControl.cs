@@ -3,6 +3,7 @@
 
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
+using System.Collections;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -19,10 +20,20 @@ namespace GalaxyExplorer
         {
             volumeTagalong = gameObject.GetComponent<Tagalong>();
             volumeInterpolator = gameObject.GetComponent<Interpolator>();
+
+            // if platform is desktop or immersive headset then disable tag along
+            GalaxyExplorerManager manager = FindObjectOfType<GalaxyExplorerManager>();
+            if (manager && (GalaxyExplorerManager.IsDesktop || GalaxyExplorerManager.IsImmersiveHMD))
+            {
+                StartCoroutine(ReleaseContent());
+            }
         }
 
-        private void ReleaseContent()
+        private IEnumerator ReleaseContent()
         {
+            // Wait for 1 sec so previous transition finishes
+            yield return new WaitForSeconds(1);
+
             // Disable Tagalong and interpolator
             volumeTagalong.enabled = false;
             volumeInterpolator.enabled = false;
@@ -31,6 +42,8 @@ namespace GalaxyExplorer
             {
                 OnContentPlaced.Invoke(transform.position);
             }
+
+            yield return null;
         }
 
         public void OnInputDown(InputEventData eventData)
@@ -39,7 +52,7 @@ namespace GalaxyExplorer
 
         public void OnInputUp(InputEventData eventData)
         {
-            ReleaseContent();
+            StartCoroutine(ReleaseContent());
         }
     }
 }

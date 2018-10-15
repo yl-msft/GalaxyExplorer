@@ -8,7 +8,7 @@ namespace GalaxyExplorer
 {
     public class GalaxyResizer : SingleInstance<GalaxyResizer>
     {
-        private BoxCollider cursorCollisionBackground = null;
+        //private BoxCollider cursorCollisionBackground = null;
         private GalaxyExplorerManager GalaxyExplorerManagerScript = null;
 
         void Awake()
