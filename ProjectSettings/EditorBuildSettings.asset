@@ -12,17 +12,17 @@ EditorBuildSettings:
     path: Assets/GalaxyExplorer/Scenes/CoreSystems.unity
     guid: c97f81bf2a42b2c4395cb934e9d35709
   - enabled: 1
-    path: Assets/GalaxyExplorer/Scenes/EarthPin.unity
+    path: Assets/GalaxyExplorer/StartUpFlow/Scenes/EarthPin.unity
     guid: bc8c6ff6b03ba75488dc5484790dc78b
   - enabled: 1
-    path: Assets/GalaxyExplorer/Scenes/GalaxyView.unity
+    path: Assets/GalaxyExplorer/Galaxy/Scenes/GalaxyView.unity
     guid: 4282b274da7148b46bf276cd53ecd4a9
   - enabled: 1
-    path: Assets/GalaxyExplorer/Scenes/SolarSystemView.unity
+    path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Scenes/SolarSystemView.unity
     guid: d73ecf9fee4ffab47b24e988b2490fa4
   - enabled: 1
-    path: Assets/GalaxyExplorer/Scenes/JupiterView.unity
+    path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Jupiter/JupiterView.unity
     guid: a4dc4194e7073a945aa6ae85487365a7
   - enabled: 1
-    path: Assets/GalaxyExplorer/Scenes/EarthView.unity
+    path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Earth/EarthView.unity
     guid: 924a76efd161e80458a8e2b215bbb254

@@ -23,7 +23,7 @@ namespace GalaxyExplorer
 
             // if platform is desktop or immersive headset then disable tag along
             GalaxyExplorerManager manager = FindObjectOfType<GalaxyExplorerManager>();
-            if (manager && (GalaxyExplorerManager.IsDesktop || GalaxyExplorerManager.IsImmersiveHMD))
+            if (manager && (GalaxyExplorerManager.IsDesktop))
             {
                 StartCoroutine(ReleaseContent());
             }
