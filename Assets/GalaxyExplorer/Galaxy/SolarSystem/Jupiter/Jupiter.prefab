@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 82401167928527266}
   - component: {fileID: 114194481527986022}
   - component: {fileID: 114298915862550032}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4088576432529556}
   - component: {fileID: 114382814771021064}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4826057393305162}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4119495407275088}
   - component: {fileID: 114628783033163080}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: POILineBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4977202612145614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 23418619196153100}
   - component: {fileID: 95771723340416314}
   - component: {fileID: 65537872032212458}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 23433646819578942}
   - component: {fileID: 114428965335347466}
   - component: {fileID: 114308475609985534}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: LineBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}

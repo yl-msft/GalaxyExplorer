@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23241188421704008}
   - component: {fileID: 95886444553953710}
   - component: {fileID: 65969247694835294}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SolarSystem_Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4254598113190082}
   - component: {fileID: 114417385027150718}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4843179327500642}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 114892851518488208}
   - component: {fileID: 114028487320600250}
   - component: {fileID: 82996227947327024}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4780021288623404}
   - component: {fileID: 114653067097973550}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: POILineBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 23862945996905002}
   - component: {fileID: 114893218596943838}
   - component: {fileID: 114087973600360176}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: LineBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,6 +579,7 @@ MonoBehaviour:
   indicatorOffset: {x: 0, y: 0.4, z: 0}
   MaterialToFade: {fileID: 0}
   SceneToLoad: SolarSystemView
+  Planet: {fileID: 0}
 --- !u!114 &114417385027150718
 MonoBehaviour:
   m_ObjectHideFlags: 1

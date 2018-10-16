@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4771282438342074}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Trumpler14Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 23392454641941814}
   - component: {fileID: 114467440990429464}
   - component: {fileID: 114931119079808196}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: LineBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 23540525501658732}
   - component: {fileID: 95438485816827258}
   - component: {fileID: 65427332952685754}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 114260916320522750}
   - component: {fileID: 114032796048216410}
   - component: {fileID: 82738948648674844}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4829559381089750}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4480896796159610}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 23821996788252648}
   - component: {fileID: 65738282375622014}
   - component: {fileID: 114486518610211242}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4085862383831416}
   - component: {fileID: 114620370211459640}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4460637853427280}
   - component: {fileID: 114900424590938220}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: POILineBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 33775013638000086}
   - component: {fileID: 23041446964437558}
   - component: {fileID: 64061704337662546}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4143258798080194}
   - component: {fileID: 95025143340165594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4053173315330750}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
