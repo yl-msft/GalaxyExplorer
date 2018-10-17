@@ -16,13 +16,13 @@ namespace GalaxyExplorer
 
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
-                    if (InputRouter.Instance != null)
-                    {
-                        InputRouter.Instance.XamlMousePosition.x = (float)unityX;
-                        InputRouter.Instance.XamlMousePosition.y = (float)unityY;
-
-                        InputRouter.Instance.InternalHandleOnTapped();
-                    }
+                    //if (InputRouter.Instance != null)
+                    //{
+                    //    InputRouter.Instance.XamlMousePosition.x = (float)unityX;
+                    //    InputRouter.Instance.XamlMousePosition.y = (float)unityY;
+                    //
+                    //    InputRouter.Instance.InternalHandleOnTapped();
+                    //}
                 },
                 waitUntilDone: false);
         }
@@ -35,11 +35,11 @@ namespace GalaxyExplorer
 
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
-                    if (InputRouter.Instance != null)
-                    {
-                        InputRouter.Instance.XamlMousePosition.x = (float)unityX;
-                        InputRouter.Instance.XamlMousePosition.y = (float)unityY;
-                    }
+                    //if (InputRouter.Instance != null)
+                    //{
+                    //    InputRouter.Instance.XamlMousePosition.x = (float)unityX;
+                    //    InputRouter.Instance.XamlMousePosition.y = (float)unityY;
+                    //}
                 },
                 waitUntilDone: false);
         }
@@ -48,10 +48,10 @@ namespace GalaxyExplorer
         {
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
-                    if (InputRouter.Instance != null)
-                    {
-                        InputRouter.Instance.HandleZoomFromXaml((float)scaleDelta);
-                    }
+                    //if (InputRouter.Instance != null)
+                    //{
+                    //    InputRouter.Instance.HandleZoomFromXaml((float)scaleDelta);
+                    //}
                 }, waitUntilDone: false);
         }
 
@@ -59,10 +59,10 @@ namespace GalaxyExplorer
         {
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
             {
-                if (InputRouter.Instance != null)
-                {
-                    InputRouter.Instance.HandleRotationFromXaml((float)rotationDelta);
-                }
+                //if (InputRouter.Instance != null)
+                //{
+                //    InputRouter.Instance.HandleRotationFromXaml((float)rotationDelta);
+                //}
             }, waitUntilDone: false);
         }
 
@@ -70,10 +70,10 @@ namespace GalaxyExplorer
         {
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
             {
-                if (InputRouter.Instance != null)
-                {
-                    InputRouter.Instance.HandleTranslateFromXaml(translateDelta);
-                }
+                //if (InputRouter.Instance != null)
+                //{
+                //    InputRouter.Instance.HandleTranslateFromXaml(translateDelta);
+                //}
             }, waitUntilDone: false);
         }
 
@@ -81,10 +81,10 @@ namespace GalaxyExplorer
         {
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
             {
-                if (InputRouter.Instance != null)
-                {
-                    InputRouter.Instance.HandleResetFromXaml();
-                }
+                //if (InputRouter.Instance != null)
+                //{
+                //    InputRouter.Instance.HandleResetFromXaml();
+                //}
             }, waitUntilDone: false);
         }
 
@@ -92,10 +92,10 @@ namespace GalaxyExplorer
         {
             UnityPlayer.AppCallbacks.Instance.InvokeOnAppThread(() =>
             {
-                if (InputRouter.Instance != null)
-                {
-                    InputRouter.Instance.HandleAboutFromXaml();
-                }
+                //if (InputRouter.Instance != null)
+                //{
+                //    InputRouter.Instance.HandleAboutFromXaml();
+                //}
             }, waitUntilDone: false);
         }
 
