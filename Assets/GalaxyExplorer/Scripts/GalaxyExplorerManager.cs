@@ -9,7 +9,7 @@ namespace GalaxyExplorer
 {
     public class GalaxyExplorerManager : MonoBehaviour
     {
-        private enum PlatformId
+        public enum PlatformId
         {
             HoloLens,
             ImmersiveHMD,
@@ -17,7 +17,11 @@ namespace GalaxyExplorer
             Phone
         };
 
-        private static PlatformId Platform { get; set; }
+        public static PlatformId Platform { get; set; }
+
+        public delegate void GalaxyExplorerManagerInitializedCallback();
+        public static GalaxyExplorerManagerInitializedCallback MyAppPlatformManagerInitialized;
+
 
         [SerializeField]
         private float GalaxyScaleFactor = 1.0f;
@@ -111,6 +115,11 @@ namespace GalaxyExplorer
             else 
             {
                 Platform = PlatformId.Desktop;
+            }
+
+            if (MyAppPlatformManagerInitialized != null)
+            {
+                MyAppPlatformManagerInitialized.Invoke();
             }
         }
 

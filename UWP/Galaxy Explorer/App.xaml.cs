@@ -122,7 +122,7 @@ namespace GalaxyExplorer
             // this will consistently use DeviceFamily for these platform checks
             AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
-                    MyAppPlatformManager.MyAppPlatformManagerInitialized += RegisterForBackButtonChangeRequests;
+                    GalaxyExplorerManager.MyAppPlatformManagerInitialized += RegisterForBackButtonChangeRequests;
                 },
                 waitUntilDone: false);
         }
@@ -136,11 +136,10 @@ namespace GalaxyExplorer
 		
         private void RegisterForBackButtonChangeRequests()
         {
-            if ((MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.HoloLens) &&
-                (MyAppPlatformManager.Platform != MyAppPlatformManager.PlatformId.ImmersiveHMD))
+            if (!GalaxyExplorerManager.IsHoloLens && !GalaxyExplorerManager.IsImmersiveHMD)
             {
-                UnityEngine.Debug.LogFormat("RegisterForBackButtonChangeRequests on platform {0}", MyAppPlatformManager.Platform.ToString());
-                ToolManager.BackButtonVisibilityChangeRequested += ToolManager_BackButtonVisibilityChangeRequested;
+                UnityEngine.Debug.LogFormat("RegisterForBackButtonChangeRequests on platform {0}", GalaxyExplorerManager.Platform.ToString());
+                //ToolManager.BackButtonVisibilityChangeRequested += ToolManager_BackButtonVisibilityChangeRequested;
             }
         }
 
@@ -151,14 +150,14 @@ namespace GalaxyExplorer
         {
             AppCallbacks.Instance.InvokeOnAppThread(() =>
                 {
-                    if (ToolManager.Instance)
-                    {
-                        var backButton = ToolManager.Instance.FindButtonByType(ButtonType.Back);
-                        if (backButton)
-                        {
-                            backButton.ButtonAction();
-                        }
-                    }
+                    //if (ToolManager.Instance)
+                    //{
+                    //    var backButton = ToolManager.Instance.FindButtonByType(ButtonType.Back);
+                    //    if (backButton)
+                    //    {
+                    //        backButton.ButtonAction();
+                    //    }
+                    //}
                 },
                 waitUntilDone: false);
 
