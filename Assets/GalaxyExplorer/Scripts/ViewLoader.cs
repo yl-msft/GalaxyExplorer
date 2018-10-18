@@ -53,7 +53,7 @@ namespace GalaxyExplorer
             // Hack in editor mode, in order to be able to launch any scene and not only the main one
 #if UNITY_EDITOR
             Scene activeScene = SceneManager.GetActiveScene();
-            if (activeScene != null && activeScene.buildIndex > 0 && viewBackStack.Count == 0)
+            if (activeScene.buildIndex > 0 && viewBackStack.Count == 0)
             {
                 viewBackStack.Push(activeScene.name);
             }

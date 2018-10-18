@@ -1,4 +1,7 @@
-﻿using MRS.FlowManager;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using MRS.FlowManager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,7 +76,7 @@ namespace GalaxyExplorer
 
         public void OnSceneIsLoaded()
         {
-            Initialization();
+            StartCoroutine(Initialization());
         }
 
         public void OnPlacementFinished(Vector3 position)
@@ -93,11 +96,14 @@ namespace GalaxyExplorer
 
         void Start()
         {
-            Initialization();
+            StartCoroutine(Initialization());
         }
 
-        private void Initialization()
+        private IEnumerator Initialization()
         {
+            // ViewLoader of CoreSystems scene needs to be loaded and then continue
+            yield return new WaitUntil(() => FindObjectOfType<ViewLoader>() != null);
+
             PlacementControl placement = FindObjectOfType<PlacementControl>();
             if (placement)
             {
@@ -107,7 +113,8 @@ namespace GalaxyExplorer
             if (viewLoaderScript == null)
             {
                 viewLoaderScript = FindObjectOfType<ViewLoader>();
-                viewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
+                if (viewLoaderScript)
+                    viewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
             }
 
             if (flowManagerScript == null)
@@ -136,6 +143,8 @@ namespace GalaxyExplorer
                     StartCoroutine(PlayWelcomeMusic());
                 }
             }
+
+            yield return null;
         }
 
         private IEnumerator PlayWelcomeMusic()
