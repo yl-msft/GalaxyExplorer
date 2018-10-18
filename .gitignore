@@ -38,6 +38,8 @@ obj/
 *.opendb
 WSATestCertificate.pfx
 WSATestCertificate.pfx.meta
+Packages/
+Packages.meta
 
 # ============================================= #
 # Exceptions to above rules for Galaxy Explorer #
