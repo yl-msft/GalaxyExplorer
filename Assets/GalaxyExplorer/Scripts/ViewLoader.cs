@@ -45,16 +45,19 @@ namespace GalaxyExplorer
             ViewLoader[] allLoaders = FindObjectsOfType<ViewLoader>();
             if (allLoaders != null && allLoaders.Length > 1)
             {
+                Debug.LogWarning("Only one ViewLoader should exist, destroy this");
                 Destroy(this);
                 return;
             }
 
-            LoadCoreSystemsScene();
-        }
-
-        public void LoadCoreSystemsScene()
-        {
-            StartCoroutine(LoadViewAsyncInternal(CoreSystemsScene, null));
+            // Hack in editor mode, in order to be able to launch any scene and not only the main one
+#if UNITY_EDITOR
+            Scene activeScene = SceneManager.GetActiveScene();
+            if (activeScene != null && activeScene.buildIndex > 0 && viewBackStack.Count == 0)
+            {
+                viewBackStack.Push(activeScene.name);
+            }
+#endif
         }
 
         public void LoadViewAsync(string viewName, SceneLoaded sceneLoadedCallback = null)
@@ -101,6 +104,11 @@ namespace GalaxyExplorer
 
             PreviousView = (CurrentView == null) ? viewName : CurrentView;
             CurrentView = viewName;
+        }
+
+        public bool IsTherePreviousScene()
+        {
+            return viewBackStack.Count >= 2;
         }
 
         public void LoadPreviousScene(SceneLoaded sceneLoadedCallback = null)

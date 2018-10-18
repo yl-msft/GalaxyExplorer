@@ -11,7 +11,7 @@ namespace GalaxyExplorer
         //private BoxCollider cursorCollisionBackground = null;
         private GalaxyExplorerManager GalaxyExplorerManagerScript = null;
 
-        void Awake()
+        void Start()
         {
             GalaxyExplorerManagerScript = FindObjectOfType<GalaxyExplorerManager>();
 

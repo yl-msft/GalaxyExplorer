@@ -89,7 +89,10 @@ namespace GalaxyExplorer
             }
 
             IntroFlow intro = FindObjectOfType<IntroFlow>();
-            intro.OnIntroFinished += OnIntroFInished;
+            if (intro)
+            {
+                intro.OnIntroFinished += OnIntroFInished;
+            }
 
             FadeManager = FindObjectOfType<GEFadeManager>();
             FadeManager.OnFadeComplete += OnFadeComplete;
@@ -116,6 +119,13 @@ namespace GalaxyExplorer
 
         public void LoadPrevScene()
         {
+            // Check if there is previous scene to go back to
+            if (!ViewLoaderScript.IsTherePreviousScene())
+            {
+                Debug.LogWarning("TransitionManager: There is NO previous scene to go back to.");
+                return;
+            }
+
             if (inTransition)
             {
                 Debug.LogWarning("TransitionManager: Currently in a transition and cannot change view to new scene until current transition completes.");
@@ -244,7 +254,7 @@ namespace GalaxyExplorer
             // Unload previous scene
             if (prevSceneLoaded != null)
             {
-                UnloadScene(ViewLoader.PreviousView, true);
+                UnloadScene(prevSceneLoaded.scene.name, true);
             }
 
             // Wait until next scene transition is done
