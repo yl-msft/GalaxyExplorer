@@ -5,10 +5,9 @@ using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable
+    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, ITouchHandler
     {
         public class POIFader : Fader
         {
@@ -16,6 +15,7 @@ namespace GalaxyExplorer
             private List<Color> colors;
 
             public PointOfInterest parent;
+            
 
             private void Awake()
             {
@@ -43,7 +43,7 @@ namespace GalaxyExplorer
 
                     filter.sharedMesh.SetColors(colors);
                 }
-
+                
                 alpha = alphaValue;
 
                 return true;
@@ -199,6 +199,19 @@ namespace GalaxyExplorer
             {
                 gameObject.transform.position = IndicatorLine.points[0].position + indicatorOffset;
             }
+        }
+
+        public void OnHoldStarted()
+        {
+        }
+
+        public void OnHoldCompleted()
+        {
+            OnInputUp(null);
+        }
+
+        public void OnHoldCanceled()
+        {
         }
 
     }
