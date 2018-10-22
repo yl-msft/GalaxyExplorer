@@ -26,6 +26,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Earth/EarthView.unity
     guid: 924a76efd161e80458a8e2b215bbb254
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
