@@ -17,15 +17,15 @@ namespace GalaxyExplorer
 
             transform.localScale = transform.localScale * GalaxyExplorerManagerScript.GetGalaxyScaleFactor;
 
-            SpiralGalaxy[] spirals = GetComponentsInChildren<SpiralGalaxy>();
-            foreach (var spiral in spirals)
-            {
-                if (spiral.tintMult < 1)
-                {
-                    spiral.tintMult = GalaxyExplorerManagerScript.GetSpiralGalaxyTintMultConstant;
-                    break;
-                }
-            }
+            //SpiralGalaxy[] spirals = GetComponentsInChildren<SpiralGalaxy>();
+            //foreach (var spiral in spirals)
+            //{
+            //    if (spiral.tintMult < 1)
+            //    {
+            //        spiral.tintMult = GalaxyExplorerManagerScript.GetSpiralGalaxyTintMultConstant;
+            //        break;
+            //    }
+            //}
 
             // disable the script if we aren't on an immersive HMD
             // if we are, we want update to be called so we can do some layer adjusting...
