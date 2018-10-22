@@ -7,10 +7,16 @@ Bin/
 UnityGenerated/
 Library/
 Packages/
+Packages.meta
 Assets/AssetStoreTools*
 project.json
 project.lock.json
 UnityPackageManager/
+
+#Exclude Layers which come from NuGet but include TouchScript
+!Assets/Packages/
+Assets/Packages/Layers.1.0.6209/*
+Assets/Packages/Layers.1.0.6209.meta
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -38,8 +44,7 @@ obj/
 *.opendb
 WSATestCertificate.pfx
 WSATestCertificate.pfx.meta
-Packages/
-Packages.meta
+
 
 # ============================================= #
 # Exceptions to above rules for Galaxy Explorer #
