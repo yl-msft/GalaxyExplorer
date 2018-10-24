@@ -121,7 +121,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4172264244251832}
   - component: {fileID: 114809151985353360}
-  - component: {fileID: 114128214347035344}
   m_Layer: 0
   m_Name: Jupiter
   m_TagString: Untagged
@@ -137,6 +136,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4169871806514038}
+  - component: {fileID: 114261432494027834}
   m_Layer: 0
   m_Name: Jupiter
   m_TagString: Untagged
@@ -267,8 +267,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1412934807682780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.642, y: -0, z: -0.666}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2.25, y: 0, z: -1.25}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4841718365758234}
   - {fileID: 4119495407275088}
@@ -299,7 +299,7 @@ Transform:
   m_GameObject: {fileID: 1721451779296460}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.082, y: 0.052, z: 0}
-  m_LocalScale: {x: 50, y: 3, z: 1}
+  m_LocalScale: {x: 55, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 4826057393305162}
   m_RootOrder: 0
@@ -696,41 +696,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbitMaterial: {fileID: 2100000, guid: d4eee6434cf507842b4b80ffc7943afa, type: 2}
-  orbitStepCount: 120
+  orbitStepCount: 100
   pointOfInterestMarker: {fileID: 114194481527986022}
-  pointOfInterestAngle: 90
+  pointOfInterestAngle: 145
   snapPointOfInterestToPosition: 1
---- !u!114 &114128214347035344
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1361550554541148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.14
-  SemiMajorAxisReal: 778673200
-  Eccentricity: 0
-  EccentricityReal: 0.04892307
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.02277056
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 4335.467
-  PeriodReal: 4335.467
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 100
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
 --- !u!114 &114194481527986022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -751,6 +720,37 @@ MonoBehaviour:
   MaterialToFade: {fileID: 0}
   SceneToLoad: JupiterView
   Planet: {fileID: 1361550554541148}
+--- !u!114 &114261432494027834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412934807682780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.67
+  SemiMajorAxisReal: 778673200
+  Eccentricity: 0
+  EccentricityReal: 0.04892307
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.02277056
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 4335.467
+  PeriodReal: 4335.467
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114298915862550032
 MonoBehaviour:
   m_ObjectHideFlags: 1

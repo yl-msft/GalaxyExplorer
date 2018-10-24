@@ -248,19 +248,16 @@ namespace GalaxyExplorer
 
         private Transform sun;
 
-        private bool FindSunIfNeeded()
+        private void FindSunIfNeeded()
         {
             if (!sun)
             {
-                var sunGo = FindObjectOfType<SunBrightnessAdjust>().gameObject;
+                var sunGo = GameObject.Find("Sun");
                 if (sunGo)
                 {
                     sun = sunGo.transform;
-                    return true;
                 }
             }
-
-            return sun;
         }
 
         private void Awake()
@@ -272,7 +269,7 @@ namespace GalaxyExplorer
             container = new GameObject("Orbit Container " + planet.name);
 
             var planetTransform = planet.transform;
-            container.transform.SetParent(planetTransform.parent, worldPositionStays: false);
+            container.transform.SetParent(planetTransform.parent.parent, worldPositionStays: false);
 
             FindSunIfNeeded();
 

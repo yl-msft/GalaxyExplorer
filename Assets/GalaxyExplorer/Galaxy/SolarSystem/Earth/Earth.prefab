@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4494807075462918}
+  - component: {fileID: 114200839382510310}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -100,7 +101,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4640650779751016}
   - component: {fileID: 114907045661616050}
-  - component: {fileID: 114315646980297778}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -296,7 +296,7 @@ Transform:
   m_GameObject: {fileID: 1156133316895304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.801, y: 0, z: -0.666}
-  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4583256571140262}
   - {fileID: 4209542168357908}
@@ -354,7 +354,7 @@ Transform:
   m_GameObject: {fileID: 1086758937910942}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.082, y: 0.052, z: 0}
-  m_LocalScale: {x: 50, y: 3, z: 1}
+  m_LocalScale: {x: 55, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 4007263533839332}
   m_RootOrder: 0
@@ -712,6 +712,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+--- !u!114 &114200839382510310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156133316895304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.24
+  SemiMajorAxisReal: 149653500
+  Eccentricity: 0
+  EccentricityReal: 0.0170424
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.00000467
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 365.4601
+  PeriodReal: 365.4601
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114268500678606284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -754,37 +785,6 @@ MonoBehaviour:
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
---- !u!114 &114315646980297778
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1203304799000996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.14
-  SemiMajorAxisReal: 778673200
-  Eccentricity: 0
-  EccentricityReal: 0.04892307
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.02277056
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 4335.467
-  PeriodReal: 4335.467
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 100
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
 --- !u!114 &114395701035935374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbitMaterial: {fileID: 2100000, guid: d4eee6434cf507842b4b80ffc7943afa, type: 2}
-  orbitStepCount: 120
+  orbitStepCount: 100
   pointOfInterestMarker: {fileID: 114717276223179808}
   pointOfInterestAngle: 90
   snapPointOfInterestToPosition: 1
