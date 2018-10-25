@@ -32,3 +32,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Mercury/MercuryView.unity
     guid: 6c79365cccd02e9419fd81a99786ec9d
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Venus/VenusView.unity
+    guid: 90f22a606278a734c8f8045ef1112fd8
