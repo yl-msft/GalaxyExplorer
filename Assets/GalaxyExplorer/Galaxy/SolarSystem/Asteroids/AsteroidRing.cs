@@ -118,7 +118,7 @@ namespace GalaxyExplorer
             }
             else
             {
-                assetPath = UnityEditor.AssetDatabase.GenerateUniqueAssetPath("Assets/AsteroidBelt.asset");
+                assetPath = UnityEditor.AssetDatabase.GenerateUniqueAssetPath("Assets/GalaxyExplorer/Galaxy/SolarSystem/Asteroids/AsteroidBelt.asset");
             }
 
             UnityEditor.AssetDatabase.CreateAsset(lastBuiltMesh, assetPath);
