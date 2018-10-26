@@ -450,8 +450,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1086758937910942}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.082, y: 0.052, z: 0}
-  m_LocalScale: {x: 55, y: 10, z: 1}
+  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4007263533839332}
   m_RootOrder: 0
@@ -463,8 +463,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1363913357153246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.015, z: 0}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 4134601632773026}
   m_RootOrder: 0
@@ -943,7 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.24
+  SemiMajorAxis: 0.4125
   SemiMajorAxisReal: 149653500
   Eccentricity: 0
   EccentricityReal: 0.0170424
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.005
+  width: 0.0025
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114289011271194084}
   TargetPoint: {fileID: 1156133316895304}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
-  indicatorOffset: {x: 0, y: 0.4, z: 0}
+  indicatorOffset: {x: 0, y: 0.2, z: 0}
   MaterialToFade: {fileID: 0}
   SceneToLoad: EarthView
   Planet: {fileID: 1203304799000996}

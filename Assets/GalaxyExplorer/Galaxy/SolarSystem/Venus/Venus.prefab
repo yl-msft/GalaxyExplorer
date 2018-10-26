@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 1038226900464428}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.67, y: 0, z: -2.89}
-  m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 0.39999998}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4172330614763764}
   - {fileID: 4757074746470720}
@@ -435,8 +435,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1810008179789636}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.082, y: 0.052, z: 0}
-  m_LocalScale: {x: 55, y: 10, z: 1}
+  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4141134454073452}
   m_RootOrder: 0
@@ -476,8 +476,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911259905389458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.015, z: 0}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 4493654926007410}
   m_RootOrder: 0
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114985195571921218}
   TargetPoint: {fileID: 1038226900464428}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
-  indicatorOffset: {x: 0, y: 0.4, z: 0}
+  indicatorOffset: {x: 0, y: 0.2, z: 0}
   MaterialToFade: {fileID: 0}
   SceneToLoad: VenusView
   Planet: {fileID: 1736316371763844}
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.63
+  SemiMajorAxis: 0.3
   SemiMajorAxisReal: 108208200
   Eccentricity: 0
   EccentricityReal: 0.006755698
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.005
+  width: 0.0025
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
