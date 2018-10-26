@@ -874,22 +874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 1271977354}
   planetLod: {fileID: 2100000, guid: 0b85084aec735964ca3424bd4066fd0d, type: 2}
---- !u!1 &1084275838 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1643589125921812, guid: ac1470558d9973740a20c0a37abdad3a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1314758684}
---- !u!114 &1084275839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1084275838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1128433485
 GameObject:
   m_ObjectHideFlags: 0
