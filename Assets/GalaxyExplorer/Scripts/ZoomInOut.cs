@@ -104,7 +104,8 @@ namespace GalaxyExplorer
                 // Quaternion previousSceneDiffAngles = PreviousSceneFocusCollider.transform.rotation * Quaternion.Inverse(PreviousScene.rotation);
                 previousSceneDiffRotation = nextSceneFocusInitialRotation * Quaternion.Inverse(Quaternion.Euler(previousSceneDiffAngles));
                 nextSceneInitialRotation = NextScene.rotation;
-                nextInitQuaternion = PreviousSceneFocusCollider.transform.rotation * Quaternion.Inverse(NextSceneFocusCollider.transform.localRotation);
+                Quaternion temp = NextScene.rotation * Quaternion.Inverse(NextSceneFocusCollider.transform.rotation) * NextSceneFocusCollider.transform.localRotation;
+                nextInitQuaternion = PreviousSceneFocusCollider.transform.rotation * Quaternion.Inverse(NextSceneFocusCollider.transform.localRotation) * temp;
 
                 // next scene focus displacement 
                 nextSceneDisplacement = NextSceneFocusCollider.transform.position - NextScene.position;
@@ -219,8 +220,8 @@ namespace GalaxyExplorer
                 PreviousScene.position = posBeforeScale - newDisplacement;
 
                 // Position scenes. FOr next scene take into account the focus collider pivot as well
-                Vector3 nextSceneRotatedDispl = (PreviousSceneFocusCollider.transform.rotation * nextSceneDisplacement) * (1f / scalar);
-                NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - nextSceneRotatedDispl, previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
+                //Vector3 nextSceneRotatedDispl = (PreviousSceneFocusCollider.transform.rotation * nextSceneDisplacement) * (1f / scalar);
+                NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
                 PreviousScene.transform.position = NextSceneFocusCollider.transform.position - newDisplacement;
 
                 yield return null;

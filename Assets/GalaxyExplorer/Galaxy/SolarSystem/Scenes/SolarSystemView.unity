@@ -482,6 +482,30 @@ Prefab:
       propertyPath: PeriodReal
       value: 10831.37
       objectReference: {fileID: 0}
+    - target: {fileID: 4901845216865052, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.12691972
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901845216865052, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9640512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901845216865052, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901845216865052, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.030470723
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901845216865052, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.23144819
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901845216865052, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 27
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
   m_IsPrefabParent: 0
