@@ -38,3 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Mars/MarsView.unity
     guid: 9b75203169f9e9843982d51244ebadd5
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Saturn/SaturnView.unity
+    guid: d178c91ce875cf046a78f5f052032ecd
