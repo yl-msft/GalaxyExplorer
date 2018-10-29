@@ -50,3 +50,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GalaxyExplorer/Galaxy/SolarSystem/Pluto/PlutoView.unity
     guid: 9dc24593f06dfd045aafff772b19db8e
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Galaxy/GalacticCenter/Scenes/GalacticCenterView.unity
+    guid: 2b0cd49878d449943bb2a6c8feb0bc2b
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Galaxy/GalacticCenter/S2/S2View.unity
+    guid: e27856be154cd9f43aee6d6518425fcf
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Galaxy/GalacticCenter/S102/S102View.unity
+    guid: 22971445dd86c0441920e437d97e54b9
+  - enabled: 1
+    path: Assets/GalaxyExplorer/Galaxy/GalacticCenter/SagAStar/SagAStarView.unity
+    guid: 86a30883e8ed1f14eb96ce79f1ce9d53
+  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000

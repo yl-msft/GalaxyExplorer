@@ -332,8 +332,7 @@ namespace GalaxyExplorer
 
                 if (pointOfInterestMarker.GetIndicatorLine != null)
                 {
-                    // ??? I removed this cause of error
-                    //pointOfInterestMarker.GetIndicatorLine.points[0] = pointOfInterestTarget.transform;
+                    pointOfInterestMarker.GetIndicatorLine.points[0] = pointOfInterestTarget.transform;
                 }
             }
         }

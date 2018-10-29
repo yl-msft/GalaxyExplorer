@@ -147,26 +147,8 @@ namespace GalaxyExplorer
       
         }
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
-            // Has to be global listener so it receives all taps and decides what to do depended on if this is the selected object
-            // InputManager.Instance.AddGlobalListener(gameObject);
-
-            cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
-            CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
-
-            cardPoiManager = FindObjectOfType<CardPOIManager>();
-            cardPoiManager.RegisterPOI(this);
-
-            geFadeManager = FindObjectOfType<GEFadeManager>();
-
-            if (Indicator)
-            {
-                Indicator.AddComponent<NoAutomaticFade>();
-
-                indicatorCollider = Indicator.GetComponentInChildren<Collider>();
-            }
-
             // do this before start because orbit points of interest need to override the target position (with the orbit)
             if (Indicator != null && IndicatorLine != null && IndicatorLine.points.Length < 2)
             {
@@ -175,6 +157,24 @@ namespace GalaxyExplorer
                 IndicatorLine.points[0] = TargetPoint.gameObject.transform;
                 IndicatorLine.points[1] = gameObject.transform;
                 IndicatorLine.material.color = IndicatorDefaultColor;
+            }
+        }
+
+        protected virtual void Start()
+        {
+            cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
+            CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
+
+            geFadeManager = FindObjectOfType<GEFadeManager>();
+
+            cardPoiManager = FindObjectOfType<CardPOIManager>();
+            cardPoiManager.RegisterPOI(this);
+
+            if (Indicator)
+            {
+                Indicator.AddComponent<NoAutomaticFade>();
+
+                indicatorCollider = Indicator.GetComponentInChildren<Collider>();
             }
 
             //MeshFilter meshFilter = Indicator.GetComponentInChildren<MeshFilter>();
@@ -195,6 +195,7 @@ namespace GalaxyExplorer
                 gameObject.transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
             }
 
+            // This moves the poi indicator
             if (IndicatorLine != null && IndicatorLine.points != null && IndicatorLine.points.Length > 0)
             {
                 gameObject.transform.position = IndicatorLine.points[0].position + indicatorOffset;

@@ -186,6 +186,11 @@ Prefab:
       propertyPath: m_Name
       value: Neptune
       objectReference: {fileID: 0}
+    - target: {fileID: 114801819880605104, guid: 72b2b14c122d5f9449ca23154f43e1a9,
+        type: 2}
+      propertyPath: Sun
+      value: 
+      objectReference: {fileID: 1271977354}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72b2b14c122d5f9449ca23154f43e1a9, type: 2}
   m_IsPrefabParent: 0
@@ -978,6 +983,11 @@ Prefab:
       propertyPath: m_Name
       value: Pluto
       objectReference: {fileID: 0}
+    - target: {fileID: 114338864900833288, guid: e34c77ad5a997fc47b26bbafcd17f274,
+        type: 2}
+      propertyPath: Sun
+      value: 
+      objectReference: {fileID: 1271977354}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e34c77ad5a997fc47b26bbafcd17f274, type: 2}
   m_IsPrefabParent: 0
@@ -1708,6 +1718,11 @@ Prefab:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114290597158935108, guid: 255a48b2a3892c240a53d3ba2fc97828,
+        type: 2}
+      propertyPath: Sun
+      value: 
+      objectReference: {fileID: 1271977354}
+    - target: {fileID: 114105569061059062, guid: 255a48b2a3892c240a53d3ba2fc97828,
         type: 2}
       propertyPath: Sun
       value: 
