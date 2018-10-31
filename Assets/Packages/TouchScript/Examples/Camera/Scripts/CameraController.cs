@@ -5,6 +5,7 @@
  * @author Valentin Simonov / http://va.lent.in/
  */
 
+using GalaxyExplorer;
 using UnityEngine;
 using TouchScript.Gestures.TransformGestures;
 
@@ -30,6 +31,11 @@ namespace TouchScript.Examples.CameraControl
 
         private void OnEnable()
         {
+            if (!GalaxyExplorerManager.IsDesktop)
+            {
+                this.enabled = false;
+            }
+
             TwoFingerMoveGesture.Transformed += twoFingerTransformHandler;
             ManipulationGesture.Transformed += manipulationTransformedHandler;
         }
