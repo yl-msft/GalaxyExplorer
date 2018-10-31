@@ -29,13 +29,16 @@ namespace TouchScript.Examples.CameraControl
             cam = transform.Find("Pivot/Camera");
         }
 
-        private void OnEnable()
+        private void Start()
         {
             if (!GalaxyExplorerManager.IsDesktop)
             {
                 this.enabled = false;
             }
+        }
 
+        private void OnEnable()
+        {
             TwoFingerMoveGesture.Transformed += twoFingerTransformHandler;
             ManipulationGesture.Transformed += manipulationTransformedHandler;
         }

@@ -5,6 +5,7 @@
  * @author Valentin Simonov / http://va.lent.in/
  */
 
+using GalaxyExplorer;
 using TouchScript.Gestures.TransformGestures.Base;
 using TouchScript.Layers;
 using TouchScript.Utils.Geom;
@@ -38,6 +39,14 @@ namespace TouchScript.Gestures.TransformGestures
 
 			gestureSampler = CustomSampler.Create("[TouchScript] Screen Transform Gesture");
 		}
+
+        protected void Start()
+        {
+            if (!GalaxyExplorerManager.IsDesktop)
+            {
+                this.enabled = false;
+            }
+        }
 
 		[ContextMenu("Basic Editor")]
 		private void switchToBasicEditor()
