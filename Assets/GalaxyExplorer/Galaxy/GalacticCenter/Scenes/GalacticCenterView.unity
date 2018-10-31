@@ -229,6 +229,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4280834155164414, guid: 5e0c150efab2589499b7d4a6579e28a4,
     type: 2}
   m_PrefabInternal: {fileID: 298489492}
+--- !u!135 &298489494 stripped
+SphereCollider:
+  m_PrefabParentObject: {fileID: 135884152679733020, guid: 5e0c150efab2589499b7d4a6579e28a4,
+    type: 2}
+  m_PrefabInternal: {fileID: 298489492}
 --- !u!1 &331003481
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneObject: {fileID: 1345641775}
-  SceneFocusCollider: {fileID: 0}
+  SceneFocusCollider: {fileID: 298489494}
   IsSinglePlanet: 0
 --- !u!1 &639238862
 GameObject:
