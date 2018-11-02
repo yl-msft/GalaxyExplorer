@@ -160,6 +160,47 @@ MonoBehaviour:
     scene:
       asset: {fileID: 102900000, guid: c97f81bf2a42b2c4395cb934e9d35709, type: 3}
       path: Assets/GalaxyExplorer/Scenes/CoreSystems.unity
+--- !u!1 &163231600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 163231602}
+  - component: {fileID: 163231601}
+  m_Layer: 2
+  m_Name: EntireSceneCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &163231601
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163231600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &163231602
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163231600}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_Children: []
+  m_Father: {fileID: 730280418}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &730280417
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +229,7 @@ Transform:
   - {fileID: 2034553360}
   - {fileID: 9886190}
   - {fileID: 1810588066}
+  - {fileID: 163231602}
   m_Father: {fileID: 1410903056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -467,6 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneObject: {fileID: 730280417}
   SceneFocusCollider: {fileID: 730917008}
+  EntireSceneCollider: {fileID: 163231601}
   IsSinglePlanet: 1
 --- !u!1 &1810588065
 GameObject:
@@ -492,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 1810588065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 60, y: 60, z: 60}
   m_Children:
   - {fileID: 730917004}
   - {fileID: 1255821935}

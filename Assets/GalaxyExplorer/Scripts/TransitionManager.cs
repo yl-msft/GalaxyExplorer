@@ -61,17 +61,8 @@ namespace GalaxyExplorer
         private GameObject prevSceneLoaded;     // tracks the last scene loaded for transitions when loading new scenes
         private string prevSceneLoadedName = "";
 
-        private bool isIntro = true;
         private bool inTransition = false;
         private bool isFading = false;
-
-
-        public bool IsIntro
-        {
-            get { return isIntro; }
-
-            set { isIntro = value; }
-        }
 
         public bool InTransition
         {
@@ -88,12 +79,6 @@ namespace GalaxyExplorer
                 return;
             }
 
-            IntroFlow intro = FindObjectOfType<IntroFlow>();
-            if (intro)
-            {
-                intro.OnIntroFinished += OnIntroFInished;
-            }
-
             FadeManager = FindObjectOfType<GEFadeManager>();
             FadeManager.OnFadeComplete += OnFadeComplete;
 
@@ -104,12 +89,6 @@ namespace GalaxyExplorer
         private void OnFadeComplete(GEFadeManager.FadeType fadeType)
         {
             isFading = false;
-        }
-
-        // Called when intro flow has finished
-        private void OnIntroFInished()
-        {
-            IsIntro = false;
         }
 
         public void UnloadScene(string scene, bool keepItOnStack)
@@ -140,7 +119,7 @@ namespace GalaxyExplorer
             ViewLoaderScript.LoadPreviousScene(PrevSceneLoaded);
         }
 
-        private void PrevSceneLoaded(string oldSceneName)
+        private void PrevSceneLoaded()
         {
             StartCoroutine(NextSceneLoadedCoroutine());
         }
@@ -170,7 +149,7 @@ namespace GalaxyExplorer
             ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
         }
 
-        private void NextSceneLoaded(string oldSceneName)
+        private void NextSceneLoaded()
         {
             StartCoroutine(NextSceneLoadedCoroutine());
         }

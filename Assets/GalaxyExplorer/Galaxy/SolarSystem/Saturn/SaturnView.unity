@@ -484,8 +484,50 @@ Transform:
   - {fileID: 2034553360}
   - {fileID: 9886190}
   - {fileID: 1408586795}
+  - {fileID: 944652671}
   m_Father: {fileID: 1410903056}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &944652669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 944652671}
+  - component: {fileID: 944652670}
+  m_Layer: 2
+  m_Name: EntireSceneCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &944652670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 944652669}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &944652671
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 944652669}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.07, y: 1.05, z: 2.07}
+  m_Children: []
+  m_Father: {fileID: 730280418}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1408586794
 GameObject:
@@ -601,6 +643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneObject: {fileID: 730280417}
   SceneFocusCollider: {fileID: 390328141}
+  EntireSceneCollider: {fileID: 944652670}
   IsSinglePlanet: 1
 --- !u!1 &2034553359
 GameObject:

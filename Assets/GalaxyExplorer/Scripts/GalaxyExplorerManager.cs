@@ -114,7 +114,7 @@ namespace GalaxyExplorer
             }
             else 
             {
-                Platform = PlatformId.Desktop;
+                Platform = PlatformId.HoloLens;
             }
 
             if (MyAppPlatformManagerInitialized != null)

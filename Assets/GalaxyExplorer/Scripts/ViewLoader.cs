@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 namespace GalaxyExplorer
 {
-    public delegate void SceneLoaded(string oldSceneName);
+    public delegate void SceneLoaded();
 
     public class ViewLoader : MonoBehaviour
     {
@@ -27,6 +27,10 @@ namespace GalaxyExplorer
 
         public delegate void SceneIsLoadedCallback();
         public SceneIsLoadedCallback OnSceneIsLoaded;
+
+        public delegate void LoadNewSceneCallback();
+        public LoadNewSceneCallback OnLoadNewScene;
+
 
         public static string CurrentView
         {
@@ -56,6 +60,7 @@ namespace GalaxyExplorer
             if (activeScene.buildIndex > 0 && viewBackStack.Count == 0)
             {
                 viewBackStack.Push(activeScene.name);
+                CurrentView = activeScene.name;
             }
 #endif
         }
@@ -80,6 +85,11 @@ namespace GalaxyExplorer
         {
             AsyncOperation loadOperation = SceneManager.LoadSceneAsync(viewName, LoadSceneMode.Additive);
 
+            if (loadOperation != null && OnLoadNewScene != null)
+            {
+                OnLoadNewScene.Invoke();
+            }
+
             if (loadOperation == null)
             {
                 throw new InvalidOperationException(string.Format("ViewLoader: Unable to load {0}. Make sure that the scene is enabled in the Build Settings.", viewName));
@@ -91,6 +101,8 @@ namespace GalaxyExplorer
             }
            
             Debug.Log("ViewLoader: Loaded " + viewName);
+            PreviousView = (CurrentView == null) ? viewName : CurrentView;
+            CurrentView = viewName;
 
             if (OnSceneIsLoaded != null)
             {
@@ -99,11 +111,8 @@ namespace GalaxyExplorer
 
             if (sceneLoadedCallback != null)
             {
-                sceneLoadedCallback(CurrentView);
+                sceneLoadedCallback();
             }
-
-            PreviousView = (CurrentView == null) ? viewName : CurrentView;
-            CurrentView = viewName;
         }
 
         public bool IsTherePreviousScene()
@@ -161,6 +170,12 @@ namespace GalaxyExplorer
 
                 SceneManager.UnloadSceneAsync(view);
             }
+        }
+
+        // Is app during the intro stage
+        public bool IsIntro()
+        {
+            return (CurrentView != null) ? IsIntroFlowScene(CurrentView) : true;
         }
 
         /// <summary>

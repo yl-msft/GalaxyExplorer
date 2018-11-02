@@ -89,9 +89,9 @@ namespace GalaxyExplorer
                 }
 
                 previousFocusInitialScale = PreviousSceneFocusCollider.radius * PreviousSceneFocusCollider.transform.lossyScale.x;
-                previousSceneInitialScale = PreviousScene.lossyScale.x;
+                previousSceneInitialScale = PreviousScene.localScale.x;
                 nextFocusInitialScale = NextSceneFocusCollider.radius * NextSceneFocusCollider.transform.lossyScale.x;
-                nextSceneInitialScale = NextScene.lossyScale.x;
+                nextSceneInitialScale = NextScene.localScale.x;
 
                 nextSceneInitialPosition = PreviousSceneFocusCollider.transform.position;
                 previousSceneInitialPosition = PreviousScene.transform.position;

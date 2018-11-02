@@ -104,6 +104,10 @@ namespace GalaxyExplorer
             // ViewLoader of CoreSystems scene needs to be loaded and then continue
             yield return new WaitUntil(() => FindObjectOfType<ViewLoader>() != null);
 
+            // need to wait otherwise the viewloader subscription to callback becomes null in holoLens
+            //yield return new WaitForSeconds(1);
+            yield return new WaitForEndOfFrame();
+
             PlacementControl placement = FindObjectOfType<PlacementControl>();
             if (placement)
             {
