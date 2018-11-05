@@ -35,8 +35,8 @@ namespace GalaxyExplorer
             if (transformSource)
             {
                 transform.position = transformSource.position;
-                transform.localRotation = transformSource.localRotation;
-                transform.localScale = transformSource.localScale;
+                transform.rotation = transformSource.rotation;
+                transform.localScale = transformSource.lossyScale;
             }
         }
     }

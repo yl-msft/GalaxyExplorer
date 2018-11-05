@@ -30,7 +30,7 @@ namespace GalaxyExplorer
    
         public void CreateWorldAnchor()
         {
-            GameObject sourceObject = FindObjectOfType<TransformSource>().gameObject;
+            GameObject sourceObject = FindObjectOfType<ViewLoader>().gameObject;
 
             anchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
 

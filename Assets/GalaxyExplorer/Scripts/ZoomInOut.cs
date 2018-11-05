@@ -34,7 +34,6 @@ namespace GalaxyExplorer
 
         private Quaternion previousSceneRotation = Quaternion.identity;
         private Quaternion previousSceneDiffRotation = Quaternion.identity;
-        private Quaternion nextSceneFocusInitialRotation = Quaternion.identity;
         private Quaternion nextSceneInitialRotation = Quaternion.identity;
         private Quaternion nextInitQuaternion = Quaternion.identity;
 
@@ -98,7 +97,6 @@ namespace GalaxyExplorer
                 previousSceneInitialPosition = PreviousScene.transform.position;
 
                 previousSceneRotation = PreviousScene.transform.rotation;
-                nextSceneFocusInitialRotation = NextSceneFocusCollider.transform.rotation;
                 nextSceneInitialRotation = NextScene.rotation;
 
                 // Should take into account any other parent with rotation

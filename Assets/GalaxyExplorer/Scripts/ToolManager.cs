@@ -20,6 +20,18 @@ namespace GalaxyExplorer
         public float TargetMinZoomSize = 0.15f;
         public float LargestZoom = 3.0f;
 
+        [SerializeField]
+        [Tooltip("Size of scale handles in Bounding box.")]
+        private Vector3 scaleHandleSize = new Vector3(0.08f, 0.08f, 0.08f);
+
+        [SerializeField]
+        [Tooltip("Size of rotate handles in Bounding box.")]
+        private Vector3 rotateHandleSize = new Vector3(0.08f, 0.08f, 0.08f);
+
+
+        [SerializeField]
+        private AnimationCurve toolsOpacityChange;
+
         [HideInInspector]
         public bool ToolsVisible = false;
 
@@ -104,6 +116,8 @@ namespace GalaxyExplorer
         // Callback when a new scene is loaded
         private IEnumerator OnSceneIsLoadedCoroutine()
         {
+            yield return new WaitForEndOfFrame();
+
             if (!ToolsVisible && !loader.IsIntro())
             {
                 // If tools/menu is not visible and intro flow has finished then make menu visible
@@ -309,6 +323,7 @@ namespace GalaxyExplorer
         // Bounding Box Rig creates many entities used by bounding box
         // All of them are created in the scene under no parent, and makes the scene editor meesy and difficult to find sth
         // Find all entities created by BoundingBoxRig and group them under one single parent
+        // ALso scale handles of bounding box as MRTK doesnt provide public properties for this
         private IEnumerator OnBoundingBoxCreated()
         {
             yield return new WaitForSeconds(1);
@@ -341,6 +356,7 @@ namespace GalaxyExplorer
                 foreach (var entity in corners)
                 {
                     entity.transform.parent = parent.transform;
+                    entity.transform.localScale = scaleHandleSize;
                 }
             }
 
@@ -350,6 +366,7 @@ namespace GalaxyExplorer
                 foreach (var entity in middles)
                 {
                     entity.transform.parent = parent.transform;
+                    entity.transform.localScale = rotateHandleSize;
                 }
 
                 groupBoundinBoxEntities = true;
