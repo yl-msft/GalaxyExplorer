@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -98,14 +99,17 @@ namespace GalaxyExplorer
 
                 previousSceneRotation = PreviousScene.transform.rotation;
                 nextSceneFocusInitialRotation = NextSceneFocusCollider.transform.rotation;
-                // Should take into account any other parent with rotation
-                // I manually calculate the rotation angles as the PreviousSceneFocusCollider.transform.rotation was returning wrong value for some reason
-                Vector3 previousSceneDiffAngles = GetRotation(PreviousSceneFocusCollider.gameObject, PreviousScene.gameObject) - PreviousScene.rotation.eulerAngles;
-                // Quaternion previousSceneDiffAngles = PreviousSceneFocusCollider.transform.rotation * Quaternion.Inverse(PreviousScene.rotation);
-                previousSceneDiffRotation = nextSceneFocusInitialRotation * Quaternion.Inverse(Quaternion.Euler(previousSceneDiffAngles));
                 nextSceneInitialRotation = NextScene.rotation;
-                Quaternion temp = NextScene.rotation * Quaternion.Inverse(NextSceneFocusCollider.transform.rotation) * NextSceneFocusCollider.transform.localRotation;
-                nextInitQuaternion = PreviousSceneFocusCollider.transform.rotation * Quaternion.Inverse(NextSceneFocusCollider.transform.localRotation) * temp;
+
+                // Should take into account any other parent with rotation
+                // previous scene final rotation should be equal to x, and that x makes the previous focus collider rotatio ssame as the initial next focus collider rotation
+                // so from the rotation of next focus collider need to remove the rotation of the previous focus collider but without taking nto accont the top parent that we manipulate
+                previousSceneDiffRotation = NextSceneFocusCollider.transform.rotation * Quaternion.Inverse(GetRotation(PreviousSceneFocusCollider.gameObject, PreviousScene.gameObject));
+
+                // we want the previous focus collider rotation to much the next focus collider rotation
+                // the parent of the next scene should have a rotation that results to the desired next focus collider rotation
+                // the next scene's rotations that matter are all parents and focus except the top parent which is the one that we manipulate. 
+                nextInitQuaternion = PreviousSceneFocusCollider.transform.rotation * Quaternion.Inverse(GetRotation(NextSceneFocusCollider.gameObject, NextScene.gameObject));
 
                 // next scene focus displacement 
                 nextSceneDisplacement = NextSceneFocusCollider.transform.position - NextScene.position;
@@ -251,14 +255,24 @@ namespace GalaxyExplorer
             }
         }
 
-        private Vector3 GetRotation(GameObject child, GameObject parent)
+        // Get rotation of child object until the parent object
+        private Quaternion GetRotation(GameObject child, GameObject parent)
         {
-            Vector3 rotation = child.transform.localRotation.eulerAngles + parent.transform.localRotation.eulerAngles;
+            Quaternion rotation = Quaternion.identity;
+            List<GameObject> allParents = new List<GameObject>();
+            allParents.Add(child);
             GameObject thisParent = child.transform.parent.gameObject;
+
+            // Create list of all parents from top to bottom hierarchy
             while (thisParent != parent)
             {
-                rotation += thisParent.transform.localRotation.eulerAngles;
+                allParents.Add(thisParent);
                 thisParent = thisParent.transform.parent.gameObject;
+            }
+
+            for (int i = allParents.Count - 1; i >= 0; --i)
+            {
+                rotation *= allParents[i].transform.localRotation;
             }
 
             return rotation;
