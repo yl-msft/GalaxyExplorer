@@ -57,7 +57,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DSTBLEND: 0
+    - _DSTBLEND: 10
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Glossiness: 0.5
@@ -65,11 +65,11 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SRCBLEND: 1
+    - _SRCBLEND: 5
     - _SrcBlend: 1
     - _TransitionAlpha: 1
     - _UVSec: 0
-    - _ZWRITE: 1
+    - _ZWRITE: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

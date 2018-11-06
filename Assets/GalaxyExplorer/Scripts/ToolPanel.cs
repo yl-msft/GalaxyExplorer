@@ -7,31 +7,6 @@ namespace GalaxyExplorer
 {
     public class ToolPanel : MonoBehaviour
     {
-        public class ToolsFader : Fader
-        {
-            public Fader[] fadeTargets;
-
-            protected override bool CanAddMaterialsFromRenderer(Renderer renderer, Fader[] faders)
-            {
-                return false;
-            }
-
-            public override bool SetAlpha(float alphaValue)
-            {
-                alpha = alphaValue;
-
-                if (fadeTargets != null)
-                {
-                    foreach (var target in fadeTargets)
-                    {
-                        target.SetAlpha(alphaValue);
-                    }
-                }
-
-                return true;
-            }
-        }
-
         public Vector3 ShownViewOffset;
         public Vector3 HiddenViewOffset;
         public float RotationDeadZoneAngle = 5.0f;

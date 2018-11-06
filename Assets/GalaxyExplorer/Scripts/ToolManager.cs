@@ -32,6 +32,9 @@ namespace GalaxyExplorer
         [SerializeField]
         private AnimationCurve toolsOpacityChange;
 
+        [SerializeField]
+        private float FadeToolsDuration = 1.0f;
+
         [HideInInspector]
         public bool ToolsVisible = false;
 
@@ -39,9 +42,11 @@ namespace GalaxyExplorer
         private ToolPanel panel;
 
         private List<GEInteractiveToggle> allButtons = new List<GEInteractiveToggle>();
+        private List<Collider> allButtonColliders = new List<Collider>();
         private ViewLoader loader = null;
         private TransitionManager transition = null;
         private BoundingBox boundingBox = null;
+        private GEFadeManager fadeManager = null;
         private bool groupBoundinBoxEntities = false;
 
         public bool IsLocked
@@ -72,16 +77,25 @@ namespace GalaxyExplorer
                 Debug.LogError("ToolManager couldn't find ToolPanel. Hiding and showing of Tools unavailable.");
             }
 
+            // FInd all button scripts
             GEInteractiveToggle[] buttonsArray = GetComponentsInChildren<GEInteractiveToggle>(true);
             foreach (var button in buttonsArray)
             {
                 allButtons.Add(button);
             }
 
+            // Find all button colliders
+            Collider[] allColliders = GetComponentsInChildren<Collider>(true);
+            foreach (var collider in allColliders)
+            {
+                allButtonColliders.Add(collider);
+            }
+
             ShowButton?.SetActive(false);
             BackButton?.SetActive(false);
 
             transition = FindObjectOfType<TransitionManager>();
+            fadeManager = FindObjectOfType<GEFadeManager>();
             boundingBox = FindObjectOfType<BoundingBox>();
 
             loader = FindObjectOfType<ViewLoader>();
@@ -110,6 +124,10 @@ namespace GalaxyExplorer
             if (ToolsVisible)
             {
                 HideTools();
+
+                // If button is selected then need to be deselected 
+                SelectedTool = null;
+                UnselectAllTools();
             }
         }
 
@@ -222,6 +240,7 @@ namespace GalaxyExplorer
             }
         }
 
+        // Toggle tools by lowering and raising them, this is happening when show and hide button is being pressed
         public void ToggleTools()
         {
             if (panel.IsLowered)
@@ -246,23 +265,38 @@ namespace GalaxyExplorer
             StartCoroutine(ShowToolsAsync());
         }
 
+        // Hide tools by deactivating button colliders and fade out button materials
         public IEnumerator HideToolsAsync()
         {
             ToolsVisible = false;
-            // TODO fade tools
-            panel.gameObject.SetActive(false);
+            SetCollidersEnabled(false);
+
+            Fader[] allToolFaders = GetComponentsInChildren<Fader>();
+            fadeManager.Fade(allToolFaders, GEFadeManager.FadeType.FadeOut, FadeToolsDuration, toolsOpacityChange);
 
             yield return null;
         }
 
+        // Show tools by activating button colliders and fade in button materials
         public IEnumerator ShowToolsAsync()
         {
             if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD)
             {
                 panel.gameObject.SetActive(true);
                 ToolsVisible = true;
-                // TODO fade in tools
+                SetCollidersEnabled(true);
+             
+                Fader[] allToolFaders = GetComponentsInChildren<Fader>();
+                fadeManager.Fade(allToolFaders, GEFadeManager.FadeType.FadeIn, FadeToolsDuration, toolsOpacityChange);
                 yield return null;
+            }
+        }
+
+        private void SetCollidersEnabled(bool isEnabled)
+        {
+            foreach (var collider in allButtonColliders)
+            {
+                collider.enabled = isEnabled;
             }
         }
 

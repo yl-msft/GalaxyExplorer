@@ -3488,6 +3488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1618593080}
   - component: {fileID: 1618593079}
+  - component: {fileID: 1618593081}
   m_Layer: 0
   m_Name: ToolsManager
   m_TagString: Untagged
@@ -3516,10 +3517,23 @@ MonoBehaviour:
   rotateHandleSize: {x: 0.08, y: 0.08, z: 0.08}
   toolsOpacityChange:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
+  FadeToolsDuration: 1
   ToolsVisible: 0
 --- !u!4 &1618593080
 Transform:
@@ -3536,6 +3550,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1618593081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618593078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35c4c9b66d48444e8cba2885b6780f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 71e4ec1bdf020924dbe76cc9aa4a3be7, type: 2}
+  - {fileID: 2100000, guid: 11e6d43839a6e654ba6deba305ea6385, type: 2}
+  - {fileID: 2100000, guid: 4693d12674977f14ba2c3798530c061a, type: 2}
+  - {fileID: 2100000, guid: 31b2b88887eac1e41a5201c9ea05907a, type: 2}
+  - {fileID: 2100000, guid: 4da273bd48a8dc24e883ace437786780, type: 2}
+  - {fileID: 2100000, guid: 2b1ebc8c93c6fcc498ab9f667df3a0cd, type: 2}
+  - {fileID: 2100000, guid: d0e6ee38c11c2b943925a7a0c1668538, type: 2}
+  - {fileID: 2100000, guid: ae29bf3d5fa5f35438e38859ed498c24, type: 2}
+  - {fileID: 2100000, guid: b33591d62e265d349b2cf286a53a8217, type: 2}
+  - {fileID: 2100000, guid: 4e07ccd06b3f44748bc2dcd66502447e, type: 2}
+  - {fileID: 2100000, guid: ccb99c9df3a319545a8cf760625bde0b, type: 2}
+  - {fileID: 2100000, guid: f83c988bb73e9704ba5c2d0db297311b, type: 2}
+  - {fileID: 2100000, guid: f5ac1ed8c1f944e4285845ec41852ce7, type: 2}
+  - {fileID: 2100000, guid: 29a2af70b904290439148cb962c1ea70, type: 2}
+  - {fileID: 2100000, guid: 5f93ab312b473974d9ce17ca037a0498, type: 2}
 --- !u!1 &1642965381
 GameObject:
   m_ObjectHideFlags: 0
