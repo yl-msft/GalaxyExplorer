@@ -1082,22 +1082,40 @@ Prefab:
     - target: {fileID: 114388705730666130, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
         type: 2}
       propertyPath: lastBakedStarsCount
-      value: 8320
+      value: 8060
       objectReference: {fileID: 0}
     - target: {fileID: 114415192178358478, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
         type: 2}
       propertyPath: lastBakedStarsCount
-      value: 4000
+      value: 3800
       objectReference: {fileID: 0}
     - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
         type: 2}
       propertyPath: tintMult
-      value: 0.05
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1500388789491938, guid: 0b8b8976322d3a844b11b4312ab1f4e2, type: 2}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114388705730666130, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: bakedStars
+      value: 
+      objectReference: {fileID: 11400000, guid: bd3eddc4e5db1a142bda72ba6e43fcc8,
+        type: 2}
+    - target: {fileID: 114415192178358478, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: bakedStars
+      value: 
+      objectReference: {fileID: 11400000, guid: fe854ae6216010545a558cd7985e8b54,
+        type: 2}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: bakedStars
+      value: 
+      objectReference: {fileID: 11400000, guid: da44752175e09684ea98932927a8de71,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b8b8976322d3a844b11b4312ab1f4e2, type: 2}
   m_IsPrefabParent: 0
