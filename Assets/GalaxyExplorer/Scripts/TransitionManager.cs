@@ -302,6 +302,15 @@ namespace GalaxyExplorer
                 AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
                 FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
             }
+            // If going into a single planet then deactivate the previous scene's planet rotation script
+            // in order to stop the previous planet moving
+            else if (newTransition && newTransition.IsSinglePlanetTransition)
+            {
+                if (relatedPlanet && relatedPlanet.GetComponentInChildren<OrbitUpdater>())
+                {
+                    relatedPlanet.GetComponentInChildren<OrbitUpdater>().enabled = false;
+                }
+            }
 
             StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
