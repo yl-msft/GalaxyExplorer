@@ -160,6 +160,35 @@ MonoBehaviour:
     scene:
       asset: {fileID: 102900000, guid: c97f81bf2a42b2c4395cb934e9d35709, type: 3}
       path: Assets/GalaxyExplorer/Scenes/CoreSystems.unity
+--- !u!1 &128522333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 128522334}
+  m_Layer: 0
+  m_Name: PlanetStub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &128522334
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 128522333}
+  m_LocalRotation: {x: 0.12691972, y: -0.030470723, z: 0.23144819, w: 0.9640512}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1408586795}
+  m_Father: {fileID: 730280418}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 27}
 --- !u!1 &390328137
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,8 +528,8 @@ Transform:
   m_Children:
   - {fileID: 2034553360}
   - {fileID: 9886190}
-  - {fileID: 1408586795}
   - {fileID: 944652671}
+  - {fileID: 128522334}
   m_Father: {fileID: 1410903056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -543,7 +572,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 730280418}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1408586794
 GameObject:
@@ -571,16 +600,16 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1408586794}
-  m_LocalRotation: {x: 0.12691972, y: -0.030470723, z: 0.23144819, w: 0.9640512}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.32, y: 4.32, z: 4.32}
+  m_LocalScale: {x: 4.32, y: 4.32, z: 4.319999}
   m_Children:
   - {fileID: 390328138}
   - {fileID: 497415689}
   - {fileID: 648825793}
-  m_Father: {fileID: 730280418}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 27}
+  m_Father: {fileID: 128522334}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1408586796
 MonoBehaviour:
   m_ObjectHideFlags: 0
