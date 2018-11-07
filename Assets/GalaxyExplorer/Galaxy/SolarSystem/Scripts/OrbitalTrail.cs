@@ -269,7 +269,7 @@ namespace GalaxyExplorer
             container = new GameObject("Orbit Container " + planet.name);
 
             var planetTransform = planet.transform;
-            container.transform.SetParent(planetTransform.parent.parent, worldPositionStays: false);
+            container.transform.SetParent(planetTransform.parent, worldPositionStays: false);
 
             FindSunIfNeeded();
 
@@ -279,7 +279,7 @@ namespace GalaxyExplorer
 
             GeneratePositionsForOrbit(out realPositions, out schematicPositions);
 
-            var orbitsRenderer = OrbitsRenderer.GetOrCreate(planet.transform.parent.parent);
+            var orbitsRenderer = OrbitsRenderer.GetOrCreate(planet.transform.parent);
             orbitsRenderer.AddOrbit(this, realPositions, schematicPositions);
             originalGlobalScale = orbitMaterial.GetFloat("_GlobalScale");
             originalWidth = orbitMaterial.GetFloat("_Width");
