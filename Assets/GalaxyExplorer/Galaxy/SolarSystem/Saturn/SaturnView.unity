@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 390328141}
   - component: {fileID: 390328140}
   - component: {fileID: 390328139}
+  - component: {fileID: 390328143}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -187,13 +188,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 390328137}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3.469955, y: 3.469955, z: 3.469955}
   m_Children: []
   m_Father: {fileID: 1408586795}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &390328139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 390328137}
   m_Mesh: {fileID: 4300000, guid: 9ecf6d46d2d120b4bbcf948afabd05f8, type: 3}
+--- !u!114 &390328143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 390328137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016aa46bb21226846ad8b4c0e104fe87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OuterRingRadius: 1
+  InnerRingRadius: 0.7
+  GlobalScale: 0.27
+  contentRoot: {fileID: 1410903054}
 --- !u!1 &497415688
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,6 +556,7 @@ GameObject:
   - component: {fileID: 1408586795}
   - component: {fileID: 1408586797}
   - component: {fileID: 1408586796}
+  - component: {fileID: 1408586798}
   m_Layer: 0
   m_Name: Saturn
   m_TagString: Untagged
@@ -556,7 +573,7 @@ Transform:
   m_GameObject: {fileID: 1408586794}
   m_LocalRotation: {x: 0.12691972, y: -0.030470723, z: 0.23144819, w: 0.9640512}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 4.32, y: 4.32, z: 4.32}
   m_Children:
   - {fileID: 390328138}
   - {fileID: 497415689}
@@ -587,6 +604,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1408586798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1408586794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e071354d4a14345a9ed7db9696e297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 1, z: 0}
+  speed: -5
 --- !u!1 &1410903054
 GameObject:
   m_ObjectHideFlags: 0
