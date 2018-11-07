@@ -160,6 +160,35 @@ MonoBehaviour:
     scene:
       asset: {fileID: 102900000, guid: c97f81bf2a42b2c4395cb934e9d35709, type: 3}
       path: Assets/GalaxyExplorer/Scenes/CoreSystems.unity
+--- !u!1 &126349498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 126349499}
+  m_Layer: 0
+  m_Name: PlanetStub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &126349499
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 126349498}
+  m_LocalRotation: {x: -0.09835981, y: -0.085804716, z: 0.7471166, w: 0.6517513}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_Children:
+  - {fileID: 753553469}
+  m_Father: {fileID: 730280418}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: -15, z: 97.8}
 --- !u!1 &225002973
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,13 +215,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 225002973}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalScale: {x: 0.09999871, y: 0.09999871, z: 0.09999871}
   m_Children: []
   m_Father: {fileID: 753553469}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &225002975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,10 +314,10 @@ Transform:
   m_GameObject: {fileID: 703867685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 730280418}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &730280417
 GameObject:
@@ -317,8 +346,8 @@ Transform:
   m_Children:
   - {fileID: 2034553360}
   - {fileID: 9886190}
-  - {fileID: 753553469}
   - {fileID: 703867687}
+  - {fileID: 126349499}
   m_Father: {fileID: 1410903056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -333,6 +362,7 @@ GameObject:
   - component: {fileID: 753553469}
   - component: {fileID: 753553471}
   - component: {fileID: 753553470}
+  - component: {fileID: 753553472}
   m_Layer: 0
   m_Name: Uranus
   m_TagString: Untagged
@@ -347,15 +377,15 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 753553468}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2115126624}
   - {fileID: 1234894947}
   - {fileID: 225002974}
-  m_Father: {fileID: 730280418}
-  m_RootOrder: 2
+  m_Father: {fileID: 126349499}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &753553470
 MonoBehaviour:
@@ -380,6 +410,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &753553472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 753553468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e071354d4a14345a9ed7db9696e297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 1, z: 0}
+  speed: -5
 --- !u!1 &1234894946
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +645,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.009
+  m_Radius: 0.0085
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2115126621
 MonoBehaviour:
@@ -669,7 +712,7 @@ Transform:
   m_GameObject: {fileID: 2115126619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 1.479981, y: 1.479981, z: 1.479981}
   m_Children: []
   m_Father: {fileID: 753553469}
   m_RootOrder: 0
