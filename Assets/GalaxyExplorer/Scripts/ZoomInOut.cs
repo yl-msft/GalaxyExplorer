@@ -216,13 +216,12 @@ namespace GalaxyExplorer
                 // Scale scenes. Previous scene's focus point should not move because of scale so need to position the scene back to where it was 
                 // before scale in order for its focus point to remain at the same position
                 Vector3 posBeforeScale = PreviousSceneFocusCollider.transform.position;
-                PreviousScene.localScale = Vector3.one * Mathf.Lerp(1f, scalar, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
-                NextScene.localScale = Vector3.one * Mathf.Lerp(1f, scalar, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount))) * (1f / scalar);
+                PreviousScene.localScale = Vector3.one * Mathf.Lerp(previousSceneInitialScale, scalar, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
+                NextScene.localScale = Vector3.one * Mathf.Lerp(nextSceneInitialScale * (1f / scalar), nextSceneInitialScale, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
                 Vector3 newDisplacement = PreviousSceneFocusCollider.transform.position - PreviousScene.position;
                 PreviousScene.position = posBeforeScale - newDisplacement;
 
                 // Position scenes. FOr next scene take into account the focus collider pivot as well
-                //Vector3 nextSceneRotatedDispl = (PreviousSceneFocusCollider.transform.rotation * nextSceneDisplacement) * (1f / scalar);
                 NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
                 PreviousScene.transform.position = NextSceneFocusCollider.transform.position - newDisplacement;
 
