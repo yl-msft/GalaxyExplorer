@@ -285,7 +285,7 @@ namespace GalaxyExplorer
             }
 
             // Make invisible one of the two planets that represent the same entity in both scenes
-            SetRenderersVisibility(newTransition.IsSinglePlanetTransition ? relatedPlanet : singlePlanet, false);
+            SetRenderersVisibility(newTransition.IsSinglePlanetTransition ? relatedPlanet.transform.parent.gameObject : singlePlanet.transform.parent.gameObject, false);
 
             // make alpha of pois of next scene equal to zero so they arent visible
             FadeManager.SetAlphaOnFader(newTransition.GetComponentInChildren<POIMaterialsFader>(), 0.0f);
