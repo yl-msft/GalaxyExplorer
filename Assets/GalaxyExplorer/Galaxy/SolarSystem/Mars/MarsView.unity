@@ -196,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 163231600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 730280418}
   m_RootOrder: 3
@@ -228,7 +228,7 @@ Transform:
   m_Children:
   - {fileID: 2034553360}
   - {fileID: 9886190}
-  - {fileID: 1810588066}
+  - {fileID: 1473466043}
   - {fileID: 163231602}
   m_Father: {fileID: 1410903056}
   m_RootOrder: 0
@@ -261,13 +261,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 730917003}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1810588066}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!114 &730917005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 730917003}
-  m_Mesh: {fileID: 4300002, guid: d412c9484e61bd24c9191cded0e90c61, type: 3}
+  m_Mesh: {fileID: 4300000, guid: cb78e3b53e83f26448d65f7ca6a32401, type: 3}
 --- !u!1 &1255821934
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 1255821938}
   - component: {fileID: 1255821937}
   - component: {fileID: 1255821936}
+  - component: {fileID: 1255821940}
   m_Layer: 0
   m_Name: MarsGlow
   m_TagString: Untagged
@@ -375,13 +376,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1255821934}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.295, y: 0.295, z: 0.295}
+  m_LocalScale: {x: 0.2980408, y: 0.2980408, z: 0.2980408}
   m_Children: []
   m_Father: {fileID: 1810588066}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!114 &1255821936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +454,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1255821934}
   m_Mesh: {fileID: 4300002, guid: cb78e3b53e83f26448d65f7ca6a32401, type: 3}
+--- !u!114 &1255821940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1255821934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc53da21abd83442a254a6905f11473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinScale: 0.29
+  MaxScale: 0.5
+  ObjectSpaceRadius: 7
 --- !u!1 &1410903054
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +526,35 @@ MonoBehaviour:
   SceneFocusCollider: {fileID: 730917008}
   EntireSceneCollider: {fileID: 163231601}
   IsSinglePlanet: 1
+--- !u!1 &1473466042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1473466043}
+  m_Layer: 0
+  m_Name: PlanetStub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1473466043
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1473466042}
+  m_LocalRotation: {x: 0, y: 0, z: 0.21805806, w: 0.9759358}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1810588066}
+  m_Father: {fileID: 730280418}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.19}
 --- !u!1 &1810588065
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810588066}
   - component: {fileID: 1810588067}
+  - component: {fileID: 1810588068}
   m_Layer: 0
   m_Name: Mars
   m_TagString: Untagged
@@ -533,14 +578,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1810588065}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 60, y: 60, z: 60}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
   - {fileID: 730917004}
   - {fileID: 1255821935}
-  m_Father: {fileID: 730280418}
-  m_RootOrder: 2
+  m_Father: {fileID: 1473466043}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1810588067
 MonoBehaviour:
@@ -553,6 +598,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd88ca6b451f7974fb22c099a6d0f4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1810588068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810588065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e071354d4a14345a9ed7db9696e297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 1, z: 0}
+  speed: -5
 --- !u!1 &2034553359
 GameObject:
   m_ObjectHideFlags: 0
