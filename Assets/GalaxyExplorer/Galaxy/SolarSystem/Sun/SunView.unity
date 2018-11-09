@@ -211,6 +211,7 @@ MonoBehaviour:
   SceneFocusCollider: {fileID: 1768161970}
   EntireSceneCollider: {fileID: 1065897217}
   IsSinglePlanet: 1
+  FillVolumePercentage: 0.75
 --- !u!1 &199427928
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +650,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!1 &580803815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,7 +1339,7 @@ Transform:
   m_GameObject: {fileID: 1065897216}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_Children: []
   m_Father: {fileID: 1822226801}
   m_RootOrder: 1
