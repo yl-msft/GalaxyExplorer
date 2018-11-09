@@ -63,9 +63,10 @@ namespace GalaxyExplorer
 
         private void Start()
         {
+            // If its Desktop when menu isnt needed and bounding box as well
             if (GalaxyExplorerManager.IsDesktop)
             {
-                gameObject.SetActive(false);
+                StartCoroutine(OnBoundingBoxCreated());
                 return;
             }
 
@@ -343,7 +344,8 @@ namespace GalaxyExplorer
         // ALso scale handles of bounding box as MRTK doesnt provide public properties for this
         private IEnumerator OnBoundingBoxCreated()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
 
             if (groupBoundinBoxEntities)
             {
@@ -394,6 +396,12 @@ namespace GalaxyExplorer
             {
                 appBar.transform.parent = parent.transform;
                 appBar.gameObject.SetActive(false);
+            }
+
+            if (GalaxyExplorerManager.IsDesktop)
+            {
+                parent.SetActive(false);
+                gameObject.SetActive(false);
             }
 
             yield return null;
