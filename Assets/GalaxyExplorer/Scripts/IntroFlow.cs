@@ -79,6 +79,8 @@ namespace GalaxyExplorer
             StartCoroutine(Initialization());
         }
 
+        // Position and rotate transform along the WorldAnchor which is the transform that ViewLoader lives
+        // After modifying transform, create world anchor
         public void OnPlacementFinished(Vector3 position)
         {
             flowManagerScript.AdvanceStage();
@@ -132,10 +134,11 @@ namespace GalaxyExplorer
                 }
             }
 
+            // World anchor is being created along the gameobject that has ViewLoader
+            // so thats the transform that we need to modify when user chooses position of hologram
             if (sourceTransform == null)
             {
-                TransformSource source = FindObjectOfType<TransformSource>();
-                sourceTransform = source ? source.transform : null;
+                sourceTransform = viewLoaderScript ? viewLoaderScript.transform : null;
             }
 
             if (musicManagerScript == null)
