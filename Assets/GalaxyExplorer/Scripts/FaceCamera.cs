@@ -15,6 +15,10 @@ namespace GalaxyExplorer
         [Tooltip("If true, the object will face the camera while maintaining a camera up.")]
         public bool forceCameraUp = false;
 
+        [Tooltip("If true, the object will face the camera while maintaining the objects parent up as up.")]
+        public bool forceParentUp = false;
+
+
         // this needs to happen after all positions have been updated
         protected virtual void LateUpdate()
         {
@@ -34,6 +38,10 @@ namespace GalaxyExplorer
             {
                 transform.rotation = Quaternion.LookRotation(forwardDirection.normalized, Vector3.up) * Quaternion.Euler(rotationOffset);
                 transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
+            }
+            else if (forceParentUp)
+            {
+                transform.rotation = Quaternion.LookRotation(forwardDirection.normalized, transform.parent.up) * Quaternion.Euler(rotationOffset);
             }
             else
             {

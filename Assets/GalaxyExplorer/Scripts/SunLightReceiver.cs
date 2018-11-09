@@ -8,6 +8,7 @@ namespace GalaxyExplorer
     public class SunLightReceiver : MonoBehaviour
     {
         public Transform Sun;
+        public bool SetMaterials = true;
         private MeshRenderer currentRenderer;
         private Material moonMaterial = null;
 
@@ -16,7 +17,7 @@ namespace GalaxyExplorer
             FindSunIfNeeded();
 
             currentRenderer = gameObject.GetComponent<MeshRenderer>();
-            if (currentRenderer.sharedMaterial.name.Equals("Moon"))
+            if (SetMaterials && currentRenderer &&  currentRenderer.sharedMaterial.name.Equals("Moon"))
             {
                 // Somewhere, the Moon's currentRenderer.sharedMaterial is getting
                 // changed. Cache the original material here so we can properly
@@ -42,7 +43,7 @@ namespace GalaxyExplorer
 
         private void LateUpdate()
         {
-            if (FindSunIfNeeded())
+            if (currentRenderer && FindSunIfNeeded())
             {
                 Vector3 dir = (Sun.position - transform.position).normalized;
                 currentRenderer.sharedMaterial.SetVector("_SunDirection", new Vector4(dir.x, dir.y, dir.z, 0));
@@ -51,7 +52,7 @@ namespace GalaxyExplorer
 
         private void OnDestroy()
         {
-            if (currentRenderer.sharedMaterial.HasProperty("_SunDirection") || moonMaterial)
+            if (currentRenderer && currentRenderer.sharedMaterial.HasProperty("_SunDirection") || moonMaterial)
             {
                 if (moonMaterial)
                 {
