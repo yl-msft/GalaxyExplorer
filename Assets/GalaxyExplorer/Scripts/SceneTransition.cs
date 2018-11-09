@@ -33,6 +33,14 @@ namespace GalaxyExplorer
         [Tooltip("True if this scene is a single planet scene.")]
         protected bool IsSinglePlanet = false;
 
+        [SerializeField]
+        [Tooltip("The percentage of space within a boundary that the target collider will fill.")]
+        [Range(0,1)]
+        protected float FillVolumePercentage = 0.75f;
+
+        private Vector3 defaultSize;
+
+
         public GameObject ThisSceneObject
         {
             get { return SceneObject; }
@@ -56,6 +64,29 @@ namespace GalaxyExplorer
             get { return IsSinglePlanet; }
             private set { }
         }
-  
+
+        // Get the value of scale for this scene in order to fill given percentage of the targetSize
+        public float GetScalar(float targetSize)
+        {
+            return targetSize * FillVolumePercentage / Mathf.Max(defaultSize.x, defaultSize.y, defaultSize.z);
+        }
+
+        public void Awake()
+        {
+            // if the scene starts out hidden, the collider bounds size may not be calculated, so search for the renderer and use that instead
+            // If there is a collider that surrounds the whole scene then uses this, if not, use the focus collider
+            defaultSize = (EntireSceneCollider) ? EntireSceneCollider.bounds.size : (SceneFocusCollider) ? SceneFocusCollider.bounds.size : Vector3.zero;
+            if (defaultSize == Vector3.zero)
+            {
+                Renderer targetRenderer = SceneFocusCollider.gameObject.GetComponent<Renderer>();
+                
+                if (targetRenderer != null)
+                {
+                    defaultSize = targetRenderer.bounds.size;
+                    Debug.Log("Default size bounds was calculated by renderer as collider returned zero");
+                }
+            }
+        }
+
     }
 }

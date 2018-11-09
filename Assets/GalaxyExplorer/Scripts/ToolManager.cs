@@ -326,23 +326,6 @@ namespace GalaxyExplorer
 
                 if (enable)
                 {
-                    Bounds totalBounds = new Bounds(Vector3.zero, Vector3.zero);
-                    SceneTransition sceneTransition = FindObjectOfType<SceneTransition>();
-                    Vector3 size = sceneTransition.ThisEntireSceneCollider.gameObject.transform.lossyScale;
-                    Vector3 colliderScale = sceneTransition.ThisEntireSceneCollider.size; // bounds.size
-                    Vector3 colliderCenter = sceneTransition.ThisEntireSceneCollider.bounds.center;
-                    Debug.Log("Collider bounds " + colliderScale + " center " + colliderCenter);
-
-                    size = new Vector3(size.x * colliderScale.x, size.y * colliderScale.y, size.z * colliderScale.z);
-
-                    //boundingBox.Target.transform.parent.transform.rotation = sceneTransition.ThisEntireSceneCollider.transform.parent.localRotation;
-
-                    Transform child = boundingBox.Target.transform.GetChild(0);
-                    child.position = colliderCenter; //  sceneTransition.ThisEntireSceneCollider.transform.position;
-                    child.localScale = new Vector3(size.x / boundingBox.Target.transform.lossyScale.x, 
-                        size.y / boundingBox.Target.transform.lossyScale.y, 
-                        size.z / boundingBox.Target.transform.lossyScale.z);
-
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Activate();
                     StartCoroutine(OnBoundingBoxCreated());
                 }

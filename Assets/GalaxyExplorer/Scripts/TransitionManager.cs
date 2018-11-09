@@ -198,11 +198,18 @@ namespace GalaxyExplorer
             ZoomInOutBehaviour.ZoomInIsDone = false;
             ZoomInOutBehaviour.ZoomOutIsDone = false;
 
-            // Initialize zoom in and out transition properties
-            StartCoroutine(ZoomInOutBehaviour.ZoomInOutInitialization(nextSceneContent, prevSceneLoaded));
-
             SceneTransition previousTransition = (prevSceneLoaded) ? prevSceneLoaded.GetComponentInChildren<SceneTransition>() : null;
             SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
+
+            DeactivateOrbitUpdater(newTransition);
+
+            float scaleToFill = FindObjectOfType<TransformSource>().transform.lossyScale.x;
+            float targetSize = newTransition.GetScalar(scaleToFill);
+            newTransition.transform.GetChild(0).localScale = Vector3.one * targetSize;
+            Debug.Log("Target Size " + targetSize);
+
+            // Initialize zoom in and out transition properties
+            StartCoroutine(ZoomInOutBehaviour.ZoomInOutInitialization(nextSceneContent, prevSceneLoaded));
 
             // In order for the next scene not being visible while the previous is fading, set scale to zero and deactivate all its colliders
             if (ZoomInOutBehaviour.GetNextScene)
@@ -302,16 +309,7 @@ namespace GalaxyExplorer
                 AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
                 FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
             }
-            // If going into a single planet then deactivate the previous scene's planet rotation script
-            // in order to stop the previous planet moving
-            else if (newTransition && newTransition.IsSinglePlanetTransition)
-            {
-                if (relatedPlanet && relatedPlanet.GetComponentInChildren<OrbitUpdater>())
-                {
-                    relatedPlanet.GetComponentInChildren<OrbitUpdater>().enabled = false;
-                }
-            }
-
+ 
             StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
             yield return null;
@@ -359,6 +357,27 @@ namespace GalaxyExplorer
             StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
             yield return null;
+        }
+
+        private void DeactivateOrbitUpdater(SceneTransition newTransition)
+        {
+            // If going into a single planet then deactivate the previous scene's planet rotation script
+            // in order to stop the previous planet moving
+            if (newTransition && newTransition.IsSinglePlanetTransition)
+            {
+                GameObject singlePlanet = null;
+                GameObject relatedPlanet = null;
+                GetRelatedPlanets(out relatedPlanet, out singlePlanet);
+
+                if (relatedPlanet && relatedPlanet.GetComponentInChildren<OrbitUpdater>())
+                {
+                    relatedPlanet.GetComponentInChildren<OrbitUpdater>().enabled = false;
+                }
+                else if (relatedPlanet && relatedPlanet.transform.parent.GetComponent<OrbitUpdater>())
+                {
+                    relatedPlanet.transform.parent.GetComponent<OrbitUpdater>().enabled = false;
+                }
+            }
         }
 
         private void SetCollidersActivation(Collider[] allColliders, bool areActive)
