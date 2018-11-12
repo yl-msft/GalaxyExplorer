@@ -212,7 +212,6 @@ GameObject:
   - component: {fileID: 463219132}
   - component: {fileID: 463219131}
   - component: {fileID: 463219130}
-  - component: {fileID: 463219128}
   - component: {fileID: 463219133}
   - component: {fileID: 463219129}
   m_Layer: 0
@@ -222,17 +221,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &463219128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 463219126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd88ca6b451f7974fb22c099a6d0f4b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &463219129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +349,7 @@ GameObject:
   - component: {fileID: 777059117}
   - component: {fileID: 777059116}
   - component: {fileID: 777059118}
+  - component: {fileID: 777059119}
   m_Layer: 0
   m_Name: Sagitarius
   m_TagString: Untagged
@@ -445,6 +434,17 @@ MonoBehaviour:
   UserClippingDistance: 0.3
   FadeStart: 0.3
   FadeEnd: 0.25
+--- !u!114 &777059119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 777059112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd88ca6b451f7974fb22c099a6d0f4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1159763954
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
   SceneFocusCollider: {fileID: 777059117}
   EntireSceneCollider: {fileID: 77179707}
   IsSinglePlanet: 1
-  FullScreenFillPercentage: 0.75
+  FillVolumePercentage: 0.75
 --- !u!1 &1788724645
 GameObject:
   m_ObjectHideFlags: 0
