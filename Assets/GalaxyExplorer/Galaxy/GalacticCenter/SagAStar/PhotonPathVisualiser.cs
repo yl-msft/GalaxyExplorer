@@ -105,8 +105,8 @@ public class PhotonPathVisualiser : MonoBehaviour
                 Vector3 intersectionPoint = currentRayPosition + currentRayDirection * rayDirectionScalar * planeDistance;
                 DrawIntersectionPoint(intersectionPoint);
 
-                Vector3 intersectionDisplacement = massCentre - intersectionPoint;
-                float intersectionSquareDistance = Vector3.Dot(intersectionDisplacement, intersectionDisplacement);
+                // Vector3 intersectionDisplacement = massCentre - intersectionPoint;
+                // float intersectionSquareDistance = Vector3.Dot(intersectionDisplacement, intersectionDisplacement);
 
                 wasAboveCentre = isAboveCentre;
             }

@@ -372,14 +372,6 @@ namespace TouchScript
 
         #region Private variables
 
-        #pragma warning disable CS0414
-
-        [SerializeField]
-        [HideInInspector]
-        private bool basicEditor = true;
-
-        #pragma warning restore CS0414
-
 		[SerializeField]
         private Object displayDevice;
 
@@ -442,12 +434,6 @@ namespace TouchScript
             removeSendMessageSubscriptions();
             removeUnityEventsSubscriptions();
         }
-
-		[ContextMenu("Basic Editor")]
-		private void switchToBasicEditor()
-		{
-            basicEditor = true;
-		}
 
         #endregion
 

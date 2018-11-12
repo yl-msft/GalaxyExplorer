@@ -129,17 +129,11 @@ namespace TouchScript.Layers
 #endif
         private static RaycastHit2D[] raycastHits2D = new RaycastHit2D[20];
 
-#pragma warning disable CS0414
-
-		[SerializeField]
-		[HideInInspector]
-		private bool basicEditor = true;
 
 		[SerializeField]
         [HideInInspector]
         private bool advancedProps; // is used to save if advanced properties are opened or closed
 
-#pragma warning restore CS0414
 
 		[SerializeField]
         [HideInInspector]
@@ -271,12 +265,6 @@ namespace TouchScript.Layers
             if (inputModule != null) inputModule.INTERNAL_Release();
             if (TouchManager.Instance != null) TouchManager.Instance.FrameStarted -= frameStartedHandler;
         }
-
-		[ContextMenu("Basic Editor")]
-		private void switchToBasicEditor()
-		{
-			basicEditor = true;
-		}
 
         #endregion
 
