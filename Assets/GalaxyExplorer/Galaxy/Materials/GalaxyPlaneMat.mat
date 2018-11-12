@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: GalaxyPlaneMat
-  m_Shader: {fileID: 4800000, guid: d7f695e28e953314da17d2873701a8f5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6496b1843b18a2d499d235af69ac7aaa, type: 3}
   m_ShaderKeywords: ALBEDO_ON ALPHA_USAGE_ALPHA AMBIENTLIGHT_OFF EMISSIVE_OFF FRESNEL_OFF
     LIGHTMAP_OFF LIGHTPROBES_OFF LIGHT_OFF NORMAL_OFF SHOW_OFF TINT_OFF VERTCOLOR_MULTIPLY
     _FOG_OFF

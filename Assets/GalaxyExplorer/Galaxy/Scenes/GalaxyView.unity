@@ -1122,7 +1122,7 @@ Prefab:
     - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
         type: 2}
       propertyPath: tintMult
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1500388789491938, guid: 0b8b8976322d3a844b11b4312ab1f4e2, type: 2}
       propertyPath: m_IsActive
@@ -1150,6 +1150,41 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114388705730666130, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[2].time
+      value: 1.0015259
+      objectReference: {fileID: 0}
+    - target: {fileID: 114388705730666130, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[2].value
+      value: 0.40663528
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimVerticalOffset.m_Curve.Array.data[3].time
+      value: 0.9985877
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimVerticalOffset.m_Curve.Array.data[3].value
+      value: 0.20292366
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimVerticalOffset.m_Curve.Array.data[2].inSlope
+      value: -0.26349533
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimVerticalOffset.m_Curve.Array.data[2].outSlope
+      value: -0.26349533
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: baseMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b75950d54afb1214baaae6faba119c95, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b8b8976322d3a844b11b4312ab1f4e2, type: 2}
   m_IsPrefabParent: 0
