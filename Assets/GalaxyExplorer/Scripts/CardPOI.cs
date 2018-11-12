@@ -183,13 +183,15 @@ namespace GalaxyExplorer
                 float timeFraction = Mathf.Clamp01(time / cardPoiManager.DescriptionSlideInTime);
                 float tValue = cardPoiManager.DescriptionSlideCurve.Evaluate(timeFraction);
                 CardDescription.transform.localPosition = Vector3.Lerp(startLocalPosition, descriptionStoppedLocalPosition, tValue);
-        
+                CardDescription.SetActive(true);
+
                 yield return null;
             }
             while (time < cardPoiManager.DescriptionSlideInTime);
 
             CardDescription.transform.localPosition = descriptionStoppedLocalPosition;
             CardDescription.transform.localRotation = descriptionStoppedLocalRotation;
+            CardDescription.SetActive(false);
         }
     }
 }
