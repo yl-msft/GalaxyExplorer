@@ -12,6 +12,9 @@ namespace GalaxyExplorer
 
         private bool isCtrlHeld = false;    // true is left or right ctrl key is held down
 
+        public delegate void KeyboadSelectionDelegate();
+        public KeyboadSelectionDelegate OnKeyboadSelection;
+
         void Start()
         {
             // Register key events
@@ -53,6 +56,7 @@ namespace GalaxyExplorer
             if (isCtrlHeld)
             {
                 transition.LoadPrevScene();
+                OnKeyboadSelection?.Invoke();
             }
         }
 
@@ -61,6 +65,7 @@ namespace GalaxyExplorer
             if (handler != null)
             {
                 handler.OnInputUp(null);
+                OnKeyboadSelection?.Invoke();
             }
         }
 

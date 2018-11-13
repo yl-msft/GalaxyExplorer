@@ -2,11 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity.UX;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GalaxyExplorer
 {
@@ -67,7 +65,6 @@ namespace GalaxyExplorer
             if (GalaxyExplorerManager.IsDesktop)
             {
                 StartCoroutine(OnBoundingBoxCreated());
-                return;
             }
 
             smallestZoom = TargetMinZoomSize;
@@ -401,7 +398,6 @@ namespace GalaxyExplorer
             if (GalaxyExplorerManager.IsDesktop)
             {
                 parent.SetActive(false);
-                gameObject.SetActive(false);
             }
 
             yield return null;
