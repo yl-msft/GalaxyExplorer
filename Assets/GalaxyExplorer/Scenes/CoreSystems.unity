@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 118723472}
   - component: {fileID: 118723471}
   - component: {fileID: 118723473}
+  - component: {fileID: 118723474}
   m_Layer: 0
   m_Name: BoundingBox
   m_TagString: Untagged
@@ -551,6 +552,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TransformSourceId: 0
+--- !u!114 &118723474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 118723469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee650790e66a87c46af2d4b0014066e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleHandleSize: {x: 0.08, y: 0.08, z: 0.08}
+  rotateHandleSize: {x: 0.08, y: 0.08, z: 0.08}
 --- !u!1 &251394375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,8 +3847,6 @@ MonoBehaviour:
   HideButton: {fileID: 307842271}
   TargetMinZoomSize: 0.15
   LargestZoom: 3
-  scaleHandleSize: {x: 0.08, y: 0.08, z: 0.08}
-  rotateHandleSize: {x: 0.08, y: 0.08, z: 0.08}
   toolsOpacityChange:
     serializedVersion: 2
     m_Curve:
