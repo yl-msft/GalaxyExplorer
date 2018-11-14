@@ -34,6 +34,12 @@ namespace GalaxyExplorer
         protected CardPOIManager cardPoiManager = null;
         protected GEFadeManager geFadeManager = null;
 
+        // these are only used if there is no indicator line to determine the world position of the point of
+        // interest (uses targetPosition) with scale, rotation, and offset and targetOffset to maintain the same
+        // distance from that target
+        protected Vector3 targetPosition;
+        protected Vector3 targetOffset;
+
         public Vector3 IndicatorOffset
         {
             get { return indicatorOffset; }
@@ -156,12 +162,21 @@ namespace GalaxyExplorer
 
         protected void LateUpdate()
         {
+        }
+
+        protected void Update()
+        {
+            UpdateTransform();
+        }
+
+        private void UpdateTransform()
+        {
             // do not let the points of interest scale or rotate with the solar system
-            float currentScale = Mathf.Max(gameObject.transform.lossyScale.x, gameObject.transform.lossyScale.y, gameObject.transform.lossyScale.z);
-            float localScale = Mathf.Max(gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-            if (currentScale != 1.0f && currentScale != 0.0f && localScale != 0.0f)
+            float lossyScale = Mathf.Max(gameObject.transform.lossyScale.x, gameObject.transform.lossyScale.y, gameObject.transform.lossyScale.z);
+            float localScale =  Mathf.Max(gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+            float desiredScale = (!Mathf.Approximately(lossyScale, 0.0f)) ? localScale / lossyScale : 0.0f;
+            if (!Mathf.Approximately(desiredScale, 0.0f))
             {
-                float desiredScale = localScale / currentScale;
                 gameObject.transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
             }
 
@@ -169,6 +184,15 @@ namespace GalaxyExplorer
             if (IndicatorLine != null && IndicatorLine.points != null && IndicatorLine.points.Length > 0)
             {
                 gameObject.transform.position = IndicatorLine.points[0].position + indicatorOffset;
+            }
+            // this is for the poi without line, which is one in the solar system scene, above the sun about realistic view
+            else
+            {
+                Vector3 scaledTargetPosition = new Vector3(
+                    gameObject.transform.parent.lossyScale.x * targetPosition.x,
+                    gameObject.transform.parent.lossyScale.y * targetPosition.y,
+                    gameObject.transform.parent.lossyScale.z * targetPosition.z);
+                gameObject.transform.position = gameObject.transform.parent.position + (transform.parent.rotation * scaledTargetPosition) + targetOffset;
             }
         }
 
