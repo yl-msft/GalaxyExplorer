@@ -309,10 +309,101 @@ namespace GalaxyExplorer
                 AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
                 FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
             }
- 
+
             StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+            StartCoroutine(LightTransitions(previousTransition, newTransition));
 
             yield return null;
+        }
+
+        // Light transition is necessary in case of Simultaneous transitions in order for sun light position to be the same and transition to look good
+        private IEnumerator LightTransitions(SceneTransition previousTransition, SceneTransition newTransition)
+        {
+            GameObject singlePlanet = null;
+            GameObject relatedPlanet = null;
+            GetRelatedPlanets(out relatedPlanet, out singlePlanet);
+
+            // if next scene is a planet then position its light to where sun of previous scene is and move it towards its initial position
+            if (newTransition && newTransition.IsSinglePlanetTransition)
+            {
+                SunLightReceiver sunLight = newTransition.GetComponentInChildren<SunLightReceiver>();
+                Transform previousSun = FindByName(previousTransition.transform, "Sun");
+                //previousTransition.transform.Find("Sun");
+                Vector3 initialSunPosition = Vector3.zero;
+                if (sunLight && sunLight.Sun && previousSun)
+                {
+                    initialSunPosition = sunLight.Sun.transform.localPosition;
+                    sunLight.Sun.transform.position = singlePlanet.transform.position - (relatedPlanet.transform.position - previousSun.position);
+
+                    float delta = 0.0f;
+                    do
+                    {
+                        delta += Time.deltaTime / TransitionTimeOpeningScene;
+                        delta = Mathf.Clamp(delta, 0.0f, 1.0f);
+                        sunLight.Sun.transform.localPosition = Vector3.Lerp(sunLight.Sun.transform.localPosition, initialSunPosition, delta);
+                        yield return null;
+                    } while (delta < 1.0f);
+                }
+            }
+            // in case of previous scene is a single planet scene, find the new scene related planet's SunLightReceivers
+            // and replace their sun to a new gameobject pretending to be a sun. This sun;s starting position is 
+            // same as the old scene's sun position and transition to new sun's position
+            else if (previousTransition && previousTransition.IsSinglePlanetTransition)
+            {
+                SunLightReceiver[] allLightReceivers = relatedPlanet.GetComponentsInChildren<SunLightReceiver>();
+                Transform newSun = FindByName(newTransition.transform, "Sun");
+                if (allLightReceivers.Length > 0 && newSun)
+                {
+                    GameObject lightPlaceholder = new GameObject();
+                    lightPlaceholder.transform.parent = newTransition.ThisSceneObject.transform;
+
+                    // Old scene's light position
+                    SunLightReceiver oldLight = previousTransition.GetComponentInChildren<SunLightReceiver>();
+                    lightPlaceholder.transform.position = (oldLight && oldLight.Sun) ? oldLight.Sun.transform.position : Vector3.zero;
+
+                    // Replace sun to the placeholder object
+                    foreach (var light in allLightReceivers)
+                    {
+                        light.Sun = lightPlaceholder.transform;
+                    }
+
+                    // Move placeholder light position towards sun's position
+                    float delta = 0.0f;
+                    do
+                    {
+                        delta += Time.deltaTime / TransitionTimeOpeningScene;
+                        delta = Mathf.Clamp(delta, 0.0f, 1.0f);
+                        lightPlaceholder.transform.position = Vector3.Lerp(lightPlaceholder.transform.position, newSun.transform.position, delta);
+                        yield return null;
+                    } while (delta < 1.0f);
+
+                    Destroy(lightPlaceholder);
+                }
+            }
+        }
+
+        // Return transform with specific name that lives under a specific entity
+        private Transform FindByName(Transform parent, string name)
+        {
+            Transform child = null;
+
+            for (int i = 0; i < parent.childCount; ++i)
+            {
+                if (parent.GetChild(i).name.Contains(name))
+                {
+                    return parent.GetChild(i);
+                }
+                else if (parent.GetChild(i).childCount > 0)
+                {
+                    child = FindByName(parent.GetChild(i), name);
+                    if (child)
+                    {
+                        return child;
+                    }
+                }
+            }
+            
+            return child;
         }
 
         // Flow of transition when previous and new scenes zoom in and out separetly, e.g galaxy to solar scene
