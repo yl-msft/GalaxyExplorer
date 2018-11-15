@@ -53,7 +53,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4494807075462918}
-  - component: {fileID: 114200839382510310}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -109,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1203304799000996
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4640650779751016}
   - component: {fileID: 114907045661616050}
+  - component: {fileID: 114518546601240974}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -293,13 +293,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1391253928936478}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.1087454, y: 0.1087454, z: 0.1087454}
   m_Children: []
   m_Father: {fileID: 4640650779751016}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4134601632773026
 Transform:
   m_ObjectHideFlags: 1
@@ -334,26 +334,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1729269270978922}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3699952, y: 0.3699952, z: 0.3699952}
   m_Children: []
   m_Father: {fileID: 4640650779751016}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4429041588916476
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847466506060372}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999976}
+  m_LocalScale: {x: 0.372802, y: 0.372802, z: 0.372802}
   m_Children: []
   m_Father: {fileID: 4640650779751016}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4440611024711388
 Transform:
   m_ObjectHideFlags: 1
@@ -375,9 +375,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156133316895304}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.801, y: 0, z: -0.666}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4583256571140262}
   - {fileID: 4209542168357908}
@@ -393,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 1187352151919828}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4640650779751016}
   m_RootOrder: 4
@@ -418,9 +418,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1203304799000996}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.20312905, w: 0.979152}
+  m_LocalPosition: {x: -0.1018, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4281211795683910}
   - {fileID: 4702402999168804}
@@ -429,7 +429,7 @@ Transform:
   - {fileID: 4566068826127644}
   m_Father: {fileID: 4494807075462918}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.44}
 --- !u!4 &4702402999168804
 Transform:
   m_ObjectHideFlags: 1
@@ -438,7 +438,7 @@ Transform:
   m_GameObject: {fileID: 1869285576116184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4640650779751016}
   m_RootOrder: 1
@@ -488,7 +488,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1363913357153246}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -496,7 +496,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
+  - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -932,37 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
---- !u!114 &114200839382510310
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1156133316895304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.4125
-  SemiMajorAxisReal: 149653500
-  Eccentricity: 0
-  EccentricityReal: 0.0170424
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.00000467
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 365.4601
-  PeriodReal: 365.4601
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 100
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
+  SetMaterials: 1
 --- !u!114 &114268500678606284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -977,6 +947,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114273840132280720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1019,6 +990,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114470962925554416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1031,6 +1003,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
+--- !u!114 &114518546601240974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203304799000996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.055
+  SemiMajorAxisReal: 149653500
+  Eccentricity: 0
+  EccentricityReal: 0.0170424
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.00000467
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 365.4601
+  PeriodReal: 365.4601
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114671670587053394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1042,7 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dff350d8cf93b4e9a974f29147549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: UI_Info
+  type: UI_POI
   material: {fileID: 0}
 --- !u!114 &114717276223179808
 MonoBehaviour:
@@ -1061,7 +1065,6 @@ MonoBehaviour:
   TargetPoint: {fileID: 1156133316895304}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
-  MaterialToFade: {fileID: 0}
   SceneToLoad: EarthView
   Planet: {fileID: 1203304799000996}
 --- !u!114 &114841244463962512
@@ -1092,6 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114898793311738030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1130,6 +1134,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: -90, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114945345436270158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1142,6 +1147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114957628121542140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1156,8 +1162,8 @@ MonoBehaviour:
   orbitMaterial: {fileID: 2100000, guid: d4eee6434cf507842b4b80ffc7943afa, type: 2}
   orbitStepCount: 100
   pointOfInterestMarker: {fileID: 114717276223179808}
-  pointOfInterestAngle: 90
-  snapPointOfInterestToPosition: 1
+  pointOfInterestAngle: 145
+  snapPointOfInterestToPosition: 0
 --- !u!135 &135674352453575830
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1168,5 +1174,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.009
+  m_Radius: 0.0085
   m_Center: {x: 0, y: 0, z: 0}

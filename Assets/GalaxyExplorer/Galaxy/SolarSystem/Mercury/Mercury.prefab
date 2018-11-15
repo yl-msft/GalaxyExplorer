@@ -34,7 +34,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4325643008624968}
-  - component: {fileID: 114373068617767652}
   m_Layer: 0
   m_Name: Mercury
   m_TagString: Untagged
@@ -51,6 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4999589401689910}
   - component: {fileID: 114389399171700686}
+  - component: {fileID: 114008513137528052}
   m_Layer: 0
   m_Name: Mercury
   m_TagString: Untagged
@@ -166,7 +166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1790209699879888
 GameObject:
   m_ObjectHideFlags: 1
@@ -268,9 +268,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259350673869148}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06, y: -0.000000029802322, z: -3.35}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4469273976353818}
   - {fileID: 4363977006839088}
@@ -284,13 +284,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528426893662300}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1449981, y: 0.1449981, z: 0.1449981}
   m_Children: []
   m_Father: {fileID: 4999589401689910}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4363977006839088
 Transform:
   m_ObjectHideFlags: 1
@@ -408,8 +408,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432332347344330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: -0.05033, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 4359816525554420}
   - {fileID: 4147580136636660}
@@ -499,7 +499,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
+  - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -757,6 +757,37 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114008513137528052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432332347344330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.02
+  SemiMajorAxisReal: 57909070
+  Eccentricity: 0
+  EccentricityReal: 0.2056303
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.1222606
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 87.9691
+  PeriodReal: 87.9691
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114172367342523618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -772,7 +803,7 @@ MonoBehaviour:
   orbitStepCount: 50
   pointOfInterestMarker: {fileID: 114960404777215108}
   pointOfInterestAngle: 30
-  snapPointOfInterestToPosition: 1
+  snapPointOfInterestToPosition: 0
 --- !u!114 &114174204767759882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -831,37 +862,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: LineBase
   material: {fileID: 0}
---- !u!114 &114373068617767652
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1259350673869148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.15
-  SemiMajorAxisReal: 57909070
-  Eccentricity: 0
-  EccentricityReal: 0.2056303
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.1222606
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 87.9691
-  PeriodReal: 87.9691
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 20
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
 --- !u!114 &114389399171700686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -895,7 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dff350d8cf93b4e9a974f29147549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: UI_Info
+  type: UI_POI
   material: {fileID: 0}
 --- !u!114 &114649605480681520
 MonoBehaviour:
@@ -911,6 +911,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114733239615077724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -939,6 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114954466291323112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -953,6 +955,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114960404777215108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -969,8 +972,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114330287584253490}
   TargetPoint: {fileID: 1259350673869148}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
-  indicatorOffset: {x: 0, y: 0.2, z: 0}
-  MaterialToFade: {fileID: 0}
+  indicatorOffset: {x: 0, y: 0.15, z: 0}
   SceneToLoad: MercuryView
   Planet: {fileID: 1432332347344330}
 --- !u!135 &135675885683669930
@@ -983,5 +985,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.009
+  m_Radius: 0.0085
   m_Center: {x: 0, y: 0, z: 0}

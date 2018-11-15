@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4154012133524900}
-  - component: {fileID: 114769518408731130}
   m_Layer: 0
   m_Name: Mars
   m_TagString: Untagged
@@ -42,7 +41,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1112417497993052
 GameObject:
   m_ObjectHideFlags: 1
@@ -161,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4299550562535978}
   - component: {fileID: 114356065735471916}
+  - component: {fileID: 114907465580918774}
   m_Layer: 0
   m_Name: Mars
   m_TagString: Untagged
@@ -303,9 +303,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016721853542446}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.36, y: -0.000000059604645, z: -2.16}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4299550562535978}
   - {fileID: 4109705558742860}
@@ -321,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 1364308386470060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4299550562535978}
   m_RootOrder: 1
@@ -346,9 +346,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500584379286758}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalRotation: {x: 0, y: 0, z: 0.21805806, w: 0.9759358}
+  m_LocalPosition: {x: -0.142, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 4609536804251352}
   - {fileID: 4287634756020882}
@@ -356,7 +356,7 @@ Transform:
   - {fileID: 4747986684384678}
   m_Father: {fileID: 4154012133524900}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.19}
 --- !u!4 &4481360661157750
 Transform:
   m_ObjectHideFlags: 1
@@ -377,13 +377,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1949256713972140}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1959975, y: 0.1959975, z: 0.1959975}
   m_Children: []
   m_Father: {fileID: 4299550562535978}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4626035903856830
 Transform:
   m_ObjectHideFlags: 1
@@ -416,13 +416,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350335713204052}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.05841526, y: 0.05841526, z: 0.05841526}
   m_Children: []
   m_Father: {fileID: 4299550562535978}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4850165743045156
 Transform:
   m_ObjectHideFlags: 1
@@ -431,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 1875154304098540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4299550562535978}
   m_RootOrder: 2
@@ -566,7 +566,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
+  - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dff350d8cf93b4e9a974f29147549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: UI_Info
+  type: UI_POI
   material: {fileID: 0}
 --- !u!114 &114600080722916916
 MonoBehaviour:
@@ -922,7 +922,7 @@ MonoBehaviour:
   orbitStepCount: 90
   pointOfInterestMarker: {fileID: 114794362368678998}
   pointOfInterestAngle: 190
-  snapPointOfInterestToPosition: 1
+  snapPointOfInterestToPosition: 0
 --- !u!114 &114665138998922868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -935,6 +935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114693625038744534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -964,37 +965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
---- !u!114 &114769518408731130
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1016721853542446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.525
-  SemiMajorAxisReal: 227939000
-  Eccentricity: 0
-  EccentricityReal: 0.0933146
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.03228644
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 686.9707
-  PeriodReal: 686.9707
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 20
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
+  SetMaterials: 1
 --- !u!114 &114794362368678998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1012,7 +983,6 @@ MonoBehaviour:
   TargetPoint: {fileID: 1016721853542446}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
-  MaterialToFade: {fileID: 0}
   SceneToLoad: MarsView
   Planet: {fileID: 1500584379286758}
 --- !u!114 &114799617512849382
@@ -1045,6 +1015,38 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: -90, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
+--- !u!114 &114907465580918774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500584379286758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.07
+  SemiMajorAxisReal: 227939000
+  Eccentricity: 0
+  EccentricityReal: 0.0933146
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.03228644
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 686.9707
+  PeriodReal: 686.9707
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114937945526344500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1059,6 +1061,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114944191670516690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1073,6 +1076,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!135 &135538617375896030
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1083,5 +1087,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.009
+  m_Radius: 0.0085
   m_Center: {x: 0, y: 0, z: 0}

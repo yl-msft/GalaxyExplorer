@@ -64,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1310020666156368
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4402770563787358}
   - component: {fileID: 114552313297087300}
+  - component: {fileID: 114348302311596674}
   m_Layer: 0
   m_Name: Pluto
   m_TagString: Untagged
@@ -128,7 +129,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4804863230426058}
-  - component: {fileID: 114509823650934356}
   m_Layer: 0
   m_Name: Pluto
   m_TagString: Untagged
@@ -269,8 +269,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310020666156368}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.027223766, w: 0.9996294}
+  m_LocalPosition: {x: -0.4098, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4553875109677624}
@@ -278,20 +278,20 @@ Transform:
   - {fileID: 4838432844760398}
   m_Father: {fileID: 4804863230426058}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.12}
 --- !u!4 &4553875109677624
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311596079464154}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 0.06711323, y: 0.06711323, z: 0.06711323}
   m_Children: []
   m_Father: {fileID: 4402770563787358}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4592337515172146
 Transform:
   m_ObjectHideFlags: 1
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 1642317314496036}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4402770563787358}
   m_RootOrder: 1
@@ -351,9 +351,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1428833266870566}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.796, y: -0, z: -3.6876}
-  m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4402770563787358}
   - {fileID: 4592337515172146}
@@ -369,7 +369,7 @@ Transform:
   m_GameObject: {fileID: 1028882383092668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4402770563787358}
   m_RootOrder: 2
@@ -499,7 +499,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
+  - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -790,7 +790,6 @@ MonoBehaviour:
   TargetPoint: {fileID: 1428833266870566}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
-  MaterialToFade: {fileID: 0}
   SceneToLoad: PlutoView
   Planet: {fileID: 1310020666156368}
 --- !u!114 &114178465234145102
@@ -834,6 +833,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114338864900833288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -846,6 +846,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+--- !u!114 &114348302311596674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1310020666156368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.25
+  SemiMajorAxisReal: 5.908209e+9
+  Eccentricity: 0
+  EccentricityReal: 0.2477692
+  ArgumentOfPerigee: 2.009103
+  Inclination: 0
+  InclinationReal: 0.2996067
+  RightAscensionOfAscendingNode: 1.924108
+  MeanAnomaly: 0
+  Period: 90655.48
+  PeriodReal: 90655.48
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114418611401967816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -857,7 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dff350d8cf93b4e9a974f29147549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: UI_Info
+  type: UI_POI
   material: {fileID: 0}
 --- !u!114 &114481198792264894
 MonoBehaviour:
@@ -875,37 +906,6 @@ MonoBehaviour:
   pointOfInterestMarker: {fileID: 114094785771425832}
   pointOfInterestAngle: 160
   snapPointOfInterestToPosition: 1
---- !u!114 &114509823650934356
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1428833266870566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 1.825
-  SemiMajorAxisReal: 5.908209e+9
-  Eccentricity: 0
-  EccentricityReal: 0.2477692
-  ArgumentOfPerigee: 2.009103
-  Inclination: 0
-  InclinationReal: 0.2996067
-  RightAscensionOfAscendingNode: 1.924108
-  MeanAnomaly: 0
-  Period: 90655.48
-  PeriodReal: 90655.48
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 20
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
 --- !u!114 &114552313297087300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -929,6 +929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114659492097417922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -973,6 +974,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!135 &135567332638694456
 SphereCollider:
   m_ObjectHideFlags: 1

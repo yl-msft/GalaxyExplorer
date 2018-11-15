@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4048852447821726}
-  - component: {fileID: 114870279550610364}
   m_Layer: 0
   m_Name: Venus
   m_TagString: Untagged
@@ -146,7 +145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1475102901951802
 GameObject:
   m_ObjectHideFlags: 1
@@ -208,6 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4172330614763764}
   - component: {fileID: 114247507301095142}
+  - component: {fileID: 114326851732918808}
   m_Layer: 0
   m_Name: Venus
   m_TagString: Untagged
@@ -279,9 +279,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038226900464428}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.67, y: 0, z: -2.89}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4172330614763764}
   - {fileID: 4757074746470720}
@@ -309,9 +309,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736316371763844}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9997426, w: 0.02268737}
+  m_LocalPosition: {x: -0.0687, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4582987113476628}
   - {fileID: 4593955977532780}
@@ -320,7 +320,7 @@ Transform:
   - {fileID: 4316868242388274}
   m_Father: {fileID: 4048852447821726}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 177.4}
 --- !u!4 &4290203900560134
 Transform:
   m_ObjectHideFlags: 1
@@ -340,13 +340,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1721578126062098}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.294, y: 0.294, z: 0.294}
+  m_LocalScale: {x: 0.1027634, y: 0.1027634, z: 0.1027634}
   m_Children: []
   m_Father: {fileID: 4172330614763764}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4456116166645572
 Transform:
   m_ObjectHideFlags: 1
@@ -380,13 +380,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088282455321656}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3519955, y: 0.3519955, z: 0.3519955}
   m_Children: []
   m_Father: {fileID: 4172330614763764}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4593955977532780
 Transform:
   m_ObjectHideFlags: 1
@@ -395,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 1101603725191384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4172330614763764}
   m_RootOrder: 1
@@ -406,13 +406,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1233802187650028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3519955, y: 0.3519955, z: 0.3519955}
   m_Children: []
   m_Father: {fileID: 4172330614763764}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4639213402608646
 Transform:
   m_ObjectHideFlags: 1
@@ -598,7 +598,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
+  - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dff350d8cf93b4e9a974f29147549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: UI_Info
+  type: UI_POI
   material: {fileID: 0}
 --- !u!114 &114132887207791492
 MonoBehaviour:
@@ -947,6 +947,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: -90, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114173951578608420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -981,6 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114303216986898450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -993,10 +995,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbitMaterial: {fileID: 2100000, guid: d4eee6434cf507842b4b80ffc7943afa, type: 2}
-  orbitStepCount: 50
+  orbitStepCount: 100
   pointOfInterestMarker: {fileID: 114732196590422030}
   pointOfInterestAngle: 13
-  snapPointOfInterestToPosition: 1
+  snapPointOfInterestToPosition: 0
+--- !u!114 &114326851732918808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1736316371763844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.04
+  SemiMajorAxisReal: 108208200
+  Eccentricity: 0
+  EccentricityReal: 0.006755698
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.05924677
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 224.6983
+  PeriodReal: 224.6983
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114378253037886680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1011,6 +1044,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114452997302297306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1023,6 +1057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114492730412521750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1067,41 +1102,9 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114985195571921218}
   TargetPoint: {fileID: 1038226900464428}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
-  indicatorOffset: {x: 0, y: 0.2, z: 0}
-  MaterialToFade: {fileID: 0}
+  indicatorOffset: {x: 0, y: 0.1, z: 0}
   SceneToLoad: VenusView
   Planet: {fileID: 1736316371763844}
---- !u!114 &114870279550610364
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1038226900464428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.3
-  SemiMajorAxisReal: 108208200
-  Eccentricity: 0
-  EccentricityReal: 0.006755698
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.05924677
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 224.6983
-  PeriodReal: 224.6983
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 20
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
 --- !u!114 &114943789094201128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1127,6 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114970292025423644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1141,6 +1145,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114985195571921218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1168,5 +1173,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.009
+  m_Radius: 0.0085
   m_Center: {x: 0, y: 0, z: 0}

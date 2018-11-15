@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1070405469136918
 GameObject:
   m_ObjectHideFlags: 1
@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 135174603213383184}
   - component: {fileID: 23196726765310206}
   - component: {fileID: 114837283572627054}
+  - component: {fileID: 114768135014032652}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -141,6 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4901845216865052}
   - component: {fileID: 114383485530979200}
+  - component: {fileID: 114387639076388778}
   m_Layer: 0
   m_Name: Saturn
   m_TagString: Untagged
@@ -231,7 +233,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4018310667523852}
-  - component: {fileID: 114620426694921430}
   m_Layer: 0
   m_Name: Saturn
   m_TagString: Untagged
@@ -281,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 1745460877115368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4901845216865052}
   m_RootOrder: 2
@@ -292,9 +293,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1752569321218954}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.895, y: 0, z: -2.78}
-  m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4901845216865052}
   - {fileID: 4358019943001542}
@@ -376,7 +377,7 @@ Transform:
   m_GameObject: {fileID: 1070405469136918}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4901845216865052}
   m_RootOrder: 1
@@ -416,13 +417,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1232799573983694}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 3.469955, y: 3.469955, z: 3.469955}
   m_Children: []
   m_Father: {fileID: 4901845216865052}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4792194767650210
 Transform:
   m_ObjectHideFlags: 1
@@ -443,9 +444,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357127204829864}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.12691972, y: -0.030470723, z: 0.23144819, w: 0.9640512}
+  m_LocalPosition: {x: -0.2614, y: 0, z: 0}
+  m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
   m_Children:
   - {fileID: 4724620249846520}
   - {fileID: 4533939539245810}
@@ -454,7 +455,7 @@ Transform:
   - {fileID: 4963502848859150}
   m_Father: {fileID: 4018310667523852}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 27}
 --- !u!4 &4909377941742200
 Transform:
   m_ObjectHideFlags: 1
@@ -477,7 +478,7 @@ Transform:
   m_GameObject: {fileID: 1541587132830784}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 13, y: 13, z: 13}
+  m_LocalScale: {x: 3.469955, y: 3.469955, z: 3.469955}
   m_Children: []
   m_Father: {fileID: 4901845216865052}
   m_RootOrder: 4
@@ -666,7 +667,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
+  - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -918,6 +919,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: -90, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114055286470082830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -932,6 +934,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114226775347627186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -954,7 +957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dff350d8cf93b4e9a974f29147549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: UI_Info
+  type: UI_POI
   material: {fileID: 0}
 --- !u!114 &114383485530979200
 MonoBehaviour:
@@ -967,6 +970,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114387639076388778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357127204829864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SemiMajorAxis: 0.17
+  SemiMajorAxisReal: 1.433365e+9
+  Eccentricity: 0
+  EccentricityReal: 0.05559913
+  ArgumentOfPerigee: 0
+  Inclination: 0
+  InclinationReal: 0.04336025
+  RightAscensionOfAscendingNode: 0
+  MeanAnomaly: 0
+  Period: 10831.37
+  PeriodReal: 10831.37
+  Plane: 0
+  TrueAnomaly: 0
+  Epoch: 2451545
+  Reality: 0
+  RealitySemiMajorAxisScale: 4.231401e-11
+  Speed: 100
+  SpeedMultiplier: 0.1
+  TransitionSpeedMultiplier: 1
+  MaxIterations: 20
 --- !u!114 &114412938535629438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -996,7 +1030,6 @@ MonoBehaviour:
   TargetPoint: {fileID: 1752569321218954}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
-  MaterialToFade: {fileID: 0}
   SceneToLoad: SaturnView
   Planet: {fileID: 1357127204829864}
 --- !u!114 &114438456934596512
@@ -1028,6 +1061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114514786814811958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1044,37 +1078,21 @@ MonoBehaviour:
   pointOfInterestMarker: {fileID: 114435700947517138}
   pointOfInterestAngle: 190
   snapPointOfInterestToPosition: 1
---- !u!114 &114620426694921430
+--- !u!114 &114768135014032652
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1752569321218954}
+  m_GameObject: {fileID: 1232799573983694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
+  m_Script: {fileID: 11500000, guid: 016aa46bb21226846ad8b4c0e104fe87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SemiMajorAxis: 1.275
-  SemiMajorAxisReal: 227939000
-  Eccentricity: 0
-  EccentricityReal: 0.0933146
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.03228644
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 686.9707
-  PeriodReal: 686.9707
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 20
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
+  OuterRingRadius: 1
+  InnerRingRadius: 0.7
+  GlobalScale: 0.025
+  contentRoot: {fileID: 0}
 --- !u!114 &114827700222389102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1103,6 +1121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114884423457477462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1128,6 +1147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!114 &114966690514115640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1158,6 +1178,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!135 &135174603213383184
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1168,5 +1189,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.009
+  m_Radius: 0.0085
   m_Center: {x: 0, y: 0, z: 0}
