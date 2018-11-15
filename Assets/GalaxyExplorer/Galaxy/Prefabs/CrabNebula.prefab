@@ -320,8 +320,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041004144502634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4942009960540504}
   m_RootOrder: 0
@@ -333,7 +333,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138532651687892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4866699895216586}
@@ -363,8 +363,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275910392810722}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.082, y: 0.052, z: 0}
-  m_LocalScale: {x: 60, y: 15, z: 1}
+  m_LocalPosition: {x: 0.082, y: 0, z: 0}
+  m_LocalScale: {x: 40, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4925606800041670}
   m_RootOrder: 0
@@ -756,6 +756,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 1
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114097610735932686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -770,6 +771,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114244964770964240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -812,8 +814,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114976645090992654}
   TargetPoint: {fileID: 1266089081842180}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
-  indicatorOffset: {x: 0, y: 0.4, z: 0}
-  MaterialToFade: {fileID: 0}
+  indicatorOffset: {x: 0, y: 0.25, z: 0}
   CardObject: {fileID: 1769749351025262}
   CardAnimator: {fileID: 95158585439655816}
 --- !u!114 &114565974304513938
@@ -861,7 +862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.001
+  width: 0.0005
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1

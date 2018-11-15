@@ -84,7 +84,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500388789491938}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000000014901161, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -204,8 +204,8 @@ MonoBehaviour:
       outSlope: -0.47248164
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.99884033
-      value: -0.0030021667
+      time: 1.0015259
+      value: 0.40663528
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -671,6 +671,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114892817731742924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -735,12 +736,12 @@ MonoBehaviour:
     - serializedVersion: 2
       time: 0.45178473
       value: 0.29060265
-      inSlope: -1.3295208
-      outSlope: -1.3295208
+      inSlope: -0.26349533
+      outSlope: -0.26349533
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.99968636
-      value: 0.07206428
+      time: 0.9985877
+      value: 0.20292366
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -894,7 +895,7 @@ MonoBehaviour:
   velocityMultiplier: 0.08
   renderIntoDownscaledTarget: 1
   tint: {r: 1, g: 1, b: 1, a: 1}
-  tintMult: 0.3
+  tintMult: 0.4
   index: 0
   referenceQuad: {fileID: 23929613196367118}
   enableSecondArm: 1

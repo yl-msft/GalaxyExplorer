@@ -226,7 +226,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834774269602868}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0000000027357598, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000000014901161, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -536,8 +536,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114927279233926348}
   TargetPoint: {fileID: 1834774269602868}
   IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
-  indicatorOffset: {x: 0, y: 0.3, z: 0}
-  MaterialToFade: {fileID: 0}
+  indicatorOffset: {x: 0, y: 0.25, z: 0}
   SceneToLoad: GalacticCenterView
   Planet: {fileID: 0}
 --- !u!114 &114475301441664642
@@ -554,6 +553,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 1
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114514848939140834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -568,6 +568,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: 0, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114595599734230526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -639,7 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.001
+  width: 0.0005
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
