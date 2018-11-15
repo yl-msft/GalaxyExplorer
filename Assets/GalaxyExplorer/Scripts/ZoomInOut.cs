@@ -132,22 +132,7 @@ namespace GalaxyExplorer
             while (transitionAmount <= 1.0f)
             {
                 transitionAmount += Time.deltaTime / duration;
-
-                // Rotate scenes. Previous scene need to rotate around a pivot point which is the previous scene's focus point
-                //Vector3 noRotPivot = Quaternion.Inverse(PreviousScene.transform.rotation) * (PreviousSceneFocusCollider.transform.position - PreviousScene.position);
-                //PreviousScene.position += (PreviousScene.rotation * noRotPivot);
-                PreviousScene.transform.rotation = Quaternion.Slerp(previousSceneRotation, previousSceneDiffRotation, Mathf.Clamp01(rotationCurve.Evaluate(transitionAmount)));
-                //PreviousScene.position -= (PreviousScene.rotation * noRotPivot);
-
-                // Scale scenes. Previous scene's focus point should not move because of scale so need to position the scene back to where it was 
-                // before scale in order for its focus point to remain at the same position
-                //Vector3 posBeforeScale = PreviousSceneFocusCollider.transform.position;
                 PreviousScene.localScale = Vector3.one * Mathf.Lerp(previousSceneInitialScale, scalar, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
-
-                //Vector3 newDisplacement = PreviousSceneFocusCollider.transform.position - PreviousScene.position;
-                //PreviousScene.position = posBeforeScale - newDisplacement;
-
-                //PreviousScene.transform.position = Vector3.Lerp(previousSceneInitialPosition, -nextSceneInitialPosition * scalar, TransitionAmount);
 
                 yield return null;
             }
