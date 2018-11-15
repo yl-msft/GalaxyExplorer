@@ -420,7 +420,8 @@ namespace GalaxyExplorer
                     yield return null;
                 }
 
-                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene, GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene * 0.5f, GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+                FadeManager.FadeExcept(previousTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeOut, TransitionTimeOpeningScene * 0.5f, POIOpacityCurveStartTransition);
 
                 // wait until prev scene transition finishes
                 while (!ZoomInOutBehaviour.ZoomOutIsDone)
@@ -443,9 +444,9 @@ namespace GalaxyExplorer
 
             isFading = true;
             AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
-            FadeManager.Fade(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
+            FadeManager.Fade(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene * 0.5f, opacityCurve);
 
-            StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+            StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene * 0.5f, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
             yield return null;
         }
