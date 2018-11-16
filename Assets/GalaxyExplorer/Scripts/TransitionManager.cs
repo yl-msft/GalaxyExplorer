@@ -77,6 +77,11 @@ namespace GalaxyExplorer
             get { return inTransition; }
         }
 
+        public bool IsInIntroFlow
+        {
+            get { return (introStage != IntroStage.kInactiveIntro && introStage != IntroStage.kLastStageIntro); }
+        }
+
         private void Start()
         {
             ViewLoaderScript = FindObjectOfType<ViewLoader>();
@@ -468,11 +473,14 @@ namespace GalaxyExplorer
                 ZoomInOutBehaviour.ZoomOutIsDone = true;
             }
 
+            // Make sure that new scene wont be visible just yet. 
+            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<Fader>(), 0.0f);
+
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
 
-            // Make sure that new scene wont be visible just yet. 
-            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<Fader>(), 0.0f);
+            // Make sure that new scene pois wont be visible just yet. For some reason, for pois to become invisible it is needed the above 2 frames waiting time
+            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<POIMaterialsFader>(), 0.0f);
 
             // Fade in scene except pois, and zoom in new scene
             isFading = true;

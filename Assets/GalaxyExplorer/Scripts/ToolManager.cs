@@ -116,9 +116,10 @@ namespace GalaxyExplorer
         // Callback when a new scene is loaded
         private IEnumerator OnSceneIsLoadedCoroutine()
         {
-            yield return new WaitForEndOfFrame();
+            // waiting necessary for events in flow manager to be called and stage of intro flow to be correct when executing following code
+            yield return new WaitForSeconds(1);
 
-            if (!ToolsVisible && !loader.IsIntro())
+            if (!ToolsVisible && !transition.IsInIntroFlow)
             {
                 // If tools/menu is not visible and intro flow has finished then make menu visible
                 while (transition.InTransition)

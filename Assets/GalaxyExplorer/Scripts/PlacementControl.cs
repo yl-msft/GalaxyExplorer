@@ -10,6 +10,9 @@ namespace GalaxyExplorer
 {
     public class PlacementControl : MonoBehaviour, IInputHandler
     {
+        [SerializeField]
+        private float DesktopDuration = 2.0f;
+
         public delegate void ContentPlacedCallback(Vector3 position);
         public ContentPlacedCallback OnContentPlaced;
 
@@ -25,14 +28,14 @@ namespace GalaxyExplorer
             GalaxyExplorerManager manager = FindObjectOfType<GalaxyExplorerManager>();
             if (manager && (GalaxyExplorerManager.IsDesktop))
             {
-                StartCoroutine(ReleaseContent());
+                StartCoroutine(ReleaseContent(DesktopDuration));
             }
         }
 
-        private IEnumerator ReleaseContent()
+        private IEnumerator ReleaseContent(float waitingTime)
         {
             // Wait for 1 sec so previous transition finishes
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(waitingTime);
 
             // Disable Tagalong and interpolator
             volumeTagalong.enabled = false;
@@ -52,7 +55,7 @@ namespace GalaxyExplorer
 
         public void OnInputUp(InputEventData eventData)
         {
-            StartCoroutine(ReleaseContent());
+            StartCoroutine(ReleaseContent(1));
         }
     }
 }
