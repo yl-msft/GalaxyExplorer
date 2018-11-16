@@ -64,6 +64,11 @@ namespace GalaxyExplorer
             {
                 Fade(fader, type, fadeDuration, opacityCurve);
             }
+
+            if (allFaders.Length == 0)
+            {
+                OnFadeComplete?.Invoke(type);
+            }
         }
 
         public void FadeExcept(Fader fader, Type exceptType, GameObject exceptObj, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
@@ -72,6 +77,10 @@ namespace GalaxyExplorer
             {
                 Fade(fader, type, fadeDuration, opacityCurve);
             }
+            else if (fader == null)
+            {
+                OnFadeComplete?.Invoke(type);
+            }
         }
 
         public void FadeExcept(Fader[] faders, Type except, GameObject exceptObj, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
@@ -79,6 +88,11 @@ namespace GalaxyExplorer
             foreach (var fader in faders)
             {
                 FadeExcept(fader, except, exceptObj, type, fadeDuration, opacityCurve);
+            }
+
+            if (faders.Length == 0)
+            {
+                OnFadeComplete?.Invoke(type);
             }
         }
 

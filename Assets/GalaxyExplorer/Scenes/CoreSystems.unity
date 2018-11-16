@@ -3699,6 +3699,17 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
+          - m_Target: {fileID: 1701178538}
+            m_MethodName: OnIntroStarted
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 1
+            m_CallState: 2
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       Triggered: 0
@@ -3786,6 +3797,40 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       Triggered: 0
     ExitEvents: []
+  - Name: SolarSystemScene
+    clickToAdvance: 0
+    disableTapTime: 0
+    autoTransitionDelay: 6
+    audioDelay: 0
+    Events:
+    - Name: SolarSystemScene
+      Delay: 2
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1701178538}
+            m_MethodName: LoadNextIntroScene
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: SolarSystemView
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      Triggered: 0
+    ExitEvents:
+    - Name: 
+      Delay: 0
+      Event:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      Triggered: 0
   - Name: GalaxyScene
     clickToAdvance: 0
     disableTapTime: 0
@@ -3797,6 +3842,17 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
+          - m_Target: {fileID: 1701178538}
+            m_MethodName: OnIntroFinished
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: GalaxyView
+              m_BoolArgument: 0
+            m_CallState: 2
           - m_Target: {fileID: 1701178538}
             m_MethodName: LoadNextScene
             m_Mode: 5
@@ -3811,7 +3867,15 @@ MonoBehaviour:
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       Triggered: 0
-    ExitEvents: []
+    ExitEvents:
+    - Name: 
+      Delay: 0
+      Event:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      Triggered: 0
   m_timeSinceTap: 10000
 --- !u!1 &1618593078
 GameObject:

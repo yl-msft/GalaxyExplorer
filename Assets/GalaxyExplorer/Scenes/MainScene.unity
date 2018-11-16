@@ -162,6 +162,9 @@ MonoBehaviour:
     Stage: 1
   - Audio: {fileID: 8300000, guid: 9f9229727bfc5814d954bbc2d626c1bb, type: 3}
     AudioDelay: 0
+    Stage: 2
+  - Audio: {fileID: 8300000, guid: 9f9229727bfc5814d954bbc2d626c1bb, type: 3}
+    AudioDelay: 0
     Stage: 3
   VOManagerScript: {fileID: 0}
 --- !u!1 &1727698386

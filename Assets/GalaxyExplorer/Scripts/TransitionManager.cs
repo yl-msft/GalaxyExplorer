@@ -63,6 +63,14 @@ namespace GalaxyExplorer
 
         private bool inTransition = false;
         private bool isFading = false;
+        private IntroStage introStage = IntroStage.kInactiveIntro;
+
+        private enum IntroStage
+        {
+            kActiveIntro,
+            kLastStageIntro,
+            kInactiveIntro
+        }
 
         public bool InTransition
         {
@@ -83,6 +91,18 @@ namespace GalaxyExplorer
             FadeManager.OnFadeComplete += OnFadeComplete;
 
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
+        }
+
+        // Callback when introduction flow starts. This is hooked up in FlowManager in editor
+        public void OnIntroStarted()
+        {
+            introStage = IntroStage.kActiveIntro;
+        }
+
+        // Callback when introduction flow is completed. This is hooked up in FlowManager in editor
+        public void OnIntroFinished()
+        {
+            introStage = IntroStage.kLastStageIntro;
         }
 
         // Called when fade is complete
@@ -129,6 +149,12 @@ namespace GalaxyExplorer
             LoadNextScene(sceneName, true);
         }
 
+        // Load scene that is part of the intro flow so dont keep it in stack
+        public void LoadNextIntroScene(string sceneName)
+        {
+            LoadNextScene(sceneName, false);
+        }
+
         public void LoadNextScene(string sceneName, bool keepOnStack)
         {
             if (inTransition)
@@ -137,16 +163,16 @@ namespace GalaxyExplorer
                 return;
             }
 
-            if (!keepOnStack)
-            {
-                ViewLoaderScript.PopSceneFromStack();
-            }
-
             inTransition = true;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
             ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
+
+            if (!keepOnStack)
+            {
+                ViewLoaderScript.PopSceneFromStack();
+            }
         }
 
         private void NextSceneLoaded()
@@ -203,10 +229,10 @@ namespace GalaxyExplorer
 
             DeactivateOrbitUpdater(newTransition);
 
+            // Scale new scene to fit inside the volume
             float scaleToFill = FindObjectOfType<TransformSource>().transform.lossyScale.x;
             float targetSize = newTransition.GetScalar(scaleToFill);
             newTransition.transform.GetChild(0).localScale = Vector3.one * targetSize;
-            Debug.Log("Target Size " + targetSize);
 
             // Initialize zoom in and out transition properties
             StartCoroutine(ZoomInOutBehaviour.ZoomInOutInitialization(nextSceneContent, prevSceneLoaded));
@@ -250,8 +276,11 @@ namespace GalaxyExplorer
             }
 
             // Fade in pois of next scene
-            isFading = true;
-            FadeManager.Fade(newTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, PoiFadeInDuration, POIOpacityCurveEndTransition);
+            if (introStage != IntroStage.kActiveIntro)
+            {
+                isFading = true;
+                FadeManager.Fade(newTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, PoiFadeInDuration, POIOpacityCurveEndTransition);
+            }
 
             while (isFading)
             {
@@ -265,6 +294,7 @@ namespace GalaxyExplorer
             }
 
             inTransition = false;
+            introStage = (introStage == IntroStage.kLastStageIntro) ? IntroStage.kInactiveIntro : introStage;
 
             yield return null;
         }
@@ -412,8 +442,11 @@ namespace GalaxyExplorer
             // Zoom out previous scene. First fade out  pois and when that ends then zoom out previous scene
             if (previousTransition)
             {
-                isFading = true;
-                FadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
+                if (introStage == IntroStage.kInactiveIntro)
+                {
+                    isFading = true;
+                    FadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
+                }
 
                 while (isFading)
                 {
@@ -438,13 +471,13 @@ namespace GalaxyExplorer
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
 
-            // Zoom in new scene and make sure that pois wont be visible just yet. Also fade in spiral galaxy 
-            FadeManager.SetAlphaOnFader(newTransition.GetComponentInChildren<POIMaterialsFader>(), 0.0f);
-            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), 0.0f);
+            // Make sure that new scene wont be visible just yet. 
+            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<Fader>(), 0.0f);
 
+            // Fade in scene except pois, and zoom in new scene
             isFading = true;
             AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
-            FadeManager.Fade(newTransition.GetComponentsInChildren<SpiralGalaxy.SpiralGalaxyFader>(), GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene * 0.5f, opacityCurve);
+            FadeManager.FadeExcept(newTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene * 0.5f, opacityCurve);
 
             StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene * 0.5f, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
 
