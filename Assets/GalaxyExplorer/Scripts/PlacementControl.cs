@@ -30,12 +30,18 @@ namespace GalaxyExplorer
             {
                 StartCoroutine(ReleaseContent(DesktopDuration));
             }
+
+            Animator wireframe = GetComponentInChildren<Animator>();
+            wireframe?.SetTrigger("Intro");
         }
 
         private IEnumerator ReleaseContent(float waitingTime)
         {
             // Wait for 1 sec so previous transition finishes
             yield return new WaitForSeconds(waitingTime);
+
+            Animator wireframe = GetComponentInChildren<Animator>();
+            wireframe?.SetTrigger("Place");
 
             // Disable Tagalong and interpolator
             volumeTagalong.enabled = false;
