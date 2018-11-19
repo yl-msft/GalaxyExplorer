@@ -14,17 +14,17 @@ namespace GalaxyExplorer
         public class IntroStage
         {
             [SerializeField]
-            private AudioClip Audio;
+            private AudioClip VO;
 
             [SerializeField]
-            private float AudioDelay = 0.0f;
+            private float VODelay = 0.0f;
 
             [SerializeField]
             private IntroFlowState Stage;
 
-            public AudioClip GetAudio { get { return Audio; } }
+            public AudioClip GetVO { get { return VO; } }
 
-            public float GetAudioDelay { get { return AudioDelay; } }
+            public float GetVODelay { get { return VODelay; } }
 
             public IntroFlowState GetStage { get { return Stage; } }
         }
@@ -33,15 +33,14 @@ namespace GalaxyExplorer
         [SerializeField]
         private List<IntroStage> IntroStages = new List<IntroStage>();
 
-        [SerializeField]
-        private VOManager VOManagerScript = null;
-
         private IntroFlowState currentState = IntroFlowState.kLogo;
 
         private MusicManager musicManagerScript = null;
         private FlowManager flowManagerScript = null;
         private ViewLoader viewLoaderScript = null;
         private Transform sourceTransform = null;
+        private VOManager VOManagerScript = null;
+
 
         public delegate void IntroFinishedCallback();
         public IntroFinishedCallback OnIntroFinished;
@@ -57,18 +56,18 @@ namespace GalaxyExplorer
 
         public void OnStageTransition(int timedstage)
         {
-            if (timedstage > 0 && timedstage - 1 < IntroStages.Count)
+            if (timedstage >= 0 && timedstage - 1 <= IntroStages.Count)
             {
-                //if (VOManagerScript)
-                //{
-                //    VOManagerScript.PlayClip(IntroStages[timedstage - 1].GetAudio, IntroStages[timedstage - 1].GetAudioDelay);
-                //}
-                
-                currentState = IntroStages[timedstage - 1].GetStage;
+                currentState = IntroStages[timedstage].GetStage;
+
+                if (VOManagerScript)
+                {
+                    VOManagerScript.PlayClip(IntroStages[(int)currentState].GetVO, IntroStages[(int)currentState].GetVODelay);
+                }
             }
 
             // Intro has finished
-            if (timedstage + 1 == IntroStages.Count && OnIntroFinished != null)
+            if (currentState == IntroFlowState.kGalaxyView && OnIntroFinished != null)
             {
                 OnIntroFinished.Invoke();
             }
@@ -149,6 +148,11 @@ namespace GalaxyExplorer
                 {
                     StartCoroutine(PlayWelcomeMusic());
                 }
+            }
+
+            if (VOManagerScript == null)
+            {
+                VOManagerScript = FindObjectOfType<VOManager>();
             }
 
             yield return null;

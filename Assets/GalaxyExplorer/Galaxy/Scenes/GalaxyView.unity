@@ -341,6 +341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicEvent: 02_Galaxy
   MusicDelayInSeconds: 1
+  VoiceOver:
+    clip: {fileID: 8300000, guid: 9f9229727bfc5814d954bbc2d626c1bb, type: 3}
+    delay: 2
+    allowReplay: 0
 --- !u!1 &616231113
 GameObject:
   m_ObjectHideFlags: 0

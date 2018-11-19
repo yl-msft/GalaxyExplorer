@@ -226,6 +226,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicEvent: 04_PlanetaryView
   MusicDelayInSeconds: 1
+  VoiceOver:
+    clip: {fileID: 8300000, guid: 12abeba8db18116498aecf95f0fe7f78, type: 3}
+    delay: 1
+    allowReplay: 0
 --- !u!1 &199427928
 GameObject:
   m_ObjectHideFlags: 0

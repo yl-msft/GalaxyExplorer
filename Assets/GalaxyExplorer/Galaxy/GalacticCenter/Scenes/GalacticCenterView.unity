@@ -297,6 +297,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicEvent: 03_SolarSystem
   MusicDelayInSeconds: 1
+  VoiceOver:
+    clip: {fileID: 8300000, guid: 6c848faeff9b5024b8d05ac55a50b785, type: 3}
+    delay: 1
+    allowReplay: 0
 --- !u!1001 &454579831
 Prefab:
   m_ObjectHideFlags: 0

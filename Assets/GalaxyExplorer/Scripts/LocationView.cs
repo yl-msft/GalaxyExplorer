@@ -8,10 +8,13 @@ namespace GalaxyExplorer
     public class LocationView : MonoBehaviour
     {
         [SerializeField]
-        private string MusicEvent;
+        private string MusicEvent = "";
 
         [SerializeField]
         private float MusicDelayInSeconds = 1.0f;
+
+        [SerializeField]
+        private VOManager.QueuedAudioClip VoiceOver;
 
         private bool playMusic = true;
         private float delayTimer = 0.0f;
@@ -24,6 +27,13 @@ namespace GalaxyExplorer
             delayTimer = MusicDelayInSeconds;
             musicManager = FindObjectOfType<MusicManager>();
             transitionManager = FindObjectOfType<TransitionManager>();
+
+            VOManager voManager = FindObjectOfType<VOManager>();
+            if (voManager && !transitionManager.IsInIntroFlow)
+            {
+                voManager.Stop(true);
+                voManager.PlayClip(VoiceOver);
+            }
         }
 
         void Update()

@@ -14,11 +14,13 @@ namespace GalaxyExplorer
         {
             public AudioClip clip;
             public float delay;
+            public bool allowReplay;
 
-            public QueuedAudioClip(AudioClip clip, float delay)
+            public QueuedAudioClip(AudioClip clip, float delay, bool allowReplay)
             {
                 this.clip = clip;
                 this.delay = delay;
+                this.allowReplay = allowReplay;
             }
         }
 
@@ -28,16 +30,20 @@ namespace GalaxyExplorer
         private bool VOEnabled = true;
 
         private AudioSource audioSource;
-        private Queue<QueuedAudioClip> clipQueue;
+        private Queue<QueuedAudioClip> clipQueue = new Queue<QueuedAudioClip>();
+        private List<string> playedClips = new List<string>();
 
         private AudioClip nextClip;
         private float nextClipDelay;
         private float defaultVolume;
 
-        private void Start()
+        private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            clipQueue = new Queue<QueuedAudioClip>();
+        }
+
+        private void Start()
+        {
             defaultVolume = audioSource.volume;
         }
 
@@ -66,10 +72,12 @@ namespace GalaxyExplorer
             {
                 QueuedAudioClip queuedClip = clipQueue.Dequeue();
 
-                if (queuedClip.clip)
+                if (queuedClip.clip && (queuedClip.allowReplay || !playedClips.Contains(queuedClip.clip.name)))
                 {
                     nextClip = queuedClip.clip;
                     nextClipDelay = queuedClip.delay;
+
+                    playedClips.Add(nextClip.name);
                 }
             }
         }
@@ -79,7 +87,7 @@ namespace GalaxyExplorer
             return PlayClip(clip.clip, clip.delay, replaceQueue);
         }
 
-        public bool PlayClip(AudioClip clip, float delay = 0.0f, bool replaceQueue = false)
+        public bool PlayClip(AudioClip clip, float delay = 0.0f, bool allowReplay = false, bool replaceQueue = false)
         {
             bool clipWillPlay = false;
 
@@ -90,7 +98,7 @@ namespace GalaxyExplorer
                     clipQueue.Clear();
                 }
 
-                clipQueue.Enqueue(new QueuedAudioClip(clip, delay));
+                clipQueue.Enqueue(new QueuedAudioClip(clip, delay, allowReplay));
 
                 clipWillPlay = true;
             }
