@@ -59,10 +59,10 @@ namespace GalaxyExplorer
         {
             if (timedstage > 0 && timedstage - 1 < IntroStages.Count)
             {
-                if (VOManagerScript)
-                {
-                    VOManagerScript.PlayClip(IntroStages[timedstage - 1].GetAudio, IntroStages[timedstage - 1].GetAudioDelay);
-                }
+                //if (VOManagerScript)
+                //{
+                //    VOManagerScript.PlayClip(IntroStages[timedstage - 1].GetAudio, IntroStages[timedstage - 1].GetAudioDelay);
+                //}
                 
                 currentState = IntroStages[timedstage - 1].GetStage;
             }

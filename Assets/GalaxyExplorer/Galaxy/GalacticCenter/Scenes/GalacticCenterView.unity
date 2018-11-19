@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 331003482}
   - component: {fileID: 331003483}
   - component: {fileID: 331003484}
+  - component: {fileID: 331003485}
   m_Layer: 0
   m_Name: GalacticCenterContent
   m_TagString: Untagged
@@ -283,6 +284,19 @@ MonoBehaviour:
   EntireSceneCollider: {fileID: 274346324}
   IsSinglePlanet: 0
   FillVolumePercentage: 1
+--- !u!114 &331003485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 331003481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bab0d66424c9c247b8b0d029b74389f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicEvent: 03_SolarSystem
+  MusicDelayInSeconds: 1
 --- !u!1001 &454579831
 Prefab:
   m_ObjectHideFlags: 0

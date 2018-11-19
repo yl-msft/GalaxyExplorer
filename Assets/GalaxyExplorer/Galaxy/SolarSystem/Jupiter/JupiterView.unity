@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 176419672}
   - component: {fileID: 176419673}
   - component: {fileID: 176419674}
+  - component: {fileID: 176419675}
   m_Layer: 0
   m_Name: JupiterContent
   m_TagString: Untagged
@@ -171,6 +172,20 @@ MonoBehaviour:
   SceneFocusCollider: {fileID: 1768161970}
   EntireSceneCollider: {fileID: 1967840449}
   IsSinglePlanet: 1
+  FillVolumePercentage: 0.75
+--- !u!114 &176419675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 176419671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bab0d66424c9c247b8b0d029b74389f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicEvent: 04_PlanetaryView
+  MusicDelayInSeconds: 1
 --- !u!1 &449389864
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +310,7 @@ MonoBehaviour:
   rotationOffset: {x: 0, y: -90, z: 0}
   forceToWorldUp: 0
   forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &628157384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 1899597249}
+  SetMaterials: 1
 --- !u!23 &628157385
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -443,6 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 1899597249}
+  SetMaterials: 1
 --- !u!23 &834691704
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -626,6 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 1899597249}
+  SetMaterials: 1
 --- !u!1 &1822226800
 GameObject:
   m_ObjectHideFlags: 0
