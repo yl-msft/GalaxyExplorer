@@ -18,7 +18,10 @@ namespace GalaxyExplorer
         [SerializeField]
         private Animator CardAnimator = null;
 
-        private Quaternion cardRotation = Quaternion.identity;
+        [SerializeField]
+        private AudioClip CardAudio = null;
+
+       private Quaternion cardRotation = Quaternion.identity;
         private Vector3 cardPosition = Vector3.zero;
         private Vector3 cardDescriptionPosition = Vector3.zero;
         private Quaternion cardDescriptionRotation = Quaternion.identity;
@@ -87,6 +90,12 @@ namespace GalaxyExplorer
                         CardAnimator.SetBool("CardVisible", true);
                     }
 
+                    if (CardAudio && voManager)
+                    {
+                        voManager.Stop(true);
+                        voManager.PlayClip(CardAudio);
+                    }
+
                     //if (cardDescriptionAnimator)
                     //{
                     //    cardDescriptionAnimator.SetBool("selected", true);
@@ -113,6 +122,11 @@ namespace GalaxyExplorer
                     if (CardAnimator)
                     {
                         CardAnimator.SetBool("CardVisible", false);
+                    }
+
+                    if (voManager)
+                    {
+                        voManager.Stop(true);
                     }
 
                     //if (cardDescriptionAnimator)

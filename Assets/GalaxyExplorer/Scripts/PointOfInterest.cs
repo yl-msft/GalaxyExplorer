@@ -29,10 +29,10 @@ namespace GalaxyExplorer
         protected Animator cardDescriptionAnimator = null;
         private Collider indicatorCollider = null;
         protected bool isCardActive = false;
-        
-
+     
         protected CardPOIManager cardPoiManager = null;
         protected GEFadeManager geFadeManager = null;
+        protected VOManager voManager;
 
         // these are only used if there is no indicator line to determine the world position of the point of
         // interest (uses targetPosition) with scale, rotation, and offset and targetOffset to maintain the same
@@ -130,6 +130,8 @@ namespace GalaxyExplorer
 
             cardPoiManager = FindObjectOfType<CardPOIManager>();
             cardPoiManager.RegisterPOI(this);
+
+            voManager = FindObjectOfType<VOManager>();
 
             if (Indicator)
             {
