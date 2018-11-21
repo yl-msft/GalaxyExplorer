@@ -7,12 +7,14 @@ namespace GalaxyExplorer
 {
     public class LocationView : MonoBehaviour
     {
+        [Header("Background Music")]
         [SerializeField]
         private string MusicEvent = "";
 
         [SerializeField]
         private float MusicDelayInSeconds = 1.0f;
 
+        [Header("Voice Over")]
         [SerializeField]
         private VOManager.QueuedAudioClip VoiceOver;
 
