@@ -16,6 +16,7 @@ namespace GalaxyExplorer
 
         public AudioClip HydrationAudioFx;
         public AudioClip DeHydrationAudioFx;
+        public AudioClip VO = null;
         public AudioSource FxAudioSource;
 
         public GameObject AlternateDescription;
@@ -100,6 +101,17 @@ namespace GalaxyExplorer
                 IsAnimating = true;
 
                 StartCoroutine(AnimateUsingCurve(IsReal ? OrbitScaleDeHydrationCurve : OrbitScaleHydrationCurve, () => { IsReal = !IsReal; }));
+
+                if (!IsReal && VO && voManager)
+                {
+                    voManager.Stop(true);
+                    voManager.PlayClip(VO);
+                }
+                else if (IsReal && voManager)
+                {
+                    voManager.Stop(true);
+                }
+
 
                 if (AlternateDescription != null)
                 {
