@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using MRS.Audui;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace GalaxyExplorer
     public class InputRouter : MonoBehaviour
     {
         private TransitionManager transition = null;
+        private AuduiEventWrangler audioEventWrangler = null;
 
         private bool isCtrlHeld = false;    // true is left or right ctrl key is held down
 
@@ -31,6 +33,7 @@ namespace GalaxyExplorer
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.RightControl, keyUpEvent), CtrlKeyboardHandler);
 
             transition = FindObjectOfType<TransitionManager>();
+            audioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
         }
 
 
@@ -65,6 +68,10 @@ namespace GalaxyExplorer
             if (handler != null)
             {
                 handler.OnInputUp(null);
+
+                // Trigger audio because of a selection by tap
+                audioEventWrangler?.OnInputClicked(null);
+
                 OnKeyboadSelection?.Invoke();
             }
         }

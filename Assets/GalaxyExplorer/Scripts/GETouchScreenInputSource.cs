@@ -1,14 +1,17 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class GETouchScreenInputSource : MonoBehaviour
+    public class GETouchScreenInputSource : Singleton<GETouchScreenInputSource>
     {
         private List<ITouchHandler> allTouchHandlers = new List<ITouchHandler>();
+
+        public GameObject TouchedObject = null;
 
         public void RegisterTouchEntity(ITouchHandler touchHandler)
         {
@@ -30,26 +33,28 @@ namespace GalaxyExplorer
                 {
                     Touch touch = Input.GetTouch(i);
 
-                    if (touch.phase == TouchPhase.Ended)
+                    if (touch.phase == TouchPhase.Ended && TouchedObject)
+                    {
+                        ITouchHandler touchHandler = TouchedObject.GetComponentInParent<ITouchHandler>();
+                        if (touchHandler != null)
+                        {
+                            // Deactivate any open card descriptions that might be selected
+                            DeactivateAllTouchHandlers(touchHandler);
+
+                            touchHandler.OnHoldCompleted();
+                            TouchedObject = null;
+                        }
+                    }
+                    else if (touch.phase == TouchPhase.Began)
                     {
                         Ray screenRay = Camera.main.ScreenPointToRay(touch.position);
 
                         RaycastHit hit;
                         if (Physics.Raycast(screenRay, out hit))
                         {
-                            print("User tapped on game object " + hit.collider.gameObject.name);
-
-                            ITouchHandler touchHandler = hit.collider.gameObject.GetComponentInParent<ITouchHandler>();
-                            if (touchHandler != null)
-                            {
-                                // Deactivate any open card descriptions that might be selected
-                                DeactivateAllTouchHandlers(touchHandler);
-
-                                touchHandler.OnHoldCompleted();
-                            }
+                            TouchedObject = (hit.collider.gameObject.GetComponentInParent<ITouchHandler>() != null) ? hit.collider.gameObject : null;
                         }
                     }
-
                 }
             }
         }

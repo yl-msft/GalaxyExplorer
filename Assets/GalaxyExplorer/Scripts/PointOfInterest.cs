@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity.InputModule;
+using MRS.Audui;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -32,7 +33,8 @@ namespace GalaxyExplorer
      
         protected CardPOIManager cardPoiManager = null;
         protected GEFadeManager geFadeManager = null;
-        protected VOManager voManager;
+        protected VOManager voManager = null;
+        private AuduiEventWrangler audioEventWrangler = null;
 
         // these are only used if there is no indicator line to determine the world position of the point of
         // interest (uses targetPosition) with scale, rotation, and offset and targetOffset to maintain the same
@@ -70,7 +72,6 @@ namespace GalaxyExplorer
         {
             get; set;
         }
-
 
         public virtual void OnFocusEnter()
         {
@@ -132,6 +133,7 @@ namespace GalaxyExplorer
             cardPoiManager.RegisterPOI(this);
 
             voManager = FindObjectOfType<VOManager>();
+            audioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
 
             if (Indicator)
             {
@@ -208,11 +210,18 @@ namespace GalaxyExplorer
             if (CardDescription && !CardDescription.activeSelf)
             {
                 OnFocusEnter();
+
+                audioEventWrangler?.OnFocusEnter(GETouchScreenInputSource.Instance.TouchedObject);
+                audioEventWrangler.OverrideFocusedObject(null);
             }
             // Second touch select that poi
             else
             {
                 OnInputUp(null);
+
+                audioEventWrangler.OverrideFocusedObject(GETouchScreenInputSource.Instance.TouchedObject);
+                audioEventWrangler?.OnInputClicked(null);
+                audioEventWrangler.OverrideFocusedObject(null);
             }
         }
 
