@@ -18,12 +18,12 @@ namespace GalaxyExplorer
             Transition = FindObjectOfType<TransitionManager>();
         }
 
-        public void OnInputDown(InputEventData eventData)
+        public virtual void OnInputDown(InputEventData eventData)
         {
 
         }
 
-        public void OnInputUp(InputEventData eventData)
+        public virtual void OnInputUp(InputEventData eventData)
         {
             if (Transition)
             {

@@ -365,29 +365,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9f9229727bfc5814d954bbc2d626c1bb, type: 3}
     delay: 2
     allowReplay: 0
---- !u!1 &366215014 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1172037348592824, guid: 481b5fb6cac3b824f8087cbae94281a4,
-    type: 2}
-  m_PrefabInternal: {fileID: 746329770}
---- !u!114 &366215015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 366215014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CustomFocusEvent: 
-  CustomBlurEvent: 
-  CustomActionStartedEvent: 
-  CustomActionEndedEvent: 
-  CustomPrimaryActionEvent: POICard_Deselect
-  CustomSecondaryActionEvent: 
-  OverrideDefaultSound: 1
 --- !u!1 &405131713 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1835249662934314, guid: 7294de74339f30d4c859699f450fcf93,

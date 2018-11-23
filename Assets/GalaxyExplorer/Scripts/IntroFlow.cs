@@ -10,30 +10,13 @@ namespace GalaxyExplorer
 {
     public class IntroFlow : MonoBehaviour
     {
-        [System.Serializable]
-        public class IntroStage
-        {
-            [SerializeField]
-            private AudioClip VO;
-
-            [SerializeField]
-            private float VODelay = 0.0f;
-
-            [SerializeField]
-            private IntroFlowState Stage;
-
-            public AudioClip GetVO { get { return VO; } }
-
-            public float GetVODelay { get { return VODelay; } }
-
-            public IntroFlowState GetStage { get { return Stage; } }
-        }
-
-  
         [SerializeField]
-        private List<IntroStage> IntroStages = new List<IntroStage>();
+        [Tooltip("Duration of Logo stage")]
+        private float LogoDuration = 5.0f;
+
 
         private IntroFlowState currentState = IntroFlowState.kLogo;
+        private float timer = 0.0f;
 
         private MusicManager musicManagerScript = null;
         private FlowManager flowManagerScript = null;
@@ -41,30 +24,22 @@ namespace GalaxyExplorer
         private Transform sourceTransform = null;
         private VOManager VOManagerScript = null;
 
-
         public delegate void IntroFinishedCallback();
         public IntroFinishedCallback OnIntroFinished;
 
 
         public enum IntroFlowState
         {
-            kLogo,
-            kEarthPin,
-            kSolarView,
-            kGalaxyView
+            kLogo,              // Logo
+            kEarthPinMR,        // Earth pin stage in Desktop platform
+            kEarthPinDesktop,   // Earth pin stage in MR platform
+            kSolarView,         // Spawn solar system
+            kGalaxyView         // Spawn galaxy view
         }
 
         public void OnStageTransition(int timedstage)
         {
-            if (timedstage >= 0 && timedstage - 1 <= IntroStages.Count)
-            {
-                currentState = IntroStages[timedstage].GetStage;
-
-                if (VOManagerScript)
-                {
-                    VOManagerScript.PlayClip(IntroStages[(int)currentState].GetVO, IntroStages[(int)currentState].GetVODelay);
-                }
-            }
+            currentState = (IntroFlowState)timedstage;
 
             // Intro has finished
             if (currentState == IntroFlowState.kGalaxyView && OnIntroFinished != null)
@@ -82,7 +57,15 @@ namespace GalaxyExplorer
         // After modifying transform, create world anchor
         public void OnPlacementFinished(Vector3 position)
         {
-            flowManagerScript.AdvanceStage();
+            // if its not Desktop platform then skip the next stage and go directly to solar system stage
+            if (GalaxyExplorerManager.IsDesktop)
+            {
+                flowManagerScript.AdvanceStage();
+            }
+            else
+            {
+                flowManagerScript.JumpToStage(3);
+            }
 
             sourceTransform.position = position;
 
@@ -98,6 +81,30 @@ namespace GalaxyExplorer
         void Start()
         {
             StartCoroutine(Initialization());
+        }
+
+        private void Update()
+        {
+            switch (currentState)
+            {
+                case IntroFlowState.kLogo:
+                    timer += Time.deltaTime;
+
+                    if(timer >= LogoDuration)
+                    {
+                        // if its Desktop platform then jump to earth pin desktop stage
+                        if (GalaxyExplorerManager.IsDesktop)
+                        {
+                            flowManagerScript.JumpToStage(2);
+                        }
+                        else
+                        {
+                            flowManagerScript.AdvanceStage();
+                        }
+                    }
+
+                    break;
+            }
         }
 
         private IEnumerator Initialization()

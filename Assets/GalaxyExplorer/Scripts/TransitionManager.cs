@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -54,7 +55,42 @@ namespace GalaxyExplorer
         [Tooltip("Drives the POI opacity animation for the opening scene after it has completely moved into place.")]
         public AnimationCurve POIOpacityCurveEndTransition;
 
+        [Header("Audio Transitions")]
 
+        [SerializeField]
+        [Tooltip("AudioSource used in scene transitions for static sound effect.")]
+        private AudioSource TransitionAudioSource = null;
+
+        [SerializeField]
+        [Tooltip("Movable AudioSource used in scene transitions for moving sound effect.")]
+        private AudioSource MovableAudioSource = null;
+
+        [SerializeField]
+        private AudioTransition SolarSystemClips;
+
+        [SerializeField]
+        private AudioTransition PlanetClips;
+
+        [SerializeField]
+        private AudioTransition BackClips;
+
+        [SerializeField]
+        private AudioTransition IntroClips;
+
+        [Serializable]
+        public struct AudioTransition
+        {
+            public AudioClip StaticClip;
+            public AudioClip MovingClip;
+
+            public AudioTransition(AudioClip staticClip, AudioClip movingClip)
+            {
+                StaticClip = staticClip;
+                MovingClip = movingClip;
+            }
+        }
+
+        private MovableAudioSource movingAudio = null;
         private ViewLoader ViewLoaderScript = null;
         private GEFadeManager FadeManager = null;
         private ZoomInOut ZoomInOutBehaviour = null;
@@ -62,6 +98,7 @@ namespace GalaxyExplorer
         private string prevSceneLoadedName = "";
 
         private bool inTransition = false;
+        private bool inForwardTransition = true;
         private bool isFading = false;
         private IntroStage introStage = IntroStage.kInactiveIntro;
 
@@ -96,6 +133,7 @@ namespace GalaxyExplorer
             FadeManager.OnFadeComplete += OnFadeComplete;
 
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
+            movingAudio = FindObjectOfType<MovableAudioSource>();
         }
 
         // Callback when introduction flow starts. This is hooked up in FlowManager in editor
@@ -137,6 +175,7 @@ namespace GalaxyExplorer
             }
 
             inTransition = true;
+            inForwardTransition = false;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
@@ -169,6 +208,7 @@ namespace GalaxyExplorer
             }
 
             inTransition = true;
+            inForwardTransition = true;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
@@ -249,7 +289,7 @@ namespace GalaxyExplorer
                 SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), false);
             }
 
-            bool zoomInOutSimultaneously = newTransition.IsSinglePlanetTransition || (previousTransition && previousTransition.IsSinglePlanetTransition);
+            bool zoomInOutSimultaneously = (!IsInIntroFlow && newTransition.IsSinglePlanetTransition) || (previousTransition && previousTransition.IsSinglePlanetTransition);
 
             // Zoom in and out simultaneously in case of single planet involved in transition
             if (zoomInOutSimultaneously)
@@ -325,6 +365,8 @@ namespace GalaxyExplorer
                 float fadeTime = GetClosingSceneVisibilityTime();
                 FadeManager.FadeExcept(previousTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeOut, fadeTime, OpacityCurveClosingScene);
             }
+
+            PlayTransitionAudio(newTransition.transform, inForwardTransition);
 
             // Make invisible one of the two planets that represent the same entity in both scenes
             SetRenderersVisibility(newTransition.IsSinglePlanetTransition ? relatedPlanet.transform.parent.gameObject : singlePlanet.transform.parent.gameObject, false);
@@ -460,6 +502,7 @@ namespace GalaxyExplorer
 
                 StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene * 0.5f, GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
                 FadeManager.FadeExcept(previousTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeOut, TransitionTimeOpeningScene * 0.5f, POIOpacityCurveStartTransition);
+                PlayTransitionAudio(newTransition.transform, inForwardTransition);
 
                 // wait until prev scene transition finishes
                 while (!ZoomInOutBehaviour.ZoomOutIsDone)
@@ -471,6 +514,8 @@ namespace GalaxyExplorer
             {
                 // There is no previous scene so set the flag to true about zooming out previous scene
                 ZoomInOutBehaviour.ZoomOutIsDone = true;
+
+                PlayTransitionAudio(newTransition.transform, inForwardTransition);
             }
 
             // Make sure that new scene wont be visible just yet. 
@@ -532,14 +577,18 @@ namespace GalaxyExplorer
 
         private void GetRelatedPlanets(out GameObject relatedPlanetObject, out GameObject singlePlanetObject)
         {
-            singlePlanetObject = FindObjectOfType<PlanetView>().gameObject;
+            PlanetView planetView = FindObjectOfType<PlanetView>();
+            EarthPinPlanetView earthPinView = FindObjectOfType<EarthPinPlanetView>();
+
+            singlePlanetObject = (planetView) ? planetView.gameObject : null;
             relatedPlanetObject = null;
 
             PlanetPOI[] allPlanets = FindObjectsOfType<PlanetPOI>();
             foreach (var planet in allPlanets)
             {
                 // if this scene is loaded from this planet
-                if (singlePlanetObject.gameObject.scene.name == planet.GetSceneToLoad)
+                if (singlePlanetObject && ((singlePlanetObject.gameObject.scene.name == planet.GetSceneToLoad) ||
+                    (earthPinView && earthPinView.GetSceneName == planet.GetSceneToLoad)))
                 {
                     relatedPlanetObject = planet.PlanetObject;
                     break;
@@ -619,6 +668,51 @@ namespace GalaxyExplorer
             }
 
             return PlanetVisibilityTimeClosingScene;
+        }
+
+        private void PlayTransitionAudio(Transform newContent, bool forwardNavigation = true)
+        {
+            AudioClip staticClip = null;
+            AudioClip movingClip = null;
+
+            if (newContent.gameObject.scene.name == "EarthPinView")
+            {
+                return;
+            }
+
+            if (!forwardNavigation)
+            {
+                staticClip = BackClips.StaticClip;
+                movingClip = BackClips.MovingClip;
+            }
+            else if (introStage == IntroStage.kInactiveIntro)
+            {
+                staticClip = IntroClips.StaticClip;
+                movingClip = IntroClips.MovingClip;
+            }
+            else if (newContent.gameObject.scene.name == "SolarSystemView")
+            {
+                staticClip = SolarSystemClips.StaticClip;
+                movingClip = SolarSystemClips.MovingClip;
+            }
+            else if (!IsInIntroFlow)
+            {
+                staticClip = PlanetClips.StaticClip;
+                movingClip = PlanetClips.MovingClip;
+            }
+
+            if (TransitionAudioSource)
+            {
+                TransitionAudioSource.clip = staticClip;
+                TransitionAudioSource.Play();
+            }
+
+            if (MovableAudioSource && movingAudio)
+            {
+                MovableAudioSource.clip = movingClip;
+                movingAudio.Setup(newContent.position, Camera.main.transform.position);
+                movingAudio.Activate();
+            }
         }
 
     }

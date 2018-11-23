@@ -221,14 +221,18 @@ namespace GalaxyExplorer
 
         private void GetRelatedPlanets(out GameObject relatedPlanetObject, out GameObject singlePlanetObject)
         {
-            singlePlanetObject = FindObjectOfType<PlanetView>().gameObject;
+            PlanetView planetView = FindObjectOfType<PlanetView>();
+            EarthPinPlanetView earthPinView = FindObjectOfType<EarthPinPlanetView>();
+
+            singlePlanetObject = (planetView) ? planetView.gameObject : null;
             relatedPlanetObject = null;
 
             PlanetPOI[] allPlanets = FindObjectsOfType<PlanetPOI>();
             foreach (var planet in allPlanets)
             {
                 // if this scene is loaded from this planet
-                if (singlePlanetObject.gameObject.scene.name == planet.GetSceneToLoad)
+                if (singlePlanetObject && ((singlePlanetObject.gameObject.scene.name == planet.GetSceneToLoad) || 
+                    (earthPinView && earthPinView.GetSceneName == planet.GetSceneToLoad)) )
                 {
                     relatedPlanetObject = planet.PlanetObject;
                     break;

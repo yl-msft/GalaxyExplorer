@@ -113,47 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &285979361
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 285979362}
-  - component: {fileID: 285979363}
-  m_Layer: 2
-  m_Name: EarthPinFocusCOllider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &285979362
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 285979361}
-  m_LocalRotation: {x: -0, y: -0, z: -0.20312905, w: 0.979152}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.20000002}
-  m_Children: []
-  m_Father: {fileID: 1204963164}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &285979363
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 285979361}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &421178917
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +348,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 285979362}
   - {fileID: 1945349578}
   m_Father: {fileID: 1446444115}
   m_RootOrder: 0
@@ -454,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b865ed9b703f04aa8a32d8c9a26aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DesktopDuration: 2
 --- !u!114 &1446444111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,9 +466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneObject: {fileID: 1204963163}
-  SceneFocusCollider: {fileID: 285979363}
+  SceneFocusCollider: {fileID: 421178922}
   EntireSceneCollider: {fileID: 1446444112}
-  IsSinglePlanet: 0
+  IsSinglePlanet: 1
   FillVolumePercentage: 0.75
 --- !u!114 &1446444114
 MonoBehaviour:
@@ -680,6 +639,7 @@ GameObject:
   - component: {fileID: 1945349578}
   - component: {fileID: 1945349580}
   - component: {fileID: 1945349579}
+  - component: {fileID: 1945349581}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -702,7 +662,7 @@ Transform:
   - {fileID: 490350420}
   - {fileID: 1557993758}
   m_Father: {fileID: 1204963164}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1945349579
 MonoBehaviour:
@@ -729,3 +689,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1945349581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1945349577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dea50e4087f2854990b5a08372e512f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: EarthView

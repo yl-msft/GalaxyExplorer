@@ -82,6 +82,12 @@ namespace GalaxyExplorer
             }
         }
 
+        // Play clip with no delay and dont replace in queue. This is hooked in the editor in FlowManager
+        public void PlayClip(AudioClip clip)
+        {
+            PlayClip(clip, 0.0f, false);
+        }
+
         public bool PlayClip(QueuedAudioClip clip, bool replaceQueue = false)
         {
             return PlayClip(clip.clip, clip.delay, replaceQueue);
