@@ -27,11 +27,18 @@ namespace GalaxyExplorer
         public AnimationCurve DescriptionSlideCurve;
 
         private List<PointOfInterest> allPOIs = new List<PointOfInterest>();
+        private ToolManager toolsManager = null;
 
 
         private void Start()
         {
             InputManager.Instance.AddGlobalListener(gameObject);
+
+            toolsManager = FindObjectOfType<ToolManager>();
+            if (toolsManager)
+            {
+                toolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
+            }
         }
 
         public void RegisterPOI(PointOfInterest poi)
@@ -81,6 +88,36 @@ namespace GalaxyExplorer
                     if (poi.IndicatorCollider)
                     {
                         poi.IndicatorCollider.enabled = true;
+                    }
+                }
+            }
+        }
+
+        // When a card poi is on, if About Slate gets activated through menu or desktop button then card poi need to be deactivated
+        public void OnAboutSlateOnDelegate(bool enable)
+        {
+            if (enable)
+            {
+                // Find if a card POI is activa and its card is on/visible
+                bool isAnyCardActive = false;
+                foreach (var poi in allPOIs)
+                {
+                    if (poi.IsCardActive)
+                    {
+                        isAnyCardActive = true;
+                        poi.OnInputUp(null);
+                        break;
+                    }
+                }
+
+                if (isAnyCardActive)
+                {
+                    foreach (var poi in allPOIs)
+                    {
+                        if (poi.IndicatorCollider)
+                        {
+                            poi.IndicatorCollider.enabled = true;
+                        }
                     }
                 }
             }

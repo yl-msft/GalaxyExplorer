@@ -17,6 +17,7 @@ namespace GalaxyExplorer
         public GEInteractiveToggle AboutMenuButton = null;
 
         private bool isAboutButtonClicked = false;
+        private GETouchScreenInputSource touchScreenInputSource = null;
 
         private void Awake()
         {
@@ -31,6 +32,9 @@ namespace GalaxyExplorer
             InputManager.Instance.AddGlobalListener(gameObject);
 
             FindObjectOfType<InputRouter>().OnKeyboadSelection += OnKeyboadSelection;
+
+            touchScreenInputSource = FindObjectOfType<GETouchScreenInputSource>();
+            touchScreenInputSource.OnTouchStartedDelegate += OnTouchStartedDelegate;
 
             if (AboutDesktopButton == null)
             {
@@ -55,32 +59,21 @@ namespace GalaxyExplorer
             isAboutButtonClicked = true;
         }
 
+        // AboutSlate needs to receive every screen touch in order to decide to act if AboutSlate is active
+        private void OnTouchStartedDelegate(GameObject touchedObject)
+        {
+            OnInputClicked(null);
+        }
+
         // Is user touching the About slate area
         public bool IsUserTouchingAboutSlate()
         {
-            int nbTouches = Input.touchCount;
-
-            if (nbTouches > 0)
+            Collider[] allChildren = GetComponentsInChildren<Collider>();
+            foreach (var entity in allChildren)
             {
-                for (int i = 0; i < nbTouches; i++)
+                if (entity.gameObject == touchScreenInputSource.TouchedObject)
                 {
-                    Touch touch = Input.GetTouch(i);
-                    if (touch.phase == TouchPhase.Ended)
-                    {
-                        Ray screenRay = Camera.main.ScreenPointToRay(touch.position);
-                        RaycastHit hit;
-                        if (Physics.Raycast(screenRay, out hit))
-                        {
-                            Collider[] allChildren = GetComponentsInChildren<Collider>();
-                            foreach (var entity in allChildren)
-                            {
-                                if (entity.gameObject == hit.collider.gameObject)
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
+                    return true;
                 }
             }
 

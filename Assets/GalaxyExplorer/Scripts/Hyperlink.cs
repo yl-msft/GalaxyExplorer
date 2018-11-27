@@ -7,11 +7,24 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class Hyperlink : MonoBehaviour, IInputHandler
+    public class Hyperlink : MonoBehaviour, IInputHandler, ITouchHandler
     {
         public string URL;
 
         public event Action Clicked;
+
+        public void OnHoldCanceled()
+        {
+        }
+
+        public void OnHoldCompleted()
+        {
+            OnInputUp(null);
+        }
+
+        public void OnHoldStarted()
+        {
+        }
 
         public void OnInputDown(InputEventData eventData)
         {

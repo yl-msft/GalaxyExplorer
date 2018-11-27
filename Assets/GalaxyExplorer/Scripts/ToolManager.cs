@@ -38,6 +38,9 @@ namespace GalaxyExplorer
         private BoundingBoxHandler boundingBoxHandler = null;
         private GEFadeManager fadeManager = null;
 
+        public delegate void AboutSlateOnDelegate(bool enable);
+        public AboutSlateOnDelegate OnAboutSlateOnDelegate;
+
         public bool IsLocked
         {
             get { return locked; }
@@ -317,6 +320,11 @@ namespace GalaxyExplorer
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Deactivate();
                 }
             }
+        }
+
+        public void OnAboutSlateButtonPressed(bool enable)
+        {
+            OnAboutSlateOnDelegate?.Invoke(enable);
         }
     }
 }

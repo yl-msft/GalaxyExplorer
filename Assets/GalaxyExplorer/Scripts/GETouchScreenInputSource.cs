@@ -13,6 +13,13 @@ namespace GalaxyExplorer
 
         public GameObject TouchedObject = null;
 
+        public delegate void TouchStartedDelegate(GameObject touchedObject);
+        public TouchStartedDelegate OnTouchStartedDelegate;
+
+        public delegate void TouchEndedDelegate(GameObject touchedObject);
+        public TouchEndedDelegate OnTouchEndedDelegate;
+
+
         public void RegisterTouchEntity(ITouchHandler touchHandler)
         {
             allTouchHandlers.Add(touchHandler);
@@ -35,6 +42,8 @@ namespace GalaxyExplorer
 
                     if (touch.phase == TouchPhase.Ended && TouchedObject)
                     {
+                        OnTouchEndedDelegate?.Invoke(TouchedObject);
+
                         ITouchHandler touchHandler = TouchedObject.GetComponentInParent<ITouchHandler>();
                         if (touchHandler != null)
                         {
@@ -52,7 +61,9 @@ namespace GalaxyExplorer
                         RaycastHit hit;
                         if (Physics.Raycast(screenRay, out hit))
                         {
-                            TouchedObject = (hit.collider.gameObject.GetComponentInParent<ITouchHandler>() != null) ? hit.collider.gameObject : null;
+                            TouchedObject = hit.collider.gameObject;
+
+                            OnTouchStartedDelegate?.Invoke(TouchedObject);
                         }
                     }
                 }
