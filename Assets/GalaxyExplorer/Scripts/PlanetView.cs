@@ -11,6 +11,14 @@ namespace GalaxyExplorer
 {
     public class PlanetView : MonoBehaviour, IInputHandler
     {
+        [SerializeField]
+        private string SceneName = "";
+
+        public string GetSceneName
+        {
+            get { return (SceneName.Length > 0) ? SceneName : gameObject.scene.name; }
+        }
+
         private TransitionManager Transition = null;
 
         void Start()
@@ -25,7 +33,7 @@ namespace GalaxyExplorer
 
         public virtual void OnInputUp(InputEventData eventData)
         {
-            if (Transition)
+            if (Transition && !Transition.IsInIntroFlow)
             {
                 Transition.LoadPrevScene();
             }

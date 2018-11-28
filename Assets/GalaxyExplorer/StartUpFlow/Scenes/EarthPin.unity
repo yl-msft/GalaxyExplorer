@@ -524,8 +524,8 @@ GameObject:
   - component: {fileID: 827300715}
   - component: {fileID: 827300717}
   - component: {fileID: 827300716}
-  - component: {fileID: 827300719}
   - component: {fileID: 827300718}
+  - component: {fileID: 827300719}
   m_Layer: 0
   m_Name: EarthUpCloseWireframe
   m_TagString: Untagged
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 827300714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dea50e4087f2854990b5a08372e512f, type: 3}
+  m_Script: {fileID: 11500000, guid: bd88ca6b451f7974fb22c099a6d0f4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: EarthView
