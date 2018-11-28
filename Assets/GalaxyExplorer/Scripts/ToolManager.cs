@@ -172,7 +172,8 @@ namespace GalaxyExplorer
                 return false;
             }
 
-            bool isAnyToolSelected = (SelectedTool != null);
+            // Dont take into account any primary buttons that need to remain selected
+            bool isAnyToolSelected = (SelectedTool != null && !SelectedTool.IsPrimaryButton);
             SelectedTool = tool;
 
             // if Any tool was selected before this one was, then need to deselect the previous one

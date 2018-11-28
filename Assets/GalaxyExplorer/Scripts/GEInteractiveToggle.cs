@@ -10,6 +10,15 @@ namespace GalaxyExplorer
 {
     public class GEInteractiveToggle : InteractiveToggle
     {
+        [SerializeField]
+        [Tooltip("Is button that stays active even if another button is selected. Its deactivated only if user explicitly selects it again")]
+        private bool isPrimaryButton = false;
+
+        public bool IsPrimaryButton
+        {
+            get { return isPrimaryButton; }
+        }
+
         public UnityEvent OnGazeSelect;
         public UnityEvent OnGazeDeselect;
 
@@ -59,12 +68,21 @@ namespace GalaxyExplorer
 
         // Deselect Button ONLY if its not the one currently selected
         // So deselect it if another button is selected now
+        // Dont deselect that way any primary buttons
         public void DeselectButton()
         {
-            if (IsSelected && !PassiveMode && toolmanager.SelectedTool != this)
+            if (IsSelected && !PassiveMode && toolmanager.SelectedTool != this && !IsPrimaryButton)
             {
-                OnDeselection?.Invoke();
-                OnGazeDeselect?.Invoke();
+                if (OnDeselection != null)
+                {
+                    OnDeselection.Invoke();
+                }
+
+                if (OnGazeDeselect != null)
+                {
+                    OnGazeDeselect.Invoke();
+                }
+
                 IsSelected = false;
                 HasGaze = false;
                 HasSelection = false;

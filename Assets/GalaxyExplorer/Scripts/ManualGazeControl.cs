@@ -45,7 +45,7 @@ namespace GalaxyExplorer
                 return;
             }
 
-            cameraTransform = GetComponent<Camera>().transform;
+            cameraTransform = transform;
             if (cameraTransform == null)
             {
                 Debug.LogError("ManualGazeControl being used on a game object without a Camera.");

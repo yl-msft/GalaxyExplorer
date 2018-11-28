@@ -55,6 +55,15 @@ namespace GalaxyExplorer
         [Tooltip("Drives the POI opacity animation for the opening scene after it has completely moved into place.")]
         public AnimationCurve POIOpacityCurveEndTransition;
 
+        [Header("Camera Transition")]
+        [SerializeField]
+        [Tooltip("Transition duration during camera reset.")]
+        private float TransitionTimeCamera = 3.0f;
+
+        [Tooltip("Transition curve of camera reset movement.")]
+        public AnimationCurve TransitionTimeCameraCurve;
+
+
         [Header("Audio Transitions")]
 
         [SerializeField]
@@ -102,6 +111,14 @@ namespace GalaxyExplorer
         private bool isFading = false;
         private IntroStage introStage = IntroStage.kInactiveIntro;
 
+        private TransformSource transformSource = null;
+
+        // Start position of camera in Desktop platform
+        private Vector3 defaultDesktopCameraPosition = Vector3.zero;
+
+        private Quaternion defaultSceneRotation = Quaternion.identity;
+        private Vector3 defaultSceneScale = Vector3.one;
+
         private enum IntroStage
         {
             kActiveIntro,
@@ -134,6 +151,11 @@ namespace GalaxyExplorer
 
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
             movingAudio = FindObjectOfType<MovableAudioSource>();
+            transformSource = FindObjectOfType<TransformSource>();
+
+            defaultDesktopCameraPosition = Camera.main.transform.parent.position;
+            defaultSceneRotation = transformSource.transform.rotation;
+            defaultSceneScale = transformSource.transform.localScale;
         }
 
         // Callback when introduction flow starts. This is hooked up in FlowManager in editor
@@ -275,7 +297,7 @@ namespace GalaxyExplorer
             DeactivateOrbitUpdater(newTransition);
 
             // Scale new scene to fit inside the volume
-            float scaleToFill = FindObjectOfType<TransformSource>().transform.lossyScale.x;
+            float scaleToFill = transformSource.transform.lossyScale.x;
             float targetSize = newTransition.GetScalar(scaleToFill);
             newTransition.transform.GetChild(0).localScale = Vector3.one * targetSize;
 
@@ -713,6 +735,79 @@ namespace GalaxyExplorer
                 movingAudio.Setup(newContent.position, Camera.main.transform.position);
                 movingAudio.Activate();
             }
+        }
+
+        public void ResetDesktopCameraToOrigin()
+        {
+            StartCoroutine(ResetDesktopCameraToOriginCoroutine());
+        }
+
+        // Reset camera to original position and rotation in Desktop platform
+        private IEnumerator ResetDesktopCameraToOriginCoroutine()
+        {
+            Vector3 startPosition = Camera.main.transform.parent.position;
+            Quaternion startRotation = Camera.main.transform.parent.rotation;
+
+            Vector3 startParentPosition = Camera.main.transform.parent.parent.position;
+            Quaternion startParentRotation = Camera.main.transform.parent.parent.rotation;
+
+            float time = 0.0f;
+            float timeFraction = 0.0f;
+            do
+            {
+                time += Time.deltaTime;
+                timeFraction = Mathf.Clamp01(time / TransitionTimeCamera);
+
+                float delta = Mathf.Clamp01(TransitionTimeCameraCurve.Evaluate(timeFraction));
+
+                // Reset cameras parent
+                Camera.main.transform.parent.position = Vector3.Lerp(startPosition, defaultDesktopCameraPosition, delta);
+                Camera.main.transform.parent.rotation = Quaternion.Slerp(startRotation, Quaternion.identity, delta);
+
+                // Reset parent of camera parent 
+                Camera.main.transform.parent.parent.transform.position = Vector3.Lerp(startParentPosition, Vector3.zero, delta);
+                Camera.main.transform.parent.parent.transform.rotation = Quaternion.Slerp(startParentRotation, Quaternion.identity, delta);
+                yield return null;
+
+            } while (timeFraction < 1f);
+
+            Camera.main.transform.parent.position = defaultDesktopCameraPosition;
+            Camera.main.transform.parent.rotation = Quaternion.identity;
+
+            Camera.main.transform.parent.parent.transform.position = Vector3.zero;
+            Camera.main.transform.parent.parent.transform.rotation = Quaternion.identity;
+        }
+
+        public void ResetMRSceneToOrigin()
+        {
+            StartCoroutine(ResetMRSceneToOriginCoroutine());
+        }
+
+        // Reset scene to original scale and rotation in MR platform
+        private IEnumerator ResetMRSceneToOriginCoroutine()
+        {
+            Vector3 startScale = transformSource.transform.localScale;
+            Quaternion startRotation = transformSource.transform.rotation;
+
+            float time = 0.0f;
+            float timeFraction = 0.0f;
+            do
+            {
+                time += Time.deltaTime;
+                timeFraction = Mathf.Clamp01(time / TransitionTimeCamera);
+
+                float delta = Mathf.Clamp01(TransitionTimeCameraCurve.Evaluate(timeFraction));
+
+                // Reset cameras parent
+                transformSource.transform.localScale = Vector3.Lerp(startScale, defaultSceneScale, delta);
+                transformSource.transform.rotation = Quaternion.Slerp(startRotation, defaultSceneRotation, delta);
+
+                yield return null;
+
+            } while (timeFraction < 1f);
+
+            transformSource.transform.localScale = defaultSceneScale;
+            transformSource.transform.rotation = defaultSceneRotation;
         }
 
     }
