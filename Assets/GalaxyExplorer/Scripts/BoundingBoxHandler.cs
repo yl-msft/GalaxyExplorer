@@ -19,6 +19,7 @@ namespace GalaxyExplorer
         private Vector3 rotateHandleSize = new Vector3(0.08f, 0.08f, 0.08f);
 
         private bool groupBoundinBoxEntities = false;
+        private GameObject parent = null;
 
         private void Start()
         {
@@ -33,16 +34,16 @@ namespace GalaxyExplorer
         {
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
 
             if (groupBoundinBoxEntities)
             {
                 yield break;
             }
 
-            GameObject parent = GameObject.Find("BoundingBoxEntities");
             parent = (parent == null) ? new GameObject() : parent;
             parent.name = "BoundingBoxEntities";
-            parent.transform.parent = transform.parent;
+            //parent.transform.parent = transform.parent;
 
             GameObject center = GameObject.Find("center");
             if (center)
