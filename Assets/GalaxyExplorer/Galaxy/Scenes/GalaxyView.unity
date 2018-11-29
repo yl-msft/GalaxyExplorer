@@ -1299,6 +1299,56 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[1].inSlope
+      value: 0.5017326
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[1].outSlope
+      value: 0.5017326
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[0].inSlope
+      value: 0.0327716
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[0].outSlope
+      value: 0.0327716
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[0].value
+      value: 0.70192015
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[0].time
+      value: 0.0015438513
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[2].inSlope
+      value: 0.15593131
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892817731742924, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[2].outSlope
+      value: 0.15593131
+      objectReference: {fileID: 0}
+    - target: {fileID: 114415192178358478, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[0].value
+      value: -0.09991455
+      objectReference: {fileID: 0}
+    - target: {fileID: 114415192178358478, guid: 0b8b8976322d3a844b11b4312ab1f4e2,
+        type: 2}
+      propertyPath: centerToRimStarSize.m_Curve.Array.data[0].time
+      value: 0.00075149536
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b8b8976322d3a844b11b4312ab1f4e2, type: 2}
   m_IsPrefabParent: 0
