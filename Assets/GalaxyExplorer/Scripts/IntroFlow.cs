@@ -58,11 +58,11 @@ namespace GalaxyExplorer
         public void OnPlacementFinished(Vector3 position)
         {
             // if its not Desktop platform then skip the next stage and go directly to solar system stage
-            if (GalaxyExplorerManager.IsDesktop)
+            if (GalaxyExplorerManager.IsDesktop && flowManagerScript)
             {
                 flowManagerScript.AdvanceStage();
             }
-            else
+            else if (!GalaxyExplorerManager.IsDesktop && flowManagerScript)
             {
                 flowManagerScript.JumpToStage(3);
             }
@@ -93,11 +93,11 @@ namespace GalaxyExplorer
                     if(timer >= LogoDuration)
                     {
                         // if its Desktop platform then jump to earth pin desktop stage
-                        if (GalaxyExplorerManager.IsDesktop)
+                        if (GalaxyExplorerManager.IsDesktop && flowManagerScript)
                         {
                             flowManagerScript.JumpToStage(2);
                         }
-                        else
+                        else if (!GalaxyExplorerManager.IsDesktop && flowManagerScript)
                         {
                             flowManagerScript.AdvanceStage();
                         }
