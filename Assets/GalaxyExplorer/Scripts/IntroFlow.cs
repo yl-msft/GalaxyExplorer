@@ -15,7 +15,7 @@ namespace GalaxyExplorer
         private float LogoDuration = 5.0f;
 
 
-        private IntroFlowState currentState = IntroFlowState.kLogo;
+        private IntroFlowState currentState = IntroFlowState.kNone;
         private float timer = 0.0f;
 
         private MusicManager musicManagerScript = null;
@@ -34,7 +34,8 @@ namespace GalaxyExplorer
             kEarthPinMR,        // Earth pin stage in Desktop platform
             kEarthPinDesktop,   // Earth pin stage in MR platform
             kSolarView,         // Spawn solar system
-            kGalaxyView         // Spawn galaxy view
+            kGalaxyView,        // Spawn galaxy view
+            kNone
         }
 
         public void OnStageTransition(int timedstage)
