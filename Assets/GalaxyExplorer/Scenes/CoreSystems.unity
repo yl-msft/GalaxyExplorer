@@ -5368,7 +5368,7 @@ MonoBehaviour:
   - Name: SolarSystemScene
     clickToAdvance: 0
     disableTapTime: 0
-    autoTransitionDelay: 7
+    autoTransitionDelay: 8
     audioDelay: 0
     Events:
     - Name: SolarSystemScene
