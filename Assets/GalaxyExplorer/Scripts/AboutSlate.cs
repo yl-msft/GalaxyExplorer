@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace GalaxyExplorer
 {
-    public class AboutSlate : MonoBehaviour, IInputClickHandler
+    public class AboutSlate : MonoBehaviour, IInputClickHandler, IControllerTouchpadHandler
     {
         public Material AboutMaterial;
         public GameObject Slate;
@@ -17,7 +17,6 @@ namespace GalaxyExplorer
         public GEInteractiveToggle AboutMenuButton = null;
 
         private bool isAboutButtonClicked = false;
-        private GETouchScreenInputSource touchScreenInputSource = null;
 
         private void Awake()
         {
@@ -32,9 +31,6 @@ namespace GalaxyExplorer
             InputManager.Instance.AddGlobalListener(gameObject);
 
             FindObjectOfType<InputRouter>().OnKeyboadSelection += OnKeyboadSelection;
-
-            touchScreenInputSource = FindObjectOfType<GETouchScreenInputSource>();
-            touchScreenInputSource.OnTouchStartedDelegate += OnTouchStartedDelegate;
 
             if (AboutDesktopButton == null)
             {
@@ -59,19 +55,29 @@ namespace GalaxyExplorer
             isAboutButtonClicked = true;
         }
 
-        // AboutSlate needs to receive every screen touch in order to decide to act if AboutSlate is active
-        private void OnTouchStartedDelegate(GameObject touchedObject)
-        {
-            OnInputClicked(null);
-        }
-
         // Is user touching the About slate area
         public bool IsUserTouchingAboutSlate()
         {
             Collider[] allChildren = GetComponentsInChildren<Collider>();
             foreach (var entity in allChildren)
             {
-                if (entity.gameObject == touchScreenInputSource.TouchedObject)
+                if (entity.gameObject == InputManager.Instance.OverrideFocusedObject)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Has user clicked the About slate area
+        public bool IsClickOnAboutSlate()
+        {
+            // Check if clicked object is any of the slate object
+            Collider[] allChildren = GetComponentsInChildren<Collider>();
+            foreach (var entity in allChildren)
+            {
+                if (entity.gameObject == GazeManager.Instance.HitObject)
                 {
                     return true;
                 }
@@ -92,22 +98,14 @@ namespace GalaxyExplorer
         // On every user's click, check if the click is outside the about area and if it is and About card is on then deactivate it
         public void OnInputClicked(InputClickedEventData eventData)
         {
-            // Check if clicked object is any of the slate object
-            bool isAboutSlateSelected = false;
-            Collider[] allChildren = GetComponentsInChildren<Collider>();
-            foreach (var entity in allChildren)
-            {
-                if (entity.gameObject == GazeManager.Instance.HitObject)
-                {
-                    isAboutSlateSelected = true;
-                    break;
-                }
-            }
+            ToggleAboutSlateLogic(IsClickOnAboutSlate());
+        }
 
-            bool isTouch = IsUserTouchingAboutSlate();
+        private void ToggleAboutSlateLogic(bool isAboutSelected)
+        {
             bool isButtonSelected = (AboutMenuButton && AboutMenuButton.IsSelected) || (AboutDesktopButton && AboutDesktopButton.IsSelected);
 
-            if (!isAboutSlateSelected && !isTouch && !isAboutButtonClicked && isButtonSelected)
+            if (!isAboutSelected && !isAboutButtonClicked && isButtonSelected)
             {
                 Debug.Log("User clicked outside About Slate so toggle its button state");
 
@@ -190,6 +188,21 @@ namespace GalaxyExplorer
             {
                 StartCoroutine(AnimateToOpacity(0));
             }
+        }
+
+        public void OnTouchpadTouched(InputEventData eventData)
+        {
+       
+        }
+
+        public void OnTouchpadReleased(InputEventData eventData)
+        {
+            ToggleAboutSlateLogic(IsUserTouchingAboutSlate());
+        }
+
+        public void OnInputPositionChanged(InputPositionEventData eventData)
+        {
+   
         }
     }
 }

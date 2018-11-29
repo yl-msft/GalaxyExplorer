@@ -2,84 +2,263 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity;
+using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class GETouchScreenInputSource : Singleton<GETouchScreenInputSource>
+    public class GETouchScreenInputSource : BaseInputSource
     {
-        private List<ITouchHandler> allTouchHandlers = new List<ITouchHandler>();
+        const float kContactEpsilon = 2.0f / 60.0f;
 
-        public GameObject TouchedObject = null;
+        [SerializeField]
+        [Tooltip("Time in seconds to determine if the contact registers as a tap or a hold")]
+        protected float MaxTapContactTime = 0.5f;
 
-        public delegate void TouchStartedDelegate(GameObject touchedObject);
-        public TouchStartedDelegate OnTouchStartedDelegate;
+        private List<PersistentTouch> ActiveTouches = new List<PersistentTouch>(0);
 
-        public delegate void TouchEndedDelegate(GameObject touchedObject);
-        public TouchEndedDelegate OnTouchEndedDelegate;
-
-
-        public void RegisterTouchEntity(ITouchHandler touchHandler)
+        private class PersistentTouch
         {
-            allTouchHandlers.Add(touchHandler);
-        }
-
-        public void UnRegisterTouchEntity(ITouchHandler touchHandler)
-        {
-            allTouchHandlers.Remove(touchHandler);
-        }
-
-        void Update()
-        {
-            int nbTouches = Input.touchCount;
-
-            if (nbTouches > 0)
+            public Touch touchData;
+            public Ray screenpointRay;
+            public float lifetime;
+            public PersistentTouch(Touch touch, Ray ray)
             {
-                for (int i = 0; i < nbTouches; i++)
+                touchData = touch;
+                this.screenpointRay = ray;
+                lifetime = 0.0f;
+            }
+        }
+
+
+        #region Unity methods
+
+        protected virtual void Start()
+        {
+            // Disable the inputsource if not supported by the device
+            if (!Input.touchSupported)
+            {
+                this.enabled = false;
+            }
+        }
+
+        protected virtual void Update()
+        {
+            foreach (Touch touch in Input.touches)
+            {
+                // Construct a ray from the current touch coordinates
+                Ray ray = CameraCache.Main.ScreenPointToRay(touch.position);
+
+                switch (touch.phase)
                 {
-                    Touch touch = Input.GetTouch(i);
+                    case TouchPhase.Began:
+                    case TouchPhase.Moved:
+                    case TouchPhase.Stationary:
+                        UpdateTouch(touch, ray);
+                        break;
 
-                    if (touch.phase == TouchPhase.Ended && TouchedObject)
-                    {
-                        OnTouchEndedDelegate?.Invoke(TouchedObject);
-
-                        ITouchHandler touchHandler = TouchedObject.GetComponentInParent<ITouchHandler>();
-                        if (touchHandler != null)
-                        {
-                            // Deactivate any open card descriptions that might be selected
-                            DeactivateAllTouchHandlers(touchHandler);
-
-                            touchHandler.OnHoldCompleted();
-                            TouchedObject = null;
-                        }
-                    }
-                    else if (touch.phase == TouchPhase.Began)
-                    {
-                        Ray screenRay = Camera.main.ScreenPointToRay(touch.position);
-
-                        RaycastHit hit;
-                        if (Physics.Raycast(screenRay, out hit))
-                        {
-                            TouchedObject = hit.collider.gameObject;
-
-                            OnTouchStartedDelegate?.Invoke(TouchedObject);
-                        }
-                    }
+                    case TouchPhase.Ended:
+                    case TouchPhase.Canceled:
+                        RemoveTouch(touch);
+                        break;
                 }
             }
         }
 
-        // Deactivate all handlers that might be selected except the current selected one
-        private void DeactivateAllTouchHandlers(ITouchHandler selected)
+        #endregion // Unity methods
+
+        public bool UpdateTouch(Touch touch, Ray ray)
         {
-            foreach (var handler in allTouchHandlers)
+            if (touch.phase == TouchPhase.Ended)
             {
-                if (handler != selected)
+                InputManager.Instance.OverrideFocusedObject = null;
+            }
+            else if (touch.phase == TouchPhase.Began)
+            {
+                Ray screenRay = Camera.main.ScreenPointToRay(touch.position);
+
+                RaycastHit hit;
+                if (Physics.Raycast(screenRay, out hit))
                 {
-                    handler.OnHoldCanceled();
+                    InputManager.Instance.OverrideFocusedObject = hit.collider.gameObject;
                 }
             }
+
+            PersistentTouch knownTouch = GetPersistentTouch(touch.fingerId);
+            if (knownTouch != null)
+            {
+                knownTouch.lifetime += Time.deltaTime;
+
+                return true;
+            }
+            else
+            {
+                ActiveTouches.Add(new PersistentTouch(touch, ray));
+                OnHoldStartedEvent(touch.fingerId);
+                return false;
+            }
         }
+
+        public void RemoveTouch(Touch touch)
+        {
+            PersistentTouch knownTouch = GetPersistentTouch(touch.fingerId);
+            if (knownTouch != null)
+            {
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    if (knownTouch.lifetime < kContactEpsilon)
+                    {
+                        OnHoldCanceledEvent(touch.fingerId);
+                    }
+                    else if (knownTouch.lifetime < MaxTapContactTime)
+                    {
+                        OnHoldCanceledEvent(touch.fingerId);
+                        OnTappedEvent(touch.fingerId, touch.tapCount);
+                    }
+                    else
+                    {
+                        OnHoldCompletedEvent(touch.fingerId);
+                    }
+                }
+                else
+                {
+                    OnHoldCanceledEvent(touch.fingerId);
+                }
+                ActiveTouches.Remove(knownTouch);
+            }
+        }
+
+        private PersistentTouch GetPersistentTouch(int id)
+        {
+            for (int i = 0; i < ActiveTouches.Count; ++i)
+            {
+                if (ActiveTouches[i].touchData.fingerId == id)
+                {
+                    return ActiveTouches[i];
+                }
+            }
+            return null;
+        }
+
+        private Touch? GetTouch(int id)
+        {
+            PersistentTouch knownTouch = GetPersistentTouch(id);
+            if (knownTouch != null)
+            {
+                return knownTouch.touchData;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected void OnTappedEvent(int id, int tapCount)
+        {
+            InputManager.Instance.RaiseTouchpadReleased(this, (uint)id);
+            InputManager.Instance.OverrideFocusedObject = null;
+        }
+
+        protected void OnHoldStartedEvent(int id)
+        {
+
+        }
+
+        protected void OnHoldCanceledEvent(int id)
+        {
+
+        }
+
+        protected void OnHoldCompletedEvent(int id)
+        {
+
+        }
+
+        #region Base Input Source Methods
+
+        public override bool TryGetSourceKind(uint sourceId, out InteractionSourceInfo sourceKind)
+        {
+            sourceKind = InteractionSourceInfo.Hand;
+            return true;
+        }
+
+        public override bool TryGetPointerPosition(uint sourceId, out Vector3 position)
+        {
+            Touch? knownTouch = GetTouch((int)sourceId);
+            position = (knownTouch.HasValue) ? (Vector3)knownTouch.Value.position : Vector3.zero;
+            return knownTouch.HasValue;
+        }
+
+        public override bool TryGetPointerRotation(uint sourceId, out Quaternion rotation)
+        {
+            rotation = Quaternion.identity;
+            return false;
+        }
+
+        public override bool TryGetPointingRay(uint sourceId, out Ray pointingRay)
+        {
+            PersistentTouch knownTouch = GetPersistentTouch((int)sourceId);
+            if (knownTouch != null)
+            {
+                pointingRay = knownTouch.screenpointRay;
+                return true;
+            }
+            pointingRay = default(Ray);
+            return false;
+        }
+
+        public override bool TryGetGripPosition(uint sourceId, out Vector3 position)
+        {
+            position = Vector3.zero;
+            return false;
+        }
+
+        public override bool TryGetGripRotation(uint sourceId, out Quaternion rotation)
+        {
+            rotation = Quaternion.identity;
+            return false;
+        }
+
+        public override SupportedInputInfo GetSupportedInputInfo(uint sourceId)
+        {
+            return SupportedInputInfo.PointerPosition | SupportedInputInfo.Pointing;
+        }
+
+        public override bool TryGetThumbstick(uint sourceId, out bool isPressed, out Vector2 position)
+        {
+            isPressed = false;
+            position = Vector2.zero;
+            return false;
+        }
+
+        public override bool TryGetTouchpad(uint sourceId, out bool isPressed, out bool isTouched, out Vector2 position)
+        {
+            isPressed = false;
+            isTouched = false;
+            position = Vector2.zero;
+            return false;
+        }
+
+        public override bool TryGetSelect(uint sourceId, out bool isPressed, out double pressedAmount)
+        {
+            isPressed = false;
+            pressedAmount = 0.0;
+            return false;
+        }
+
+        public override bool TryGetGrasp(uint sourceId, out bool isPressed)
+        {
+            isPressed = false;
+            return false;
+        }
+
+        public override bool TryGetMenu(uint sourceId, out bool isPressed)
+        {
+            isPressed = false;
+            return false;
+        }
+
+        #endregion // Base Input Source Methods
     }
 }

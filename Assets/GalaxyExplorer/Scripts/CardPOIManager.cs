@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace GalaxyExplorer
 {
-    public class CardPOIManager : MonoBehaviour, IInputClickHandler
+    public class CardPOIManager : MonoBehaviour, IInputClickHandler, IControllerTouchpadHandler
     {
         [Header("Galaxy Card POI Fading")]
         [Tooltip("The time it takes for all points of interest to completely fade out when a card point of interest is selected.")]
@@ -53,10 +53,11 @@ namespace GalaxyExplorer
 
         public void OnInputClicked(InputClickedEventData eventData)
         {
-            StartCoroutine(NotifyPOIs());
+            StartCoroutine(DeactivePOIColliders());
         }
 
-        private IEnumerator NotifyPOIs()
+        // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
+        private IEnumerator DeactivePOIColliders()
         {
             yield return new WaitForEndOfFrame();
 
@@ -121,6 +122,36 @@ namespace GalaxyExplorer
                     }
                 }
             }
+        }
+
+        // Deactivate all pois that might have active card description except the one that is currently focused/touched
+        private void DeactivateAllDescriptionsHandlers(GameObject focusedObject)
+        {
+            foreach (var poi in allPOIs)
+            {
+                if (poi.IndicatorCollider.gameObject != focusedObject)
+                {
+                    poi.OnFocusExit();
+                }
+            }
+        }
+
+        public void OnTouchpadTouched(InputEventData eventData)
+        {
+
+        }
+
+        public void OnTouchpadReleased(InputEventData eventData)
+        {
+            GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
+            DeactivateAllDescriptionsHandlers(focusedObj);
+
+            StartCoroutine(DeactivePOIColliders());
+        }
+
+        public void OnInputPositionChanged(InputPositionEventData eventData)
+        {
+
         }
     }
 }

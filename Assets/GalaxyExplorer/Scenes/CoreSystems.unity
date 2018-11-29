@@ -5963,7 +5963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22af9ba93a68ae4b933d8db6025a35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TouchedObject: {fileID: 0}
+  MaxTapContactTime: 0.5
 --- !u!1 &1703005844
 GameObject:
   m_ObjectHideFlags: 0

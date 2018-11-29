@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, ITouchHandler
+    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler
     {
         [SerializeField]
         protected GameObject CardDescription = null;
@@ -141,36 +141,16 @@ namespace GalaxyExplorer
 
                 indicatorCollider = Indicator.GetComponentInChildren<Collider>();
             }
-
-            if (GalaxyExplorerManager.IsDesktop)
-            {
-                GETouchScreenInputSource touchInput = FindObjectOfType<GETouchScreenInputSource>();
-                if (touchInput)
-                {
-                    touchInput.RegisterTouchEntity(this);
-                }
-            }
-        }
-
-        protected virtual void OnDestroy()
-        {
-            if (GalaxyExplorerManager.IsDesktop)
-            {
-                GETouchScreenInputSource touchInput = FindObjectOfType<GETouchScreenInputSource>();
-                if (touchInput)
-                {
-                    touchInput.UnRegisterTouchEntity(this);
-                }
-            }
-        }
-
-        protected void LateUpdate()
-        {
         }
 
         protected void Update()
         {
             UpdateTransform();
+        }
+
+        protected void LateUpdate()
+        {
+
         }
 
         private void UpdateTransform()
@@ -200,18 +180,50 @@ namespace GalaxyExplorer
             }
         }
 
-        public void OnHoldStarted()
+        //public void OnHoldStarted()
+        //{
+        //}
+        //
+        //public void OnHoldCompleted()
+        //{
+        //    // First touch focus on poi
+        //    if (CardDescription && !CardDescription.activeSelf)
+        //    {
+        //        OnFocusEnter();
+        //
+        //        audioEventWrangler?.OnFocusEnter(GETouchScreenInputSource.Instance.TouchedObject);
+        //        audioEventWrangler.OverrideFocusedObject(null);
+        //    }
+        //    // Second touch select that poi
+        //    else
+        //    {
+        //        OnInputUp(null);
+        //
+        //        audioEventWrangler.OverrideFocusedObject(GETouchScreenInputSource.Instance.TouchedObject);
+        //        audioEventWrangler?.OnInputClicked(null);
+        //        audioEventWrangler.OverrideFocusedObject(null);
+        //    }
+        //}
+        //
+        //public void OnHoldCanceled()
+        //{
+        //    OnFocusExit();
+        //}
+
+        public void OnTouchpadTouched(InputEventData eventData)
         {
+  
         }
 
-        public void OnHoldCompleted()
+        public void OnTouchpadReleased(InputEventData eventData)
         {
             // First touch focus on poi
             if (CardDescription && !CardDescription.activeSelf)
             {
                 OnFocusEnter();
 
-                audioEventWrangler?.OnFocusEnter(GETouchScreenInputSource.Instance.TouchedObject);
+                GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
+                audioEventWrangler?.OnFocusEnter(focusedObj);
                 audioEventWrangler.OverrideFocusedObject(null);
             }
             // Second touch select that poi
@@ -219,16 +231,16 @@ namespace GalaxyExplorer
             {
                 OnInputUp(null);
 
-                audioEventWrangler.OverrideFocusedObject(GETouchScreenInputSource.Instance.TouchedObject);
+                GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
+                audioEventWrangler.OverrideFocusedObject(focusedObj);
                 audioEventWrangler?.OnInputClicked(null);
                 audioEventWrangler.OverrideFocusedObject(null);
             }
         }
 
-        public void OnHoldCanceled()
+        public void OnInputPositionChanged(InputPositionEventData eventData)
         {
-            OnFocusExit();
-        }
 
+        }
     }
 }
