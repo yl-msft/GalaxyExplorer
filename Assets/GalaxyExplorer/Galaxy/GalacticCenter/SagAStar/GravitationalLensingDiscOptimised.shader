@@ -143,9 +143,9 @@
 				int hasCrossedEventHorizon = 0;
 				float eventHorizonRim = 0;
 
-				// [unroll(4)] 
+				 [unroll(4)] 
 				for (int i = 0; i < _MaxStepCount; ++i)
-				// for (int i = 0; i < 6; ++i)
+				 //for (int i = 0; i < 4; ++i)
 				{
 					// Find out if we have crossed the accretion disc
 					float3 displacement = massCentre - currentRayPosition;
