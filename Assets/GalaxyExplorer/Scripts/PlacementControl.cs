@@ -19,6 +19,8 @@ namespace GalaxyExplorer
         private Tagalong volumeTagalong;
         private Interpolator volumeInterpolator;
 
+        private bool isPlaced = false;
+
         private void Start()
         {
             volumeTagalong = gameObject.GetComponent<Tagalong>();
@@ -29,6 +31,7 @@ namespace GalaxyExplorer
             if (manager && (GalaxyExplorerManager.IsDesktop))
             {
                 StartCoroutine(ReleaseContent(DesktopDuration));
+                isPlaced = true;
             }
 
             Animator wireframe = GetComponentInChildren<Animator>();
@@ -61,7 +64,12 @@ namespace GalaxyExplorer
 
         public void OnInputUp(InputEventData eventData)
         {
-            StartCoroutine(ReleaseContent(1));
+            if (!isPlaced)
+            {
+                StartCoroutine(ReleaseContent(1));
+            }
+
+            isPlaced = true;
         }
     }
 }
