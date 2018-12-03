@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler
+    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler, IMouseHandler
     {
         [SerializeField]
         protected GameObject CardDescription = null;
@@ -180,36 +180,6 @@ namespace GalaxyExplorer
             }
         }
 
-        //public void OnHoldStarted()
-        //{
-        //}
-        //
-        //public void OnHoldCompleted()
-        //{
-        //    // First touch focus on poi
-        //    if (CardDescription && !CardDescription.activeSelf)
-        //    {
-        //        OnFocusEnter();
-        //
-        //        audioEventWrangler?.OnFocusEnter(GETouchScreenInputSource.Instance.TouchedObject);
-        //        audioEventWrangler.OverrideFocusedObject(null);
-        //    }
-        //    // Second touch select that poi
-        //    else
-        //    {
-        //        OnInputUp(null);
-        //
-        //        audioEventWrangler.OverrideFocusedObject(GETouchScreenInputSource.Instance.TouchedObject);
-        //        audioEventWrangler?.OnInputClicked(null);
-        //        audioEventWrangler.OverrideFocusedObject(null);
-        //    }
-        //}
-        //
-        //public void OnHoldCanceled()
-        //{
-        //    OnFocusExit();
-        //}
-
         public void OnTouchpadTouched(InputEventData eventData)
         {
   
@@ -241,6 +211,35 @@ namespace GalaxyExplorer
         public void OnInputPositionChanged(InputPositionEventData eventData)
         {
 
+        }
+
+        public void OnMouseClickDown(GameObject clicker)
+        {
+            OnInputUp(null);
+
+            audioEventWrangler.OverrideFocusedObject(clicker);
+            audioEventWrangler?.OnInputClicked(null);
+            audioEventWrangler.OverrideFocusedObject(null);
+        }
+
+        public void OnMouseOverObject(GameObject clicker)
+        {
+            // if card description is hidden only then focus on poi and play relevant sound effect
+            if (CardDescription && !CardDescription.activeSelf)
+            {
+                OnFocusEnter();
+
+                audioEventWrangler?.OnFocusEnter(clicker);
+                audioEventWrangler.OverrideFocusedObject(null);
+            }
+        }
+
+        public void OnMouseExitObject()
+        {
+            if (CardDescription && CardDescription.activeSelf)
+            {
+                OnFocusExit();
+            }
         }
     }
 }

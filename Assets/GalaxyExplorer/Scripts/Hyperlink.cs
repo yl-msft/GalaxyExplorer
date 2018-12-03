@@ -13,6 +13,11 @@ namespace GalaxyExplorer
 
         public event Action Clicked;
 
+        void OnMouseDown()
+        {
+            OnInputUp(null);
+        }
+
         public void OnHoldCanceled()
         {
         }
