@@ -47,12 +47,29 @@ namespace GalaxyExplorer
         private void Update()
         {
             isAboutButtonClicked = false;
+
+            UpdateMouseButtonClicks();
         }
 
         // Callback when Desktop About button is clicked/touched/selected
         public void ButtonClicked()
         {
             isAboutButtonClicked = true;
+        }
+
+        // On every left mouse click check if click is inside or outside about slate card.
+        private void UpdateMouseButtonClicks()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    ToggleAboutSlateLogic(IsClickOnAboutSlate(hit.collider.gameObject));
+                }
+            }
         }
 
         // Is user touching the About slate area
@@ -71,13 +88,13 @@ namespace GalaxyExplorer
         }
 
         // Has user clicked the About slate area
-        public bool IsClickOnAboutSlate()
+        public bool IsClickOnAboutSlate(GameObject hitObject)
         {
             // Check if clicked object is any of the slate object
             Collider[] allChildren = GetComponentsInChildren<Collider>();
             foreach (var entity in allChildren)
             {
-                if (entity.gameObject == GazeManager.Instance.HitObject)
+                if (entity.gameObject == hitObject)
                 {
                     return true;
                 }
@@ -98,7 +115,7 @@ namespace GalaxyExplorer
         // On every user's click, check if the click is outside the about area and if it is and About card is on then deactivate it
         public void OnInputClicked(InputClickedEventData eventData)
         {
-            ToggleAboutSlateLogic(IsClickOnAboutSlate());
+            ToggleAboutSlateLogic(IsClickOnAboutSlate(GazeManager.Instance.HitObject));
         }
 
         private void ToggleAboutSlateLogic(bool isAboutSelected)
