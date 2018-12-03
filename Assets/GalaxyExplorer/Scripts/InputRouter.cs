@@ -56,11 +56,8 @@ namespace GalaxyExplorer
 
         private void BackSpaceKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
         {
-            if (isCtrlHeld)
-            {
-                transition.LoadPrevScene();
-                OnKeyboadSelection?.Invoke();
-            }
+            transition.LoadPrevScene();
+            OnKeyboadSelection?.Invoke();
         }
 
         private void HandleOnInputUp(IInputHandler handler)
