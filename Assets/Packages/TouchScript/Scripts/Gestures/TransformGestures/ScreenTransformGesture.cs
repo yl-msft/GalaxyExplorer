@@ -129,6 +129,12 @@ namespace TouchScript.Gestures.TransformGestures
             return Vector3.zero;
         }
 
+        // Rotate based on old and new position of mouse
+        protected override float doOnePointRotation(Vector2 oldScreenPos, Vector2 newScreenPos, ProjectionParams projectionParams)
+        {
+            return (Mathf.Atan2(newScreenPos.y, newScreenPos.x) - Mathf.Atan2(oldScreenPos.y, oldScreenPos.x)) * Mathf.Rad2Deg;
+        }
+
         /// <inheritdoc />
         protected override Vector3 doTwoPointTranslation(Vector2 oldScreenPos1, Vector2 oldScreenPos2,
                                                          Vector2 newScreenPos1, Vector2 newScreenPos2, float dR, float dS, ProjectionParams projectionParams)

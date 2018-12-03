@@ -61,6 +61,7 @@ namespace TouchScript.Examples.CameraControl
         private void twoFingerTransformHandler(object sender, System.EventArgs e)
         {
             pivot.localPosition += pivot.rotation*TwoFingerMoveGesture.DeltaPosition*PanSpeed;
+            pivot.localRotation *= Quaternion.Euler(TwoFingerMoveGesture.DeltaRotation, 0.0f, 0.0f);
         }
     }
 }

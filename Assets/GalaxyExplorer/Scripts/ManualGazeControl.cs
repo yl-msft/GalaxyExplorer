@@ -34,12 +34,20 @@ namespace GalaxyExplorer
 
         private void Awake()
         {
-            // Destroy on VR or Hololens
+            if (Application.isEditor)
+            {
+
 #if UNITY_2017_2_OR_NEWER
-            if (UnityEngine.XR.XRDevice.isPresent)
+                if (UnityEngine.XR.XRDevice.isPresent)
 #else
-            if (UnityEngine.VR.VRDevice.isPresent)
+                if (UnityEngine.VR.VRDevice.isPresent)
 #endif
+                {
+                    Destroy(this);
+                    return;
+                }
+            }
+            else
             {
                 Destroy(this);
                 return;

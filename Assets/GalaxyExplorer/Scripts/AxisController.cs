@@ -115,7 +115,7 @@ namespace GalaxyExplorer
             // AxisController is for development only and should not exist--and certainly not be used--in
             // any non-Editor scenario.
 #if !UNITY_EDITOR
-            //Destroy(this);
+            Destroy(this);
 #else
             // Workaround for Remote Desktop.  Ctrl-mouse, Shift-mouse, and Alt-mouse don't work, so they should be avoided.
             if (IsRunningUnderRemoteDesktop())

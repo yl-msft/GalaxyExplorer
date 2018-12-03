@@ -142,8 +142,17 @@ namespace TouchScript.Gestures.TransformGestures.Base
                 if (!translationEnabled) return; // don't look for translates
                 if (!relevantPointers1(pointers)) return;
 
-                // translate using one point
-                dP = doOnePointTranslation(getPointPreviousScreenPosition(0), getPointScreenPosition(0), projectionParams);
+                // If ctrl is pressed along with left mouse button then rotate
+                if (Input.GetButton("Left_Ctrl") || Input.GetButton("Right_Ctrl"))
+                {
+                    // rotate using one point
+                    dR = doOnePointRotation(getPointPreviousScreenPosition(0), getPointScreenPosition(0), projectionParams);
+                }
+                else
+                {
+                    // translate using one point
+                    dP = doOnePointTranslation(getPointPreviousScreenPosition(0), getPointScreenPosition(0), projectionParams);
+                }
             }
             else
             {
@@ -304,6 +313,19 @@ namespace TouchScript.Gestures.TransformGestures.Base
                                                         ProjectionParams projectionParams)
         {
             return Vector3.zero;
+        }
+
+        /// <summary>
+        /// Calculates single mouse click rotation.
+        /// </summary>
+        /// <param name="oldScreenPos"> Finger old screen position. </param>
+        /// <param name="newScreenPos"> Finger new screen position. </param>
+        /// <param name="projectionParams"> Layer projection parameters. </param>
+        /// <returns> Delta translation vector. </returns>
+        protected virtual float doOnePointRotation(Vector2 oldScreenPos, Vector2 newScreenPos,
+                                                        ProjectionParams projectionParams)
+        {
+            return 0.0f;
         }
 
         /// <summary>
