@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler, IMouseHandler
+    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler
     {
         [SerializeField]
         protected GameObject CardDescription = null;
@@ -143,6 +143,11 @@ namespace GalaxyExplorer
             }
         }
 
+        protected virtual void OnDestroy()
+        {
+            cardPoiManager.UnRegisterPOI(this);
+        }
+
         protected void Update()
         {
             UpdateTransform();
@@ -205,6 +210,8 @@ namespace GalaxyExplorer
                 audioEventWrangler.OverrideFocusedObject(focusedObj);
                 audioEventWrangler?.OnInputClicked(null);
                 audioEventWrangler.OverrideFocusedObject(null);
+
+                Debug.Log("OnTouchpadReleased");
             }
         }
 
@@ -213,33 +220,5 @@ namespace GalaxyExplorer
 
         }
 
-        public void OnMouseClickDown(GameObject clicker)
-        {
-            OnInputUp(null);
-
-            audioEventWrangler.OverrideFocusedObject(clicker);
-            audioEventWrangler?.OnInputClicked(null);
-            audioEventWrangler.OverrideFocusedObject(null);
-        }
-
-        public void OnMouseOverObject(GameObject clicker)
-        {
-            // if card description is hidden only then focus on poi and play relevant sound effect
-            if (CardDescription && !CardDescription.activeSelf)
-            {
-                OnFocusEnter();
-
-                audioEventWrangler?.OnFocusEnter(clicker);
-                audioEventWrangler.OverrideFocusedObject(null);
-            }
-        }
-
-        public void OnMouseExitObject()
-        {
-            if (CardDescription && CardDescription.activeSelf)
-            {
-                OnFocusExit();
-            }
-        }
     }
 }

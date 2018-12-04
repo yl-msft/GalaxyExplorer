@@ -216,23 +216,6 @@ Transform:
   m_Father: {fileID: 1345641776}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 20, y: 30, z: -15}
---- !u!1 &110532690 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1579561800502840, guid: 8506cf1ada7845346a6f8cc6abcb6b62,
-    type: 2}
-  m_PrefabInternal: {fileID: 165838185}
---- !u!114 &110532695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 110532690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 1916847886}
 --- !u!4 &125876502 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4582894862000188, guid: 481b5fb6cac3b824f8087cbae94281a4,
@@ -305,16 +288,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4745986515224634, guid: 8506cf1ada7845346a6f8cc6abcb6b62,
     type: 2}
   m_PrefabInternal: {fileID: 165838185}
---- !u!1 &253563728 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1123378712782182, guid: 4dfc93f6b612a4d468c195183043f8c4,
-    type: 2}
-  m_PrefabInternal: {fileID: 1567824426}
---- !u!1 &301506250 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1138532651687892, guid: 9f76a9fbe92c04344a581cfa77888228,
-    type: 2}
-  m_PrefabInternal: {fileID: 1782196882}
 --- !u!1 &331003481
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,11 +365,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9f9229727bfc5814d954bbc2d626c1bb, type: 3}
     delay: 2
     allowReplay: 0
---- !u!1 &394500737 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1098842032797352, guid: 7294de74339f30d4c859699f450fcf93,
-    type: 2}
-  m_PrefabInternal: {fileID: 1705013300}
 --- !u!1 &405131713 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1835249662934314, guid: 7294de74339f30d4c859699f450fcf93,
@@ -420,18 +388,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &405131720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 405131713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 394500737}
 --- !u!1 &487152889 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1185342533737686, guid: da26e73ca3acc984c98747bebe657120,
@@ -455,18 +411,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &487152896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 487152889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 874417619}
 --- !u!1 &616231113
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,18 +610,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Deselect
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &746329777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 746329771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 1863051007}
 --- !u!4 &780934240 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4739989330438978, guid: ea4077a54a402c14b9d3ee0b48a349be,
@@ -706,18 +638,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &824553636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 824553629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 253563728}
 --- !u!1 &865251897
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,11 +679,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0005
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &874417619 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1698663839576048, guid: da26e73ca3acc984c98747bebe657120,
-    type: 2}
-  m_PrefabInternal: {fileID: 1268173368}
 --- !u!1 &1153926303 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1033284105901800, guid: da26e73ca3acc984c98747bebe657120,
@@ -787,18 +702,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Deselect
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &1153926309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1153926303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 874417619}
 --- !u!1001 &1268173368
 Prefab:
   m_ObjectHideFlags: 0
@@ -940,18 +843,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &1409830171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1409830164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 301506250}
 --- !u!1 &1551766746 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1520709658993190, guid: 481b5fb6cac3b824f8087cbae94281a4,
@@ -975,18 +866,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &1551766753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1551766746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 1863051007}
 --- !u!1001 &1567824426
 Prefab:
   m_ObjectHideFlags: 0
@@ -1092,18 +971,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Deselect
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &1601739010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1601739004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 253563728}
 --- !u!1001 &1705013300
 Prefab:
   m_ObjectHideFlags: 0
@@ -1191,23 +1058,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4093881229954768, guid: 7294de74339f30d4c859699f450fcf93,
     type: 2}
   m_PrefabInternal: {fileID: 1705013300}
---- !u!1 &1735699097 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1247227000320452, guid: ea4077a54a402c14b9d3ee0b48a349be,
-    type: 2}
-  m_PrefabInternal: {fileID: 2076005429}
---- !u!114 &1735699102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1735699097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 2060101479}
 --- !u!1001 &1782196882
 Prefab:
   m_ObjectHideFlags: 0
@@ -1313,18 +1163,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Deselect
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &1831953852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1831953846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 301506250}
 --- !u!4 &1839642280 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4068566476313136, guid: 9f76a9fbe92c04344a581cfa77888228,
@@ -1375,16 +1213,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
   - {fileID: 2100000, guid: c4492061c36da54498419d7c5c7cacfd, type: 2}
   - {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
---- !u!1 &1863051007 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1230359962134516, guid: 481b5fb6cac3b824f8087cbae94281a4,
-    type: 2}
-  m_PrefabInternal: {fileID: 746329770}
---- !u!1 &1916847886 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1418716006327584, guid: 8506cf1ada7845346a6f8cc6abcb6b62,
-    type: 2}
-  m_PrefabInternal: {fileID: 165838185}
 --- !u!1 &1936873279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,23 +1380,6 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Deselect
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
---- !u!114 &2005039840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2005039834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71073ed532b7154bb55d4a9dea8e0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Receiver: {fileID: 394500737}
---- !u!1 &2060101479 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1967278525536254, guid: ea4077a54a402c14b9d3ee0b48a349be,
-    type: 2}
-  m_PrefabInternal: {fileID: 2076005429}
 --- !u!1001 &2076005429
 Prefab:
   m_ObjectHideFlags: 0

@@ -143,6 +143,7 @@ namespace GalaxyExplorer
 
         public void OnTouchpadReleased(InputEventData eventData)
         {
+            // GETouchScreenInputSource sets InputManager.Instance.OverrideFocusedObject on collider touch
             GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
             DeactivateAllDescriptionsHandlers(focusedObj);
 
