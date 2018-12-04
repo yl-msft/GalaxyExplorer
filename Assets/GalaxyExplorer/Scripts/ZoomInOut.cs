@@ -87,6 +87,16 @@ namespace GalaxyExplorer
 
                     NextSceneFocusCollider = relatedPlanet.GetComponentInChildren<SphereCollider>();
                 }
+                // if transition is from galaxy to solar system, galaxy to galactiv center and back
+                else
+                {
+                    GameObject previousPlanetPOI = null;
+                    GameObject nextPlanetPOI = null;
+                    GetRelatedScenes(out previousPlanetPOI, out nextPlanetPOI, previousTransition, newTransition);
+
+                    PreviousSceneFocusCollider = (previousPlanetPOI) ? previousPlanetPOI.GetComponentInChildren<SphereCollider>() : PreviousSceneFocusCollider;
+                    NextSceneFocusCollider = (nextPlanetPOI) ? nextPlanetPOI.GetComponentInChildren<SphereCollider>() : NextSceneFocusCollider;
+                }
 
                 previousFocusInitialScale = PreviousSceneFocusCollider.radius * PreviousSceneFocusCollider.transform.lossyScale.x;
                 previousSceneInitialScale = PreviousScene.localScale.x;
@@ -115,62 +125,6 @@ namespace GalaxyExplorer
 
                 scalar = nextFocusInitialScale / previousFocusInitialScale;
             }
-
-            yield return null;
-        }
-
-        public IEnumerator ZoomOutCoroutine(float duration, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
-        {
-            if (PreviousScene == null || PreviousSceneFocusCollider == null)
-            {
-                ZoomOutIsDone = true;
-                yield break;
-            }
-
-            transitionAmount = 0.0f;
-
-            while (transitionAmount <= 1.0f)
-            {
-                transitionAmount += Time.deltaTime / duration;
-                PreviousScene.localScale = Vector3.one * Mathf.Lerp(previousSceneInitialScale, scalar, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
-
-                yield return null;
-            }
-
-            transitionAmount = 0.0f;
-            ZoomOutIsDone = true;
-
-            yield return null;
-        }
-
-        public IEnumerator ZoomInCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
-        {
-            if (NextScene == null || NextSceneFocusCollider == null)
-            {
-                ZoomInIsDone = true;
-                yield break;
-            }
-
-            transitionAmount = 0.0f;
-
-            while (transitionAmount <= 1.0f)
-            {
-                transitionAmount += Time.deltaTime / duration;
-
-                // Rotate scenes. Previous scene need to rotate around a pivot point which is the previous scene's focus point
-                NextScene.transform.rotation = Quaternion.Slerp(nextInitQuaternion, nextSceneInitialRotation, Mathf.Clamp01(rotationCurve.Evaluate(transitionAmount)));
-
-                // Scale scenes. Previous scene's focus point should not move because of scale so need to position the scene back to where it was 
-                // before scale in order for its focus point to remain at the same position
-                NextScene.localScale = Vector3.one * Mathf.Lerp(nextSceneInitialScale * (1f / scalar), nextSceneInitialScale, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
-                // Position scenes. FOr next scene take into account the focus collider pivot as well
-                NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition, previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
-
-                yield return null;
-            }
-
-            transitionAmount = 0.0f;
-            ZoomInIsDone = true;
 
             yield return null;
         }
@@ -233,6 +187,36 @@ namespace GalaxyExplorer
                 if (planetView && (planetView.GetSceneName == planet.GetSceneToLoad))
                 {
                     relatedPlanetObject = planet.PlanetObject;
+                    break;
+                }
+            }
+        }
+
+        // During transition that doesnt involve single planet so during transition from galaxy to solar or to galactic center
+        // we need to identify the poi that spawned the next scene or if going backwards the poi that we are going into
+        private void GetRelatedScenes(out GameObject previousRelatedPlanetObjectt, out GameObject nextRelatedPlanetObjectt,SceneTransition previousScene, SceneTransition newScene)
+        {
+            previousRelatedPlanetObjectt = null;
+            nextRelatedPlanetObjectt = null;
+
+            // If a planet of the previous scene loads the new scene then this is the previous focus collider 
+            PlanetPOI[] allPreviousPlanets = previousScene.GetComponentsInChildren<PlanetPOI>();
+            foreach (var planet in allPreviousPlanets)
+            {
+                if (planet && planet.GetSceneToLoad == newScene.gameObject.scene.name)
+                {
+                    previousRelatedPlanetObjectt = planet.PlanetObject;
+                    break;
+                }
+            }
+
+            // If a planet of the previous scene loads the new scene then this is the previous focus collider 
+            PlanetPOI[] allNewPlanets = newScene.GetComponentsInChildren<PlanetPOI>();
+            foreach (var planet in allNewPlanets)
+            {
+                if (planet && planet.GetSceneToLoad == previousScene.gameObject.scene.name)
+                {
+                    nextRelatedPlanetObjectt = planet.PlanetObject;
                     break;
                 }
             }

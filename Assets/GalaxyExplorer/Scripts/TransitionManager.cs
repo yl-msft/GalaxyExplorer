@@ -31,8 +31,8 @@ namespace GalaxyExplorer
         [Tooltip("The time it takes to fully transition from one scene opening and getting into position at the center of the cube or room.")]
         public float TransitionTimeOpeningScene = 3.0f;
         [Tooltip("Drives the opacity of the new scene that was loaded in when transitioning backwards.")]
-        public AnimationCurve BackTransitionOpacityCurveContentChange;
-        [Tooltip("Drives the opacity of the new scene that was loaded when transitioning from planet to solar system view.")]
+        public AnimationCurve OpacityCurveEnteringScene;
+        [Tooltip("Drives the opacity animation for the next scene that is entering.")]
         public AnimationCurve PlanetToSSTransitionOpacityCurveContentChange;
 
         [Header("Closing Scene")]
@@ -75,16 +75,16 @@ namespace GalaxyExplorer
         private AudioSource MovableAudioSource = null;
 
         [SerializeField]
-        private AudioTransition SolarSystemClips;
+        private AudioTransition SolarSystemClips = new AudioTransition();
 
         [SerializeField]
-        private AudioTransition PlanetClips;
+        private AudioTransition PlanetClips = new AudioTransition();
 
         [SerializeField]
-        private AudioTransition BackClips;
+        private AudioTransition BackClips = new AudioTransition();
 
         [SerializeField]
-        private AudioTransition IntroClips;
+        private AudioTransition IntroClips = new AudioTransition();
 
         [Serializable]
         public struct AudioTransition
@@ -295,6 +295,7 @@ namespace GalaxyExplorer
             SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
 
             DeactivateOrbitUpdater(newTransition);
+            SetActivePOIRotationAnimator(false, previousTransition, newTransition);
 
             // Scale new scene to fit inside the volume
             float scaleToFill = transformSource.transform.lossyScale.x;
@@ -311,18 +312,8 @@ namespace GalaxyExplorer
                 SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), false);
             }
 
-            bool zoomInOutSimultaneously = (!IsInIntroFlow && newTransition.IsSinglePlanetTransition) || (previousTransition && previousTransition.IsSinglePlanetTransition);
-
-            // Zoom in and out simultaneously in case of single planet involved in transition
-            if (zoomInOutSimultaneously)
-            {
-                StartCoroutine(ZoomInOutSimultaneouslyFlow(previousTransition, newTransition));
-            }
-            // else zoom out the previous scene 
-            else
-            {
-                StartCoroutine(ZoomInOutSeparetlyFlow(previousTransition, newTransition));
-            }
+            //bool zoomInOutSimultaneously = (!IsInIntroFlow && newTransition.IsSinglePlanetTransition) || (previousTransition && previousTransition.IsSinglePlanetTransition);
+            StartCoroutine(ZoomInOutSimultaneouslyFlow(previousTransition, newTransition));
 
             // wait until prev scene transition finishes
             while (!ZoomInOutBehaviour.ZoomOutIsDone)
@@ -341,6 +332,8 @@ namespace GalaxyExplorer
             {
                 yield return null;
             }
+
+            SetActivePOIRotationAnimator(true, previousTransition, newTransition);
 
             // Fade in pois of next scene
             if (introStage != IntroStage.kActiveIntro)
@@ -391,7 +384,10 @@ namespace GalaxyExplorer
             PlayTransitionAudio(newTransition.transform, inForwardTransition);
 
             // Make invisible one of the two planets that represent the same entity in both scenes
-            SetRenderersVisibility(newTransition.IsSinglePlanetTransition ? relatedPlanet.transform.parent.gameObject : singlePlanet.transform.parent.gameObject, false);
+            if (relatedPlanet && singlePlanet)
+            {
+                SetRenderersVisibility(newTransition.IsSinglePlanetTransition ? relatedPlanet.transform.parent.gameObject : singlePlanet.transform.parent.gameObject, false);
+            }
 
             // make alpha of pois of next scene equal to zero so they arent visible
             FadeManager.SetAlphaOnFader(newTransition.GetComponentInChildren<POIMaterialsFader>(), 0.0f);
@@ -402,11 +398,21 @@ namespace GalaxyExplorer
             {
                 Fader[] allFaders = newTransition.GetComponentsInChildren<Fader>();
                 FadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
-                FadeManager.SetAlphaOnFader(relatedPlanet.GetComponent<Fader>(), 1.0f);
+
+                if (relatedPlanet)
+                    FadeManager.SetAlphaOnFader(relatedPlanet.GetComponent<Fader>(), 1.0f);
 
                 isFading = true;
-                AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
+                AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : OpacityCurveEnteringScene;
                 FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
+            }
+            else if ((previousTransition && !previousTransition.IsSinglePlanetTransition && newTransition && !newTransition.IsSinglePlanetTransition))
+            {
+                Fader[] allFaders = newTransition.GetComponentsInChildren<Fader>();
+                FadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
+
+                isFading = true;
+                FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, OpacityCurveEnteringScene);
             }
 
             StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
@@ -505,60 +511,6 @@ namespace GalaxyExplorer
             return child;
         }
 
-        // Flow of transition when previous and new scenes zoom in and out separetly, e.g galaxy to solar scene
-        private IEnumerator ZoomInOutSeparetlyFlow(SceneTransition previousTransition, SceneTransition newTransition)
-        {
-            // Zoom out previous scene. First fade out  pois and when that ends then zoom out previous scene
-            if (previousTransition)
-            {
-                if (introStage == IntroStage.kInactiveIntro)
-                {
-                    isFading = true;
-                    FadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
-                }
-
-                while (isFading)
-                {
-                    yield return null;
-                }
-
-                StartCoroutine(ZoomInOutBehaviour.ZoomOutCoroutine(TransitionTimeOpeningScene * 0.5f, GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
-                FadeManager.FadeExcept(previousTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeOut, TransitionTimeOpeningScene * 0.5f, POIOpacityCurveStartTransition);
-                PlayTransitionAudio(newTransition.transform, inForwardTransition);
-
-                // wait until prev scene transition finishes
-                while (!ZoomInOutBehaviour.ZoomOutIsDone)
-                {
-                    yield return null;
-                }
-            }
-            else
-            {
-                // There is no previous scene so set the flag to true about zooming out previous scene
-                ZoomInOutBehaviour.ZoomOutIsDone = true;
-
-                PlayTransitionAudio(newTransition.transform, inForwardTransition);
-            }
-
-            // Make sure that new scene wont be visible just yet. 
-            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<Fader>(), 0.0f);
-
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-
-            // Make sure that new scene pois wont be visible just yet. For some reason, for pois to become invisible it is needed the above 2 frames waiting time
-            FadeManager.SetAlphaOnFader(newTransition.GetComponentsInChildren<POIMaterialsFader>(), 0.0f);
-
-            // Fade in scene except pois, and zoom in new scene
-            isFading = true;
-            AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : BackTransitionOpacityCurveContentChange;
-            FadeManager.FadeExcept(newTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene * 0.5f, opacityCurve);
-
-            StartCoroutine(ZoomInOutBehaviour.ZoomInCoroutine(TransitionTimeOpeningScene * 0.5f, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
-
-            yield return null;
-        }
-
         private void DeactivateOrbitUpdater(SceneTransition newTransition)
         {
             // If going into a single planet then deactivate the previous scene's planet rotation script
@@ -576,6 +528,37 @@ namespace GalaxyExplorer
                 else if (relatedPlanet && relatedPlanet.transform.parent.GetComponent<OrbitUpdater>())
                 {
                     relatedPlanet.transform.parent.GetComponent<OrbitUpdater>().enabled = false;
+                }
+            }
+        }
+
+        // When transition starts, the animator that rotates the POIs need to be deactivated as it changes their position
+        private void SetActivePOIRotationAnimator(bool isActive, SceneTransition previousTransition, SceneTransition nextTransition)
+        {
+            if (previousTransition && previousTransition.gameObject.scene.name == "GalaxyView")
+            {
+                Animator[] allAnimators = previousTransition.GetComponentsInChildren<Animator>();
+                foreach (var animator in allAnimators)
+                {
+                    if (animator.runtimeAnimatorController && animator.runtimeAnimatorController.name.Contains("POIRotation"))
+                    {
+                        animator.enabled = isActive;
+                        Debug.Log("Change activation of POIRotation animation to " + isActive);
+                        break;
+                    }
+                }
+            }
+            else if (nextTransition && nextTransition.gameObject.scene.name == "GalaxyView")
+            {
+                Animator[] allAnimators = nextTransition.GetComponentsInChildren<Animator>();
+                foreach (var animator in allAnimators)
+                {
+                    if (animator.runtimeAnimatorController && animator.runtimeAnimatorController.name.Contains("POIRotation"))
+                    {
+                        animator.enabled = isActive;
+                        Debug.Log("Change activation of POIRotation animation to " + isActive);
+                        break;
+                    }
                 }
             }
         }
@@ -615,6 +598,37 @@ namespace GalaxyExplorer
                 }
             }
         }
+
+        // During transition that doesnt involve single planet so during transition from galaxy to solar or to galactic center
+        // we need to identify the poi that spawned the next scene or if going backwards the poi that we are going into
+        private void GetRelatedScenes(out GameObject previousRelatedPlanetObjectt, out GameObject nextRelatedPlanetObjectt, SceneTransition previousScene, SceneTransition newScene)
+        {
+            previousRelatedPlanetObjectt = null;
+            nextRelatedPlanetObjectt = null;
+
+            // If a planet of the previous scene loads the new scene then this is the previous focus collider 
+            PlanetPOI[] allPreviousPlanets = previousScene.GetComponentsInChildren<PlanetPOI>();
+            foreach (var planet in allPreviousPlanets)
+            {
+                if (planet && planet.GetSceneToLoad == newScene.gameObject.scene.name)
+                {
+                    previousRelatedPlanetObjectt = planet.PlanetObject;
+                    break;
+                }
+            }
+
+            // If a planet of the previous scene loads the new scene then this is the previous focus collider 
+            PlanetPOI[] allNewPlanets = newScene.GetComponentsInChildren<PlanetPOI>();
+            foreach (var planet in allNewPlanets)
+            {
+                if (planet && planet.GetSceneToLoad == previousScene.gameObject.scene.name)
+                {
+                    nextRelatedPlanetObjectt = planet.PlanetObject;
+                    break;
+                }
+            }
+        }
+
 
         private AnimationCurve GetContentTransitionCurve(string loadedSceneName)
         {
