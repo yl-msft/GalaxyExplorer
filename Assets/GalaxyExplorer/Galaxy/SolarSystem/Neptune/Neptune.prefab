@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4588468847577394}
+  - component: {fileID: 114622433648647296}
   m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
@@ -139,6 +140,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4082659277665300}
+  - component: {fileID: 114443892014949132}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -210,7 +212,7 @@ GameObject:
   - component: {fileID: 23558946346901128}
   - component: {fileID: 65445780657247544}
   - component: {fileID: 114753384206695968}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +314,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958689446801036}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4082659277665300}
@@ -817,6 +819,21 @@ MonoBehaviour:
   forceToWorldUp: 0
   forceCameraUp: 0
   forceParentUp: 0
+--- !u!114 &114443892014949132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557607087226460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114462019703690810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -854,7 +871,7 @@ MonoBehaviour:
   Indicator: {fileID: 1051139109479970}
   IndicatorLine: {fileID: 114673799363514150}
   TargetPoint: {fileID: 1125920926886276}
-  IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
+  IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
   SceneToLoad: NeptuneView
   Planet: {fileID: 1536364963747654}
@@ -871,6 +888,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: LineBase
   material: {fileID: 0}
+--- !u!114 &114622433648647296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1051139109479970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114673799363514150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -884,7 +916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0025
+  width: 0.003
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1

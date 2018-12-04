@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4846362385877916}
+  - component: {fileID: 114744228530864432}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -143,6 +144,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4847283981931032}
+  - component: {fileID: 114363048016412192}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -198,7 +200,7 @@ GameObject:
   - component: {fileID: 23008367949227920}
   - component: {fileID: 65688813766341288}
   - component: {fileID: 114866542502528824}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,6 +230,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4625717937908718}
+  - component: {fileID: 114534863130933342}
   m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
@@ -243,6 +246,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4535554087422474}
+  - component: {fileID: 114869462256872918}
   m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
@@ -336,7 +340,7 @@ GameObject:
   - component: {fileID: 33456571597548750}
   - component: {fileID: 23329661958305812}
   - component: {fileID: 65536555286345500}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +421,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1143117321159302}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4847283981931032}
@@ -1045,9 +1049,10 @@ AudioSource:
   m_GameObject: {fileID: 1312280091084390}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300001, guid: c9f204e7d1024564fb9b296a29dbe307,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1309,6 +1314,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cdcb570c416354db07d07e68fd28ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114363048016412192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318949286769434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114368349245466858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1336,6 +1356,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flaresMaterial: {fileID: 2100000, guid: 68752b50339d2a9449fab522aa1d781d, type: 2}
+--- !u!114 &114534863130933342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645327383108464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114583710002575846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1389,9 +1424,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  HydrationAudioFx: {fileID: 0}
-  DeHydrationAudioFx: {fileID: 0}
-  FxAudioSource: {fileID: 0}
+  HydrationAudioFx: {fileID: 8300000, guid: a3288ec8bdf39fe42ada675e55fc81a0, type: 3}
+  DeHydrationAudioFx: {fileID: 8300000, guid: 49a071aa14b931b46a9a990288b9b2f1, type: 3}
+  VO: {fileID: 8300000, guid: eaacc36b4e2953640a9d058e76663500, type: 3}
+  FxAudioSource: {fileID: 82086013761980610}
   AlternateDescription: {fileID: 1715123513487308}
   RealIcon: {fileID: 2800000, guid: ff910ec6a236cab4cbe58bd3583edc46, type: 3}
   SimplifiedIcon: {fileID: 2800000, guid: 695466d0e7393424aa949b6cc1b876a1, type: 3}
@@ -1426,7 +1462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0025
+  width: 0.003
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
@@ -1457,10 +1493,25 @@ MonoBehaviour:
   Indicator: {fileID: 1680380131841356}
   IndicatorLine: {fileID: 114606859357711898}
   TargetPoint: {fileID: 1643589125921812}
-  IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
+  IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
   SceneToLoad: SunView
   Planet: {fileID: 1411338455767804}
+--- !u!114 &114744228530864432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074511328546450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114770397207522946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1489,6 +1540,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: UI_POI
   material: {fileID: 0}
+--- !u!114 &114869462256872918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680380131841356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114874893125900828
 MonoBehaviour:
   m_ObjectHideFlags: 1

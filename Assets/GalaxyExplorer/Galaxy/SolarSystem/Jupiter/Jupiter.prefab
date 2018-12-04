@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4826057393305162}
+  - component: {fileID: 114532158864747296}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -144,6 +145,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4977202612145614}
+  - component: {fileID: 114041627874037116}
   m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
@@ -233,7 +235,7 @@ GameObject:
   - component: {fileID: 23517002836084360}
   - component: {fileID: 65691383313522706}
   - component: {fileID: 114696288546795766}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +374,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1721451779296460}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4826057393305162}
@@ -907,6 +909,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114041627874037116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1361075913064140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114071445923590576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -995,7 +1012,7 @@ MonoBehaviour:
   Indicator: {fileID: 1361075913064140}
   IndicatorLine: {fileID: 114721672487280336}
   TargetPoint: {fileID: 1412934807682780}
-  IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
+  IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
   SceneToLoad: JupiterView
   Planet: {fileID: 1361550554541148}
@@ -1098,6 +1115,21 @@ MonoBehaviour:
   forceToWorldUp: 0
   forceCameraUp: 0
   forceParentUp: 0
+--- !u!114 &114532158864747296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254159597650146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114628783033163080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1190,7 +1222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0025
+  width: 0.003
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1

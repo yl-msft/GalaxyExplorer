@@ -70,6 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4792194767650210}
+  - component: {fileID: 114265464938370394}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -126,6 +127,7 @@ GameObject:
   - component: {fileID: 23196726765310206}
   - component: {fileID: 114837283572627054}
   - component: {fileID: 114768135014032652}
+  - component: {fileID: 114951029762426982}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -248,6 +250,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4909377941742200}
+  - component: {fileID: 114758453204089378}
   m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
@@ -267,7 +270,7 @@ GameObject:
   - component: {fileID: 23754017921655006}
   - component: {fileID: 65492935767174280}
   - component: {fileID: 114304819298975988}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +313,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1439922977061368}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4792194767650210}
@@ -946,6 +949,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cdcb570c416354db07d07e68fd28ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114265464938370394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1128799306553082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114304819298975988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1028,7 +1046,7 @@ MonoBehaviour:
   Indicator: {fileID: 1889547621224538}
   IndicatorLine: {fileID: 114438456934596512}
   TargetPoint: {fileID: 1752569321218954}
-  IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
+  IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
   indicatorOffset: {x: 0, y: 0.2, z: 0}
   SceneToLoad: SaturnView
   Planet: {fileID: 1357127204829864}
@@ -1045,7 +1063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0025
+  width: 0.003
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
@@ -1078,6 +1096,21 @@ MonoBehaviour:
   pointOfInterestMarker: {fileID: 114435700947517138}
   pointOfInterestAngle: 190
   snapPointOfInterestToPosition: 1
+--- !u!114 &114758453204089378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1889547621224538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114768135014032652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1148,6 +1181,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
   SetMaterials: 1
+--- !u!114 &114951029762426982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232799573983694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef7214ec9abe1545a2aa777c722386f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114435700947517138}
 --- !u!114 &114966690514115640
 MonoBehaviour:
   m_ObjectHideFlags: 1
