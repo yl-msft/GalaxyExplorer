@@ -104,6 +104,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4006206914266778}
+  - component: {fileID: 114490458392907726}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -741,6 +742,21 @@ MonoBehaviour:
   forceToWorldUp: 0
   forceCameraUp: 0
   forceParentUp: 0
+--- !u!114 &114490458392907726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1517701141818500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114524951316295774
 MonoBehaviour:
   m_ObjectHideFlags: 1
