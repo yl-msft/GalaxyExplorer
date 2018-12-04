@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 23711488658982564}
   - component: {fileID: 65939786310049494}
   - component: {fileID: 114244964770964240}
-  m_Layer: 8
+  - component: {fileID: 114506359138494772}
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 114411658258791640}
   - component: {fileID: 114976645090992654}
   - component: {fileID: 114687126842833840}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +60,8 @@ GameObject:
   - component: {fileID: 33800917903757460}
   - component: {fileID: 23181118819830540}
   - component: {fileID: 64684384790199974}
-  m_Layer: 8
+  - component: {fileID: 114013588788903366}
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +76,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4433554474175562}
-  - component: {fileID: 114565974304513938}
+  - component: {fileID: 114612532166799288}
   m_Layer: 8
   m_Name: POILineBase
   m_TagString: Untagged
@@ -140,8 +142,25 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4942009960540504}
+  - component: {fileID: 114179436613379416}
   m_Layer: 8
   m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1720092915573054
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4878572390006362}
+  - component: {fileID: 114645605449427446}
+  m_Layer: 8
+  m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +192,6 @@ GameObject:
   - component: {fileID: 33989210697998948}
   - component: {fileID: 64847415762546374}
   - component: {fileID: 23959303988187508}
-  - component: {fileID: 114097610735932686}
   - component: {fileID: 114310742634263760}
   m_Layer: 8
   m_Name: LineBase
@@ -234,11 +252,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1787785188378398}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.15000065, z: 0}
+  m_LocalScale: {x: 0.34999996, y: 0.34999996, z: 0.35000002}
   m_Children: []
-  m_Father: {fileID: 4433554474175562}
+  m_Father: {fileID: 4878572390006362}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4068566476313136
@@ -279,7 +297,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
-  - {fileID: 4003875273890500}
+  - {fileID: 4878572390006362}
   m_Father: {fileID: 4068566476313136}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -319,7 +337,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041004144502634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0.025, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4942009960540504}
@@ -355,6 +373,20 @@ Transform:
   m_Father: {fileID: 4823263941443852}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4878572390006362
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1720092915573054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4003875273890500}
+  m_Father: {fileID: 4433554474175562}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4902422503518258
 Transform:
   m_ObjectHideFlags: 1
@@ -362,7 +394,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275910392810722}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.082, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 40, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4925606800041670}
@@ -676,21 +708,39 @@ MonoBehaviour:
   forceToWorldUp: 1
   forceCameraUp: 0
   forceParentUp: 0
---- !u!114 &114097610735932686
+--- !u!114 &114013588788903366
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1787785188378398}
+  m_GameObject: {fileID: 1149571281721260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388e5cb4fc5231a43bc594a52dd95c38, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationOffset: {x: 0, y: 0, z: 0}
-  forceToWorldUp: 0
-  forceCameraUp: 0
-  forceParentUp: 0
+  CustomFocusEvent: none
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Deselect
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
+--- !u!114 &114179436613379416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706716609620504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114244964770964240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,27 +782,59 @@ MonoBehaviour:
   Indicator: {fileID: 1706716609620504}
   IndicatorLine: {fileID: 114976645090992654}
   TargetPoint: {fileID: 1266089081842180}
-  IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
+  IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
   indicatorOffset: {x: 0, y: 0.25, z: 0}
   CardObject: {fileID: 1769749351025262}
   CardAnimator: {fileID: 95158585439655816}
   CardAudio: {fileID: 8300000, guid: 6e72f8409213c474e8e75c103c270ff6, type: 3}
---- !u!114 &114565974304513938
+--- !u!114 &114506359138494772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1041004144502634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CustomFocusEvent: 
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Select
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
+--- !u!114 &114612532166799288
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1155263823516218}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca12887eee061164a8b4a453d92a8809, type: 3}
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IntendedViewDistance: 1
-  MinScale: 0.01
-  MaxScale: 100
-  RescaleEveryFrame: 1
-  RescaleWarp: 1
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
+--- !u!114 &114645605449427446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1720092915573054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388e5cb4fc5231a43bc594a52dd95c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationOffset: {x: 0, y: 0, z: 0}
+  forceToWorldUp: 0
+  forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114687126842833840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -782,7 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0005
+  width: 0.00075
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1

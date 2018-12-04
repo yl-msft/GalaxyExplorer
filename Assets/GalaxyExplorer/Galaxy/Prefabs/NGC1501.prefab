@@ -38,7 +38,8 @@ GameObject:
   - component: {fileID: 33940585895527424}
   - component: {fileID: 23422796408443324}
   - component: {fileID: 64167016917419586}
-  m_Layer: 8
+  - component: {fileID: 114112666741924964}
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,8 +57,24 @@ GameObject:
   - component: {fileID: 114945204936569428}
   - component: {fileID: 114524951316295774}
   - component: {fileID: 114613797954743284}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1341093658689150
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4000840981895604}
+  - component: {fileID: 114451410550038762}
+  m_Layer: 8
+  m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +119,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4916270578106962}
-  - component: {fileID: 114166857771521666}
+  - component: {fileID: 114639213624505842}
   m_Layer: 8
   m_Name: POILineBase
   m_TagString: Untagged
@@ -122,7 +139,8 @@ GameObject:
   - component: {fileID: 23610764119059156}
   - component: {fileID: 65354906588333274}
   - component: {fileID: 114947898073126558}
-  m_Layer: 8
+  - component: {fileID: 114603746646396596}
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +189,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4460932764542918}
+  - component: {fileID: 114785252555917322}
   m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
@@ -204,7 +223,6 @@ GameObject:
   - component: {fileID: 33983401539177524}
   - component: {fileID: 64893550110805136}
   - component: {fileID: 23726722823725774}
-  - component: {fileID: 114676757721284228}
   - component: {fileID: 114792586145540976}
   m_Layer: 8
   m_Name: LineBase
@@ -228,6 +246,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4000840981895604
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1341093658689150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4030536828100690}
+  m_Father: {fileID: 4916270578106962}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4006206914266778
 Transform:
   m_ObjectHideFlags: 1
@@ -263,11 +295,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865426224830316}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000000027357598, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1500003, z: 0}
+  m_LocalScale: {x: 0.34999996, y: 0.34999996, z: 0.35000002}
   m_Children: []
-  m_Father: {fileID: 4916270578106962}
+  m_Father: {fileID: 4000840981895604}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4139834863702406
@@ -291,7 +323,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1665826875328120}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.082, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 40, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4006206914266778}
@@ -319,7 +351,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563738818717338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0.025, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4460932764542918}
@@ -391,7 +423,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
-  - {fileID: 4030536828100690}
+  - {fileID: 4000840981895604}
   m_Father: {fileID: 4015367041438510}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -661,22 +693,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114166857771521666
+--- !u!114 &114112666741924964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1523845735414822}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1093602209837862}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca12887eee061164a8b4a453d92a8809, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IntendedViewDistance: 1
-  MinScale: 0.01
-  MaxScale: 100
-  RescaleEveryFrame: 1
-  RescaleWarp: 1
+  CustomFocusEvent: none
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Deselect
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
 --- !u!114 &114193855192362076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -692,6 +726,21 @@ MonoBehaviour:
   forceToWorldUp: 1
   forceCameraUp: 0
   forceParentUp: 0
+--- !u!114 &114451410550038762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1341093658689150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388e5cb4fc5231a43bc594a52dd95c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationOffset: {x: 0, y: 0, z: 0}
+  forceToWorldUp: 0
+  forceCameraUp: 0
+  forceParentUp: 0
 --- !u!114 &114524951316295774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,10 +754,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0005
+  width: 0.00075
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
+--- !u!114 &114603746646396596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563738818717338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CustomFocusEvent: 
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Select
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
 --- !u!114 &114613797954743284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -725,21 +792,36 @@ MonoBehaviour:
   MaxScale: 100
   RescaleEveryFrame: 0
   RescaleWarp: 1
---- !u!114 &114676757721284228
+--- !u!114 &114639213624505842
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1865426224830316}
+  m_GameObject: {fileID: 1523845735414822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388e5cb4fc5231a43bc594a52dd95c38, type: 3}
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationOffset: {x: 0, y: 0, z: 0}
-  forceToWorldUp: 0
-  forceCameraUp: 0
-  forceParentUp: 0
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
+--- !u!114 &114785252555917322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841844836498114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114792586145540976
 MonoBehaviour:
   m_ObjectHideFlags: 1

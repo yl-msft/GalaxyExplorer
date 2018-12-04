@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4771282438342074}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Trumpler14Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 33439624103873656}
   - component: {fileID: 64314229624966932}
   - component: {fileID: 23392454641941814}
-  - component: {fileID: 114467440990429464}
   - component: {fileID: 114931119079808196}
   m_Layer: 8
   m_Name: LineBase
@@ -74,9 +73,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4147913139831122}
   - component: {fileID: 114024155663938030}
-  - component: {fileID: 114260916320522750}
   - component: {fileID: 114032796048216410}
-  m_Layer: 8
+  - component: {fileID: 114694467990144748}
+  m_Layer: 5
   m_Name: POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +90,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4829559381089750}
+  - component: {fileID: 114706553101961646}
   m_Layer: 8
   m_Name: CardFacing
   m_TagString: Untagged
@@ -106,8 +106,25 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4480896796159610}
+  - component: {fileID: 114597529078923480}
   m_Layer: 8
   m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1434976242523326
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4381918038289714}
+  - component: {fileID: 114641591532307124}
+  m_Layer: 8
+  m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +142,9 @@ GameObject:
   - component: {fileID: 23821996788252648}
   - component: {fileID: 65738282375622014}
   - component: {fileID: 114486518610211242}
-  m_Layer: 8
+  - component: {fileID: 114865150068144504}
+  - component: {fileID: 114389897094235382}
+  m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +190,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4460637853427280}
-  - component: {fileID: 114900424590938220}
+  - component: {fileID: 114012723771101102}
   m_Layer: 8
   m_Name: POILineBase
   m_TagString: Untagged
@@ -190,7 +209,9 @@ GameObject:
   - component: {fileID: 33775013638000086}
   - component: {fileID: 23041446964437558}
   - component: {fileID: 64061704337662546}
-  m_Layer: 8
+  - component: {fileID: 114210912080013706}
+  - component: {fileID: 114315652506761494}
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4143258798080194}
   - component: {fileID: 95025143340165594}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +242,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4053173315330750}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1172037348592824}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.069, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
   m_LocalScale: {x: 40, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4829559381089750}
@@ -305,10 +326,24 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142465075280146}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000000027357598, w: 1}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalScale: {x: 0.34999996, y: 0.34999996, z: 0.35000002}
   m_Children: []
+  m_Father: {fileID: 4381918038289714}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4381918038289714
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434976242523326}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4242733111719260}
   m_Father: {fileID: 4460637853427280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -322,7 +357,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
-  - {fileID: 4242733111719260}
+  - {fileID: 4381918038289714}
   m_Father: {fileID: 4582894862000188}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -362,7 +397,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1520709658993190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0.025, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4480896796159610}
@@ -661,6 +696,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114012723771101102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780245929411872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114024155663938030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -676,7 +726,7 @@ MonoBehaviour:
   Indicator: {fileID: 1370915147323652}
   IndicatorLine: {fileID: 114032796048216410}
   TargetPoint: {fileID: 1770708368540390}
-  IndicatorDefaultColor: {r: 0, g: 1, b: 1, a: 1}
+  IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
   indicatorOffset: {x: 0, y: 0.25, z: 0}
   CardObject: {fileID: 1020434113162646}
   CardAnimator: {fileID: 95025143340165594}
@@ -694,41 +744,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 0}
   material: {fileID: 2100000, guid: 1ff25f42badb2654a8bd454452ff47a1, type: 2}
-  width: 0.0005
+  width: 0.00075
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
---- !u!114 &114260916320522750
+--- !u!114 &114210912080013706
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1230359962134516}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca12887eee061164a8b4a453d92a8809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IntendedViewDistance: 1
-  MinScale: 0.01
-  MaxScale: 100
-  RescaleEveryFrame: 0
-  RescaleWarp: 1
---- !u!114 &114467440990429464
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1142465075280146}
+  m_GameObject: {fileID: 1800745032935456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388e5cb4fc5231a43bc594a52dd95c38, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationOffset: {x: 0, y: 0, z: 0}
-  forceToWorldUp: 0
-  forceCameraUp: 0
-  forceParentUp: 0
+  CustomFocusEvent: none
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Deselect
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
+--- !u!114 &114315652506761494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1800745032935456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CustomFocusEvent: none
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Deselect
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
+--- !u!114 &114389897094235382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520709658993190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CustomFocusEvent: 
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Select
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
 --- !u!114 &114486518610211242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -742,6 +815,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: UI_Info
   material: {fileID: 0}
+--- !u!114 &114597529078923480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1370915147323652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114620370211459640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -757,12 +845,27 @@ MonoBehaviour:
   forceToWorldUp: 1
   forceCameraUp: 0
   forceParentUp: 0
---- !u!114 &114900424590938220
+--- !u!114 &114641591532307124
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1780245929411872}
+  m_GameObject: {fileID: 1434976242523326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388e5cb4fc5231a43bc594a52dd95c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationOffset: {x: 0, y: 0, z: 0}
+  forceToWorldUp: 0
+  forceCameraUp: 0
+  forceParentUp: 0
+--- !u!114 &114694467990144748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230359962134516}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca12887eee061164a8b4a453d92a8809, type: 3}
@@ -771,8 +874,41 @@ MonoBehaviour:
   IntendedViewDistance: 1
   MinScale: 0.01
   MaxScale: 100
-  RescaleEveryFrame: 1
+  RescaleEveryFrame: 0
   RescaleWarp: 1
+--- !u!114 &114706553101961646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352403471703202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
+--- !u!114 &114865150068144504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520709658993190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CustomFocusEvent: 
+  CustomBlurEvent: 
+  CustomActionStartedEvent: 
+  CustomActionEndedEvent: 
+  CustomPrimaryActionEvent: POICard_Select
+  CustomSecondaryActionEvent: 
+  OverrideDefaultSound: 1
 --- !u!114 &114931119079808196
 MonoBehaviour:
   m_ObjectHideFlags: 1
