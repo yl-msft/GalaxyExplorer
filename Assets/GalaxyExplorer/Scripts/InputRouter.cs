@@ -12,8 +12,6 @@ namespace GalaxyExplorer
         private TransitionManager transition = null;
         private AuduiEventWrangler audioEventWrangler = null;
 
-        private bool isCtrlHeld = false;    // true is left or right ctrl key is held down
-
         public delegate void KeyboadSelectionDelegate();
         public KeyboadSelectionDelegate OnKeyboadSelection;
 
@@ -40,18 +38,6 @@ namespace GalaxyExplorer
         private void SpaceTapKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
         {
             HandleOnInputUp(GazeManager.Instance.HitObject ? GazeManager.Instance.HitObject.GetComponentInParent<IInputHandler>() : null);
-        }
-
-        private void CtrlKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
-        {       
-            if (keyCodeEvent.KeyEvent == KeyboardManager.KeyEvent.KeyHeld)
-            {
-                isCtrlHeld = true;
-            }
-            else if (keyCodeEvent.KeyEvent == KeyboardManager.KeyEvent.KeyUp)
-            {
-                isCtrlHeld = false;
-            }
         }
 
         private void BackSpaceKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
