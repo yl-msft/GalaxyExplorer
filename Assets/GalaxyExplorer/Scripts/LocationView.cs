@@ -16,7 +16,7 @@ namespace GalaxyExplorer
 
         [Header("Voice Over")]
         [SerializeField]
-        private VOManager.QueuedAudioClip VoiceOver;
+        private VOManager.QueuedAudioClip VoiceOver = null;
 
         private bool playMusic = true;
         private float delayTimer = 0.0f;

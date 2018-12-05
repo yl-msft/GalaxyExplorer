@@ -19,7 +19,7 @@ namespace GalaxyExplorer
         public float LargestZoom = 3.0f;
 
         [SerializeField]
-        private AnimationCurve toolsOpacityChange;
+        private AnimationCurve toolsOpacityChange = null;
 
         [SerializeField]
         private float FadeToolsDuration = 1.0f;

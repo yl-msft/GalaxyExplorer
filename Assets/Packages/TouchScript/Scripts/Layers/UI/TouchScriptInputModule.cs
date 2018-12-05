@@ -65,7 +65,7 @@ namespace TouchScript.Layers.UI
 
         private static bool shuttingDown = false;
         private static TouchScriptInputModule instance;
-        private static FieldInfo raycastersProp;
+        private static FieldInfo raycastersProp = null;
         private static PropertyInfo canvasProp;
         private static Dictionary<int, Canvas> raycasterCanvasCache = new Dictionary<int, Canvas>(10);
 
