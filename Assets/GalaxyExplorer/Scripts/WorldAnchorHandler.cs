@@ -9,25 +9,7 @@ namespace GalaxyExplorer
     public class WorldAnchorHandler : SingleInstance<WorldAnchorHandler>
     {
         private UnityEngine.XR.WSA.WorldAnchor anchor;
-        private bool anchorActivelyTracking = true;
 
-        private void Start()
-        {
-            //placementControl = TransitionManager.Instance.ViewVolume.GetComponentInChildren<PlacementControl>();
-            //
-            //if (placementControl != null)
-            //{
-            //    placementControl.ContentHeld += PlacementControl_ContentHeld;
-            //    placementControl.ContentPlaced += PlacementControl_ContentPlaced;
-            //}
-            //
-            //if (TransitionManager.Instance != null)
-            //{
-            //    TransitionManager.Instance.ResetStarted += ResetStarted;
-            //}
-        }
-
-   
         public void CreateWorldAnchor()
         {
             GameObject sourceObject = FindObjectOfType<ViewLoader>().gameObject;
@@ -53,7 +35,7 @@ namespace GalaxyExplorer
     
         private void GalaxyWorldAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
         {
-            anchorActivelyTracking = located;
+
         }
 
         private void ResetStarted()

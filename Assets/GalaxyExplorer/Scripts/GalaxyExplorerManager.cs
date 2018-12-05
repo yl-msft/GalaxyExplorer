@@ -35,8 +35,8 @@ namespace GalaxyExplorer
         [SerializeField]
         private float MagicWindowScaleFactor = 1.0f;
 
-        [SerializeField]
-        private float SolarSystemScaleFactor = 1.0f;
+        //[SerializeField]
+        //private float SolarSystemScaleFactor = 1.0f;
 
         [SerializeField]
         private float PoiScaleFactor = 1.0f;
