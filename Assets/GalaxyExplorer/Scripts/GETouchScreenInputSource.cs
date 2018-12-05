@@ -72,7 +72,7 @@ namespace GalaxyExplorer
         {
             if (touch.phase == TouchPhase.Ended)
             {
-                InputManager.Instance.OverrideFocusedObject = null;
+                //InputManager.Instance.OverrideFocusedObject = null;
             }
             else if (touch.phase == TouchPhase.Began)
             {

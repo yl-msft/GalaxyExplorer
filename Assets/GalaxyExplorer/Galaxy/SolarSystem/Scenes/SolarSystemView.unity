@@ -152,18 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4456663585252420, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456663585252420, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456663585252420, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
   m_IsPrefabParent: 0
@@ -535,8 +523,7 @@ Prefab:
       propertyPath: contentRoot
       value: 
       objectReference: {fileID: 398458144}
-    m_RemovedComponents:
-    - {fileID: 114951029762426982, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &423635223 stripped

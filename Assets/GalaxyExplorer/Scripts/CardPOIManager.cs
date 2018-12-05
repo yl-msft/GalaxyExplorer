@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace GalaxyExplorer
 {
-    public class CardPOIManager : MonoBehaviour, IInputClickHandler, IControllerTouchpadHandler
+    public class CardPOIManager : MonoBehaviour, IInputHandler, IControllerTouchpadHandler
     {
         [Header("Galaxy Card POI Fading")]
         [Tooltip("The time it takes for all points of interest to completely fade out when a card point of interest is selected.")]
@@ -51,7 +51,12 @@ namespace GalaxyExplorer
             allPOIs.Remove(poi);
         }
 
-        public void OnInputClicked(InputClickedEventData eventData)
+        public void OnInputDown(InputEventData eventData)
+        {
+
+        }
+
+        public void OnInputUp(InputEventData eventData)
         {
             StartCoroutine(DeactivePOIColliders());
         }
@@ -125,12 +130,24 @@ namespace GalaxyExplorer
         }
 
         // Deactivate all pois that might have active card description except the one that is currently focused/touched
+        // Note that the focused/touched object could be a planet and not its poi indicator
         private void DeactivateAllDescriptionsHandlers(GameObject focusedObject)
         {
             foreach (var poi in allPOIs)
             {
                 if (poi.IndicatorCollider.gameObject != focusedObject)
                 {
+                    PlanetPOI planetPOI = poi as PlanetPOI;
+                    if (planetPOI)
+                    {
+                        // If planet sphere object is the focused object then dont unfocus from it
+                        Planet planet = planetPOI.PlanetObject.GetComponentInChildren<Planet>();
+                        if (planet && planet.gameObject == focusedObject)
+                        {
+                            continue;
+                        }
+                    }
+
                     poi.OnFocusExit();
                 }
             }
@@ -144,7 +161,7 @@ namespace GalaxyExplorer
         public void OnTouchpadReleased(InputEventData eventData)
         {
             // GETouchScreenInputSource sets InputManager.Instance.OverrideFocusedObject on collider touch
-            GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
+            GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : null; // FocusManager.Instance.TryGetFocusedObject(eventData);
             DeactivateAllDescriptionsHandlers(focusedObj);
 
             StartCoroutine(DeactivePOIColliders());
@@ -154,5 +171,6 @@ namespace GalaxyExplorer
         {
 
         }
+        
     }
 }

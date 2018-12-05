@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 135664216975478410}
   - component: {fileID: 23151218990643722}
   - component: {fileID: 114936396868289234}
+  - component: {fileID: 114126858318459034}
   m_Layer: 0
   m_Name: SunSphere
   m_TagString: Untagged
@@ -463,13 +464,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1241084566437320}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4444486706908454}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4535554087422474
 Transform:
   m_ObjectHideFlags: 1
@@ -1268,6 +1269,18 @@ MonoBehaviour:
   forceToWorldUp: 0
   forceCameraUp: 0
   forceParentUp: 0
+--- !u!114 &114126858318459034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241084566437320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef7214ec9abe1545a2aa777c722386f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114644657789262512}
 --- !u!114 &114156598617993334
 MonoBehaviour:
   m_ObjectHideFlags: 1
