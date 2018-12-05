@@ -69,7 +69,7 @@ namespace MRS.Audui
 
         private void HandleAuduiEvent(UiAction action)
         {
-            if (!FocusedObject) 
+            if (!FocusedObject)
             {
                 return;
             }
@@ -160,7 +160,7 @@ namespace MRS.Audui
         /// <param name="focusedObject"></param>
         public void OnFocusEnter(GameObject focusedObject)
         {
-            FocusedObject = (focusedObject.layer == LayerMask.NameToLayer("UI")) ? focusedObject : null;
+            FocusedObject = focusedObject.layer == LayerMask.NameToLayer("UI") ? focusedObject : null;
             // we only need to handle focus for UI objects
             if (FocusedObject)
             {
