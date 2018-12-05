@@ -369,11 +369,14 @@ namespace GalaxyExplorer
             // In previous scene, fade out pois and then fade the rest of the scene
             if (previousTransition)
             {
-                isFading = true;
-                FadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
-                while (isFading)
+                if (introStage == IntroStage.kInactiveIntro)
                 {
-                    yield return null;
+                    isFading = true;
+                    FadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
+                    while (isFading)
+                    {
+                        yield return null;
+                    }
                 }
 
                 isFading = true;
@@ -424,6 +427,11 @@ namespace GalaxyExplorer
         // Light transition is necessary in case of Simultaneous transitions in order for sun light position to be the same and transition to look good
         private IEnumerator LightTransitions(SceneTransition previousTransition, SceneTransition newTransition)
         {
+            if (previousTransition == null || newTransition == null)
+            {
+                yield break;
+            }
+
             GameObject singlePlanet = null;
             GameObject relatedPlanet = null;
             GetRelatedPlanets(out relatedPlanet, out singlePlanet);
