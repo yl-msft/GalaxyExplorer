@@ -312,7 +312,12 @@ namespace GalaxyExplorer
                 SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), false);
             }
 
-            //bool zoomInOutSimultaneously = (!IsInIntroFlow && newTransition.IsSinglePlanetTransition) || (previousTransition && previousTransition.IsSinglePlanetTransition);
+            // Deactivate previous scene's colliders
+            if (previousTransition)
+            {
+                SetCollidersActivation(previousTransition.GetComponentsInChildren<Collider>(), false);
+            }
+
             StartCoroutine(ZoomInOutSimultaneouslyFlow(previousTransition, newTransition));
 
             // wait until prev scene transition finishes
