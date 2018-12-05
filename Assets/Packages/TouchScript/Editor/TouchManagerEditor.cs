@@ -105,7 +105,7 @@ namespace TouchScript.Editor
 
 			GUILayout.Space(5);
 
-            if (basicEditor.boolValue)
+            if (basicEditor != null && basicEditor.boolValue)
             {
                 drawLayers();
 

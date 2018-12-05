@@ -20,13 +20,13 @@ namespace TouchScript.Examples.CameraControl
         public float RotationSpeed = 200f;
         public float ZoomSpeed = 10f;
 
-        private Transform pivot;
-        private Transform cam;
+        public Transform Pivot = null;
+        public Transform EntityToMove = null;
 
         private void Awake()
         {
-            pivot = transform.Find("Pivot");
-            cam = transform.Find("Pivot/Camera");
+            //pivot = transform.Find("Pivot");
+            //cam = transform.Find("Pivot/Camera");
         }
 
         private void Start()
@@ -54,14 +54,17 @@ namespace TouchScript.Examples.CameraControl
             var rotation = Quaternion.Euler(ManipulationGesture.DeltaPosition.y/Screen.height*RotationSpeed,
                 -ManipulationGesture.DeltaPosition.x/Screen.width*RotationSpeed,
                 ManipulationGesture.DeltaRotation);
-            pivot.localRotation *= rotation;
-            cam.transform.localPosition += Vector3.forward*(ManipulationGesture.DeltaScale - 1f)*ZoomSpeed;
+            Pivot.localRotation *= rotation;
+            //cam.transform.localPosition += Vector3.forward*(ManipulationGesture.DeltaScale - 1f)*ZoomSpeed;
+            Pivot.transform.localPosition += Vector3.forward * (ManipulationGesture.DeltaScale - 1f) * ZoomSpeed;
         }
 
         private void twoFingerTransformHandler(object sender, System.EventArgs e)
         {
-            pivot.localPosition += pivot.rotation*TwoFingerMoveGesture.DeltaPosition*PanSpeed;
-            pivot.localRotation *= Quaternion.Euler(TwoFingerMoveGesture.DeltaRotation, 0.0f, 0.0f);
+            //pivot.localPosition += pivot.rotation*TwoFingerMoveGesture.DeltaPosition*PanSpeed;
+            //pivot.localRotation *= Quaternion.Euler(TwoFingerMoveGesture.DeltaRotation, 0.0f, 0.0f);
+            EntityToMove.localPosition += Pivot.rotation*TwoFingerMoveGesture.DeltaPosition*PanSpeed;
+            Pivot.localRotation *= Quaternion.Euler(TwoFingerMoveGesture.DeltaRotation, 0.0f, 0.0f);
         }
     }
 }

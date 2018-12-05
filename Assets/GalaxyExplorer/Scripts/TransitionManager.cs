@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using TouchScript.Examples.CameraControl;
 using UnityEngine;
 
 /// <summary>
@@ -113,11 +114,10 @@ namespace GalaxyExplorer
 
         private TransformSource transformSource = null;
 
-        // Start position of camera in Desktop platform
-        private Vector3 defaultDesktopCameraPosition = Vector3.zero;
-
         private Quaternion defaultSceneRotation = Quaternion.identity;
         private Vector3 defaultSceneScale = Vector3.one;
+
+        private CameraController touchController = null;
 
         private enum IntroStage
         {
@@ -152,8 +152,8 @@ namespace GalaxyExplorer
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
             movingAudio = FindObjectOfType<MovableAudioSource>();
             transformSource = FindObjectOfType<TransformSource>();
+            touchController = FindObjectOfType<CameraController>();
 
-            defaultDesktopCameraPosition = Camera.main.transform.parent.position;
             defaultSceneRotation = transformSource.transform.rotation;
             defaultSceneScale = transformSource.transform.localScale;
         }
@@ -765,11 +765,11 @@ namespace GalaxyExplorer
         // Reset camera to original position and rotation in Desktop platform
         private IEnumerator ResetDesktopCameraToOriginCoroutine()
         {
-            Vector3 startPosition = Camera.main.transform.parent.position;
-            Quaternion startRotation = Camera.main.transform.parent.rotation;
+            Vector3 startPosition = touchController.EntityToMove.transform.position;
+            Quaternion startRotation = touchController.EntityToMove.transform.rotation;
 
-            Vector3 startParentPosition = Camera.main.transform.parent.parent.position;
-            Quaternion startParentRotation = Camera.main.transform.parent.parent.rotation;
+            Vector3 startPivotPosition = touchController.Pivot.transform.position;
+            Quaternion startPivotRotation = touchController.Pivot.transform.rotation;
 
             float time = 0.0f;
             float timeFraction = 0.0f;
@@ -781,21 +781,21 @@ namespace GalaxyExplorer
                 float delta = Mathf.Clamp01(TransitionTimeCameraCurve.Evaluate(timeFraction));
 
                 // Reset cameras parent
-                Camera.main.transform.parent.position = Vector3.Lerp(startPosition, defaultDesktopCameraPosition, delta);
-                Camera.main.transform.parent.rotation = Quaternion.Slerp(startRotation, Quaternion.identity, delta);
+                touchController.EntityToMove.position = Vector3.Lerp(startPosition, Vector3.zero, delta);
+                touchController.EntityToMove.rotation = Quaternion.Slerp(startRotation, Quaternion.identity, delta);
 
                 // Reset parent of camera parent 
-                Camera.main.transform.parent.parent.transform.position = Vector3.Lerp(startParentPosition, Vector3.zero, delta);
-                Camera.main.transform.parent.parent.transform.rotation = Quaternion.Slerp(startParentRotation, Quaternion.identity, delta);
+                touchController.Pivot.transform.position = Vector3.Lerp(startPivotPosition, Vector3.zero, delta);
+                touchController.Pivot.transform.rotation = Quaternion.Slerp(startPivotRotation, Quaternion.identity, delta);
                 yield return null;
 
             } while (timeFraction < 1f);
 
-            Camera.main.transform.parent.position = defaultDesktopCameraPosition;
-            Camera.main.transform.parent.rotation = Quaternion.identity;
+            touchController.EntityToMove.position = Vector3.zero;
+            touchController.EntityToMove.rotation = Quaternion.identity;
 
-            Camera.main.transform.parent.parent.transform.position = Vector3.zero;
-            Camera.main.transform.parent.parent.transform.rotation = Quaternion.identity;
+            touchController.Pivot.transform.position = Vector3.zero;
+            touchController.Pivot.transform.rotation = Quaternion.identity;
         }
 
         public void ResetMRSceneToOrigin()
