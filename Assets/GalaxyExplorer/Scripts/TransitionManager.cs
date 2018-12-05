@@ -353,7 +353,7 @@ namespace GalaxyExplorer
             }
 
             // Activate colliders of next scene
-            if (ZoomInOutBehaviour.GetNextScene)
+            if (ZoomInOutBehaviour.GetNextScene && introStage != IntroStage.kActiveIntro)
             {
                 SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), true);
             }
