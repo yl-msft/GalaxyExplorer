@@ -190,53 +190,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 57c6560b839b0ba4fb00d04dda9e0145, type: 3}
     delay: 1
     allowReplay: 0
---- !u!1 &449389864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 449389865}
-  - component: {fileID: 449389866}
-  m_Layer: 0
-  m_Name: LayerComp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &449389865
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 449389864}
-  m_LocalRotation: {x: -0.09592885, y: 0.008215571, z: 0.08493356, w: 0.991724}
-  m_LocalPosition: {x: 0, y: 0, z: 0.001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1822226801}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &449389866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 449389864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0596b93f3d6f76c4192cf5e814a5cc08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layers:
-  - id: Core
-    autoload: 1
-    loadactive: 1
-    scene:
-      asset: {fileID: 102900000, guid: c97f81bf2a42b2c4395cb934e9d35709, type: 3}
-      path: Assets/GalaxyExplorer/Scenes/CoreSystems.unity
 --- !u!1 &565732405
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +218,7 @@ Transform:
   m_Children:
   - {fileID: 689437256}
   m_Father: {fileID: 1822226801}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.12}
 --- !u!82 &565732407
 AudioSource:
@@ -609,6 +562,53 @@ MonoBehaviour:
   RandomStartOrientation: 0
   StartOrientationMin: {x: 0, y: 0, z: 0}
   StartOrientationMax: {x: 0, y: 0, z: 0}
+--- !u!1 &1136368342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1136368343}
+  - component: {fileID: 1136368344}
+  m_Layer: 0
+  m_Name: LayerComp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1136368343
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1136368342}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.10370602, y: -0.16805178, z: 1.8458854}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1822226801}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1136368344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1136368342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a9e32124b4ad4782d7a4402f348fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+  - id: Core
+    autoload: 1
+    loadactive: 1
+    scene:
+      asset: {fileID: 102900000, guid: c97f81bf2a42b2c4395cb934e9d35709, type: 3}
+      path: Assets/GalaxyExplorer/Scenes/CoreSystems.unity
 --- !u!1 &1768161966
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd88ca6b451f7974fb22c099a6d0f4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneName: 
 --- !u!23 &1768161969
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -756,10 +757,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 449389865}
   - {fileID: 1899597249}
   - {fileID: 1967840450}
   - {fileID: 565732406}
+  - {fileID: 1136368343}
   m_Father: {fileID: 176419672}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -789,7 +790,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1822226801}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1967840448
 GameObject:
@@ -830,5 +831,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1822226801}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
