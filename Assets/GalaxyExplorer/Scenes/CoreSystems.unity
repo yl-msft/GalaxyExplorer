@@ -2005,7 +2005,7 @@ GameObject:
   - component: {fileID: 501530028}
   - component: {fileID: 501530027}
   - component: {fileID: 501530026}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2337,7 +2337,7 @@ GameObject:
   - component: {fileID: 625332346}
   - component: {fileID: 625332345}
   - component: {fileID: 625332344}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3009,7 +3009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &839402104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4142,7 +4142,7 @@ GameObject:
   - component: {fileID: 1248014706}
   - component: {fileID: 1248014709}
   - component: {fileID: 1248014710}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: AboutButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4725,7 +4725,7 @@ GameObject:
   - component: {fileID: 1579602487}
   - component: {fileID: 1579602486}
   - component: {fileID: 1579602485}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: DotsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6029,7 +6029,6 @@ MonoBehaviour:
   SpiralGalaxyTintMultConstant: 1
   SlateScaleFactor: 1
   MagicWindowScaleFactor: 1
-  SolarSystemScaleFactor: 1
   PoiScaleFactor: 1
 --- !u!114 &1701178535
 MonoBehaviour:
@@ -6525,7 +6524,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1746276107}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DesktopButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
