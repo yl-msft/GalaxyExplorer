@@ -21,7 +21,7 @@ namespace GalaxyExplorer
         [SerializeField]
         private AudioClip CardAudio = null;
 
-       private Quaternion cardRotation = Quaternion.identity;
+        private Quaternion cardRotation = Quaternion.identity;
         private Vector3 cardPosition = Vector3.zero;
         private Vector3 cardDescriptionPosition = Vector3.zero;
         private Quaternion cardDescriptionRotation = Quaternion.identity;
@@ -30,6 +30,11 @@ namespace GalaxyExplorer
 
         private GalaxyExplorerManager geManager = null;
         private POIMaterialsFader poiFader = null;
+
+        public GameObject GetCardObject
+        {
+            get { return CardObject; }
+        }
 
 
         protected override void Start()
@@ -68,12 +73,7 @@ namespace GalaxyExplorer
             }
         }
 
-        public override void OnInputDown(InputEventData eventData)
-        {
-
-        }
-
-        public override void OnInputUp(InputEventData eventData)
+        public override void OnInputClicked(InputClickedEventData eventData)
         {
             if (CardObject)
             {
@@ -95,11 +95,6 @@ namespace GalaxyExplorer
                         voManager.Stop(true);
                         voManager.PlayClip(CardAudio);
                     }
-
-                    //if (cardDescriptionAnimator)
-                    //{
-                    //    cardDescriptionAnimator.SetBool("selected", true);
-                    //}
 
                     Vector3 forwardDirection = transform.position - Camera.main.transform.position;
                     CardObject.transform.rotation = Quaternion.LookRotation(forwardDirection.normalized, Camera.main.transform.up);
@@ -129,14 +124,20 @@ namespace GalaxyExplorer
                         voManager.Stop(true);
                     }
 
-                    //if (cardDescriptionAnimator)
-                    //{
-                    //    cardDescriptionAnimator.SetBool("selected", false);
-                    //}
-
                     StartCoroutine(SlideCardIn());
                 }
             }
+        }
+
+        public override void OnInputDown(InputEventData eventData)
+        {
+            base.OnInputDown(eventData);
+        }
+
+        public override void OnInputUp(InputEventData eventData)
+        {
+            base.OnInputUp(eventData);
+   
         }
 
         public override void OnFocusEnter()
@@ -150,11 +151,6 @@ namespace GalaxyExplorer
             {
                 CardDescription.SetActive(false);
             }
-
-            //if (cardDescriptionAnimator)
-            //{
-            //    cardDescriptionAnimator.SetBool("hover", false);
-            //}
         }
 
         private IEnumerator SlideCardOut()

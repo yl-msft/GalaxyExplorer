@@ -9,9 +9,20 @@ namespace GalaxyExplorer
 {
     public class GEMouseInputSource : BaseInputSource
     {
+        public delegate void MouseDelegate(GameObject selectedObject);
+        public MouseDelegate OnMouseClickDelegate;
+        public MouseDelegate OnMouseClickUpDelegate;
+        public MouseDelegate OnMouseOnHoverDelegate;
+        public MouseDelegate OnMouseOnUnHoverDelegate;
+
         private MousePhase mousePhase = MousePhase.NonePhase;
         private GameObject focusedObject = null;
         private uint mouseInputId = 60000;
+
+        public GameObject FocusedObject
+        {
+            get { return focusedObject; }
+        }
 
         private enum MousePhase
         {
@@ -24,13 +35,17 @@ namespace GalaxyExplorer
         protected virtual void Start()
         {
             Input.simulateMouseWithTouches = false;
+
+            if (!GalaxyExplorerManager.IsDesktop)
+            {
+                this.enabled = false;
+            }
         }
 
         protected virtual void Update()
         {
             if (Input.touches.Length > 0)
             {
-                Debug.Log("Touch input so discard mouse input");
                 return;
             }
 
@@ -42,10 +57,22 @@ namespace GalaxyExplorer
 
                 if (Physics.Raycast(ray, out hit))
                 {
+                    focusedObject = hit.collider.gameObject;
+                    OnMouseClickDelegate?.Invoke(hit.collider.gameObject);
                     InputManager.Instance.OverrideFocusedObject = hit.collider.gameObject;
                     OnTappedEvent(mouseInputId);
-                    InputManager.Instance.OverrideFocusedObject = null;
                 }
+                else
+                {
+                    focusedObject = null;
+                    OnMouseClickDelegate?.Invoke(null);
+                    OnTappedEvent(mouseInputId);
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                focusedObject = null;
+                OnMouseClickUpDelegate?.Invoke(focusedObject);
             }
             else
             {
@@ -57,6 +84,7 @@ namespace GalaxyExplorer
                     // If mouse was over a specific entity but not any more
                     if (mousePhase == MousePhase.HoverPhase && focusedObject != hit.collider.gameObject)
                     {
+                        OnMouseOnUnHoverDelegate?.Invoke(focusedObject);
                         OnUnHoverEvent(focusedObject);
 
                         focusedObject = null;
@@ -64,12 +92,11 @@ namespace GalaxyExplorer
                     }
                     else if (mousePhase == MousePhase.NonePhase)
                     {
+                        OnMouseOnHoverDelegate?.Invoke(hit.collider.gameObject);
                         OnHoverEvent(hit.collider.gameObject);
                         
                         focusedObject = hit.collider.gameObject;
                         mousePhase = MousePhase.HoverPhase;
-
-                        Debug.Log("On mouse hover");
                     }
                 }
                 // if mouse isnt over any entity
@@ -77,6 +104,7 @@ namespace GalaxyExplorer
                 {
                     if (mousePhase == MousePhase.HoverPhase)
                     {
+                        OnMouseOnUnHoverDelegate?.Invoke(focusedObject);
                         OnUnHoverEvent(focusedObject);
 
                         focusedObject = null;
@@ -89,7 +117,7 @@ namespace GalaxyExplorer
 
         protected void OnTappedEvent(uint id)
         {
-            InputManager.Instance.RaiseSourceUp(this, id, InteractionSourcePressInfo.Select);
+            InputManager.Instance.RaiseInputClicked(this, id, InteractionSourcePressInfo.Select, 0);
         }
 
         protected void OnHoverEvent(GameObject focus)

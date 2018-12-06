@@ -2,13 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity.InputModule;
+using MRS.Audui;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GalaxyExplorer
 {
-    public class CardPOIManager : MonoBehaviour, IInputHandler, IControllerTouchpadHandler
+    public class CardPOIManager : MonoBehaviour, IInputClickHandler, IControllerTouchpadHandler
     {
         [Header("Galaxy Card POI Fading")]
         [Tooltip("The time it takes for all points of interest to completely fade out when a card point of interest is selected.")]
@@ -28,6 +29,8 @@ namespace GalaxyExplorer
 
         private List<PointOfInterest> allPOIs = new List<PointOfInterest>();
         private ToolManager toolsManager = null;
+        private AuduiEventWrangler audioEventWrangler = null;
+        private GEMouseInputSource mouseInput = null;
 
 
         private void Start()
@@ -39,6 +42,80 @@ namespace GalaxyExplorer
             {
                 toolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
             }
+
+            InputRouter inputRouter = FindObjectOfType<InputRouter>();
+            if (inputRouter)
+            {
+                inputRouter.OnKeyboadSelection += OnKeyboadSelection;
+            }
+
+            mouseInput = FindObjectOfType<GEMouseInputSource>();
+            if (mouseInput)
+            {
+                mouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
+                mouseInput.OnMouseClickUpDelegate += OnMouseClickUpDelegate;
+                mouseInput.OnMouseOnHoverDelegate += OnMouseOnHoverDelegate;
+                mouseInput.OnMouseOnUnHoverDelegate += OnMouseOnUnHoverDelegate;
+            }
+
+            audioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
+        }
+
+        private void OnMouseOnUnHoverDelegate(GameObject selectedObject)
+        {
+            audioEventWrangler.OverrideFocusedObject(null);
+        }
+
+        private void OnMouseOnHoverDelegate(GameObject selectedObject)
+        {
+            if (selectedObject)
+            {
+                audioEventWrangler.OnFocusEnter(selectedObject);
+            }
+        }
+
+        private void OnMouseClickUpDelegate(GameObject selectedObject)
+        {
+            audioEventWrangler.OverrideFocusedObject(null);
+        }
+
+        private void OnMouseClickDelegate(GameObject selectedObject)
+        {
+            if (selectedObject)
+            {
+                audioEventWrangler.OverrideFocusedObject(selectedObject);
+            }
+        }
+
+        // Space bar was tapped callback
+        // If any poi card is on then close it else if space tap was to select a poi, then select it and trigger audio
+        private void OnKeyboadSelection()
+        {
+            bool isAnyCardActive = IsAnyCardActive();
+            if (isAnyCardActive)
+            {
+                StartCoroutine(CloseAnyOpenCard(null));
+                audioEventWrangler.OnInputClicked(null);
+            }
+            else
+            {
+                GameObject selected = mouseInput.FocusedObject;
+                if (selected)
+                {
+                    IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
+                    handler?.OnInputClicked(null);
+
+                    PointOfInterest poi = selected.GetComponentInParent<PointOfInterest>();
+                    if (poi)
+                    {
+                        audioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
+                    }
+
+                    audioEventWrangler.OnInputClicked(null);
+                }
+            }
+
+            StartCoroutine(UpdateActivationOfPOIColliders());
         }
 
         public void RegisterPOI(PointOfInterest poi)
@@ -51,32 +128,27 @@ namespace GalaxyExplorer
             allPOIs.Remove(poi);
         }
 
-        public void OnInputDown(InputEventData eventData)
+        // Find if a card POI is activa and its card is on/visible
+        private bool IsAnyCardActive()
         {
-
-        }
-
-        public void OnInputUp(InputEventData eventData)
-        {
-            StartCoroutine(DeactivePOIColliders());
-        }
-
-        // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
-        private IEnumerator DeactivePOIColliders()
-        {
-            yield return new WaitForEndOfFrame();
-
-            // Find if a card POI is activa and its card is on/visible
-            bool isAnyCardActive = false;
             foreach (var poi in allPOIs)
             {
                 if (poi.IsCardActive)
                 {
-                    isAnyCardActive = true;
-                    break;
+                    return true;
                 }
             }
 
+            return false;
+        }
+
+        // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
+        // If no poi card is active then activate poi colliders
+        private IEnumerator UpdateActivationOfPOIColliders()
+        {
+            yield return new WaitForEndOfFrame();
+
+            bool isAnyCardActive = IsAnyCardActive();
             if (isAnyCardActive)
             {
                 foreach (var poi in allPOIs)
@@ -97,6 +169,28 @@ namespace GalaxyExplorer
                     }
                 }
             }
+        }
+
+        // Find if a card POI is active and its card is on/visible, close the card and trigger audio
+        private IEnumerator CloseAnyOpenCard(InputEventData eventData)
+        {
+            foreach (var poi in allPOIs)
+            {
+                if (poi.IsCardActive)
+                {
+                    // eventData needs to be used in case that we are clocing the card because we dont want this click to propagate into the focused handler
+                    eventData?.Use();
+
+                    CardPOI cardPoi = (CardPOI)poi;
+                    audioEventWrangler.OverrideFocusedObject((cardPoi) ? cardPoi.GetCardObject.GetComponentInChildren<Collider>().gameObject : poi.IndicatorCollider.gameObject);
+
+                    poi.OnInputClicked(null);
+                    Debug.Log("Close card because of input");
+                    break;
+                }
+            }
+
+            yield return null;
         }
 
         // When a card poi is on, if About Slate gets activated through menu or desktop button then card poi need to be deactivated
@@ -161,16 +255,29 @@ namespace GalaxyExplorer
         public void OnTouchpadReleased(InputEventData eventData)
         {
             // GETouchScreenInputSource sets InputManager.Instance.OverrideFocusedObject on collider touch
-            GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : null; // FocusManager.Instance.TryGetFocusedObject(eventData);
+            GameObject focusedObj = InputManager.Instance.OverrideFocusedObject; 
             DeactivateAllDescriptionsHandlers(focusedObj);
 
-            StartCoroutine(DeactivePOIColliders());
+            bool isAnyCardActive = IsAnyCardActive();
+            StartCoroutine(CloseAnyOpenCard(eventData));
+            StartCoroutine(UpdateActivationOfPOIColliders());
+
+            if (isAnyCardActive)
+            {
+                audioEventWrangler.OnInputClicked(null);
+            }
         }
 
         public void OnInputPositionChanged(InputPositionEventData eventData)
         {
 
         }
-        
+
+        // OnInputClicked is triggered with airtap and mouse click
+        public void OnInputClicked(InputClickedEventData eventData)
+        {
+            StartCoroutine(CloseAnyOpenCard(eventData));
+            StartCoroutine(UpdateActivationOfPOIColliders());
+        }
     }
 }

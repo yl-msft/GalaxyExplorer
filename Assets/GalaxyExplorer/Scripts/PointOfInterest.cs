@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler
+    public class PointOfInterest : MonoBehaviour, IInputHandler, IInputClickHandler, IFocusable, IControllerTouchpadHandler
     {
         [SerializeField]
         protected GameObject CardDescription = null;
@@ -34,7 +34,7 @@ namespace GalaxyExplorer
         protected CardPOIManager cardPoiManager = null;
         protected GEFadeManager geFadeManager = null;
         protected VOManager voManager = null;
-        private AuduiEventWrangler audioEventWrangler = null;
+        protected AuduiEventWrangler audioEventWrangler = null;
 
         // these are only used if there is no indicator line to determine the world position of the point of
         // interest (uses targetPosition) with scale, rotation, and offset and targetOffset to maintain the same
@@ -79,11 +79,6 @@ namespace GalaxyExplorer
             {
                 CardDescription.SetActive(true);
             }
-
-            //if (cardDescriptionAnimator)
-            //{
-            //    cardDescriptionAnimator.SetBool("hover", true);
-            //}
         }
 
         public virtual void OnFocusExit()
@@ -92,11 +87,6 @@ namespace GalaxyExplorer
             {
                 CardDescription.SetActive(false);
             }
-
-            //if (cardDescriptionAnimator)
-            //{
-            //    cardDescriptionAnimator.SetBool("hover", false);
-            //}
         }
 
         public virtual void OnInputDown(InputEventData eventData)
@@ -106,7 +96,7 @@ namespace GalaxyExplorer
 
         public virtual void OnInputUp(InputEventData eventData)
         {
-      
+            
         }
 
         protected virtual void Awake()
@@ -204,14 +194,12 @@ namespace GalaxyExplorer
             // Second touch select that poi
             else
             {
-                OnInputUp(null);
+                OnInputClicked(null);
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
                 audioEventWrangler.OverrideFocusedObject(focusedObj);
                 audioEventWrangler?.OnInputClicked(null);
                 audioEventWrangler.OverrideFocusedObject(null);
-
-                Debug.Log("OnTouchpadReleased");
             }
         }
 
@@ -220,5 +208,9 @@ namespace GalaxyExplorer
 
         }
 
+        public virtual void OnInputClicked(InputClickedEventData eventData)
+        {
+            
+        }
     }
 }

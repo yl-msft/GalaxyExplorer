@@ -35,12 +35,7 @@ namespace GalaxyExplorer
             Transition = FindObjectOfType<TransitionManager>();
         }
 
-        public override void OnInputDown(InputEventData eventData)
-        {
-
-        }
-
-        public override void OnInputUp(InputEventData eventData)
+        public override void OnInputClicked(InputClickedEventData eventData)
         {
             // Fade out card description material
             if (CardDescription)
@@ -52,6 +47,16 @@ namespace GalaxyExplorer
             {
                 Transition.LoadNextScene(SceneToLoad, true);
             }
+        }
+
+        public override void OnInputDown(InputEventData eventData)
+        {
+
+        }
+
+        public override void OnInputUp(InputEventData eventData)
+        {
+  
         }
 
         public override void OnFocusEnter()
