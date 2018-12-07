@@ -216,10 +216,16 @@ namespace GalaxyExplorer
             
         }
 
-        // Scale POI collider in order to cover the whole POI + poi line 
+        // Scale POI collider in order to cover the whole POI + poi line. 
+        // Calculate the collider when collider is enabled so in end of transitions that has its final length
         protected IEnumerator ResizePOICollider()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForEndOfFrame();
+
+            while (indicatorCollider && indicatorCollider.enabled == false)
+            {
+                yield return null;
+            }
 
             if (indicatorCollider && IndicatorLine && IndicatorLine.points != null && IndicatorLine.points.Length >= 2)
             {
