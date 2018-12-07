@@ -14,6 +14,8 @@ namespace GalaxyExplorer
 
         private void Awake()
         {
+            FindSunIfNeeded();
+
             currentRenderer = GetComponent<MeshRenderer>();
             originalSunPosition = currentRenderer.sharedMaterial.GetVector("_SunPosition");
         }
@@ -29,6 +31,21 @@ namespace GalaxyExplorer
         private void OnDestroy()
         {
             currentRenderer.sharedMaterial.SetVector("_SunPosition", originalSunPosition);
+        }
+
+        public bool FindSunIfNeeded()
+        {
+            if (!Sun)
+            {
+                var sunGo = GameObject.Find("Sun");
+                if (sunGo)
+                {
+                    Sun = sunGo.transform;
+                    return true;
+                }
+            }
+
+            return Sun;
         }
     }
 }
