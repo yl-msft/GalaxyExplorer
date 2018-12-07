@@ -387,12 +387,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114250799511680080, guid: 67369d595e58e864ea7848d712f9e016,
+    - target: {fileID: 114798026831559668, guid: 67369d595e58e864ea7848d712f9e016,
         type: 2}
       propertyPath: Sun
       value: 
       objectReference: {fileID: 1158030654}
-    - target: {fileID: 114798026831559668, guid: 67369d595e58e864ea7848d712f9e016,
+    - target: {fileID: 114250799511680080, guid: 67369d595e58e864ea7848d712f9e016,
         type: 2}
       propertyPath: Sun
       value: 
@@ -518,12 +518,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114398162436931196, guid: 5b2708c7f66141a4bab63b1ef748b106,
+    - target: {fileID: 114189304983570832, guid: 5b2708c7f66141a4bab63b1ef748b106,
         type: 2}
       propertyPath: Sun
       value: 
       objectReference: {fileID: 1158030654}
-    - target: {fileID: 114189304983570832, guid: 5b2708c7f66141a4bab63b1ef748b106,
+    - target: {fileID: 114398162436931196, guid: 5b2708c7f66141a4bab63b1ef748b106,
         type: 2}
       propertyPath: Sun
       value: 

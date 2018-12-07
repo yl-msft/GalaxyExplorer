@@ -3,6 +3,7 @@
 
 using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
+using System.Collections;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -130,6 +131,8 @@ namespace GalaxyExplorer
                 Indicator.AddComponent<NoAutomaticFade>();
 
                 indicatorCollider = Indicator.GetComponentInChildren<Collider>();
+
+                StartCoroutine(ResizePOICollider());
             }
         }
 
@@ -211,6 +214,31 @@ namespace GalaxyExplorer
         public virtual void OnInputClicked(InputClickedEventData eventData)
         {
             
+        }
+
+        // Scale POI collider in order to cover the whole POI + poi line 
+        protected IEnumerator ResizePOICollider()
+        {
+            yield return new WaitForSeconds(1);
+
+            if (indicatorCollider && IndicatorLine && IndicatorLine.points != null && IndicatorLine.points.Length >= 2)
+            {
+                BoxCollider boxCollider = (BoxCollider)indicatorCollider;
+                if (boxCollider)
+                {
+                    Vector3 initialSize = boxCollider.size;
+                    Vector3 lossyScale = boxCollider.gameObject.transform.lossyScale;
+                    Vector3 temp = new Vector3(1.0f / lossyScale.x, 1.0f / lossyScale.y, 1.0f / lossyScale.z);
+                    float sizeY = IndicatorLine.points[1].position.y - IndicatorLine.points[0].position.y;
+                    boxCollider.size = new Vector3(initialSize.x, sizeY * temp.y + initialSize.y, initialSize.z);
+
+                    // center it
+                    float middleY = IndicatorLine.points[1].position.y - (boxCollider.size.y - initialSize.y) * 0.5f;
+                    boxCollider.center = new Vector3(boxCollider.center.x, middleY, boxCollider.center.z);
+                }
+            }
+
+            yield return null;
         }
     }
 }
