@@ -294,6 +294,7 @@ namespace GalaxyExplorer
             SceneTransition previousTransition = (prevSceneLoaded) ? prevSceneLoaded.GetComponentInChildren<SceneTransition>() : null;
             SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
 
+            SetActivationOfTouchscript(false);
             DeactivateOrbitUpdater(newTransition);
             SetActivePOIRotationAnimator(false, previousTransition, newTransition);
 
@@ -357,6 +358,8 @@ namespace GalaxyExplorer
             {
                 SetCollidersActivation(ZoomInOutBehaviour.GetNextScene.GetComponentsInChildren<Collider>(), true);
             }
+
+            SetActivationOfTouchscript(true);
 
             inTransition = false;
             introStage = (introStage == IntroStage.kLastStageIntro) ? IntroStage.kInactiveIntro : introStage;
@@ -542,6 +545,15 @@ namespace GalaxyExplorer
                 {
                     relatedPlanet.transform.parent.GetComponent<OrbitUpdater>().enabled = false;
                 }
+            }
+        }
+
+        // In Desktop mode, during transition, deactivate the Touchscript component so user cant interact with the scene and move/rotate/scale it
+        private void SetActivationOfTouchscript(bool enable)
+        {
+            if (GalaxyExplorerManager.IsDesktop && touchController)
+            {
+                touchController.enabled = false;
             }
         }
 
