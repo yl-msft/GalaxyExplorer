@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 namespace GalaxyExplorer
 {
-    public class Planet : MonoBehaviour, IInputHandler, IFocusable, IControllerTouchpadHandler
+    public class Planet : MonoBehaviour, IInputHandler, IInputClickHandler, IFocusable, IControllerTouchpadHandler
     {
         [SerializeField]
         private PointOfInterest POI = null;
@@ -22,6 +22,11 @@ namespace GalaxyExplorer
         public void OnFocusExit()
         {
             POI?.OnFocusExit();
+        }
+
+        public void OnInputClicked(InputClickedEventData eventData)
+        {
+            POI?.OnInputClicked(eventData);
         }
 
         public void OnInputDown(InputEventData eventData)

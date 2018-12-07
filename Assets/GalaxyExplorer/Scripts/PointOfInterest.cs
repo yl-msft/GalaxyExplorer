@@ -230,7 +230,7 @@ namespace GalaxyExplorer
                     Vector3 lossyScale = boxCollider.gameObject.transform.lossyScale;
                     Vector3 temp = new Vector3(1.0f / lossyScale.x, 1.0f / lossyScale.y, 1.0f / lossyScale.z);
                     float sizeY = IndicatorLine.points[1].position.y - IndicatorLine.points[0].position.y;
-                    boxCollider.size = new Vector3(initialSize.x, sizeY * temp.y + initialSize.y, initialSize.z);
+                    boxCollider.size = new Vector3(initialSize.x, Mathf.Abs(sizeY) * temp.y + initialSize.y, initialSize.z);
 
                     // center it
                     float middleY = IndicatorLine.points[1].position.y - (boxCollider.size.y - initialSize.y) * 0.5f;
