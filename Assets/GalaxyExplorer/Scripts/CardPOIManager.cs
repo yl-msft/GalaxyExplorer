@@ -31,6 +31,7 @@ namespace GalaxyExplorer
         private ToolManager toolsManager = null;
         private AuduiEventWrangler audioEventWrangler = null;
         private GEMouseInputSource mouseInput = null;
+        private TransitionManager transitionManager = null;
 
 
         private void Start()
@@ -59,6 +60,7 @@ namespace GalaxyExplorer
             }
 
             audioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
+            transitionManager = FindObjectOfType<TransitionManager>();
         }
 
         private void OnMouseOnUnHoverDelegate(GameObject selectedObject)
@@ -148,6 +150,11 @@ namespace GalaxyExplorer
         {
             yield return new WaitForEndOfFrame();
 
+            if (transitionManager.InTransition)
+            {
+                yield break;
+            }
+
             bool isAnyCardActive = IsAnyCardActive();
             if (isAnyCardActive)
             {
@@ -163,6 +170,11 @@ namespace GalaxyExplorer
             {
                 foreach (var poi in allPOIs)
                 {
+                    if (poi.IndicatorCollider.enabled == true)
+                    {
+                        yield break;
+                    }
+
                     if (poi.IndicatorCollider)
                     {
                         poi.IndicatorCollider.enabled = true;
