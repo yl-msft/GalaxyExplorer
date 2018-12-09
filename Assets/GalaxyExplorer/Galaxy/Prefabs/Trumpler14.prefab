@@ -143,7 +143,6 @@ GameObject:
   - component: {fileID: 65738282375622014}
   - component: {fileID: 114486518610211242}
   - component: {fileID: 114865150068144504}
-  - component: {fileID: 114389897094235382}
   m_Layer: 5
   m_Name: UI_POI
   m_TagString: Untagged
@@ -210,7 +209,6 @@ GameObject:
   - component: {fileID: 23041446964437558}
   - component: {fileID: 64061704337662546}
   - component: {fileID: 114210912080013706}
-  - component: {fileID: 114315652506761494}
   m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
@@ -764,42 +762,6 @@ MonoBehaviour:
   CustomActionStartedEvent: 
   CustomActionEndedEvent: 
   CustomPrimaryActionEvent: POICard_Deselect
-  CustomSecondaryActionEvent: 
-  OverrideDefaultSound: 1
---- !u!114 &114315652506761494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1800745032935456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CustomFocusEvent: none
-  CustomBlurEvent: 
-  CustomActionStartedEvent: 
-  CustomActionEndedEvent: 
-  CustomPrimaryActionEvent: POICard_Deselect
-  CustomSecondaryActionEvent: 
-  OverrideDefaultSound: 1
---- !u!114 &114389897094235382
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1520709658993190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CustomFocusEvent: 
-  CustomBlurEvent: 
-  CustomActionStartedEvent: 
-  CustomActionEndedEvent: 
-  CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
 --- !u!114 &114486518610211242
