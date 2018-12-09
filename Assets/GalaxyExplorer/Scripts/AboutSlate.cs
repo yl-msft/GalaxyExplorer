@@ -24,6 +24,8 @@ namespace GalaxyExplorer
             AboutMaterial.SetFloat("_TransitionAlpha", 0);
 
             isAboutButtonClicked = false;
+
+            transform.localScale = transform.localScale * GalaxyExplorerManager.SlateScaleFactor;
         }
 
         private void Start()

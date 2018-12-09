@@ -283,10 +283,10 @@ namespace GalaxyExplorer
             orbitsRenderer.AddOrbit(this, realPositions, schematicPositions);
             originalGlobalScale = orbitMaterial.GetFloat("_GlobalScale");
             originalWidth = orbitMaterial.GetFloat("_Width");
-            //f (MyAppPlatformManager.Platform == MyAppPlatformManager.PlatformId.ImmersiveHMD)
-            //
-            //   orbitMaterial.SetFloat("_Width", MyAppPlatformManager.OrbitalTrailFixedWidth);
-            //
+            if (GalaxyExplorerManager.IsImmersiveHMD)
+            {
+                orbitMaterial.SetFloat("_Width", GalaxyExplorerManager.OrbitalTrailFixedWidth);
+            }
 
             orbitsRenderer.orbitsMaterial = orbitMaterial;
         }

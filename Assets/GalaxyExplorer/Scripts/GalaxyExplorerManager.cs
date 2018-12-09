@@ -22,21 +22,9 @@ namespace GalaxyExplorer
         public delegate void GalaxyExplorerManagerInitializedCallback();
         public static GalaxyExplorerManagerInitializedCallback MyAppPlatformManagerInitialized;
 
-
-        [SerializeField]
-        private float GalaxyScaleFactor = 1.0f;
-
         [SerializeField]
         private float SpiralGalaxyTintMultConstant = 1.0f;
 
-        [SerializeField]
-        private float SlateScaleFactor = 1.0f;
-
-        [SerializeField]
-        private float MagicWindowScaleFactor = 1.0f;
-
-        //[SerializeField]
-        //private float SolarSystemScaleFactor = 1.0f;
 
         [SerializeField]
         private float PoiScaleFactor = 1.0f;
@@ -79,11 +67,6 @@ namespace GalaxyExplorer
             }
         }
 
-        public float GetMagicWindowScaleFactor
-        {
-            get { return MagicWindowScaleFactor; }
-        }
-
         public float GetGalaxyScaleFactor
         {
             get { return GalaxyScaleFactor; }
@@ -94,9 +77,94 @@ namespace GalaxyExplorer
             get { return SpiralGalaxyTintMultConstant; }
         }
 
-        public float GetSlateScaleFactor
+        public static float GalaxyScaleFactor
         {
-            get { return SlateScaleFactor; }
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 1.0f;  // 3.0f;
+                    case PlatformId.HoloLens:
+                        return 1.0f;
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 1.0f; // 0.75f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float SolarSystemScaleFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                    case PlatformId.HoloLens:
+                        return 1.0f;
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 1.0f; // 0.35f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float OrbitalTrailFixedWidth
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 0.0035f;
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float MagicWindowScaleFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 1.0f; // 3.0f;
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 1.0f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float SlateScaleFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 1.0f; // 3.0f;
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 1.0f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
         }
 
         void Awake()

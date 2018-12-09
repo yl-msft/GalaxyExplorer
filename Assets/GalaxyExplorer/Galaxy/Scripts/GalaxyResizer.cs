@@ -6,16 +6,12 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class GalaxyResizer : SingleInstance<GalaxyResizer>
+    public class GalaxyResizer : MonoBehaviour
     {
-        //private BoxCollider cursorCollisionBackground = null;
-        private GalaxyExplorerManager GalaxyExplorerManagerScript = null;
 
         void Start()
         {
-            GalaxyExplorerManagerScript = FindObjectOfType<GalaxyExplorerManager>();
-
-            transform.localScale = transform.localScale * GalaxyExplorerManagerScript.GetGalaxyScaleFactor;
+            transform.localScale = transform.localScale * GalaxyExplorerManager.GalaxyScaleFactor;
 
             //SpiralGalaxy[] spirals = GetComponentsInChildren<SpiralGalaxy>();
             //foreach (var spiral in spirals)
@@ -39,14 +35,6 @@ namespace GalaxyExplorer
             //        Debug.Log("Couldn't find CursorCollisionBackground...");
             //        enabled = false;
             //    }
-            //}
-        }
-
-        void Update()
-        {
-            //if (MotionControllerInput.Instance)
-            //{
-            //    cursorCollisionBackground.enabled = !MotionControllerInput.Instance.UseAlternateGazeRay;
             //}
         }
     }
