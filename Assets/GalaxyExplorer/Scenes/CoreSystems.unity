@@ -2604,7 +2604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &696345951
 Transform:
   m_ObjectHideFlags: 0
@@ -5994,6 +5994,7 @@ GameObject:
   - component: {fileID: 1701178541}
   - component: {fileID: 1701178542}
   - component: {fileID: 1701178543}
+  - component: {fileID: 1701178544}
   m_Layer: 0
   m_Name: GEManagers
   m_TagString: Untagged
@@ -6485,6 +6486,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e604d6bb4dd314ab5ca3fa21080e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1701178544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701178532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a610ae428123994ba9d7ac5ffcaaf3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveInVR:
+  - {fileID: 696345950}
 --- !u!1 &1703005844
 GameObject:
   m_ObjectHideFlags: 0
