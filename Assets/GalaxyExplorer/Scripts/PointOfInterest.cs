@@ -183,8 +183,8 @@ namespace GalaxyExplorer
                 OnFocusEnter();
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-                cardPoiManager.audioEventWrangler?.OnFocusEnter(focusedObj);
-                cardPoiManager.audioEventWrangler.OverrideFocusedObject(null);
+                cardPoiManager.AudioEventWrangler?.OnFocusEnter(focusedObj);
+                cardPoiManager.AudioEventWrangler.OverrideFocusedObject(null);
             }
             // Second touch select that poi
             else
@@ -192,9 +192,9 @@ namespace GalaxyExplorer
                 OnInputClicked(null);
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-                cardPoiManager.audioEventWrangler.OverrideFocusedObject(focusedObj);
-                cardPoiManager.audioEventWrangler?.OnInputClicked(null);
-                cardPoiManager.audioEventWrangler.OverrideFocusedObject(null);
+                cardPoiManager.AudioEventWrangler.OverrideFocusedObject(focusedObj);
+                cardPoiManager.AudioEventWrangler?.OnInputClicked(null);
+                cardPoiManager.AudioEventWrangler.OverrideFocusedObject(null);
             }
         }
 
