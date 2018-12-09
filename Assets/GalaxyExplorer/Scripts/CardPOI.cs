@@ -28,7 +28,6 @@ namespace GalaxyExplorer
         private Quaternion descriptionStoppedLocalRotation = Quaternion.identity;
         private Transform cardOffsetTransform = null; // Transform from which card remains static
 
-        private GalaxyExplorerManager geManager = null;
         private POIMaterialsFader poiFader = null;
 
         public GameObject GetCardObject
@@ -40,8 +39,6 @@ namespace GalaxyExplorer
         protected override void Start()
         {
             base.Start();
-
-            geManager = FindObjectOfType<GalaxyExplorerManager>();
 
             // Find poi fader which lives in the same scene as this object and not the one that might exist in the previous scene
             POIMaterialsFader[] allPoiFaders = FindObjectsOfType<POIMaterialsFader>();
@@ -83,7 +80,7 @@ namespace GalaxyExplorer
                 {
                     isCardActive = true;
 
-                    StartCoroutine(geFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                    StartCoroutine(cardPoiManager.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
 
                     CardObject.SetActive(true);
 
@@ -92,10 +89,10 @@ namespace GalaxyExplorer
                         CardAnimator.SetBool("CardVisible", true);
                     }
 
-                    if (CardAudio && voManager)
+                    if (CardAudio && cardPoiManager.VoManager)
                     {
-                        voManager.Stop(true);
-                        voManager.PlayClip(CardAudio);
+                        cardPoiManager.VoManager.Stop(true);
+                        cardPoiManager.VoManager.PlayClip(CardAudio);
                     }
 
                     Vector3 forwardDirection = transform.position - Camera.main.transform.position;
@@ -111,7 +108,7 @@ namespace GalaxyExplorer
                 {
                     isCardActive = false;
 
-                    StartCoroutine(geFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                    StartCoroutine(cardPoiManager.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
 
                     // TODO this need to be removed and happen in the animation, but it doesnt
                     CardObject.SetActive(false);
@@ -121,9 +118,9 @@ namespace GalaxyExplorer
                         CardAnimator.SetBool("CardVisible", false);
                     }
 
-                    if (voManager)
+                    if (cardPoiManager.VoManager)
                     {
-                        voManager.Stop(true);
+                        cardPoiManager.VoManager.Stop(true);
                     }
 
                     StartCoroutine(SlideCardIn());
@@ -165,7 +162,7 @@ namespace GalaxyExplorer
 
             float time = 0.0f;
             Vector3 startPosition = CardObject.transform.position;
-            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(cardPoiManager.DescriptionSlideDirection * geManager.GetMagicWindowScaleFactor / 2.0f);
+            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(cardPoiManager.DescriptionSlideDirection * GalaxyExplorerManager.MagicWindowScaleFactor / 2.0f);
 
             do
             {

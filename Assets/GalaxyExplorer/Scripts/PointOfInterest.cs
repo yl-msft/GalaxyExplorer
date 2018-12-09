@@ -33,9 +33,6 @@ namespace GalaxyExplorer
         protected bool isCardActive = false;
      
         protected CardPOIManager cardPoiManager = null;
-        protected GEFadeManager geFadeManager = null;
-        protected VOManager voManager = null;
-        protected AuduiEventWrangler audioEventWrangler = null;
 
         // these are only used if there is no indicator line to determine the world position of the point of
         // interest (uses targetPosition) with scale, rotation, and offset and targetOffset to maintain the same
@@ -118,13 +115,8 @@ namespace GalaxyExplorer
             cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
             CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
 
-            geFadeManager = FindObjectOfType<GEFadeManager>();
-
             cardPoiManager = FindObjectOfType<CardPOIManager>();
             cardPoiManager.RegisterPOI(this);
-
-            voManager = FindObjectOfType<VOManager>();
-            audioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
 
             if (Indicator)
             {
@@ -191,8 +183,8 @@ namespace GalaxyExplorer
                 OnFocusEnter();
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-                audioEventWrangler?.OnFocusEnter(focusedObj);
-                audioEventWrangler.OverrideFocusedObject(null);
+                cardPoiManager.audioEventWrangler?.OnFocusEnter(focusedObj);
+                cardPoiManager.audioEventWrangler.OverrideFocusedObject(null);
             }
             // Second touch select that poi
             else
@@ -200,9 +192,9 @@ namespace GalaxyExplorer
                 OnInputClicked(null);
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-                audioEventWrangler.OverrideFocusedObject(focusedObj);
-                audioEventWrangler?.OnInputClicked(null);
-                audioEventWrangler.OverrideFocusedObject(null);
+                cardPoiManager.audioEventWrangler.OverrideFocusedObject(focusedObj);
+                cardPoiManager.audioEventWrangler?.OnInputClicked(null);
+                cardPoiManager.audioEventWrangler.OverrideFocusedObject(null);
             }
         }
 

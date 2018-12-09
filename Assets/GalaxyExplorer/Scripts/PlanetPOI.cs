@@ -17,8 +17,6 @@ namespace GalaxyExplorer
         [SerializeField]
         private GameObject Planet = null;
 
-        private TransitionManager Transition = null;
-
         public string GetSceneToLoad
         {
             get { return SceneToLoad; }
@@ -32,7 +30,6 @@ namespace GalaxyExplorer
         protected override void Start()
         {
             base.Start();
-            Transition = FindObjectOfType<TransitionManager>();
         }
 
         public override void OnInputClicked(InputClickedEventData eventData)
@@ -40,13 +37,10 @@ namespace GalaxyExplorer
             // Fade out card description material
             if (CardDescription)
             {
-                StartCoroutine(geFadeManager.FadeMaterial(CardDescriptionMaterial, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                StartCoroutine(cardPoiManager.GeFadeManager.FadeMaterial(CardDescriptionMaterial, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
             }
 
-            if (Transition)
-            {
-                Transition.LoadNextScene(SceneToLoad, true);
-            }
+            cardPoiManager?.OnPlanetPoiSelected(SceneToLoad);
         }
 
         public override void OnInputDown(InputEventData eventData)
