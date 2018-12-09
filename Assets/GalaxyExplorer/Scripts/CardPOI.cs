@@ -24,7 +24,6 @@ namespace GalaxyExplorer
         private Quaternion cardRotation = Quaternion.identity;
         private Vector3 cardOffset = Vector3.zero;
         private Vector3 cardDescriptionOffset = Vector3.zero; // offset of card description from the actual card
-        private Quaternion cardDescriptionRotation = Quaternion.identity;
         private Vector3 descriptionStoppedLocalPosition = Vector3.zero;
         private Quaternion descriptionStoppedLocalRotation = Quaternion.identity;
         private Transform cardOffsetTransform = null; // Transform from which card remains static
@@ -167,7 +166,6 @@ namespace GalaxyExplorer
             float time = 0.0f;
             Vector3 startPosition = CardObject.transform.position;
             Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(cardPoiManager.DescriptionSlideDirection * geManager.GetMagicWindowScaleFactor / 2.0f);
-            cardDescriptionRotation = CardDescription.transform.rotation;
 
             do
             {
