@@ -22,11 +22,12 @@ namespace GalaxyExplorer
         private AudioClip CardAudio = null;
 
         private Quaternion cardRotation = Quaternion.identity;
-        private Vector3 cardPosition = Vector3.zero;
-        private Vector3 cardDescriptionPosition = Vector3.zero;
+        private Vector3 cardOffset = Vector3.zero;
+        private Vector3 cardDescriptionOffset = Vector3.zero; // offset of card description from the actual card
         private Quaternion cardDescriptionRotation = Quaternion.identity;
         private Vector3 descriptionStoppedLocalPosition = Vector3.zero;
         private Quaternion descriptionStoppedLocalRotation = Quaternion.identity;
+        private Transform cardOffsetTransform = null; // Transform from which card remains static
 
         private GalaxyExplorerManager geManager = null;
         private POIMaterialsFader poiFader = null;
@@ -56,6 +57,8 @@ namespace GalaxyExplorer
 
             descriptionStoppedLocalPosition = CardDescription.transform.localPosition;
             descriptionStoppedLocalRotation = CardDescription.transform.localRotation;
+
+            cardOffsetTransform = transform.parent.parent.parent;
         }
 
         new void LateUpdate()
@@ -66,10 +69,10 @@ namespace GalaxyExplorer
             if (CardObject && CardObject.activeSelf)
             {
                 CardObject.transform.rotation = cardRotation;
-                CardObject.transform.position = cardPosition;
-
-                CardDescription.transform.rotation = cardDescriptionRotation;
-                CardDescription.transform.position = cardDescriptionPosition;
+                CardObject.transform.position = cardOffsetTransform.position - cardOffset; 
+          
+                // Card description needs to keep the same distance from the card
+                CardDescription.transform.position = CardObject.transform.position - cardDescriptionOffset;
             }
         }
 
@@ -101,7 +104,7 @@ namespace GalaxyExplorer
                     cardRotation = CardObject.transform.rotation;
 
                     CardObject.transform.position = transform.position;
-                    cardPosition = transform.position;
+                    cardOffset = cardOffsetTransform.position - transform.position;
 
                     StartCoroutine(SlideCardOut());
                 }
@@ -173,7 +176,7 @@ namespace GalaxyExplorer
                 float timeFraction = Mathf.Clamp01(time / cardPoiManager.DescriptionSlideOutTime);
                 float tValue = cardPoiManager.DescriptionSlideCurve.Evaluate(timeFraction);
                 CardDescription.transform.position = Vector3.Lerp(startPosition, endPosition, tValue);
-                cardDescriptionPosition = CardDescription.transform.position;
+                cardDescriptionOffset = CardObject.transform.position - CardDescription.transform.position;
 
                 yield return null;
             }
