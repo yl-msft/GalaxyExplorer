@@ -37,10 +37,10 @@ namespace GalaxyExplorer
             // Fade out card description material
             if (CardDescription)
             {
-                StartCoroutine(cardPoiManager.GeFadeManager.FadeMaterial(CardDescriptionMaterial, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                StartCoroutine(GalaxyExplorerManager.Instance.GeFadeManager.FadeMaterial(CardDescriptionMaterial, GEFadeManager.FadeType.FadeOut, GalaxyExplorerManager.Instance.CardPoiManager.POIFadeOutTime, GalaxyExplorerManager.Instance.CardPoiManager.POIOpacityCurve));
             }
 
-            cardPoiManager?.OnPlanetPoiSelected(SceneToLoad);
+            GalaxyExplorerManager.Instance.TransitionManager.LoadNextScene(SceneToLoad);
         }
 
         public override void OnInputDown(InputEventData eventData)

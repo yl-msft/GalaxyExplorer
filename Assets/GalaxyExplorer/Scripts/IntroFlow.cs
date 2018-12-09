@@ -125,7 +125,7 @@ namespace GalaxyExplorer
 
             if (viewLoaderScript == null)
             {
-                viewLoaderScript = FindObjectOfType<ViewLoader>();
+                viewLoaderScript = GalaxyExplorerManager.Instance.ViewLoaderScript;
                 if (viewLoaderScript)
                     viewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
             }
@@ -150,7 +150,7 @@ namespace GalaxyExplorer
 
             if (musicManagerScript == null)
             {
-                musicManagerScript = FindObjectOfType<MusicManager>();
+                musicManagerScript = GalaxyExplorerManager.Instance.MusicManagerScript;
 
                 if (musicManagerScript)
                 {
@@ -160,7 +160,7 @@ namespace GalaxyExplorer
 
             if (VOManagerScript == null)
             {
-                VOManagerScript = FindObjectOfType<VOManager>();
+                VOManagerScript = GalaxyExplorerManager.Instance.VoManager;
             }
 
             yield return null;

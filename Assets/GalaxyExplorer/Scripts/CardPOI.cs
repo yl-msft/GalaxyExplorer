@@ -80,7 +80,7 @@ namespace GalaxyExplorer
                 {
                     isCardActive = true;
 
-                    StartCoroutine(cardPoiManager.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                    StartCoroutine(GalaxyExplorerManager.Instance.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, GalaxyExplorerManager.Instance.CardPoiManager.POIFadeOutTime, GalaxyExplorerManager.Instance.CardPoiManager.POIOpacityCurve));
 
                     CardObject.SetActive(true);
 
@@ -89,10 +89,10 @@ namespace GalaxyExplorer
                         CardAnimator.SetBool("CardVisible", true);
                     }
 
-                    if (CardAudio && cardPoiManager.VoManager)
+                    if (CardAudio && GalaxyExplorerManager.Instance.VoManager)
                     {
-                        cardPoiManager.VoManager.Stop(true);
-                        cardPoiManager.VoManager.PlayClip(CardAudio);
+                        GalaxyExplorerManager.Instance.VoManager.Stop(true);
+                        GalaxyExplorerManager.Instance.VoManager.PlayClip(CardAudio);
                     }
 
                     Vector3 forwardDirection = transform.position - Camera.main.transform.position;
@@ -108,7 +108,7 @@ namespace GalaxyExplorer
                 {
                     isCardActive = false;
 
-                    StartCoroutine(cardPoiManager.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, cardPoiManager.POIFadeOutTime, cardPoiManager.POIOpacityCurve));
+                    StartCoroutine(GalaxyExplorerManager.Instance.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, GalaxyExplorerManager.Instance.CardPoiManager.POIFadeOutTime, GalaxyExplorerManager.Instance.CardPoiManager.POIOpacityCurve));
 
                     // TODO this need to be removed and happen in the animation, but it doesnt
                     CardObject.SetActive(false);
@@ -118,9 +118,9 @@ namespace GalaxyExplorer
                         CardAnimator.SetBool("CardVisible", false);
                     }
 
-                    if (cardPoiManager.VoManager)
+                    if (GalaxyExplorerManager.Instance.VoManager)
                     {
-                        cardPoiManager.VoManager.Stop(true);
+                        GalaxyExplorerManager.Instance.VoManager.Stop(true);
                     }
 
                     StartCoroutine(SlideCardIn());
@@ -162,20 +162,20 @@ namespace GalaxyExplorer
 
             float time = 0.0f;
             Vector3 startPosition = CardObject.transform.position;
-            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(cardPoiManager.DescriptionSlideDirection * GalaxyExplorerManager.MagicWindowScaleFactor / 2.0f);
+            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideDirection * GalaxyExplorerManager.MagicWindowScaleFactor / 2.0f);
 
             do
             {
                 time += Time.deltaTime;
 
-                float timeFraction = Mathf.Clamp01(time / cardPoiManager.DescriptionSlideOutTime);
-                float tValue = cardPoiManager.DescriptionSlideCurve.Evaluate(timeFraction);
+                float timeFraction = Mathf.Clamp01(time / GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideOutTime);
+                float tValue = GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideCurve.Evaluate(timeFraction);
                 CardDescription.transform.position = Vector3.Lerp(startPosition, endPosition, tValue);
                 cardDescriptionOffset = CardObject.transform.position - CardDescription.transform.position;
 
                 yield return null;
             }
-            while (time < cardPoiManager.DescriptionSlideOutTime);
+            while (time < GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideOutTime);
         }
 
         private IEnumerator SlideCardIn()
@@ -188,14 +188,14 @@ namespace GalaxyExplorer
             {
                 time += Time.deltaTime;
         
-                float timeFraction = Mathf.Clamp01(time / cardPoiManager.DescriptionSlideInTime);
-                float tValue = cardPoiManager.DescriptionSlideCurve.Evaluate(timeFraction);
+                float timeFraction = Mathf.Clamp01(time / GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideInTime);
+                float tValue = GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideCurve.Evaluate(timeFraction);
                 CardDescription.transform.localPosition = Vector3.Lerp(startLocalPosition, descriptionStoppedLocalPosition, tValue);
                 CardDescription.SetActive(true);
 
                 yield return null;
             }
-            while (time < cardPoiManager.DescriptionSlideInTime);
+            while (time < GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideInTime);
 
             CardDescription.transform.localPosition = descriptionStoppedLocalPosition;
             CardDescription.transform.localRotation = descriptionStoppedLocalRotation;

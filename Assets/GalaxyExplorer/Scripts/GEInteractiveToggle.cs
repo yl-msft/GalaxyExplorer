@@ -22,13 +22,9 @@ namespace GalaxyExplorer
         public UnityEvent OnGazeSelect;
         public UnityEvent OnGazeDeselect;
 
-        protected ToolManager toolmanager = null;
-
         protected override void Start()
         {
             base.Start();
-
-            toolmanager = FindObjectOfType<ToolManager>();
         }
 
         // On button click toggle logic, set this as the selected one or if it was select it then unselect it
@@ -36,11 +32,11 @@ namespace GalaxyExplorer
         {
             if (IsSelected)
             {
-                toolmanager.SelectedTool = null;
+                GalaxyExplorerManager.Instance.ToolsManager.SelectedTool = null;
             }
             else
             {
-                toolmanager.SelectTool(this);
+                GalaxyExplorerManager.Instance.ToolsManager.SelectTool(this);
             }
 
             base.ToggleLogic();
@@ -71,7 +67,7 @@ namespace GalaxyExplorer
         // Dont deselect that way any primary buttons
         public void DeselectButton()
         {
-            if (IsSelected && !PassiveMode && toolmanager.SelectedTool != this && !IsPrimaryButton)
+            if (IsSelected && !PassiveMode && GalaxyExplorerManager.Instance.ToolsManager.SelectedTool != this && !IsPrimaryButton)
             {
                 if (OnDeselection != null)
                 {
@@ -96,9 +92,9 @@ namespace GalaxyExplorer
         // This function is hooked up in editor events
         public void ResetButton()
         {
-            if (IsSelected && toolmanager.SelectedTool == this)
+            if (IsSelected && GalaxyExplorerManager.Instance.ToolsManager.SelectedTool == this)
             {
-                toolmanager.SelectedTool = null;
+                GalaxyExplorerManager.Instance.ToolsManager.SelectedTool = null;
             }
 
             IsSelected = false;

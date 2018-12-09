@@ -102,14 +102,14 @@ namespace GalaxyExplorer
 
                 StartCoroutine(AnimateUsingCurve(IsReal ? OrbitScaleDeHydrationCurve : OrbitScaleHydrationCurve, () => { IsReal = !IsReal; }));
 
-                if (!IsReal && VO && cardPoiManager.VoManager)
+                if (!IsReal && VO && GalaxyExplorerManager.Instance.VoManager)
                 {
-                    cardPoiManager.VoManager.Stop(true);
-                    cardPoiManager.VoManager.PlayClip(VO);
+                    GalaxyExplorerManager.Instance.VoManager.Stop(true);
+                    GalaxyExplorerManager.Instance.VoManager.PlayClip(VO);
                 }
-                else if (IsReal && cardPoiManager.VoManager)
+                else if (IsReal && GalaxyExplorerManager.Instance.VoManager)
                 {
-                    cardPoiManager.VoManager.Stop(true);
+                    GalaxyExplorerManager.Instance.VoManager.Stop(true);
                 }
 
 

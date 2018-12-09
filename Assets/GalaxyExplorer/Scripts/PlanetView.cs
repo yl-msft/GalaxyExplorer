@@ -19,12 +19,6 @@ namespace GalaxyExplorer
             get { return (SceneName.Length > 0) ? SceneName : gameObject.scene.name; }
         }
 
-        private TransitionManager Transition = null;
-
-        void Start()
-        {
-            Transition = FindObjectOfType<TransitionManager>();
-        }
 
         public virtual void OnInputDown(InputEventData eventData)
         {
@@ -33,9 +27,9 @@ namespace GalaxyExplorer
 
         public virtual void OnInputUp(InputEventData eventData)
         {
-            if (Transition && !Transition.IsInIntroFlow)
+            if (GalaxyExplorerManager.Instance.TransitionManager && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
             {
-                Transition.LoadPrevScene();
+                GalaxyExplorerManager.Instance.TransitionManager.LoadPrevScene();
             }
         }
     }

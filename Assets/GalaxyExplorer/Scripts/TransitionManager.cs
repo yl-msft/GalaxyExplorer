@@ -101,8 +101,6 @@ namespace GalaxyExplorer
         }
 
         private MovableAudioSource movingAudio = null;
-        private ViewLoader ViewLoaderScript = null;
-        private GEFadeManager FadeManager = null;
         private ZoomInOut ZoomInOutBehaviour = null;
         private GameObject prevSceneLoaded;     // tracks the last scene loaded for transitions when loading new scenes
         private string prevSceneLoadedName = "";
@@ -138,16 +136,13 @@ namespace GalaxyExplorer
 
         private void Start()
         {
-            ViewLoaderScript = FindObjectOfType<ViewLoader>();
-
-            if (ViewLoaderScript == null)
+            if (GalaxyExplorerManager.Instance.ViewLoaderScript == null)
             {
                 Debug.LogError("TransitionManager: No ViewLoader found - unable to process transitions.");
                 return;
             }
 
-            FadeManager = FindObjectOfType<GEFadeManager>();
-            FadeManager.OnFadeComplete += OnFadeComplete;
+            GalaxyExplorerManager.Instance.GeFadeManager.OnFadeComplete += OnFadeComplete;
 
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
             movingAudio = FindObjectOfType<MovableAudioSource>();
@@ -178,13 +173,13 @@ namespace GalaxyExplorer
 
         public void UnloadScene(string scene, bool keepItOnStack)
         {
-            ViewLoaderScript.UnLoadView(scene, keepItOnStack);
+            GalaxyExplorerManager.Instance.ViewLoaderScript.UnLoadView(scene, keepItOnStack);
         }
 
         public void LoadPrevScene()
         {
             // Check if there is previous scene to go back to
-            if (!ViewLoaderScript.IsTherePreviousScene())
+            if (!GalaxyExplorerManager.Instance.ViewLoaderScript.IsTherePreviousScene())
             {
                 Debug.LogWarning("TransitionManager: There is NO previous scene to go back to.");
                 return;
@@ -201,8 +196,8 @@ namespace GalaxyExplorer
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
-            ViewLoaderScript.PopSceneFromStack();
-            ViewLoaderScript.LoadPreviousScene(PrevSceneLoaded);
+            GalaxyExplorerManager.Instance.ViewLoaderScript.PopSceneFromStack();
+            GalaxyExplorerManager.Instance.ViewLoaderScript.LoadPreviousScene(PrevSceneLoaded);
         }
 
         private void PrevSceneLoaded()
@@ -234,11 +229,11 @@ namespace GalaxyExplorer
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
 
-            ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
+            GalaxyExplorerManager.Instance.ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
 
             if (!keepOnStack)
             {
-                ViewLoaderScript.PopSceneFromStack();
+                GalaxyExplorerManager.Instance.ViewLoaderScript.PopSceneFromStack();
             }
         }
 
@@ -345,7 +340,7 @@ namespace GalaxyExplorer
             if (introStage != IntroStage.kActiveIntro)
             {
                 isFading = true;
-                FadeManager.Fade(newTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, PoiFadeInDuration, POIOpacityCurveEndTransition);
+                GalaxyExplorerManager.Instance.GeFadeManager.Fade(newTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeIn, PoiFadeInDuration, POIOpacityCurveEndTransition);
             }
 
             while (isFading)
@@ -380,7 +375,7 @@ namespace GalaxyExplorer
                 if (introStage == IntroStage.kInactiveIntro)
                 {
                     isFading = true;
-                    FadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
+                    GalaxyExplorerManager.Instance.GeFadeManager.Fade(previousTransition.GetComponentInChildren<POIMaterialsFader>(), GEFadeManager.FadeType.FadeOut, PoiFadeOutDuration, POIOpacityCurveStartTransition);
                     while (isFading)
                     {
                         yield return null;
@@ -389,7 +384,7 @@ namespace GalaxyExplorer
 
                 isFading = true;
                 float fadeTime = GetClosingSceneVisibilityTime();
-                FadeManager.FadeExcept(previousTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeOut, fadeTime, OpacityCurveClosingScene);
+                GalaxyExplorerManager.Instance.GeFadeManager.FadeExcept(previousTransition.GetComponentsInChildren<Fader>(), typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeOut, fadeTime, OpacityCurveClosingScene);
             }
 
             PlayTransitionAudio(newTransition.transform, inForwardTransition);
@@ -401,29 +396,29 @@ namespace GalaxyExplorer
             }
 
             // make alpha of pois of next scene equal to zero so they arent visible
-            FadeManager.SetAlphaOnFader(newTransition.GetComponentInChildren<POIMaterialsFader>(), 0.0f);
+            GalaxyExplorerManager.Instance.GeFadeManager.SetAlphaOnFader(newTransition.GetComponentInChildren<POIMaterialsFader>(), 0.0f);
 
             // if going back to solar system from a planet then fade in solar system
             // Dont fade the material of the selected/related planet in the next scene or any poi
             if (previousTransition && previousTransition.IsSinglePlanetTransition)
             {
                 Fader[] allFaders = newTransition.GetComponentsInChildren<Fader>();
-                FadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
+                GalaxyExplorerManager.Instance.GeFadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
 
                 if (relatedPlanet)
-                    FadeManager.SetAlphaOnFader(relatedPlanet.GetComponent<Fader>(), 1.0f);
+                    GalaxyExplorerManager.Instance.GeFadeManager.SetAlphaOnFader(relatedPlanet.GetComponent<Fader>(), 1.0f);
 
                 isFading = true;
                 AnimationCurve opacityCurve = newTransition.gameObject.name.Contains("SolarSystem") ? PlanetToSSTransitionOpacityCurveContentChange : OpacityCurveEnteringScene;
-                FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
+                GalaxyExplorerManager.Instance.GeFadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), relatedPlanet, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, opacityCurve);
             }
             else if ((previousTransition && !previousTransition.IsSinglePlanetTransition && newTransition && !newTransition.IsSinglePlanetTransition))
             {
                 Fader[] allFaders = newTransition.GetComponentsInChildren<Fader>();
-                FadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
+                GalaxyExplorerManager.Instance.GeFadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
 
                 isFading = true;
-                FadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, OpacityCurveEnteringScene);
+                GalaxyExplorerManager.Instance.GeFadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, OpacityCurveEnteringScene);
             }
 
             StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));

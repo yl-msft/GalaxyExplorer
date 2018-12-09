@@ -32,11 +32,8 @@ namespace GalaxyExplorer
 
         private List<GEInteractiveToggle> allButtons = new List<GEInteractiveToggle>();
         private List<Collider> allButtonColliders = new List<Collider>();
-        private ViewLoader loader = null;
-        private TransitionManager transition = null;
         private BoundingBox boundingBox = null;
         private BoundingBoxHandler boundingBoxHandler = null;
-        private GEFadeManager fadeManager = null;
 
         public delegate void AboutSlateOnDelegate(bool enable);
         public AboutSlateOnDelegate OnAboutSlateOnDelegate;
@@ -80,16 +77,13 @@ namespace GalaxyExplorer
             ShowButton?.SetActive(false);
             BackButton?.SetActive(false);
 
-            transition = FindObjectOfType<TransitionManager>();
-            fadeManager = FindObjectOfType<GEFadeManager>();
             boundingBox = FindObjectOfType<BoundingBox>();
             boundingBoxHandler = FindObjectOfType<BoundingBoxHandler>();
 
-            loader = FindObjectOfType<ViewLoader>();
-            if (loader)
+            if (GalaxyExplorerManager.Instance.ViewLoaderScript)
             {
-                loader.OnSceneIsLoaded += OnSceneIsLoaded;
-                loader.OnLoadNewScene += OnLoadNewScene;
+                GalaxyExplorerManager.Instance.ViewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
+                GalaxyExplorerManager.Instance.ViewLoaderScript.OnLoadNewScene += OnLoadNewScene;
             }
 
             // if its unity editor and a non intro scene is active on start then make the menu visible
@@ -122,10 +116,10 @@ namespace GalaxyExplorer
             // waiting necessary for events in flow manager to be called and stage of intro flow to be correct when executing following code
             yield return new WaitForSeconds(1);
 
-            if (!ToolsVisible && !transition.IsInIntroFlow)
+            if (!ToolsVisible && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
             {
                 // If tools/menu is not visible and intro flow has finished then make menu visible
-                while (transition.InTransition)
+                while (GalaxyExplorerManager.Instance.TransitionManager.InTransition)
                 {
                     yield return null;
                 }
@@ -133,7 +127,7 @@ namespace GalaxyExplorer
                 ShowTools();
 
                 // If there is previous scene then user is able to go back so activate the back button
-                BackButton?.SetActive(loader.IsTherePreviousScene());
+                BackButton?.SetActive(GalaxyExplorerManager.Instance.ViewLoaderScript.IsTherePreviousScene());
 
             }
 
@@ -259,7 +253,7 @@ namespace GalaxyExplorer
             SetCollidersEnabled(false);
 
             Fader[] allToolFaders = GetComponentsInChildren<Fader>();
-            fadeManager.Fade(allToolFaders, GEFadeManager.FadeType.FadeOut, FadeToolsDuration, toolsOpacityChange);
+            GalaxyExplorerManager.Instance.GeFadeManager.Fade(allToolFaders, GEFadeManager.FadeType.FadeOut, FadeToolsDuration, toolsOpacityChange);
 
             yield return null;
         }
@@ -274,7 +268,7 @@ namespace GalaxyExplorer
                 SetCollidersEnabled(true);
              
                 Fader[] allToolFaders = GetComponentsInChildren<Fader>();
-                fadeManager.Fade(allToolFaders, GEFadeManager.FadeType.FadeIn, FadeToolsDuration, toolsOpacityChange);
+                GalaxyExplorerManager.Instance.GeFadeManager.Fade(allToolFaders, GEFadeManager.FadeType.FadeIn, FadeToolsDuration, toolsOpacityChange);
                 yield return null;
             }
         }

@@ -32,7 +32,7 @@ namespace GalaxyExplorer
         {
             InputManager.Instance.AddGlobalListener(gameObject);
 
-            FindObjectOfType<InputRouter>().OnKeyboadSelection += OnKeyboadSelection;
+            GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
 
             if (AboutDesktopButton == null)
             {

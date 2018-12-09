@@ -31,8 +31,6 @@ namespace GalaxyExplorer
         protected Animator cardDescriptionAnimator = null;
         private Collider indicatorCollider = null;
         protected bool isCardActive = false;
-     
-        protected CardPOIManager cardPoiManager = null;
 
         // these are only used if there is no indicator line to determine the world position of the point of
         // interest (uses targetPosition) with scale, rotation, and offset and targetOffset to maintain the same
@@ -115,8 +113,7 @@ namespace GalaxyExplorer
             cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
             CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
 
-            cardPoiManager = FindObjectOfType<CardPOIManager>();
-            cardPoiManager.RegisterPOI(this);
+            GalaxyExplorerManager.Instance.CardPoiManager.RegisterPOI(this);
 
             if (Indicator)
             {
@@ -128,9 +125,14 @@ namespace GalaxyExplorer
             }
         }
 
+        protected virtual void OnDisable()
+        {
+            GalaxyExplorerManager.Instance?.CardPoiManager?.UnRegisterPOI(this);
+        }
+
         protected virtual void OnDestroy()
         {
-            cardPoiManager.UnRegisterPOI(this);
+
         }
 
         protected void Update()
@@ -183,8 +185,8 @@ namespace GalaxyExplorer
                 OnFocusEnter();
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-                cardPoiManager.AudioEventWrangler?.OnFocusEnter(focusedObj);
-                cardPoiManager.AudioEventWrangler.OverrideFocusedObject(null);
+                GalaxyExplorerManager.Instance.AudioEventWrangler?.OnFocusEnter(focusedObj);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
             }
             // Second touch select that poi
             else
@@ -192,9 +194,9 @@ namespace GalaxyExplorer
                 OnInputClicked(null);
 
                 GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-                cardPoiManager.AudioEventWrangler.OverrideFocusedObject(focusedObj);
-                cardPoiManager.AudioEventWrangler?.OnInputClicked(null);
-                cardPoiManager.AudioEventWrangler.OverrideFocusedObject(null);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(focusedObj);
+                GalaxyExplorerManager.Instance.AudioEventWrangler?.OnInputClicked(null);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
             }
         }
 

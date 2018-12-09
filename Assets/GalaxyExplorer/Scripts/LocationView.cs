@@ -21,31 +21,26 @@ namespace GalaxyExplorer
         private bool playMusic = true;
         private float delayTimer = 0.0f;
 
-        private MusicManager musicManager = null;
-        private TransitionManager transitionManager = null;
-
+    
         void Start()
         {
             delayTimer = MusicDelayInSeconds;
-            musicManager = FindObjectOfType<MusicManager>();
-            transitionManager = FindObjectOfType<TransitionManager>();
-
-            VOManager voManager = FindObjectOfType<VOManager>();
-            if (voManager && !transitionManager.IsInIntroFlow)
+ 
+            if (GalaxyExplorerManager.Instance.VoManager && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
             {
-                voManager.Stop(true);
-                voManager.PlayClip(VoiceOver);
+                GalaxyExplorerManager.Instance.VoManager.Stop(true);
+                GalaxyExplorerManager.Instance.VoManager.PlayClip(VoiceOver);
             }
         }
 
         void Update()
         {
-            if (playMusic && !transitionManager.IsInIntroFlow)
+            if (playMusic && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
             {
                 delayTimer -= Time.deltaTime;
                 if (delayTimer <= 0.0f)
                 {
-                    musicManager.FindSnapshotAndTransition(MusicEvent);
+                    GalaxyExplorerManager.Instance.MusicManagerScript.FindSnapshotAndTransition(MusicEvent);
                     playMusic = false;
                 }
             }

@@ -13,31 +13,27 @@ namespace GalaxyExplorer
         public GameObject PoiIndicator;
         public bool movePoiStartingPosition = false;
 
-        private GalaxyExplorerManager geManager = null;
-
         void Start()
         {
-            geManager = FindObjectOfType<GalaxyExplorerManager>();
-
             if (PoiCard)
             {
                 PoiCard.transform.localScale = new Vector3(
-                    PoiCard.transform.localScale.x * geManager.GetPoiScaleFactor,
-                    PoiCard.transform.localScale.y * geManager.GetPoiScaleFactor,
+                    PoiCard.transform.localScale.x * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
+                    PoiCard.transform.localScale.y * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
                     PoiCard.transform.localScale.z);
             }
             if (PoiAlternateCard)
             {
                 PoiAlternateCard.transform.localScale = new Vector3(
-                    PoiAlternateCard.transform.localScale.x * geManager.GetPoiScaleFactor,
-                    PoiAlternateCard.transform.localScale.y * geManager.GetPoiScaleFactor,
+                    PoiAlternateCard.transform.localScale.x * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
+                    PoiAlternateCard.transform.localScale.y * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
                     PoiAlternateCard.transform.localScale.z);
             }
             if (PoiIndicator)
             {
                 PoiIndicator.transform.localScale = new Vector3(
-                    PoiIndicator.transform.localScale.x * geManager.GetPoiScaleFactor,
-                    PoiIndicator.transform.localScale.y * geManager.GetPoiScaleFactor,
+                    PoiIndicator.transform.localScale.x * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
+                    PoiIndicator.transform.localScale.y * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
                     PoiIndicator.transform.localScale.z);
 
                 //if (ViewLoader.Instance.CurrentView.Equals("SolarSystemView"))
@@ -52,13 +48,13 @@ namespace GalaxyExplorer
                 Transform transformToMove = PoiIndicator.transform;
                 transformToMove.localPosition = new Vector3(
                     transformToMove.localPosition.x,
-                    transformToMove.localPosition.y * geManager.PoiMoveFactor,
+                    transformToMove.localPosition.y * GalaxyExplorerManager.Instance.PoiMoveFactor,
                     transformToMove.localPosition.z);
             }
 
             if (movePoiStartingPosition)
             {
-                transform.localPosition = transform.localPosition * geManager.GetGalaxyScaleFactor;
+                transform.localPosition = transform.localPosition * GalaxyExplorerManager.Instance.GetGalaxyScaleFactor;
             }
         }
     }

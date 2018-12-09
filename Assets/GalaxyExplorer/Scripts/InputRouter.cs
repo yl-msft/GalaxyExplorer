@@ -8,8 +8,6 @@ namespace GalaxyExplorer
 {
     public class InputRouter : MonoBehaviour
     {
-        private TransitionManager transition = null;
-
         public delegate void KeyboadSelectionDelegate();
         public KeyboadSelectionDelegate OnKeyboadSelection;
 
@@ -19,8 +17,6 @@ namespace GalaxyExplorer
             KeyboardManager.KeyEvent keyDownEvent = KeyboardManager.KeyEvent.KeyDown;
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Space, keyDownEvent), SpaceTapKeyboardHandler);
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Backspace, keyDownEvent), BackSpaceKeyboardHandler);
-
-            transition = FindObjectOfType<TransitionManager>();
         }
 
         private void SpaceTapKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
@@ -30,7 +26,7 @@ namespace GalaxyExplorer
 
         private void BackSpaceKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
         {
-            transition.LoadPrevScene();
+            GalaxyExplorerManager.Instance.TransitionManager.LoadPrevScene();
             OnKeyboadSelection?.Invoke();
         }
 

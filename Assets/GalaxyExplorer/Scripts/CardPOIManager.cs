@@ -28,79 +28,53 @@ namespace GalaxyExplorer
         public AnimationCurve DescriptionSlideCurve;
 
         private List<PointOfInterest> allPOIs = new List<PointOfInterest>();
-        private ToolManager toolsManager = null;
-        private GEMouseInputSource mouseInput = null;
-        private TransitionManager transitionManager = null;
-
-        public GEFadeManager GeFadeManager
-        {
-            get; set;
-        }
-
-        public VOManager VoManager
-        {
-            get; set;
-        }
-
-        public AuduiEventWrangler AudioEventWrangler
-        {
-            get; set;
-        }
 
         private void Start()
         {
             InputManager.Instance.AddGlobalListener(gameObject);
 
-            toolsManager = FindObjectOfType<ToolManager>();
-            if (toolsManager)
+            if (GalaxyExplorerManager.Instance.ToolsManager)
             {
-                toolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
+                GalaxyExplorerManager.Instance.ToolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
             }
 
-            InputRouter inputRouter = FindObjectOfType<InputRouter>();
-            if (inputRouter)
+            if (GalaxyExplorerManager.Instance.InputRouter)
             {
-                inputRouter.OnKeyboadSelection += OnKeyboadSelection;
+                GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
             }
 
-            mouseInput = FindObjectOfType<GEMouseInputSource>();
-            if (mouseInput)
+            if (GalaxyExplorerManager.Instance.MouseInput)
             {
-                mouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
-                mouseInput.OnMouseClickUpDelegate += OnMouseClickUpDelegate;
-                mouseInput.OnMouseOnHoverDelegate += OnMouseOnHoverDelegate;
-                mouseInput.OnMouseOnUnHoverDelegate += OnMouseOnUnHoverDelegate;
+                GalaxyExplorerManager.Instance.MouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
+                GalaxyExplorerManager.Instance.MouseInput.OnMouseClickUpDelegate += OnMouseClickUpDelegate;
+                GalaxyExplorerManager.Instance.MouseInput.OnMouseOnHoverDelegate += OnMouseOnHoverDelegate;
+                GalaxyExplorerManager.Instance.MouseInput.OnMouseOnUnHoverDelegate += OnMouseOnUnHoverDelegate;
             }
-
-            AudioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
-            transitionManager = FindObjectOfType<TransitionManager>();
-            VoManager = FindObjectOfType<VOManager>();
-            GeFadeManager = FindObjectOfType<GEFadeManager>();
         }
 
         private void OnMouseOnUnHoverDelegate(GameObject selectedObject)
         {
-            AudioEventWrangler.OverrideFocusedObject(null);
+            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
         }
 
         private void OnMouseOnHoverDelegate(GameObject selectedObject)
         {
             if (selectedObject)
             {
-                AudioEventWrangler.OnFocusEnter(selectedObject);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OnFocusEnter(selectedObject);
             }
         }
 
         private void OnMouseClickUpDelegate(GameObject selectedObject)
         {
-            AudioEventWrangler.OverrideFocusedObject(null);
+            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
         }
 
         private void OnMouseClickDelegate(GameObject selectedObject)
         {
             if (selectedObject)
             {
-                AudioEventWrangler.OverrideFocusedObject(selectedObject);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(selectedObject);
             }
         }
 
@@ -112,11 +86,11 @@ namespace GalaxyExplorer
             if (isAnyCardActive)
             {
                 StartCoroutine(CloseAnyOpenCard(null));
-                AudioEventWrangler.OnInputClicked(null);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
             }
             else
             {
-                GameObject selected = mouseInput.FocusedObject;
+                GameObject selected = GalaxyExplorerManager.Instance.MouseInput.FocusedObject;
                 if (selected)
                 {
                     IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
@@ -125,10 +99,10 @@ namespace GalaxyExplorer
                     PointOfInterest poi = selected.GetComponentInParent<PointOfInterest>();
                     if (poi)
                     {
-                        AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
+                        GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
                     }
 
-                    AudioEventWrangler.OnInputClicked(null);
+                    GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
                 }
             }
 
@@ -143,12 +117,6 @@ namespace GalaxyExplorer
         public void UnRegisterPOI(PointOfInterest poi)
         {
             allPOIs.Remove(poi);
-        }
-
-        // Triggered from planet poi when user has selected it
-        public void OnPlanetPoiSelected(string SceneToLoad)
-        {
-            transitionManager.LoadNextScene(SceneToLoad, true);
         }
 
         // Find if a card POI is activa and its card is on/visible
@@ -171,7 +139,7 @@ namespace GalaxyExplorer
         {
             yield return new WaitForEndOfFrame();
 
-            if (transitionManager.InTransition)
+            if (GalaxyExplorerManager.Instance.TransitionManager.InTransition)
             {
                 yield break;
             }
@@ -215,7 +183,7 @@ namespace GalaxyExplorer
                     eventData?.Use();
 
                     CardPOI cardPoi = (CardPOI)poi;
-                    AudioEventWrangler.OverrideFocusedObject((cardPoi) ? cardPoi.GetCardObject.GetComponentInChildren<Collider>().gameObject : poi.IndicatorCollider.gameObject);
+                    GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject((cardPoi) ? cardPoi.GetCardObject.GetComponentInChildren<Collider>().gameObject : poi.IndicatorCollider.gameObject);
 
                     poi.OnInputClicked(null);
                     Debug.Log("Close card because of input");
@@ -297,7 +265,7 @@ namespace GalaxyExplorer
 
             if (isAnyCardActive)
             {
-                AudioEventWrangler.OnInputClicked(null);
+                GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
             }
         }
 

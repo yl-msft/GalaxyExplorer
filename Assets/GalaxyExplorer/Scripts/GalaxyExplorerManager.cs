@@ -1,13 +1,15 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using HoloToolkit.Unity;
+using MRS.Audui;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.WSA;
 
 namespace GalaxyExplorer
 {
-    public class GalaxyExplorerManager : MonoBehaviour
+    public class GalaxyExplorerManager : Singleton<GalaxyExplorerManager>
     {
         public enum PlatformId
         {
@@ -28,6 +30,56 @@ namespace GalaxyExplorer
 
         [SerializeField]
         private float PoiScaleFactor = 1.0f;
+
+        public GEFadeManager GeFadeManager
+        {
+            get; set;
+        }
+
+        public VOManager VoManager
+        {
+            get; set;
+        }
+
+        public AuduiEventWrangler AudioEventWrangler
+        {
+            get; set;
+        }
+
+        public TransitionManager TransitionManager
+        {
+            get; set;
+        }
+
+        public ToolManager ToolsManager
+        {
+            get; set;
+        }
+
+        public GEMouseInputSource MouseInput
+        {
+            get; set;
+        }
+
+        public InputRouter InputRouter
+        {
+            get; set;
+        }
+
+        public MusicManager MusicManagerScript
+        {
+            get; set;
+        }
+
+        public ViewLoader ViewLoaderScript
+        {
+            get; set;
+        }
+
+        public CardPOIManager CardPoiManager
+        {
+            get; set;
+        }
 
         public static bool IsHoloLens
         {
@@ -167,8 +219,10 @@ namespace GalaxyExplorer
             }
         }
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if (XRDevice.isPresent)
             {
                 if (HolographicSettings.IsDisplayOpaque)
@@ -189,6 +243,17 @@ namespace GalaxyExplorer
             {
                 MyAppPlatformManagerInitialized.Invoke();
             }
+
+            AudioEventWrangler = FindObjectOfType<AuduiEventWrangler>();
+            TransitionManager = FindObjectOfType<TransitionManager>();
+            VoManager = FindObjectOfType<VOManager>();
+            GeFadeManager = FindObjectOfType<GEFadeManager>();
+            ToolsManager = FindObjectOfType<ToolManager>();
+            MouseInput = FindObjectOfType<GEMouseInputSource>();
+            InputRouter = FindObjectOfType<InputRouter>();
+            MusicManagerScript = FindObjectOfType<MusicManager>();
+            ViewLoaderScript = FindObjectOfType<ViewLoader>();
+            CardPoiManager = FindObjectOfType<CardPOIManager>();
         }
 
     }
