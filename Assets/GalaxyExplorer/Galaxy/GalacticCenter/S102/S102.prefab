@@ -995,6 +995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbitMaterial: {fileID: 2100000, guid: d4eee6434cf507842b4b80ffc7943afa, type: 2}
+  Planet: {fileID: 114903026739983594}
   orbitStepCount: 269
   pointOfInterestMarker: {fileID: 114372712037756574}
   pointOfInterestAngle: 90

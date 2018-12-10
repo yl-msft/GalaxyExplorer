@@ -198,7 +198,7 @@ namespace GalaxyExplorer
                     }
                     else if (orbitsMaterial)
                     {
-                        var planetPos = item.planet.transform.position;
+                        var planetPos = item.Planet.transform.position;
                         orbitsMaterial.SetVector("planetPositionsAndRadius" + i.ToString(), new Vector4(planetPos.x, planetPos.y, planetPos.z, 0));
                     }
                 }
@@ -231,6 +231,10 @@ namespace GalaxyExplorer
         }
 
         public Material orbitMaterial;
+
+        [SerializeField]
+        private OrbitUpdater Planet;
+
         private float originalGlobalScale;
         private float originalWidth;
 
@@ -242,19 +246,20 @@ namespace GalaxyExplorer
         public bool snapPointOfInterestToPosition;
 
         private GameObject pointOfInterestTarget;
-
-        private OrbitUpdater planet;
         private GameObject container;
 
         private void Awake()
         {
             // We put the trail object under the planet, but we want it to be the parented to the parent of the planet ...
             // which will be the solar system
-            planet = GetComponentInParent<OrbitUpdater>();
+            if (Planet == null)
+            {
+                Planet = GetComponentInParent<OrbitUpdater>();
+            }
 
-            container = new GameObject("Orbit Container " + planet.name);
+            container = new GameObject("Orbit Container " + Planet.name);
 
-            var planetTransform = planet.transform;
+            var planetTransform = Planet.transform;
             container.transform.SetParent(planetTransform.parent, worldPositionStays: false);
             container.AddComponent<NoAutomaticFade>();
 
@@ -262,7 +267,7 @@ namespace GalaxyExplorer
 
             GeneratePositionsForOrbit(out realPositions, out schematicPositions);
 
-            var orbitsRenderer = OrbitsRenderer.GetOrCreate(planet.transform.parent);
+            var orbitsRenderer = OrbitsRenderer.GetOrCreate(Planet.transform.parent);
             orbitsRenderer.AddOrbit(this, realPositions, schematicPositions);
             originalGlobalScale = orbitMaterial.GetFloat("_GlobalScale");
             originalWidth = orbitMaterial.GetFloat("_Width");
@@ -276,7 +281,7 @@ namespace GalaxyExplorer
 
         private void GeneratePositionsForOrbit(out List<Vector3> realPositions, out List<Vector3> schematicPositions)
         {
-            var orbitStep = planet.CurrentPeriod / orbitStepCount;
+            var orbitStep = Planet.CurrentPeriod / orbitStepCount;
 
             var orbitStepTime = TimeSpan.FromDays(orbitStep);
             var currentDate = DateTime.MinValue;
@@ -284,13 +289,13 @@ namespace GalaxyExplorer
             realPositions = new List<Vector3>();
             schematicPositions = new List<Vector3>();
 
-            for (float currentStep = 0; currentStep < planet.CurrentPeriod; currentStep += orbitStep)
+            for (float currentStep = 0; currentStep < Planet.CurrentPeriod; currentStep += orbitStep)
             {
-                planet.Reality = 1;
-                var realStepPosition = planet.CalculatePosition(currentDate);
+                Planet.Reality = 1;
+                var realStepPosition = Planet.CalculatePosition(currentDate);
 
-                planet.Reality = 0;
-                var schematicPosition = planet.CalculatePosition(currentDate);
+                Planet.Reality = 0;
+                var schematicPosition = Planet.CalculatePosition(currentDate);
 
                 realPositions.Add(realStepPosition);
                 schematicPositions.Add(schematicPosition);
@@ -305,10 +310,10 @@ namespace GalaxyExplorer
         private void Start()
         {
             // create a point of interest target position
-            if (pointOfInterestMarker != null && planet != null && container != null)
+            if (pointOfInterestMarker != null && Planet != null && container != null)
             {
                 pointOfInterestTarget = new GameObject("POI_OrbitTarget");
-                pointOfInterestTarget.transform.localPosition = planet.CalculatePosition(pointOfInterestAngle * Mathf.Deg2Rad);
+                pointOfInterestTarget.transform.localPosition = Planet.CalculatePosition(pointOfInterestAngle * Mathf.Deg2Rad);
                 pointOfInterestTarget.transform.localRotation = Quaternion.identity;
                 pointOfInterestTarget.transform.localScale = Vector3.one;
                 pointOfInterestTarget.transform.SetParent(container.transform, false);
@@ -322,15 +327,15 @@ namespace GalaxyExplorer
 
         private void Update()
         {
-            if (pointOfInterestTarget != null && planet != null)
+            if (pointOfInterestTarget != null && Planet != null)
             {
                 if (snapPointOfInterestToPosition)
                 {
-                    pointOfInterestTarget.transform.position = planet.transform.position;
+                    pointOfInterestTarget.transform.position = Planet.transform.position;
                 }
                 else
                 {
-                    pointOfInterestTarget.transform.localPosition = planet.CalculatePosition(pointOfInterestAngle * Mathf.Deg2Rad);
+                    pointOfInterestTarget.transform.localPosition = Planet.CalculatePosition(pointOfInterestAngle * Mathf.Deg2Rad);
                 }
             }
         }
