@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity;
+using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
 using UnityEngine;
 using UnityEngine.XR;
@@ -237,6 +238,8 @@ namespace GalaxyExplorer
             else 
             {
                 Platform = PlatformId.Desktop;
+                GazeManager.Instance.enabled = false;
+                FocusManager.Instance.enabled = false;
             }
 
             if (MyAppPlatformManagerInitialized != null)
