@@ -129,7 +129,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public IEnumerator ZoomInOutCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve)
+        public IEnumerator ZoomInOutCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve, AnimationCurve extraPositionCurve = null)
         {
             if (PreviousScene == null || NextScene == null || PreviousSceneFocusCollider == null || NextSceneFocusCollider == null)
             {
@@ -160,7 +160,15 @@ namespace GalaxyExplorer
                 PreviousScene.position = posBeforeScale - newDisplacement;
 
                 // Position scenes. FOr next scene take into account the focus collider pivot as well
-                NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
+                if (extraPositionCurve != null)
+                {
+                    NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(extraPositionCurve.Evaluate(positionCurve.Evaluate(transitionAmount))));
+                }
+                else
+                {
+                    NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
+                }
+                
                 PreviousScene.transform.position = NextSceneFocusCollider.transform.position - newDisplacement;
 
                 yield return null;
@@ -194,7 +202,7 @@ namespace GalaxyExplorer
 
         // During transition that doesnt involve single planet so during transition from galaxy to solar or to galactic center
         // we need to identify the poi that spawned the next scene or if going backwards the poi that we are going into
-        private void GetRelatedScenes(out GameObject previousRelatedPlanetObjectt, out GameObject nextRelatedPlanetObjectt,SceneTransition previousScene, SceneTransition newScene)
+        private void GetRelatedScenes(out GameObject previousRelatedPlanetObjectt, out GameObject nextRelatedPlanetObjectt, SceneTransition previousScene, SceneTransition newScene)
         {
             previousRelatedPlanetObjectt = null;
             nextRelatedPlanetObjectt = null;

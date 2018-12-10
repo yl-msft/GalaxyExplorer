@@ -6026,10 +6026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e071d3b0f2f3ea44e84a63328e862e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GalaxyScaleFactor: 1
   SpiralGalaxyTintMultConstant: 1
-  SlateScaleFactor: 1
-  MagicWindowScaleFactor: 1
   PoiScaleFactor: 1
 --- !u!114 &1701178535
 MonoBehaviour:
@@ -6177,6 +6174,36 @@ MonoBehaviour:
       value: 0.95383716
       inSlope: 0.14690155
       outSlope: 0.14690155
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  PositionTransitionCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.70800805
+      value: 0.025576219
+      inSlope: 0.095144406
+      outSlope: 0.095144406
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9054143
+      value: 0.3139812
+      inSlope: 4.3548646
+      outSlope: 4.3548646
       tangentMode: 0
     - serializedVersion: 2
       time: 1
@@ -6339,20 +6366,14 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.29875574
-      value: 0.10640621
-      inSlope: 1.1951532
-      outSlope: 1.1951532
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.7992505
-      value: 0.98650026
-      inSlope: 0.57213515
-      outSlope: 0.57213515
+      time: 0.49956128
+      value: 0.5039288
+      inSlope: 3.009008
+      outSlope: 3.009008
       tangentMode: 0
     - serializedVersion: 2
       time: 1
-      value: 1.006012
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

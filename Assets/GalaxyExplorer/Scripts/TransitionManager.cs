@@ -21,6 +21,8 @@ namespace GalaxyExplorer
         public AnimationCurve GalaxyToSSTransitionCurveContentChange;
         [Tooltip("The curve that defines how content moves when transitioning from the solar system to the galaxy.")]
         public AnimationCurve SSToGalaxyTransitionCurveContentChange;
+        [Tooltip("The extra position curve that defines how content moves when transitioning from the solar system to the galaxy and galactic center to galaxy.")]
+        public AnimationCurve PositionTransitionCurveContentChange;
         [Tooltip("The curve that defines how content moves when transitioning from the solar system to a planet or the sun.")]
         public AnimationCurve SSToPlanetTransitionCurveContentChange;
         [Tooltip("The curve that defines how content moves (position and scale only) when transitioning from a planet or the sun to the solar system.")]
@@ -421,7 +423,15 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.GeFadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, OpacityCurveEnteringScene);
             }
 
-            StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+            if (newTransition.gameObject.scene.name.Contains("GalaxyView"))
+            {
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), PositionTransitionCurveContentChange));
+            }
+            else
+            {
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+            }
+
             StartCoroutine(LightTransitions(previousTransition, newTransition));
 
             yield return null;
