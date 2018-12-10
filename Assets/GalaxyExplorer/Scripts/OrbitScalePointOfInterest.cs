@@ -80,7 +80,7 @@ namespace GalaxyExplorer
             IsAnimating = false;
         }
 
-        public override void OnInputUp(InputEventData eventData)
+        public override void OnInputClicked(InputClickedEventData eventData)
         {
             if (!IsAnimating)
             {
@@ -123,6 +123,11 @@ namespace GalaxyExplorer
                     AlternateDescription.SetActive(false);
                 }
             }
+        }
+
+        public override void OnInputUp(InputEventData eventData)
+        {
+            base.OnInputUp(eventData);
         }
     }
 }
