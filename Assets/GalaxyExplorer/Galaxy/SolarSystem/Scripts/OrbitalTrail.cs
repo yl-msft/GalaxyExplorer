@@ -245,8 +245,8 @@ namespace GalaxyExplorer
 
         public bool snapPointOfInterestToPosition;
 
-        private GameObject pointOfInterestTarget;
-        private GameObject container;
+        public GameObject pointOfInterestTarget;
+        public GameObject container;
 
         private void Awake()
         {
@@ -257,10 +257,12 @@ namespace GalaxyExplorer
                 Planet = GetComponentInParent<OrbitUpdater>();
             }
 
-            container = new GameObject("Orbit Container " + Planet.name);
+            if (container == null)
+            {
+                container = new GameObject("Orbit Container " + Planet.name);
+                container.transform.SetParent(Planet.transform.parent, worldPositionStays: false);
+            }
 
-            var planetTransform = Planet.transform;
-            container.transform.SetParent(planetTransform.parent, worldPositionStays: false);
             container.AddComponent<NoAutomaticFade>();
 
             List<Vector3> realPositions, schematicPositions;
@@ -310,13 +312,24 @@ namespace GalaxyExplorer
         private void Start()
         {
             // create a point of interest target position
-            if (pointOfInterestMarker != null && Planet != null && container != null)
+            if (pointOfInterestTarget == null && pointOfInterestMarker != null && Planet != null && container != null)
             {
                 pointOfInterestTarget = new GameObject("POI_OrbitTarget");
                 pointOfInterestTarget.transform.localPosition = Planet.CalculatePosition(pointOfInterestAngle * Mathf.Deg2Rad);
                 pointOfInterestTarget.transform.localRotation = Quaternion.identity;
                 pointOfInterestTarget.transform.localScale = Vector3.one;
                 pointOfInterestTarget.transform.SetParent(container.transform, false);
+
+                if (pointOfInterestMarker.GetIndicatorLine != null)
+                {
+                    pointOfInterestMarker.GetIndicatorLine.points[0] = pointOfInterestTarget.transform;
+                }
+            }
+            else if (pointOfInterestTarget != null)
+            {
+                pointOfInterestTarget.transform.localPosition = Planet.CalculatePosition(pointOfInterestAngle * Mathf.Deg2Rad);
+                pointOfInterestTarget.transform.localRotation = Quaternion.identity;
+                pointOfInterestTarget.transform.localScale = Vector3.one;
 
                 if (pointOfInterestMarker.GetIndicatorLine != null)
                 {
