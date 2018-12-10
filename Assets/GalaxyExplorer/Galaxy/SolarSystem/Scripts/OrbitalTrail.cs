@@ -3,6 +3,7 @@
 
 using HoloToolkit.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -264,6 +265,14 @@ namespace GalaxyExplorer
             }
 
             container.AddComponent<NoAutomaticFade>();
+
+            StartCoroutine(AwakeCoroutine());
+        }
+
+        // Following functionality is very expensive and doesnt really need to happen in awake so delay it a bit to reduce the transition overhead
+        private IEnumerator AwakeCoroutine()
+        {
+            yield return new WaitForSeconds(1);
 
             List<Vector3> realPositions, schematicPositions;
 
