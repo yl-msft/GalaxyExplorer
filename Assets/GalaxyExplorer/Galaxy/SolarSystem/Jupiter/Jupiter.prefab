@@ -145,7 +145,6 @@ GameObject:
   - component: {fileID: 4172264244251832}
   - component: {fileID: 114809151985353360}
   - component: {fileID: 114741636062914950}
-  - component: {fileID: 114071445923590576}
   m_Layer: 0
   m_Name: Jupiter
   m_TagString: Untagged
@@ -820,37 +819,6 @@ MonoBehaviour:
   MinSizeRatio: 0.5
   MaxSizeRatio: 6
   LerpSpeed: 100
---- !u!114 &114071445923590576
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1361550554541148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SemiMajorAxis: 0.14
-  SemiMajorAxisReal: 778673200
-  Eccentricity: 0
-  EccentricityReal: 0.04892307
-  ArgumentOfPerigee: 0
-  Inclination: 0
-  InclinationReal: 0.02277056
-  RightAscensionOfAscendingNode: 0
-  MeanAnomaly: 0
-  Period: 4335.467
-  PeriodReal: 4335.467
-  Plane: 0
-  TrueAnomaly: 0
-  Epoch: 2451545
-  Reality: 0
-  RealitySemiMajorAxisScale: 4.231401e-11
-  Speed: 100
-  SpeedMultiplier: 0.1
-  TransitionSpeedMultiplier: 1
-  MaxIterations: 20
 --- !u!114 &114079812244542276
 MonoBehaviour:
   m_ObjectHideFlags: 1
