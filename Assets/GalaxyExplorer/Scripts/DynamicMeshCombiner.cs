@@ -139,7 +139,6 @@ namespace GalaxyExplorer
         private void Awake()
         {
             currentFader = GetComponent<Fader>();
-            Initialize();
         }
 
         private void Initialize()
