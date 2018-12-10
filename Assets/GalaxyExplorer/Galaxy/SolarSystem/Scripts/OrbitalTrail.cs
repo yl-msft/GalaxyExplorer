@@ -246,20 +246,6 @@ namespace GalaxyExplorer
         private OrbitUpdater planet;
         private GameObject container;
 
-        private Transform sun;
-
-        private void FindSunIfNeeded()
-        {
-            if (!sun)
-            {
-                var sunGo = GameObject.Find("Sun");
-                if (sunGo)
-                {
-                    sun = sunGo.transform;
-                }
-            }
-        }
-
         private void Awake()
         {
             // We put the trail object under the planet, but we want it to be the parented to the parent of the planet ...
@@ -270,9 +256,6 @@ namespace GalaxyExplorer
 
             var planetTransform = planet.transform;
             container.transform.SetParent(planetTransform.parent, worldPositionStays: false);
-
-            FindSunIfNeeded();
-
             container.AddComponent<NoAutomaticFade>();
 
             List<Vector3> realPositions, schematicPositions;
@@ -339,8 +322,6 @@ namespace GalaxyExplorer
 
         private void Update()
         {
-            FindSunIfNeeded();
-
             if (pointOfInterestTarget != null && planet != null)
             {
                 if (snapPointOfInterestToPosition)
