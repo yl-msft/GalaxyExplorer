@@ -548,7 +548,7 @@ namespace GalaxyExplorer
         {
             if (GalaxyExplorerManager.IsDesktop && touchController)
             {
-                touchController.enabled = false;
+                touchController.enabled = enable;
             }
         }
 
