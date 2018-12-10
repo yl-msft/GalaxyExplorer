@@ -272,7 +272,9 @@ namespace GalaxyExplorer
         // Following functionality is very expensive and doesnt really need to happen in awake so delay it a bit to reduce the transition overhead
         private IEnumerator AwakeCoroutine()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForEndOfFrame(); 
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
 
             List<Vector3> realPositions, schematicPositions;
 
