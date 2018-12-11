@@ -62,7 +62,7 @@ namespace GalaxyExplorer
         // On every left mouse click check if click is inside or outside about slate card.
         private void UpdateMouseButtonClicks()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (GalaxyExplorerManager.IsDesktop && Input.GetMouseButtonDown(0))
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
