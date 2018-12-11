@@ -29,6 +29,7 @@ namespace GalaxyExplorer
         public AnimationCurve PlanetToSSPositionScaleCurveContentChange;
         [Tooltip("The curve that defines how content moves (rotation only) when transitioning from a planet or the sun to the solar system.")]
         public AnimationCurve PlanetToSSRotationCurveContentChange;
+        public AnimationCurve PlanetToSSScaleCurveContentChange;
 
         [Header("OpeningScene")]
         [Tooltip("The time it takes to fully transition from one scene opening and getting into position at the center of the cube or room.")]
@@ -292,7 +293,7 @@ namespace GalaxyExplorer
             SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
 
             SetActivationOfTouchscript(false);
-            DeactivateOrbitUpdater(newTransition);
+            DeactivateOrbitUpdater(newTransition, previousTransition, false);
             SetActivePOIRotationAnimator(false, previousTransition, newTransition);
 
             // Scale new scene to fit inside the volume
@@ -323,6 +324,8 @@ namespace GalaxyExplorer
             {
                 yield return null;
             }
+
+            DeactivateOrbitUpdater(newTransition, previousTransition, true);
 
             // Unload previous scene
             if (prevSceneLoaded != null)
@@ -426,6 +429,10 @@ namespace GalaxyExplorer
             if (newTransition.gameObject.scene.name.Contains("GalaxyView"))
             {
                 StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), PositionTransitionCurveContentChange));
+            }
+            else if (previousTransition && previousTransition.IsSinglePlanetTransition)
+            {
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), PlanetToSSScaleCurveContentChange));
             }
             else
             {
@@ -532,7 +539,7 @@ namespace GalaxyExplorer
             return child;
         }
 
-        private void DeactivateOrbitUpdater(SceneTransition newTransition)
+        private void DeactivateOrbitUpdater(SceneTransition newTransition, SceneTransition previousTransition, bool isActive)
         {
             // If going into a single planet then deactivate the previous scene's planet rotation script
             // in order to stop the previous planet moving
@@ -544,11 +551,26 @@ namespace GalaxyExplorer
 
                 if (relatedPlanet && relatedPlanet.GetComponentInChildren<OrbitUpdater>())
                 {
-                    relatedPlanet.GetComponentInChildren<OrbitUpdater>().enabled = false;
+                    relatedPlanet.GetComponentInChildren<OrbitUpdater>().enabled = isActive;
                 }
                 else if (relatedPlanet && relatedPlanet.transform.parent.GetComponent<OrbitUpdater>())
                 {
-                    relatedPlanet.transform.parent.GetComponent<OrbitUpdater>().enabled = false;
+                    relatedPlanet.transform.parent.GetComponent<OrbitUpdater>().enabled = isActive;
+                }
+            }
+            else if (previousTransition && previousTransition.IsSinglePlanetTransition)
+            {
+                GameObject singlePlanet = null;
+                GameObject relatedPlanet = null;
+                GetRelatedPlanets(out relatedPlanet, out singlePlanet);
+
+                if (relatedPlanet && relatedPlanet.GetComponentInChildren<OrbitUpdater>())
+                {
+                    relatedPlanet.GetComponentInChildren<OrbitUpdater>().enabled = isActive;
+                }
+                else if (relatedPlanet && relatedPlanet.transform.parent.GetComponent<OrbitUpdater>())
+                {
+                    relatedPlanet.transform.parent.GetComponent<OrbitUpdater>().enabled = isActive;
                 }
             }
         }

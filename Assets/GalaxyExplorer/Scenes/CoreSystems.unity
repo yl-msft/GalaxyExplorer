@@ -6244,16 +6244,10 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.3009811
-      value: 0.6921779
-      inSlope: 2.2222102
-      outSlope: 2.2222102
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.60025173
-      value: 0.93665075
-      inSlope: 0.17084232
-      outSlope: 0.17084232
+      time: 0.49434924
+      value: 0.0010171677
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 1
@@ -6284,6 +6278,30 @@ MonoBehaviour:
       value: 0.21709196
       inSlope: 1.2281027
       outSlope: 1.2281027
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  PlanetToSSScaleCurveContentChange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.49803385
+      value: 0.97462606
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 1
