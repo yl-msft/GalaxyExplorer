@@ -82,6 +82,8 @@ namespace GalaxyExplorer
 
         public override void OnInputClicked(InputClickedEventData eventData)
         {
+            base.OnInputClicked(eventData);
+
             if (!IsAnimating)
             {
                 indicatorRenderer.material.mainTexture = IsReal ? SimplifiedIcon : RealIcon;

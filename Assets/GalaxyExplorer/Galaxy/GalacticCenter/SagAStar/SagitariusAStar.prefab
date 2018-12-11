@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 23558774514331158}
   - component: {fileID: 95302821664126016}
   - component: {fileID: 65463441194576972}
+  - component: {fileID: 114330358365043734}
   m_Layer: 8
   m_Name: DescriptionCard_Card
   m_TagString: Untagged
@@ -716,6 +717,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlackHoleMaterial: {fileID: 2100000, guid: c460d0b38fad1fa469cbe0155cff6547, type: 2}
   SkyboxEnabled: 0
+--- !u!114 &114330358365043734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870242238133468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114424884004664358}
 --- !u!114 &114364813294234112
 MonoBehaviour:
   m_ObjectHideFlags: 1

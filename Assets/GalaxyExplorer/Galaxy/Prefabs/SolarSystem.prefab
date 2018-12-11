@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23241188421704008}
   - component: {fileID: 95886444553953710}
   - component: {fileID: 65969247694835294}
+  - component: {fileID: 114349093856342244}
   m_Layer: 8
   m_Name: SolarSystem_Card
   m_TagString: Untagged
@@ -588,6 +589,18 @@ MonoBehaviour:
   indicatorOffset: {x: 0, y: 0.25, z: 0}
   SceneToLoad: SolarSystemView
   Planet: {fileID: 1405160509551374}
+--- !u!114 &114349093856342244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1133209147641556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114270558535663530}
 --- !u!114 &114417385027150718
 MonoBehaviour:
   m_ObjectHideFlags: 1

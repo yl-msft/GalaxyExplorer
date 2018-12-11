@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 23099679768578418}
   - component: {fileID: 95620760798559904}
   - component: {fileID: 65509017294747190}
+  - component: {fileID: 114020535634637054}
   m_Layer: 8
   m_Name: DescriptionCard_Card
   m_TagString: Untagged
@@ -878,6 +879,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114020535634637054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533815404975494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114533383574295448}
 --- !u!114 &114043165564055256
 MonoBehaviour:
   m_ObjectHideFlags: 1

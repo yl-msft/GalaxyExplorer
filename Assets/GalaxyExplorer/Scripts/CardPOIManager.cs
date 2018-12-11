@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity.InputModule;
-using MRS.Audui;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -280,5 +279,18 @@ namespace GalaxyExplorer
             StartCoroutine(CloseAnyOpenCard(eventData));
             StartCoroutine(UpdateActivationOfPOIColliders());
         }
+
+        // Called by poi if any poi is focused in order to notify all the other pois
+        public void OnPOIFocusEnter(PointOfInterest focusedPOI)
+        {
+            foreach (var poi in allPOIs)
+            {
+                if (poi && poi != focusedPOI)
+                {
+                    poi?.OnAnyPoiFocus();
+                }
+            }
+        }
+
     }
 }

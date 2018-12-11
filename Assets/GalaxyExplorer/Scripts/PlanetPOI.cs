@@ -34,6 +34,8 @@ namespace GalaxyExplorer
 
         public override void OnInputClicked(InputClickedEventData eventData)
         {
+            base.OnInputClicked(eventData);
+
             // Fade out card description material
             if (CardDescription)
             {
@@ -45,12 +47,12 @@ namespace GalaxyExplorer
 
         public override void OnInputDown(InputEventData eventData)
         {
-
+            base.OnInputDown(eventData);
         }
 
         public override void OnInputUp(InputEventData eventData)
         {
-  
+            base.OnInputUp(eventData);
         }
 
         public override void OnFocusEnter()

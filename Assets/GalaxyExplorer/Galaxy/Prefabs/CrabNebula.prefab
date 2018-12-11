@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 23535709661421126}
   - component: {fileID: 95471867276238676}
   - component: {fileID: 65508534974861658}
+  - component: {fileID: 114901184325862448}
   m_Layer: 8
   m_Name: CardDescription
   m_TagString: Untagged
@@ -867,6 +868,18 @@ MonoBehaviour:
   MaxScale: 100
   RescaleEveryFrame: 0
   RescaleWarp: 1
+--- !u!114 &114901184325862448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275910392810722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114411658258791640}
 --- !u!114 &114976645090992654
 MonoBehaviour:
   m_ObjectHideFlags: 1

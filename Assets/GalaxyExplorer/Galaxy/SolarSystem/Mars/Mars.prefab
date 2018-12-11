@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 23583849476264396}
   - component: {fileID: 95714811704544218}
   - component: {fileID: 65747462651977852}
+  - component: {fileID: 114206076827291964}
   m_Layer: 8
   m_Name: CardDescription
   m_TagString: Untagged
@@ -693,7 +694,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.014, y: 0.0254, z: 0.000000027251243}
-  m_Center: {x: -0.007, y: -0.000000007974729, z: -0.000000047492982}
+  m_Center: {x: -0.0065, y: -0.000000007974729, z: -0.000000047492982}
 --- !u!65 &65845668006553906
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -834,6 +835,18 @@ MonoBehaviour:
   MaxScale: 10
   RescaleEveryFrame: 0
   RescaleWarp: 1
+--- !u!114 &114206076827291964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165863049135836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114794362368678998}
 --- !u!114 &114305231343678476
 MonoBehaviour:
   m_ObjectHideFlags: 1

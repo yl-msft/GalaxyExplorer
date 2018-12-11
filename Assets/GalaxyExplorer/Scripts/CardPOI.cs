@@ -72,6 +72,27 @@ namespace GalaxyExplorer
             }
         }
 
+        protected override void UpdateState()
+        {
+            switch (currentState)
+            {
+                case POIState.kOnFocusExit:
+                    timer += Time.deltaTime;
+
+                    if (timer >= restingOnPoiTime)
+                    {
+                        timer = 0.0f;
+
+                        if (CardDescription && !CardObject.activeSelf)
+                        {
+                            CardDescription.SetActive(false);
+                        }
+                    }
+
+                    break;
+            }
+        }
+
         public override void OnInputClicked(InputClickedEventData eventData)
         {
             if (CardObject)
@@ -146,10 +167,7 @@ namespace GalaxyExplorer
 
         public override void OnFocusExit()
         {
-            if (CardDescription && !CardObject.activeSelf)
-            {
-                CardDescription.SetActive(false);
-            }
+            base.OnFocusExit();
         }
 
         private IEnumerator SlideCardOut()

@@ -38,6 +38,18 @@ namespace GalaxyExplorer
         protected Vector3 targetPosition;
         protected Vector3 targetOffset;
 
+        protected float timer = 0.0f;
+        protected POIState currentState = POIState.kIdle;
+        protected float restingOnPoiTime = 0.5f;
+
+        protected enum POIState
+        {
+            kIdle,
+            kOnFocusEnter,
+            kOnFocusExit,
+            kOnInputClicked
+        }
+
         public Vector3 IndicatorOffset
         {
             get { return indicatorOffset; }
@@ -71,15 +83,26 @@ namespace GalaxyExplorer
 
         public virtual void OnFocusEnter()
         {
+            currentState = POIState.kOnFocusEnter;
+            timer = 0.0f;
+
             if (CardDescription)
             {
                 CardDescription.SetActive(true);
+                GalaxyExplorerManager.Instance.CardPoiManager.OnPOIFocusEnter(this);
             }
         }
 
         public virtual void OnFocusExit()
         {
-            if (CardDescription)
+            currentState = POIState.kOnFocusExit;
+            timer = 0.0f;
+        }
+
+        // If any othe poi is focused then need to deactivate any card description that is on
+        public virtual void OnAnyPoiFocus()
+        {
+            if (CardDescription && CardDescription.activeSelf)
             {
                 CardDescription.SetActive(false);
             }
@@ -138,11 +161,31 @@ namespace GalaxyExplorer
         protected void Update()
         {
             UpdateTransform();
+            UpdateState();
         }
 
         protected void LateUpdate()
         {
 
+        }
+
+        protected virtual void UpdateState()
+        {
+            switch (currentState)
+            {
+                case POIState.kOnFocusExit:
+                    timer += Time.deltaTime;
+
+                    if (timer >= restingOnPoiTime)
+                    {
+                        if (CardDescription)
+                        {
+                            CardDescription.SetActive(false);
+                        }
+                    }
+
+                    break;
+            }
         }
 
         private void UpdateTransform()
@@ -207,7 +250,7 @@ namespace GalaxyExplorer
 
         public virtual void OnInputClicked(InputClickedEventData eventData)
         {
-            
+            currentState = POIState.kOnInputClicked;
         }
 
         // Scale POI collider in order to cover the whole POI + poi line. 
@@ -239,6 +282,13 @@ namespace GalaxyExplorer
             }
 
             yield return null;
+        }
+
+        // If card description of this poi is on focus then keep poi on focus otherwise change state to on focus exit
+        public void UpdateCardDescription(bool isFocused)
+        {
+            timer = 0.0f;
+            currentState = (isFocused) ? POIState.kOnFocusEnter : currentState = POIState.kOnFocusExit;
         }
     }
 }

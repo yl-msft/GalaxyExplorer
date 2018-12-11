@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 23540525501658732}
   - component: {fileID: 95438485816827258}
   - component: {fileID: 65427332952685754}
+  - component: {fileID: 114124395108439922}
   m_Layer: 8
   m_Name: CardDescription
   m_TagString: Untagged
@@ -746,6 +747,18 @@ MonoBehaviour:
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
+--- !u!114 &114124395108439922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172037348592824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114024155663938030}
 --- !u!114 &114210912080013706
 MonoBehaviour:
   m_ObjectHideFlags: 1

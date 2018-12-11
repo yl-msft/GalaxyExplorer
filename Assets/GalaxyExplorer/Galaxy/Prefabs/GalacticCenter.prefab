@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 23166078926642366}
   - component: {fileID: 95837423490538898}
   - component: {fileID: 65242762827805318}
+  - component: {fileID: 114570940545124076}
   m_Layer: 8
   m_Name: Description_Card
   m_TagString: Untagged
@@ -578,6 +579,18 @@ MonoBehaviour:
   forceToWorldUp: 1
   forceCameraUp: 0
   forceParentUp: 0
+--- !u!114 &114570940545124076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290782036746860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114385780921973528}
 --- !u!114 &114595599734230526
 MonoBehaviour:
   m_ObjectHideFlags: 1

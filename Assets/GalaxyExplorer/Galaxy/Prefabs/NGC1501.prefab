@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 23164945772528412}
   - component: {fileID: 95699043976993152}
   - component: {fileID: 65149010675086002}
+  - component: {fileID: 114514901045116654}
   m_Layer: 8
   m_Name: CardDescription
   m_TagString: Untagged
@@ -757,6 +758,18 @@ MonoBehaviour:
   MinSizeRatio: 0.5
   MaxSizeRatio: 6
   LerpSpeed: 100
+--- !u!114 &114514901045116654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1665826875328120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8667b29eb6339fa4db98bb27a2521d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  POI: {fileID: 114945204936569428}
 --- !u!114 &114524951316295774
 MonoBehaviour:
   m_ObjectHideFlags: 1
