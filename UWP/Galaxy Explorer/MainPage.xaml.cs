@@ -47,12 +47,11 @@ namespace GalaxyExplorer
 #if UNITY_HOLOGRAPHIC
             // If application was exported as Holographic check if the device actually supports it,
             // otherwise we treat this as a normal XAML application
-            //isWindowsHolographic = AppCallbacks.IsMixedRealitySupported();
             string deviceFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
             isWindowsHolographic = String.Compare("Windows.Holographic", deviceFamily) == 0;
             if (!isWindowsHolographic)
             {
-                isWindowsHolographic = HolographicSpace.IsAvailable;
+                isWindowsHolographic = HolographicSpace.IsAvailable && AppCallbacks.IsMixedRealitySupported();;
             }
 #endif
 
