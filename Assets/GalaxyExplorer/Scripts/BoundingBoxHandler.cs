@@ -26,6 +26,18 @@ namespace GalaxyExplorer
             StartCoroutine(OnBoundingBoxCreated());
         }
 
+        private void LateUpdate()
+        {
+            if (transform.lossyScale.x > GalaxyExplorerManager.Instance.ToolsManager.LargestZoom && transform.parent)
+            {
+                transform.localScale = GalaxyExplorerManager.Instance.ToolsManager.LargestZoom * Vector3.one / transform.parent.lossyScale.x;
+            }
+            else if (transform.lossyScale.x < GalaxyExplorerManager.Instance.ToolsManager.MinZoom && transform.parent)
+            {
+                transform.localScale = GalaxyExplorerManager.Instance.ToolsManager.MinZoom * Vector3.one / transform.parent.lossyScale.x; 
+            }
+        }
+
         // Bounding Box Rig creates many entities used by bounding box
         // All of them are created in the scene under no parent, and makes the scene editor meesy and difficult to find sth
         // Find all entities created by BoundingBoxRig and group them under one single parent

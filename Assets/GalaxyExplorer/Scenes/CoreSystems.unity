@@ -648,6 +648,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleHandleSize: {x: 0.08, y: 0.08, z: 0.08}
   rotateHandleSize: {x: 0.08, y: 0.08, z: 0.08}
+  MaxScaleOfScene: 3
+  MinScaleOfScene: 0.5
 --- !u!82 &118723475
 AudioSource:
   m_ObjectHideFlags: 0

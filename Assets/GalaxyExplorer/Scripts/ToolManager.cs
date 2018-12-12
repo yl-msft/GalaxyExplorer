@@ -15,7 +15,7 @@ namespace GalaxyExplorer
         public GameObject BackButton;
         public GameObject ShowButton;
         public GameObject HideButton;
-        public float TargetMinZoomSize = 0.15f;
+        public float MinZoom = 0.15f;
         public float LargestZoom = 3.0f;
 
         [SerializeField]
@@ -45,15 +45,8 @@ namespace GalaxyExplorer
 
         private float smallestZoom;
 
-        public float SmallestZoom
-        {
-            get { return smallestZoom; }
-        }
-
         private void Start()
         {
-            smallestZoom = TargetMinZoomSize;
-
             panel = GetComponentInChildren<ToolPanel>(true) as ToolPanel;
             if (panel == null)
             {
