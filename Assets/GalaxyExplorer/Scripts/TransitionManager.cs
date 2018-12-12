@@ -29,7 +29,12 @@ namespace GalaxyExplorer
         public AnimationCurve PlanetToSSPositionScaleCurveContentChange;
         [Tooltip("The curve that defines how content moves (rotation only) when transitioning from a planet or the sun to the solar system.")]
         public AnimationCurve PlanetToSSRotationCurveContentChange;
+        [Tooltip("The curve that defines how content scales when transitioning from a planet or the sun to the solar system.")]
         public AnimationCurve PlanetToSSScaleCurveContentChange;
+        [Tooltip("The curve that defines how content moves when transitioning from a planet to Galactic Center.")]
+        public AnimationCurve PlanetToGCPositionCurveContentChange;
+        [Tooltip("The curve that defines how content rotates when transitioning from a planet to Galactic Center.")]
+        public AnimationCurve PlanetToGCRotationCurveContentChange;
 
         [Header("OpeningScene")]
         [Tooltip("The time it takes to fully transition from one scene opening and getting into position at the center of the cube or room.")]
@@ -693,8 +698,7 @@ namespace GalaxyExplorer
             {
                 return SSToGalaxyTransitionCurveContentChange;
             }
-
-            if (loadedSceneName.Contains("SolarSystem"))
+            else if (loadedSceneName.Contains("SolarSystem"))
             {
                 if (prevSceneLoadedName.Contains("Galaxy"))
                 {
@@ -703,6 +707,17 @@ namespace GalaxyExplorer
                 else
                 {
                     return PlanetToSSPositionScaleCurveContentChange;
+                }
+            }
+            else if (loadedSceneName.Contains("GalacticCenter"))
+            {
+                if (prevSceneLoadedName.Contains("Galaxy"))
+                {
+                    return GalaxyToSSTransitionCurveContentChange;
+                }
+                else
+                {
+                    return PlanetToGCPositionCurveContentChange;
                 }
             }
 
@@ -720,8 +735,7 @@ namespace GalaxyExplorer
             {
                 return SSToGalaxyTransitionCurveContentChange;
             }
-
-            if (loadedSceneName.Contains("SolarSystem"))
+            else if (loadedSceneName.Contains("SolarSystem"))
             {
                 if (prevSceneLoadedName.Contains("Galaxy"))
                 {
@@ -730,6 +744,17 @@ namespace GalaxyExplorer
                 else
                 {
                     return PlanetToSSRotationCurveContentChange;
+                }
+            }
+            else if (loadedSceneName.Contains("GalacticCenter"))
+            {
+                if (prevSceneLoadedName.Contains("Galaxy"))
+                {
+                    return GalaxyToSSTransitionCurveContentChange;
+                }
+                else
+                {
+                    return PlanetToGCRotationCurveContentChange;
                 }
             }
 
