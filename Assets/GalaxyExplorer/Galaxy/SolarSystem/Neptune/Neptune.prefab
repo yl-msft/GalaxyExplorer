@@ -59,7 +59,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1483248234358452
 GameObject:
   m_ObjectHideFlags: 1
@@ -854,7 +854,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114673799363514150}
   TargetPoint: {fileID: 1125920926886276}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.2, z: 0}
+  indicatorOffset: {x: 0, y: 0.1, z: 0}
   SceneToLoad: NeptuneView
   Planet: {fileID: 1536364963747654}
 --- !u!114 &114622433648647296

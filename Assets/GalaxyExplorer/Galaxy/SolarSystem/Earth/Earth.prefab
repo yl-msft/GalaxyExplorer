@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1203304799000996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1048,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114289011271194084}
   TargetPoint: {fileID: 1156133316895304}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.2, z: 0}
+  indicatorOffset: {x: 0, y: 0.15, z: 0}
   SceneToLoad: EarthView
   Planet: {fileID: 1203304799000996}
 --- !u!114 &114841244463962512

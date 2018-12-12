@@ -249,7 +249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1949256713972140
 GameObject:
   m_ObjectHideFlags: 1
@@ -999,7 +999,7 @@ MonoBehaviour:
   IndicatorLine: {fileID: 114693625038744534}
   TargetPoint: {fileID: 1016721853542446}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.2, z: 0}
+  indicatorOffset: {x: 0, y: 0.1, z: 0}
   SceneToLoad: MarsView
   Planet: {fileID: 1500584379286758}
 --- !u!114 &114805862020689042
