@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23181118819830540}
   - component: {fileID: 64684384790199974}
   - component: {fileID: 114013588788903366}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4866699895216586}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CrabNebulaImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4907598387161586}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4548291574320096}
   - component: {fileID: 95158585439655816}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}

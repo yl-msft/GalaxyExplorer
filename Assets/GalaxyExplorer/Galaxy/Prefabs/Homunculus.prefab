@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4166980075851938}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 23313010355546284}
   - component: {fileID: 64512588399487970}
   - component: {fileID: 114338064468633928}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4677517376701656}
   - component: {fileID: 95752620279246206}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4257364504318586}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: HomunculusImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

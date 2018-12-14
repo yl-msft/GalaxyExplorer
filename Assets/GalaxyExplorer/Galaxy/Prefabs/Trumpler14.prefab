@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4771282438342074}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Trumpler14Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 23041446964437558}
   - component: {fileID: 64061704337662546}
   - component: {fileID: 114210912080013706}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 4143258798080194}
   - component: {fileID: 95025143340165594}
   - component: {fileID: 114089972778236824}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4053173315330750}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}

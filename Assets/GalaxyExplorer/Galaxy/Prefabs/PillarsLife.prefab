@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23978700230679126}
   - component: {fileID: 64364600648834058}
   - component: {fileID: 114896589028546586}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4160737484807030}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4623551558953456}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: PillarsLifeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4245966242502860}
   - component: {fileID: 95327277592305536}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
