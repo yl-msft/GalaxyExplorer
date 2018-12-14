@@ -585,8 +585,9 @@ MonoBehaviour:
   Indicator: {fileID: 1388136313529106}
   IndicatorLine: {fileID: 114892851518488208}
   TargetPoint: {fileID: 1258006435640448}
+  LineBase: {fileID: 0}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.25, z: 0}
+  indicatorOffset: {x: 0, y: 0.15, z: 0}
   SceneToLoad: SolarSystemView
   Planet: {fileID: 1405160509551374}
 --- !u!114 &114349093856342244

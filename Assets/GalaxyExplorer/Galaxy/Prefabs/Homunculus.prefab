@@ -770,7 +770,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 1369813858095096}
   LineBase: {fileID: 1600010804886618}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.2, z: 0}
+  indicatorOffset: {x: 0, y: 0.15, z: 0}
   CardObject: {fileID: 1908507449178452}
   CardAnimator: {fileID: 95752620279246206}
   CardAudio: {fileID: 8300000, guid: ff0b35519220bd245ae50d7789b9805f, type: 3}

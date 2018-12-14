@@ -560,8 +560,9 @@ MonoBehaviour:
   Indicator: {fileID: 1077474931859202}
   IndicatorLine: {fileID: 114927279233926348}
   TargetPoint: {fileID: 1834774269602868}
+  LineBase: {fileID: 0}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.25, z: 0}
+  indicatorOffset: {x: 0, y: 0.15, z: 0}
   SceneToLoad: GalacticCenterView
   Planet: {fileID: 1438423573765100}
 --- !u!114 &114475301441664642
