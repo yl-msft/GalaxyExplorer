@@ -300,6 +300,8 @@ namespace GalaxyExplorer
             SetActivationOfTouchscript(false);
             DeactivateOrbitUpdater(newTransition, previousTransition, false);
             SetActivePOIRotationAnimator(false, previousTransition, newTransition);
+            UpdateActivationOfPOIs(newTransition, false);
+            UpdateActivationOfPOIs(previousTransition, false);
 
             // Scale new scene to fit inside the volume
             float scaleToFill = transformSource.transform.lossyScale.x;
@@ -331,6 +333,7 @@ namespace GalaxyExplorer
             }
 
             DeactivateOrbitUpdater(newTransition, previousTransition, true);
+            UpdateActivationOfPOIs(newTransition, true);
 
             // Unload previous scene
             if (prevSceneLoaded != null)
@@ -586,6 +589,15 @@ namespace GalaxyExplorer
             if (GalaxyExplorerManager.IsDesktop && touchController)
             {
                 touchController.enabled = enable;
+            }
+        }
+
+        private void UpdateActivationOfPOIs(SceneTransition scene, bool isEnabled)
+        {
+            PointOfInterest[] allPOIS = scene.GetComponentsInChildren<PointOfInterest>();
+            foreach (var item in allPOIS)
+            {
+                item.enabled = isEnabled;
             }
         }
 
