@@ -17,10 +17,13 @@ namespace GalaxyExplorer
         protected GameObject Indicator = null;
 
         [SerializeField]
-        private BillboardLine IndicatorLine = null;
+        protected BillboardLine IndicatorLine = null;
 
         [SerializeField]
         private GameObject TargetPoint = null;
+
+        [SerializeField]
+        protected GameObject LineBase = null;
 
         [SerializeField]
         private Color IndicatorDefaultColor = Color.cyan;

@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23181118819830540}
   - component: {fileID: 64684384790199974}
   - component: {fileID: 114013588788903366}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 1149571281721260}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 4548291574320096}
   m_RootOrder: 0
@@ -310,7 +310,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988855267868912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4170789425563688}
@@ -368,7 +368,7 @@ Transform:
   m_GameObject: {fileID: 1769749351025262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4548291574320096}
   - {fileID: 4907598387161586}
@@ -784,8 +784,9 @@ MonoBehaviour:
   Indicator: {fileID: 1706716609620504}
   IndicatorLine: {fileID: 114976645090992654}
   TargetPoint: {fileID: 1266089081842180}
+  LineBase: {fileID: 1787785188378398}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.25, z: 0}
+  indicatorOffset: {x: 0, y: 0.2, z: 0}
   CardObject: {fileID: 1769749351025262}
   CardAnimator: {fileID: 95158585439655816}
   CardAudio: {fileID: 8300000, guid: 6e72f8409213c474e8e75c103c270ff6, type: 3}

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4771282438342074}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Trumpler14Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 23041446964437558}
   - component: {fileID: 64061704337662546}
   - component: {fileID: 114210912080013706}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: MagicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4143258798080194}
   - component: {fileID: 95025143340165594}
-  m_Layer: 5
+  - component: {fileID: 114089972778236824}
+  m_Layer: 8
   m_Name: POI_AspectRatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +242,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4053173315330750}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: CardScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +298,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834716630741948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4930986529221836}
@@ -410,7 +411,7 @@ Transform:
   m_GameObject: {fileID: 1020434113162646}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4143258798080194}
   - {fileID: 4053173315330750}
@@ -439,7 +440,7 @@ Transform:
   m_GameObject: {fileID: 1800745032935456}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 4143258798080194}
   m_RootOrder: 0
@@ -725,8 +726,9 @@ MonoBehaviour:
   Indicator: {fileID: 1370915147323652}
   IndicatorLine: {fileID: 114032796048216410}
   TargetPoint: {fileID: 1770708368540390}
+  LineBase: {fileID: 1142465075280146}
   IndicatorDefaultColor: {r: 0.42352942, g: 0.8117647, b: 0.8666667, a: 0.54901963}
-  indicatorOffset: {x: 0, y: 0.25, z: 0}
+  indicatorOffset: {x: 0, y: 0.2, z: 0}
   CardObject: {fileID: 1020434113162646}
   CardAnimator: {fileID: 95025143340165594}
   CardAudio: {fileID: 8300000, guid: dc37ccfec6a787a46b53849d4993aec2, type: 3}
@@ -747,6 +749,21 @@ MonoBehaviour:
   points: []
   bottomOffset: {x: 0, y: 0, z: 0}
   transitionAlpha: 1
+--- !u!114 &114089972778236824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1834716630741948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4e7834474ba414099b084a76c9c271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSizeDistance: 5.5
+  MinSizeRatio: 0.5
+  MaxSizeRatio: 6
+  LerpSpeed: 100
 --- !u!114 &114124395108439922
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -55,6 +55,9 @@ namespace GalaxyExplorer
             descriptionStoppedLocalRotation = CardDescription.transform.localRotation;
 
             cardOffsetTransform = transform.parent.parent.parent;
+
+            // Scale card/magic window based on platform
+            CardObject.transform.localScale *=  GalaxyExplorerManager.MagicWindowScaleFactor;
         }
 
         new void LateUpdate()
@@ -116,12 +119,20 @@ namespace GalaxyExplorer
                         GalaxyExplorerManager.Instance.VoManager.PlayClip(CardAudio);
                     }
 
+                    if (LineBase)
+                    {
+                        CardObject.transform.position = LineBase.transform.position;
+                    }
+                    else
+                    {
+                        CardObject.transform.position = transform.position;
+                    }
+
                     Vector3 forwardDirection = transform.position - Camera.main.transform.position;
                     CardObject.transform.rotation = Quaternion.LookRotation(forwardDirection.normalized, Camera.main.transform.up);
                     cardRotation = CardObject.transform.rotation;
 
-                    CardObject.transform.position = transform.position;
-                    cardOffset = cardOffsetTransform.position - transform.position;
+                    cardOffset = cardOffsetTransform.position - CardObject.transform.position;
 
                     StartCoroutine(SlideCardOut());
                 }
@@ -179,8 +190,8 @@ namespace GalaxyExplorer
             }
 
             float time = 0.0f;
-            Vector3 startPosition = CardObject.transform.position;
-            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideDirection * GalaxyExplorerManager.MagicWindowScaleFactor / 2.0f);
+            Vector3 startPosition = CardDescription.transform.position;
+            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(CardObject.transform.localScale.x * GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideDirection * GalaxyExplorerManager.MagicWindowScaleFactor / 2.0f);
 
             do
             {

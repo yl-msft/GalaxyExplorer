@@ -648,8 +648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleHandleSize: {x: 0.08, y: 0.08, z: 0.08}
   rotateHandleSize: {x: 0.08, y: 0.08, z: 0.08}
-  MaxScaleOfScene: 3
-  MinScaleOfScene: 0.5
 --- !u!82 &118723475
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5552,7 +5550,7 @@ MonoBehaviour:
   BackButton: {fileID: 1642965381}
   ShowButton: {fileID: 1177703200}
   HideButton: {fileID: 307842271}
-  TargetMinZoomSize: 0.15
+  MinZoom: 0.15
   LargestZoom: 3
   toolsOpacityChange:
     serializedVersion: 2
@@ -6052,7 +6050,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   DescriptionSlideOutTime: 1
   DescriptionSlideInTime: 0.5
-  DescriptionSlideDirection: {x: 0.7, y: 0.7, z: 0}
+  DescriptionSlideDirection: {x: 0.2, y: 0.18, z: 0}
   DescriptionSlideCurve:
     serializedVersion: 2
     m_Curve:
