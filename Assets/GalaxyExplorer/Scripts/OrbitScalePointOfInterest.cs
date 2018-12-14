@@ -86,7 +86,7 @@ namespace GalaxyExplorer
 
             if (!IsAnimating)
             {
-                indicatorRenderer.material.mainTexture = IsReal ? SimplifiedIcon : RealIcon;
+                indicatorRenderer.sharedMaterial.mainTexture = IsReal ? SimplifiedIcon : RealIcon;
 
                 // Each view of the solar system has a different max zoom size.
                 if (IsReal)
