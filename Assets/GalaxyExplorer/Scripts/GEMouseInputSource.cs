@@ -72,6 +72,7 @@ namespace GalaxyExplorer
             else if (Input.GetMouseButtonUp(0))
             {
                 focusedObject = null;
+                InputManager.Instance.OverrideFocusedObject = null;
                 OnMouseClickUpDelegate?.Invoke(focusedObject);
             }
             else
