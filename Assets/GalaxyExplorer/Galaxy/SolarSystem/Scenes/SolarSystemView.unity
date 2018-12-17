@@ -177,6 +177,30 @@ Prefab:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4086421748038666, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034327802730382, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179300594965258, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034327802730382, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179300594965258, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179300594965258, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114294002674844868, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ac1470558d9973740a20c0a37abdad3a, type: 2}
@@ -380,6 +404,10 @@ Prefab:
         type: 2}
       propertyPath: MinSizeRatio
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439586743262000, guid: 72b2b14c122d5f9449ca23154f43e1a9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72b2b14c122d5f9449ca23154f43e1a9, type: 2}
@@ -662,6 +690,10 @@ Prefab:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4615337763996892, guid: e34c77ad5a997fc47b26bbafcd17f274, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e34c77ad5a997fc47b26bbafcd17f274, type: 2}
   m_IsPrefabParent: 0
@@ -763,6 +795,10 @@ Prefab:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4097749997310530, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 2}
   m_IsPrefabParent: 0
@@ -844,6 +880,10 @@ Prefab:
         type: 2}
       propertyPath: MinSizeRatio
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845828047719952, guid: bc5f2d93842f5584999ba3a17d859f1c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc5f2d93842f5584999ba3a17d859f1c, type: 2}
@@ -931,6 +971,10 @@ Prefab:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4518976988272382, guid: ad83fcd88d1c833449e130e6e8fb0197, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad83fcd88d1c833449e130e6e8fb0197, type: 2}
   m_IsPrefabParent: 0
@@ -1016,6 +1060,10 @@ Prefab:
         type: 2}
       propertyPath: MinSizeRatio
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626035903856830, guid: 5f83d016fa60cbb4eb99ba7794345276, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f83d016fa60cbb4eb99ba7794345276, type: 2}
@@ -1313,6 +1361,10 @@ Prefab:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4489039652479492, guid: 255a48b2a3892c240a53d3ba2fc97828, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 255a48b2a3892c240a53d3ba2fc97828, type: 2}
   m_IsPrefabParent: 0
@@ -1482,6 +1534,10 @@ Prefab:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4028199284649768, guid: 225b2bfd78fd7e041af8cd1fc3016f3d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 225b2bfd78fd7e041af8cd1fc3016f3d, type: 2}
   m_IsPrefabParent: 0
@@ -1619,6 +1675,10 @@ Prefab:
         type: 2}
       propertyPath: MinSizeRatio
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740635014006310, guid: f2b8bee34b0faf8448abea9c5832018b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2b8bee34b0faf8448abea9c5832018b, type: 2}
