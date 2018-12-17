@@ -139,8 +139,6 @@ namespace GalaxyExplorer
             cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
             CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
 
-            GalaxyExplorerManager.Instance.CardPoiManager.RegisterPOI(this);
-
             if (Indicator)
             {
                 Indicator.AddComponent<NoAutomaticFade>();
@@ -149,6 +147,11 @@ namespace GalaxyExplorer
 
                 StartCoroutine(ResizePOICollider());
             }
+        }
+
+        protected virtual void OnEnable()
+        {
+            StartCoroutine(RegisterPOICoroutine());
         }
 
         protected virtual void OnDisable()
@@ -170,6 +173,14 @@ namespace GalaxyExplorer
         protected void LateUpdate()
         {
 
+        }
+
+        // Need to register poi after the end of frame as sometimes it ends up the manager to be initialized after pois and the list of pois becomes null
+        protected IEnumerator RegisterPOICoroutine()
+        {
+            yield return new WaitForEndOfFrame();
+
+            GalaxyExplorerManager.Instance.CardPoiManager.RegisterPOI(this);
         }
 
         protected virtual void UpdateState()
