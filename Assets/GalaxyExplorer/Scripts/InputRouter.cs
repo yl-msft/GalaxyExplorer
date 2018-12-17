@@ -31,6 +31,7 @@ namespace GalaxyExplorer
             KeyboardManager.KeyEvent keyDownEvent = KeyboardManager.KeyEvent.KeyDown;
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Space, keyDownEvent), SpaceTapKeyboardHandler);
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Backspace, keyDownEvent), BackSpaceKeyboardHandler);
+            KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Alpha0, keyDownEvent), ResetCameraKeyboardHandler);
 
             KeyboardManager.KeyEvent keyHeldEvent = KeyboardManager.KeyEvent.KeyHeld;
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.LeftControl, keyHeldEvent), CtrlKeyboardHandler);
@@ -108,6 +109,14 @@ namespace GalaxyExplorer
                     Vector3 clampedPosition = cameraPosition - direction * MinZoomDesktop;
                     GalaxyExplorerManager.Instance.CameraControllerHandler.transform.position = new Vector3(currentPosition.x, currentPosition.y, clampedPosition.z);
                 }
+            }
+        }
+
+        private void ResetCameraKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
+        {
+            if (isCtrlHeld)
+            {
+                GalaxyExplorerManager.Instance.TransitionManager.ResetDesktopCameraToOrigin();
             }
         }
     }
