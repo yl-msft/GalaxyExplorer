@@ -232,6 +232,16 @@ Prefab:
       propertyPath: indicatorOffset.y
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 114822032410695036, guid: 67369d595e58e864ea7848d712f9e016,
+        type: 2}
+      propertyPath: MinSizeRatio
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114706111685165070, guid: 67369d595e58e864ea7848d712f9e016,
+        type: 2}
+      propertyPath: MinSizeRatio
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67369d595e58e864ea7848d712f9e016, type: 2}
   m_IsPrefabParent: 0
@@ -496,6 +506,16 @@ Prefab:
       propertyPath: indicatorOffset.y
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 114510604987217962, guid: 5b2708c7f66141a4bab63b1ef748b106,
+        type: 2}
+      propertyPath: MinSizeRatio
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114411194655895080, guid: 5b2708c7f66141a4bab63b1ef748b106,
+        type: 2}
+      propertyPath: MinSizeRatio
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b2708c7f66141a4bab63b1ef748b106, type: 2}
   m_IsPrefabParent: 0
@@ -632,6 +652,16 @@ Prefab:
         type: 2}
       propertyPath: indicatorOffset.y
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235915855454112, guid: 5e0c150efab2589499b7d4a6579e28a4,
+        type: 2}
+      propertyPath: MinSizeRatio
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114127305987363166, guid: 5e0c150efab2589499b7d4a6579e28a4,
+        type: 2}
+      propertyPath: MinSizeRatio
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e0c150efab2589499b7d4a6579e28a4, type: 2}

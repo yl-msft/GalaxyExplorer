@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114945204936569428}
   - component: {fileID: 114524951316295774}
   - component: {fileID: 114613797954743284}
+  - component: {fileID: 114695822480894802}
   m_Layer: 5
   m_Name: POI
   m_TagString: Untagged
@@ -836,6 +837,21 @@ MonoBehaviour:
   MinSizeRatio: 0.5
   MaxSizeRatio: 6
   LerpSpeed: 100
+--- !u!114 &114695822480894802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123378712782182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1665826875328120}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1563738818717338}
+  movePoiStartingPosition: 0
 --- !u!114 &114785252555917322
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 114307036634101630}
   - component: {fileID: 114984903432383496}
   - component: {fileID: 114899264674431418}
+  - component: {fileID: 114648006912663834}
   m_Layer: 5
   m_Name: POI
   m_TagString: Untagged
@@ -838,6 +839,21 @@ MonoBehaviour:
   CustomPrimaryActionEvent: POICard_Select
   CustomSecondaryActionEvent: 
   OverrideDefaultSound: 1
+--- !u!114 &114648006912663834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1098842032797352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1544911924451066}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1835249662934314}
+  movePoiStartingPosition: 0
 --- !u!114 &114815800762565764
 MonoBehaviour:
   m_ObjectHideFlags: 1

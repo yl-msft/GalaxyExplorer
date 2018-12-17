@@ -26,13 +26,6 @@ namespace GalaxyExplorer
         public delegate void GalaxyExplorerManagerInitializedCallback();
         public static GalaxyExplorerManagerInitializedCallback MyAppPlatformManagerInitialized;
 
-        [SerializeField]
-        private float SpiralGalaxyTintMultConstant = 1.0f;
-
-
-        [SerializeField]
-        private float PoiScaleFactor = 1.0f;
-
         public GEFadeManager GeFadeManager
         {
             get; set;
@@ -110,30 +103,6 @@ namespace GalaxyExplorer
             {
                 return Platform == PlatformId.Desktop;
             }
-        }
-        
-        public float GetPoiScaleFactor
-        {
-            get { return PoiScaleFactor; }
-        }
-
-
-        public float PoiMoveFactor
-        {
-            get
-            {
-                return GalaxyScaleFactor;
-            }
-        }
-
-        public float GetGalaxyScaleFactor
-        {
-            get { return GalaxyScaleFactor; }
-        }
-
-        public float GetSpiralGalaxyTintMultConstant
-        {
-            get { return SpiralGalaxyTintMultConstant; }
         }
 
         public static float GalaxyScaleFactor
@@ -220,6 +189,60 @@ namespace GalaxyExplorer
                     case PlatformId.Desktop:
                     case PlatformId.Phone:
                         return 1.0f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float PoiMoveFactor
+        {
+            get
+            {
+                float moveFactor = 1f;
+                if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("SolarSystemView"))
+                {
+                    moveFactor *= SolarSystemScaleFactor;
+                }
+                else if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("GalaxyView"))
+                {
+                    moveFactor *= GalaxyScaleFactor;
+                }
+                return moveFactor;
+            }
+        }
+
+        public static float PoiScaleFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 3.0f;
+                    case PlatformId.HoloLens:
+                        return 1.0f;
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 0.75f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float SpiralGalaxyTintMultConstant
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 0.22f;
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 0.3f;
                     default:
                         throw new System.Exception();
                 }

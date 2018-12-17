@@ -1,7 +1,6 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -18,43 +17,43 @@ namespace GalaxyExplorer
             if (PoiCard)
             {
                 PoiCard.transform.localScale = new Vector3(
-                    PoiCard.transform.localScale.x * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
-                    PoiCard.transform.localScale.y * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
+                    PoiCard.transform.localScale.x * GalaxyExplorerManager.PoiScaleFactor,
+                    PoiCard.transform.localScale.y * GalaxyExplorerManager.PoiScaleFactor,
                     PoiCard.transform.localScale.z);
             }
             if (PoiAlternateCard)
             {
                 PoiAlternateCard.transform.localScale = new Vector3(
-                    PoiAlternateCard.transform.localScale.x * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
-                    PoiAlternateCard.transform.localScale.y * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
+                    PoiAlternateCard.transform.localScale.x * GalaxyExplorerManager.PoiScaleFactor,
+                    PoiAlternateCard.transform.localScale.y * GalaxyExplorerManager.PoiScaleFactor,
                     PoiAlternateCard.transform.localScale.z);
             }
             if (PoiIndicator)
             {
                 PoiIndicator.transform.localScale = new Vector3(
-                    PoiIndicator.transform.localScale.x * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
-                    PoiIndicator.transform.localScale.y * GalaxyExplorerManager.Instance.GetPoiScaleFactor,
+                    PoiIndicator.transform.localScale.x * GalaxyExplorerManager.PoiScaleFactor,
+                    PoiIndicator.transform.localScale.y * GalaxyExplorerManager.PoiScaleFactor,
                     PoiIndicator.transform.localScale.z);
 
-                //if (ViewLoader.Instance.CurrentView.Equals("SolarSystemView"))
+                //if (ViewLoader.CurrentView.Equals("SolarSystemView"))
                 //{
                 //    PointOfInterest poi = GetComponentInParent<PointOfInterest>();
                 //    if (poi)
                 //    {
-                //        poi.IndicatorOffset *= geManager.PoiMoveFactor;
+                //        poi.IndicatorOffset *= GalaxyExplorerManager.PoiMoveFactor;
                 //    }
                 //}
 
                 Transform transformToMove = PoiIndicator.transform;
                 transformToMove.localPosition = new Vector3(
                     transformToMove.localPosition.x,
-                    transformToMove.localPosition.y * GalaxyExplorerManager.Instance.PoiMoveFactor,
+                    transformToMove.localPosition.y * GalaxyExplorerManager.PoiMoveFactor,
                     transformToMove.localPosition.z);
             }
 
             if (movePoiStartingPosition)
             {
-                transform.localPosition = transform.localPosition * GalaxyExplorerManager.Instance.GetGalaxyScaleFactor;
+                transform.localPosition = transform.localPosition * GalaxyExplorerManager.GalaxyScaleFactor;
             }
         }
     }
