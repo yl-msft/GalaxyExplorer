@@ -4,6 +4,7 @@
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
+using TouchScript.Examples.CameraControl;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.WSA;
@@ -78,6 +79,11 @@ namespace GalaxyExplorer
         }
 
         public CardPOIManager CardPoiManager
+        {
+            get; set;
+        }
+
+        public CameraController CameraControllerHandler
         {
             get; set;
         }
@@ -257,6 +263,7 @@ namespace GalaxyExplorer
             MusicManagerScript = FindObjectOfType<MusicManager>();
             ViewLoaderScript = FindObjectOfType<ViewLoader>();
             CardPoiManager = FindObjectOfType<CardPOIManager>();
+            CameraControllerHandler = FindObjectOfType<CameraController>();
         }
 
     }
