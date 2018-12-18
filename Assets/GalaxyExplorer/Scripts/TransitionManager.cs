@@ -123,13 +123,16 @@ namespace GalaxyExplorer
         private Quaternion defaultSceneRotation = Quaternion.identity;
         private Vector3 defaultSceneScale = Vector3.one;
 
-        private CameraController touchController = null;
-
         private enum IntroStage
         {
             kActiveIntro,
             kLastStageIntro,
             kInactiveIntro
+        }
+
+        public GameObject CurrentActiveScene
+        {
+            get; set;
         }
 
         public bool InTransition
@@ -155,7 +158,6 @@ namespace GalaxyExplorer
             ZoomInOutBehaviour = FindObjectOfType<ZoomInOut>();
             movingAudio = FindObjectOfType<MovableAudioSource>();
             transformSource = FindObjectOfType<TransformSource>();
-            touchController = FindObjectOfType<CameraController>();
 
             defaultSceneRotation = transformSource.transform.rotation;
             defaultSceneScale = transformSource.transform.localScale;
@@ -203,6 +205,7 @@ namespace GalaxyExplorer
             inForwardTransition = false;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
+            CurrentActiveScene = null;
 
             GalaxyExplorerManager.Instance.ViewLoaderScript.PopSceneFromStack();
             GalaxyExplorerManager.Instance.ViewLoaderScript.LoadPreviousScene(PrevSceneLoaded);
@@ -236,6 +239,7 @@ namespace GalaxyExplorer
             inForwardTransition = true;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
+            CurrentActiveScene = null;
 
             GalaxyExplorerManager.Instance.ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
 
@@ -296,6 +300,7 @@ namespace GalaxyExplorer
 
             SceneTransition previousTransition = (prevSceneLoaded) ? prevSceneLoaded.GetComponentInChildren<SceneTransition>() : null;
             SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
+            CurrentActiveScene = nextSceneContent;
 
             SetActivationOfTouchscript(false);
             DeactivateOrbitUpdater(newTransition, previousTransition, false);
@@ -586,18 +591,21 @@ namespace GalaxyExplorer
         // In Desktop mode, during transition, deactivate the Touchscript component so user cant interact with the scene and move/rotate/scale it
         private void SetActivationOfTouchscript(bool enable)
         {
-            if (GalaxyExplorerManager.IsDesktop && touchController)
+            if (GalaxyExplorerManager.IsDesktop && GalaxyExplorerManager.Instance.CameraControllerHandler != null)
             {
-                touchController.enabled = enable;
+                GalaxyExplorerManager.Instance.CameraControllerHandler.enabled = enable;
             }
         }
 
         private void UpdateActivationOfPOIs(SceneTransition scene, bool isEnabled)
         {
-            PointOfInterest[] allPOIS = scene.GetComponentsInChildren<PointOfInterest>();
-            foreach (var item in allPOIS)
+            if (scene)
             {
-                item.enabled = isEnabled;
+                PointOfInterest[] allPOIS = scene.GetComponentsInChildren<PointOfInterest>();
+                foreach (var item in allPOIS)
+                {
+                    item.enabled = isEnabled;
+                }
             }
         }
 
@@ -846,11 +854,11 @@ namespace GalaxyExplorer
         // Reset camera to original position and rotation in Desktop platform
         private IEnumerator ResetDesktopCameraToOriginCoroutine()
         {
-            Vector3 startPosition = touchController.EntityToMove.transform.position;
-            Quaternion startRotation = touchController.EntityToMove.transform.rotation;
+            Vector3 startPosition = GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.transform.position;
+            Quaternion startRotation = GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.transform.rotation;
 
-            Vector3 startPivotPosition = touchController.Pivot.transform.position;
-            Quaternion startPivotRotation = touchController.Pivot.transform.rotation;
+            Vector3 startPivotPosition = GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.position;
+            Quaternion startPivotRotation = GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.rotation;
 
             float time = 0.0f;
             float timeFraction = 0.0f;
@@ -862,21 +870,21 @@ namespace GalaxyExplorer
                 float delta = Mathf.Clamp01(TransitionTimeCameraCurve.Evaluate(timeFraction));
 
                 // Reset cameras parent
-                touchController.EntityToMove.position = Vector3.Lerp(startPosition, Vector3.zero, delta);
-                touchController.EntityToMove.rotation = Quaternion.Slerp(startRotation, Quaternion.identity, delta);
+                GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.position = Vector3.Lerp(startPosition, Vector3.zero, delta);
+                GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.rotation = Quaternion.Slerp(startRotation, Quaternion.identity, delta);
 
                 // Reset parent of camera parent 
-                touchController.Pivot.transform.position = Vector3.Lerp(startPivotPosition, Vector3.zero, delta);
-                touchController.Pivot.transform.rotation = Quaternion.Slerp(startPivotRotation, Quaternion.identity, delta);
+                GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.position = Vector3.Lerp(startPivotPosition, Vector3.zero, delta);
+                GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.rotation = Quaternion.Slerp(startPivotRotation, Quaternion.identity, delta);
                 yield return null;
 
             } while (timeFraction < 1f);
 
-            touchController.EntityToMove.position = Vector3.zero;
-            touchController.EntityToMove.rotation = Quaternion.identity;
+            GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.position = Vector3.zero;
+            GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.rotation = Quaternion.identity;
 
-            touchController.Pivot.transform.position = Vector3.zero;
-            touchController.Pivot.transform.rotation = Quaternion.identity;
+            GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.position = Vector3.zero;
+            GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.rotation = Quaternion.identity;
         }
 
         public void ResetMRSceneToOrigin()

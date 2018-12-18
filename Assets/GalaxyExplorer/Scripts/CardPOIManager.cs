@@ -110,7 +110,10 @@ namespace GalaxyExplorer
 
         public void RegisterPOI(PointOfInterest poi)
         {
-            allPOIs.Add(poi);
+            if (!allPOIs.Contains(poi))
+            {
+                allPOIs.Add(poi);
+            }
         }
 
         public void UnRegisterPOI(PointOfInterest poi)

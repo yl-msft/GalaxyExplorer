@@ -71,6 +71,11 @@ namespace GalaxyExplorer
             return targetSize * FillVolumePercentage / Mathf.Max(defaultSize.x, defaultSize.y, defaultSize.z);
         }
 
+        public float GetScalar()
+        {
+            return Mathf.Max(transform.lossyScale.x * defaultSize.x, transform.lossyScale.y * defaultSize.y, transform.lossyScale.z * defaultSize.z);
+        }
+
         public void Awake()
         {
             // if the scene starts out hidden, the collider bounds size may not be calculated, so search for the renderer and use that instead

@@ -4,6 +4,7 @@
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
+using TouchScript.Examples.CameraControl;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.WSA;
@@ -24,13 +25,6 @@ namespace GalaxyExplorer
 
         public delegate void GalaxyExplorerManagerInitializedCallback();
         public static GalaxyExplorerManagerInitializedCallback MyAppPlatformManagerInitialized;
-
-        [SerializeField]
-        private float SpiralGalaxyTintMultConstant = 1.0f;
-
-
-        [SerializeField]
-        private float PoiScaleFactor = 1.0f;
 
         public GEFadeManager GeFadeManager
         {
@@ -82,6 +76,11 @@ namespace GalaxyExplorer
             get; set;
         }
 
+        public CameraController CameraControllerHandler
+        {
+            get; set;
+        }
+
         public static bool IsHoloLens
         {
             get
@@ -105,30 +104,6 @@ namespace GalaxyExplorer
                 return Platform == PlatformId.Desktop;
             }
         }
-        
-        public float GetPoiScaleFactor
-        {
-            get { return PoiScaleFactor; }
-        }
-
-
-        public float PoiMoveFactor
-        {
-            get
-            {
-                return GalaxyScaleFactor;
-            }
-        }
-
-        public float GetGalaxyScaleFactor
-        {
-            get { return GalaxyScaleFactor; }
-        }
-
-        public float GetSpiralGalaxyTintMultConstant
-        {
-            get { return SpiralGalaxyTintMultConstant; }
-        }
 
         public static float GalaxyScaleFactor
         {
@@ -137,7 +112,7 @@ namespace GalaxyExplorer
                 switch (Platform)
                 {
                     case PlatformId.ImmersiveHMD:
-                        return 1.0f;  // 3.0f;
+                        return 2.0f;
                     case PlatformId.HoloLens:
                         return 1.0f;
                     case PlatformId.Desktop:
@@ -220,6 +195,85 @@ namespace GalaxyExplorer
             }
         }
 
+        // Pois position need to change depending on platform as each scene in each platform has different scale
+        public static float PoiMoveFactor
+        {
+            get
+            {
+                float moveFactor = 1f;
+                float MRFactor = (Platform == PlatformId.ImmersiveHMD) ? 2.0f : 1.0f;
+
+                if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("SolarSystemView"))
+                {
+                    moveFactor *= SolarSystemScaleFactor * MRFactor;
+                }
+                else if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("GalaxyView"))
+                {
+                    moveFactor *= GalaxyScaleFactor;
+                }
+                else if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("GalacticCenterView"))
+                {
+                    moveFactor *= MRFactor;
+                }
+
+                return moveFactor;
+            }
+        }
+
+        // Move factor just for the orbit scale poi in solar system
+        public static float OrbitScalePoiMoveFactor
+        {
+            get
+            {
+                float moveFactor = 1f;
+                float MRFactor = (Platform == PlatformId.ImmersiveHMD) ? 1.25f : 1.0f;
+
+                if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("SolarSystemView"))
+                {
+                    moveFactor *= SolarSystemScaleFactor * MRFactor;
+                }
+  
+                return moveFactor;
+            }
+        }
+
+        public static float PoiScaleFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 1.5f;
+                    case PlatformId.HoloLens:
+                        return 1.0f;
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 0.75f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
+        public static float SpiralGalaxyTintMultConstant
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 0.22f;
+                    case PlatformId.HoloLens:
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 0.3f;
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -257,6 +311,7 @@ namespace GalaxyExplorer
             MusicManagerScript = FindObjectOfType<MusicManager>();
             ViewLoaderScript = FindObjectOfType<ViewLoader>();
             CardPoiManager = FindObjectOfType<CardPOIManager>();
+            CameraControllerHandler = FindObjectOfType<CameraController>();
         }
 
     }
