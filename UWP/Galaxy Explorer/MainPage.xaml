@@ -18,12 +18,4 @@
             <Image x:Name="ExtendedSplashImage" Source="Assets/SplashScreen.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Grid>
     </SwapChainPanel>
-    <Page.BottomAppBar>
-        <CommandBar ClosedDisplayMode="Minimal" RequestedTheme="Dark">
-            <AppBarButton x:Uid="MapPageAppBarLegend" Label="About" Icon="Globe"
-                          x:Name="AppBarButton_About"/>
-            <AppBarButton x:Uid="MapPageAppBarLegend" Label="Reset" Icon="Refresh"
-                          x:Name="AppBarButton_Reset"/>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

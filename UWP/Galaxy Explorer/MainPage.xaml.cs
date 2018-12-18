@@ -2,21 +2,27 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEngine.Windows;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Graphics.Holographic;
+using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 using UnityPlayer;
-using Windows.UI.Input;
 
 namespace GalaxyExplorer
 {
@@ -30,7 +36,7 @@ namespace GalaxyExplorer
         private SplashScreen splash;
         private Rect splashImageRect;
         private WindowSizeChangedEventHandler onResizeHandler;
-        private XamlInputHandling xamlInputHandler;
+        private bool isPhone = false;
 
         public MainPage()
         {
@@ -47,7 +53,7 @@ namespace GalaxyExplorer
 #if UNITY_HOLOGRAPHIC
             // If application was exported as Holographic check if the device actually supports it,
             // otherwise we treat this as a normal XAML application
-            isWindowsHolographic = Windows.Graphics.HolographicSpace.IsAvailable && AppCallbacks.IsMixedRealitySupported();
+            isWindowsHolographic = Windows.Graphics.Holographic.HolographicSpace.IsAvailable && AppCallbacks.IsMixedRealitySupported();
 #endif
 
             if (isWindowsHolographic)
@@ -58,6 +64,9 @@ namespace GalaxyExplorer
             {
                 appCallbacks.RenderingStarted += () => { RemoveSplashScreen(); };
 
+                if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1))
+                    isPhone = true;
+
                 appCallbacks.SetSwapChainPanel(GetSwapChainPanel());
                 appCallbacks.SetCoreWindowEvents(Window.Current.CoreWindow);
                 appCallbacks.InitializeD3DXAML();
@@ -67,21 +76,6 @@ namespace GalaxyExplorer
                 OnResize();
                 onResizeHandler = new WindowSizeChangedEventHandler((o, e) => OnResize());
                 Window.Current.SizeChanged += onResizeHandler;
-
-                xamlInputHandler = new XamlInputHandling();
-
-                DXSwapChainPanel.ManipulationMode = ManipulationModes.Scale | ManipulationModes.Rotate | ManipulationModes.TranslateX | ManipulationModes.TranslateY;
-                DXSwapChainPanel.ManipulationDelta += DXSwapChainPanel_ManipulationDelta;
-                DXSwapChainPanel.ManipulationStarted += DXSwapChainPanel_ManipulationStarted;
-                DXSwapChainPanel.ManipulationCompleted += DXSwapChainPanel_ManipulationCompleted;
-                DXSwapChainPanel.PointerReleased += DXSwapChainPanel_PointerReleased;
-                DXSwapChainPanel.PointerMoved += DXSwapChainPanel_PointerMoved;
-                DXSwapChainPanel.PointerWheelChanged += DXSwapChainPanel_PointerWheelChanged;
-                DXSwapChainPanel.Holding += DXSwapChainPanel_Holding;
-                DXSwapChainPanel.RightTapped += DXSwapChainPanel_RightTapped;
-
-                AppBarButton_About.Click += AppBarButton_About_Click;
-                AppBarButton_Reset.Click += AppBarButton_Reset_Click;
             }
         }
 
@@ -107,10 +101,18 @@ namespace GalaxyExplorer
 
         private void PositionImage()
         {
-            ExtendedSplashImage.SetValue(Canvas.LeftProperty, splashImageRect.X);
-            ExtendedSplashImage.SetValue(Canvas.TopProperty, splashImageRect.Y);
-            ExtendedSplashImage.Height = splashImageRect.Height;
-            ExtendedSplashImage.Width = splashImageRect.Width;
+            var inverseScaleX = 1.0f;
+            var inverseScaleY = 1.0f;
+            if (isPhone)
+            {
+                inverseScaleX = inverseScaleX / DXSwapChainPanel.CompositionScaleX;
+                inverseScaleY = inverseScaleY / DXSwapChainPanel.CompositionScaleY;
+            }
+
+            ExtendedSplashImage.SetValue(Canvas.LeftProperty, splashImageRect.X * inverseScaleX);
+            ExtendedSplashImage.SetValue(Canvas.TopProperty, splashImageRect.Y * inverseScaleY);
+            ExtendedSplashImage.Height = splashImageRect.Height * inverseScaleY;
+            ExtendedSplashImage.Width = splashImageRect.Width * inverseScaleX;
         }
 
         private async void GetSplashBackgroundColor()
@@ -164,110 +166,6 @@ namespace GalaxyExplorer
                 Window.Current.SizeChanged -= onResizeHandler;
                 onResizeHandler = null;
             }
-        }
-
-        private void DXSwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            //UnityEngine.Debug.Log("DXSwapChainPanel_PointerReleased");
-            if (currentManipulation == Manipulation.None)
-            {
-                PointerPoint releasePoint = e.GetCurrentPoint(null);
-
-                xamlInputHandler.PointerOrSingleFingerReleased(releasePoint.Position.X, releasePoint.Position.Y, this);
-            }
-        }
-
-        private void DXSwapChainPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
-        {
-            //UnityEngine.Debug.Log("DXSwapChainPanel_PointerMoved");
-            PointerPoint releasePoint = e.GetCurrentPoint(null);
-
-            xamlInputHandler.PointerMoved(releasePoint.Position.X, releasePoint.Position.Y, this);
-        }
-
-        private enum Manipulation
-        {
-            None,
-            Rotation,
-            Translate,
-            Zoom,
-        }
-
-        private Manipulation currentManipulation = Manipulation.None;
-        private void DXSwapChainPanel_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
-        {
-            //manipulating = true;
-        }
-
-        private void DXSwapChainPanel_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            if ((currentManipulation == Manipulation.None && Math.Abs(e.Delta.Rotation) > 0.5f) ||
-                currentManipulation == Manipulation.Rotation)
-            {
-                currentManipulation = Manipulation.Rotation;
-                xamlInputHandler.RotationHappened(-e.Delta.Rotation);
-            }
-            else if ((currentManipulation == Manipulation.None && e.Delta.Scale != 1) ||
-                currentManipulation == Manipulation.Zoom)
-            {
-                currentManipulation = Manipulation.Zoom;
-                xamlInputHandler.ZoomHappened(e.Delta.Scale);
-            }
-            else if ((currentManipulation == Manipulation.None) ||
-                currentManipulation == Manipulation.Translate)
-            {
-                currentManipulation = Manipulation.Translate;
-                xamlInputHandler.TranslateHappened(new UnityEngine.Vector2(-(float)e.Delta.Translation.X, (float)e.Delta.Translation.Y));
-            }
-        }
-
-        private void DXSwapChainPanel_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            // delay toggling the manipulating flag by 500ms so
-            // PointerReleased doesn't get processed unintentionally
-            DispatcherTimer dt = new DispatcherTimer();
-            dt.Tick += DelayedManipulationComplete;
-            dt.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            dt.Start();
-        }
-
-        private void DelayedManipulationComplete(object sender, object e)
-        {
-            (sender as DispatcherTimer).Stop();
-            currentManipulation = Manipulation.None;
-        }
-
-        private void DXSwapChainPanel_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
-        {
-            if ((e.KeyModifiers & Windows.System.VirtualKeyModifiers.Control) == Windows.System.VirtualKeyModifiers.Control)
-            {
-                // determine wheel direction
-                int wheelDirection = e.GetCurrentPoint(null).Properties.MouseWheelDelta;
-                wheelDirection /= Math.Abs(wheelDirection);
-
-                // zoom - zoom
-                xamlInputHandler.ZoomHappened(1 + (0.03f * wheelDirection));
-            }
-        }
-
-        private void DXSwapChainPanel_Holding(object sender, HoldingRoutedEventArgs e)
-        {
-            xamlInputHandler.ResetHappened();
-        }
-
-        private void DXSwapChainPanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            xamlInputHandler.ResetHappened();
-        }
-
-        private void AppBarButton_Reset_Click(object sender, RoutedEventArgs e)
-        {
-            xamlInputHandler.ResetHappened();
-        }
-
-        private void AppBarButton_About_Click(object sender, RoutedEventArgs e)
-        {
-            xamlInputHandler.AboutHappened();
         }
     }
 }
