@@ -5022,22 +5022,11 @@ MonoBehaviour:
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       Triggered: 0
-    - Name: FadeInLogo
+    - Name: SoundInLogo
       Delay: 0.5
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 533862211}
-            m_MethodName: SetTrigger
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: FadeIn
-              m_BoolArgument: 1
-            m_CallState: 2
           - m_Target: {fileID: 1614883627}
             m_MethodName: set_clip
             m_Mode: 2
@@ -5061,6 +5050,17 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
+          - m_Target: {fileID: 533862211}
+            m_MethodName: SetTrigger
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: FadeIn
+              m_BoolArgument: 1
+            m_CallState: 2
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       Triggered: 0
@@ -5071,7 +5071,7 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls:
           - m_Target: {fileID: 533862211}
-            m_MethodName: ResetTrigger
+            m_MethodName: SetTrigger
             m_Mode: 5
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -6016,8 +6016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e071d3b0f2f3ea44e84a63328e862e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpiralGalaxyTintMultConstant: 1
-  PoiScaleFactor: 1
 --- !u!114 &1701178535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7559,7 +7557,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1963522525}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1db79d3680b63d241a1641d4a26fe03a, type: 3}
   m_Name: 
