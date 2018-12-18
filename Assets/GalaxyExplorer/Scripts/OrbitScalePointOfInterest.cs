@@ -39,7 +39,7 @@ namespace GalaxyExplorer
             indicatorRenderer = Indicator.GetComponentInChildren<MeshRenderer>();
 
             targetPosition = new Vector3(transform.localPosition.x, 0.0f, transform.localPosition.z);
-            targetOffset = new Vector3(0.0f, transform.localPosition.y, 0.0f); // * MyAppPlatformManager.PoiMoveFactor;
+            targetOffset = new Vector3(0.0f, transform.localPosition.y, 0.0f) * GalaxyExplorerManager.OrbitScalePoiMoveFactor;
 
             trueScale = FindObjectOfType<TrueScaleSetting>();
         }

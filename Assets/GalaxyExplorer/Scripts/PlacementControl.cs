@@ -35,6 +35,12 @@ namespace GalaxyExplorer
 
             Animator wireframe = GetComponentInChildren<Animator>();
             wireframe?.SetTrigger("Intro");
+
+            // Position earth pin in front of camera and a bit lower
+            if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD)
+            {
+                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance) + Vector3.down * 0.5f;
+            }
         }
 
         private IEnumerator ReleaseContent(float waitingTime)

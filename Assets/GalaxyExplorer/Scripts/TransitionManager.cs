@@ -130,6 +130,11 @@ namespace GalaxyExplorer
             kInactiveIntro
         }
 
+        public GameObject CurrentActiveScene
+        {
+            get; set;
+        }
+
         public bool InTransition
         {
             get { return inTransition; }
@@ -200,6 +205,7 @@ namespace GalaxyExplorer
             inForwardTransition = false;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
+            CurrentActiveScene = null;
 
             GalaxyExplorerManager.Instance.ViewLoaderScript.PopSceneFromStack();
             GalaxyExplorerManager.Instance.ViewLoaderScript.LoadPreviousScene(PrevSceneLoaded);
@@ -233,6 +239,7 @@ namespace GalaxyExplorer
             inForwardTransition = true;
             prevSceneLoaded = FindContent();
             prevSceneLoadedName = (prevSceneLoaded) ? prevSceneLoaded.name : "";
+            CurrentActiveScene = null;
 
             GalaxyExplorerManager.Instance.ViewLoaderScript.LoadViewAsync(sceneName, NextSceneLoaded);
 
@@ -293,6 +300,7 @@ namespace GalaxyExplorer
 
             SceneTransition previousTransition = (prevSceneLoaded) ? prevSceneLoaded.GetComponentInChildren<SceneTransition>() : null;
             SceneTransition newTransition = nextSceneContent.GetComponentInChildren<SceneTransition>();
+            CurrentActiveScene = nextSceneContent;
 
             SetActivationOfTouchscript(false);
             DeactivateOrbitUpdater(newTransition, previousTransition, false);

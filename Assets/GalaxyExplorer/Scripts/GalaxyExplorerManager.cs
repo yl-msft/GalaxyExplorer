@@ -112,7 +112,7 @@ namespace GalaxyExplorer
                 switch (Platform)
                 {
                     case PlatformId.ImmersiveHMD:
-                        return 1.0f;  // 3.0f;
+                        return 2.0f;
                     case PlatformId.HoloLens:
                         return 1.0f;
                     case PlatformId.Desktop:
@@ -195,19 +195,44 @@ namespace GalaxyExplorer
             }
         }
 
+        // Pois position need to change depending on platform as each scene in each platform has different scale
         public static float PoiMoveFactor
         {
             get
             {
                 float moveFactor = 1f;
+                float MRFactor = (Platform == PlatformId.ImmersiveHMD) ? 2.0f : 1.0f;
+
                 if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("SolarSystemView"))
                 {
-                    moveFactor *= SolarSystemScaleFactor;
+                    moveFactor *= SolarSystemScaleFactor * MRFactor;
                 }
                 else if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("GalaxyView"))
                 {
                     moveFactor *= GalaxyScaleFactor;
                 }
+                else if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("GalacticCenterView"))
+                {
+                    moveFactor *= MRFactor;
+                }
+
+                return moveFactor;
+            }
+        }
+
+        // Move factor just for the orbit scale poi in solar system
+        public static float OrbitScalePoiMoveFactor
+        {
+            get
+            {
+                float moveFactor = 1f;
+                float MRFactor = (Platform == PlatformId.ImmersiveHMD) ? 1.25f : 1.0f;
+
+                if (ViewLoader.CurrentView != null && ViewLoader.CurrentView.Equals("SolarSystemView"))
+                {
+                    moveFactor *= SolarSystemScaleFactor * MRFactor;
+                }
+  
                 return moveFactor;
             }
         }
@@ -219,7 +244,7 @@ namespace GalaxyExplorer
                 switch (Platform)
                 {
                     case PlatformId.ImmersiveHMD:
-                        return 3.0f;
+                        return 1.5f;
                     case PlatformId.HoloLens:
                         return 1.0f;
                     case PlatformId.Desktop:

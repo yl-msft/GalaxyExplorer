@@ -95,14 +95,15 @@ namespace GalaxyExplorer
                 throw new InvalidOperationException(string.Format("ViewLoader: Unable to load {0}. Make sure that the scene is enabled in the Build Settings.", viewName));
             }
 
+            PreviousView = (CurrentView == null) ? viewName : CurrentView;
+            CurrentView = viewName;
+
             while (!loadOperation.isDone)
             {
                 yield return null;
             }
            
             Debug.Log("ViewLoader: Loaded " + viewName);
-            PreviousView = (CurrentView == null) ? viewName : CurrentView;
-            CurrentView = viewName;
 
             if (OnSceneIsLoaded != null)
             {
