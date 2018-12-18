@@ -274,6 +274,26 @@ namespace GalaxyExplorer
             }
         }
 
+        // This factor is multiplied with the editor value for Billboard line width in order to have thicker line depending on platform
+        public static float BillboardLineWidthFactor
+        {
+            get
+            {
+                switch (Platform)
+                {
+                    case PlatformId.ImmersiveHMD:
+                        return 2.0f;
+                    case PlatformId.HoloLens:
+                        return 1.0f;
+                    case PlatformId.Desktop:
+                    case PlatformId.Phone:
+                        return 1.0f; 
+                    default:
+                        throw new System.Exception();
+                }
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
