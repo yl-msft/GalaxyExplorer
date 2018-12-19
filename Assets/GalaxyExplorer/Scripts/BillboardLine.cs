@@ -75,6 +75,11 @@ namespace GalaxyExplorer
             filter.sharedMesh = mesh;
         }
 
+        private void Start()
+        {
+            width *= GalaxyExplorerManager.BillboardLineWidthFactor;
+        }
+
         private void LateUpdate()
         {
             if (headTransform != null)

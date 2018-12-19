@@ -3,6 +3,7 @@
 
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -41,6 +42,17 @@ namespace GalaxyExplorer
             {
                 gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance) + Vector3.down * 0.5f;
             }
+
+            // In VR if user doesnt have controller could tap space in order to proceed in placement mode
+            if (GalaxyExplorerManager.IsImmersiveHMD && GalaxyExplorerManager.Instance.InputRouter)
+            {
+                GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
+            }
+        }
+
+        private void OnKeyboadSelection()
+        {
+            OnInputUp(null);
         }
 
         private IEnumerator ReleaseContent(float waitingTime)
@@ -76,5 +88,6 @@ namespace GalaxyExplorer
 
             isPlaced = true;
         }
+
     }
 }
