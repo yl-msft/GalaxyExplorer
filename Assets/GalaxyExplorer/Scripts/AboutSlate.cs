@@ -75,6 +75,16 @@ namespace GalaxyExplorer
         // Has user clicked the About slate area
         public bool IsClickOnAboutSlate(GameObject hitObject)
         {
+            // Check if clicked object is the menu button or desktop button
+            if (AboutMenuButton && AboutMenuButton.gameObject == hitObject)
+            {
+                return true;
+            }
+            else if(AboutDesktopButton && AboutDesktopButton.gameObject == hitObject)
+            {
+                return true;
+            }
+
             // Check if clicked object is any of the slate object
             Collider[] allChildren = GetComponentsInChildren<Collider>();
             foreach (var entity in allChildren)
