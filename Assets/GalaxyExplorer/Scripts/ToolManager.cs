@@ -38,6 +38,9 @@ namespace GalaxyExplorer
         public delegate void AboutSlateOnDelegate(bool enable);
         public AboutSlateOnDelegate OnAboutSlateOnDelegate;
 
+        public delegate void BoundingBoxDelegate(bool enable);
+        public BoundingBoxDelegate OnBoundingBoxDelegate;
+
         public bool IsLocked
         {
             get { return locked; }
@@ -302,10 +305,12 @@ namespace GalaxyExplorer
                 {
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Activate();
                     StartCoroutine(boundingBoxHandler.OnBoundingBoxCreated());
+                    OnBoundingBoxDelegate?.Invoke(enable);
                 }
                 else
                 {
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Deactivate();
+                    OnBoundingBoxDelegate?.Invoke(enable);
                 }
             }
         }

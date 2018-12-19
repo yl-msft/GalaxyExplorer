@@ -2516,12 +2516,12 @@ Prefab:
     - target: {fileID: 114000012009196210, guid: 3eddd1c29199313478dd3f912bfab2ab,
         type: 2}
       propertyPath: RaycastLayerMasks.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114708646396671696, guid: 3eddd1c29199313478dd3f912bfab2ab,
         type: 2}
       propertyPath: pointingRaycastLayerMasks.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4000011656901714, guid: 3eddd1c29199313478dd3f912bfab2ab, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2568,26 +2568,36 @@ Prefab:
     - target: {fileID: 114000012009196210, guid: 3eddd1c29199313478dd3f912bfab2ab,
         type: 2}
       propertyPath: RaycastLayerMasks.Array.data[1].m_Bits
-      value: 512
+      value: 4294966779
       objectReference: {fileID: 0}
     - target: {fileID: 114000012009196210, guid: 3eddd1c29199313478dd3f912bfab2ab,
         type: 2}
       propertyPath: RaycastLayerMasks.Array.data[0].m_Bits
-      value: 4294966779
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 114708646396671696, guid: 3eddd1c29199313478dd3f912bfab2ab,
         type: 2}
       propertyPath: pointingRaycastLayerMasks.Array.data[1].m_Bits
-      value: 512
+      value: 4294966779
       objectReference: {fileID: 0}
     - target: {fileID: 114708646396671696, guid: 3eddd1c29199313478dd3f912bfab2ab,
         type: 2}
       propertyPath: pointingRaycastLayerMasks.Array.data[0].m_Bits
-      value: 4294966779
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 1547260285441492, guid: 3eddd1c29199313478dd3f912bfab2ab, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012009196210, guid: 3eddd1c29199313478dd3f912bfab2ab,
+        type: 2}
+      propertyPath: RaycastLayerMasks.Array.data[2].m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 114708646396671696, guid: 3eddd1c29199313478dd3f912bfab2ab,
+        type: 2}
+      propertyPath: pointingRaycastLayerMasks.Array.data[2].m_Bits
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000013868099214, guid: 3eddd1c29199313478dd3f912bfab2ab, type: 2}
