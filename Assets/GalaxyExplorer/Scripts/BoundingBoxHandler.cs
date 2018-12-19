@@ -23,10 +23,27 @@ namespace GalaxyExplorer
         private GameObject ParentOfBBEntities = null;
 
         private bool groupBoundinBoxEntities = false;
+        private bool isAppBarFound = false;
 
         private void Start()
         {
-            StartCoroutine(OnBoundingBoxCreated());
+            StartCoroutine(OnBoundingBoxCreated(false));
+
+            // because of execution order maybe we need to wait before parenting the bb entities
+            if (!isAppBarFound)
+            {
+                StartCoroutine(OnBoundingBoxCreated(true));
+            }
+
+            if (GalaxyExplorerManager.Instance.ToolsManager)
+            {
+                GalaxyExplorerManager.Instance.ToolsManager.OnBoundingBoxDelegate += OnBoundingBoxDelegate;
+            }
+        }
+
+        private void OnBoundingBoxDelegate(bool enable)
+        {
+            StartCoroutine(OnBoundingBoxCreated(true));
         }
 
         private void LateUpdate()
@@ -45,11 +62,13 @@ namespace GalaxyExplorer
         // All of them are created in the scene under no parent, and makes the scene editor meesy and difficult to find sth
         // Find all entities created by BoundingBoxRig and group them under one single parent
         // ALso scale handles of bounding box as MRTK doesnt provide public properties for this
-        public IEnumerator OnBoundingBoxCreated()
+        public IEnumerator OnBoundingBoxCreated(bool wait)
         {
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
+            // In desktop dont wait as the app bar is visible for a fraction of time and it shouldnt be
+            if (wait)
+            {
+                yield return new WaitForEndOfFrame();
+            }
 
             if (groupBoundinBoxEntities)
             {
@@ -98,6 +117,7 @@ namespace GalaxyExplorer
             {
                 appBar.transform.parent = ParentOfBBEntities.transform;
                 appBar.gameObject.SetActive(false);
+                isAppBarFound = true;
             }
 
             if (GalaxyExplorerManager.IsDesktop)

@@ -33,7 +33,6 @@ namespace GalaxyExplorer
         private List<GEInteractiveToggle> allButtons = new List<GEInteractiveToggle>();
         private List<Collider> allButtonColliders = new List<Collider>();
         private BoundingBox boundingBox = null;
-        private BoundingBoxHandler boundingBoxHandler = null;
 
         public delegate void AboutSlateOnDelegate(bool enable);
         public AboutSlateOnDelegate OnAboutSlateOnDelegate;
@@ -74,7 +73,6 @@ namespace GalaxyExplorer
             BackButton?.SetActive(false);
 
             boundingBox = FindObjectOfType<BoundingBox>();
-            boundingBoxHandler = FindObjectOfType<BoundingBoxHandler>();
 
             if (GalaxyExplorerManager.Instance.ViewLoaderScript)
             {
@@ -304,7 +302,6 @@ namespace GalaxyExplorer
                 if (enable)
                 {
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Activate();
-                    StartCoroutine(boundingBoxHandler.OnBoundingBoxCreated());
                     OnBoundingBoxDelegate?.Invoke(enable);
                 }
                 else
