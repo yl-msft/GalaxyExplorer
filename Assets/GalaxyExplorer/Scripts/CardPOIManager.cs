@@ -97,16 +97,20 @@ namespace GalaxyExplorer
 
                 if (selected)
                 {
-                    IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
-                    handler?.OnInputClicked(null);
-
                     PointOfInterest poi = selected.GetComponentInParent<PointOfInterest>();
+                    // only if the selected object is a poi proceed and trigger OnInputClicked and select that poi
                     if (poi)
                     {
-                        GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
-                    }
+                        IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
+                        handler?.OnInputClicked(null);
 
-                    GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
+                        if (poi)
+                        {
+                            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
+                        }
+
+                        GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
+                    }
                 }
             }
 
