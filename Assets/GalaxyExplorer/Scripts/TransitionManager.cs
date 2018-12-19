@@ -21,8 +21,8 @@ namespace GalaxyExplorer
         public AnimationCurve GalaxyToSSTransitionCurveContentChange;
         [Tooltip("The curve that defines how content moves when transitioning from the solar system to the galaxy.")]
         public AnimationCurve SSToGalaxyTransitionCurveContentChange;
-        [Tooltip("The extra position curve that defines how content moves when transitioning from the solar system to the galaxy and galactic center to galaxy.")]
-        public AnimationCurve PositionTransitionCurveContentChange;
+        [Tooltip("The EXTRA position curve that defines how content moves when transitioning from the solar system to the galaxy and galactic center to galaxy.")]
+        public AnimationCurve BackToGalaxyPositionTransitionCurveContentChange;
         [Tooltip("The curve that defines how content moves when transitioning from the solar system to a planet or the sun.")]
         public AnimationCurve SSToPlanetTransitionCurveContentChange;
         [Tooltip("The curve that defines how content moves (position and scale only) when transitioning from a planet or the sun to the solar system.")]
@@ -329,6 +329,8 @@ namespace GalaxyExplorer
                 SetCollidersActivation(previousTransition.GetComponentsInChildren<Collider>(), false);
             }
 
+            yield return new WaitForEndOfFrame();
+
             StartCoroutine(ZoomInOutSimultaneouslyFlow(previousTransition, newTransition));
 
             // wait until prev scene transition finishes
@@ -365,6 +367,8 @@ namespace GalaxyExplorer
             {
                 yield return null;
             }
+
+            yield return new WaitForEndOfFrame();
 
             // Activate colliders of next scene
             if (ZoomInOutBehaviour.GetNextScene && introStage != IntroStage.kActiveIntro)
@@ -441,7 +445,7 @@ namespace GalaxyExplorer
 
             if (newTransition.gameObject.scene.name.Contains("GalaxyView"))
             {
-                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), PositionTransitionCurveContentChange));
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), BackToGalaxyPositionTransitionCurveContentChange));
             }
             else if (previousTransition && previousTransition.IsSinglePlanetTransition)
             {
