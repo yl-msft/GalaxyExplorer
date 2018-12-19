@@ -7,8 +7,10 @@ namespace GalaxyExplorer
 {
     public class ToolPanel : MonoBehaviour
     {
-        public Vector3 ShownViewOffset;
-        public Vector3 HiddenViewOffset;
+        public Vector3 ShownViewOffsetHololens = new Vector3(0.0f, -0.15f, 1.0f);
+        public Vector3 HiddenViewOffsetHololens = new Vector3(0.0f, -0.25f, 1.0f);
+        public Vector3 ShownViewOffsetMR = new Vector3(0.0f, -0.2f, 0.75f);
+        public Vector3 HiddenViewOffsetMR = new Vector3(0.0f, -0.35f, 0.75f);
         public float RotationDeadZoneAngle = 5.0f;
         public bool IsLowered = false;
         public float Epsilon = 0.001f;
@@ -23,10 +25,18 @@ namespace GalaxyExplorer
         private Vector3 lastRotationVector;
         private float outOfViewTimer = 0.0f;
 
+        private Vector3 ShownViewOffset = Vector3.zero;
+        private Vector3 HiddenViewOffset = Vector3.zero;
 
         private void OnEnable()
         {
             RecenterTools();
+        }
+
+        private void Start()
+        {
+            ShownViewOffset = (GalaxyExplorerManager.IsHoloLens) ? ShownViewOffsetHololens : ShownViewOffsetMR;
+            HiddenViewOffset = (GalaxyExplorerManager.IsHoloLens) ? HiddenViewOffsetHololens : HiddenViewOffsetMR;
         }
 
         private void Update()
