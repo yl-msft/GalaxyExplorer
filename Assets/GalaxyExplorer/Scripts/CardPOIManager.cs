@@ -89,7 +89,12 @@ namespace GalaxyExplorer
             }
             else
             {
-                GameObject selected = GalaxyExplorerManager.Instance.MouseInput.FocusedObject;
+                GameObject selected = null;
+                // mouse focused object in desktop platform
+                selected = (selected == null && GalaxyExplorerManager.Instance.MouseInput) ? GalaxyExplorerManager.Instance.MouseInput.FocusedObject : selected;
+                // gaze focused object in MR platform
+                selected = (selected == null && GazeManager.Instance) ? GazeManager.Instance.HitObject : selected;
+
                 if (selected)
                 {
                     IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
