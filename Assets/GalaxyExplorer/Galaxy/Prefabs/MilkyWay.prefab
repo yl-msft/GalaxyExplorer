@@ -465,8 +465,8 @@ MonoBehaviour:
   referenceQuad: {fileID: 0}
   enableSecondArm: 1
   secondArmStartOffsetDeg: 95
-  bakedStars: {fileID: 11400000, guid: bd3eddc4e5db1a142bda72ba6e43fcc8, type: 2}
-  lastBakedStarsCount: 8060
+  bakedStars: {fileID: 11400000, guid: 1131aaf5151a58b478080848b9bcd5b9, type: 2}
+  lastBakedStarsCount: 8320
   isShadow: 0
 --- !u!114 &114415192178358478
 MonoBehaviour:
@@ -654,7 +654,7 @@ MonoBehaviour:
   referenceQuad: {fileID: 0}
   enableSecondArm: 1
   secondArmStartOffsetDeg: 95
-  bakedStars: {fileID: 11400000, guid: fe854ae6216010545a558cd7985e8b54, type: 2}
+  bakedStars: {fileID: 11400000, guid: c3f0ede1c69309e449844f8d2ab38cd0, type: 2}
   lastBakedStarsCount: 3800
   isShadow: 1
 --- !u!114 &114465752432794810
@@ -900,7 +900,7 @@ MonoBehaviour:
   referenceQuad: {fileID: 23929613196367118}
   enableSecondArm: 1
   secondArmStartOffsetDeg: 95
-  bakedStars: {fileID: 11400000, guid: da44752175e09684ea98932927a8de71, type: 2}
+  bakedStars: {fileID: 11400000, guid: b247eee384b71ff41b439af041f2aded, type: 2}
   lastBakedStarsCount: 6400
   isShadow: 0
 --- !u!114 &114994803667122014

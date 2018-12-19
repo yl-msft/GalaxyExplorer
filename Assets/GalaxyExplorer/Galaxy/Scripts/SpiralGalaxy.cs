@@ -109,7 +109,7 @@ namespace GalaxyExplorer
             }
             else
             {
-                assetPath = UnityEditor.AssetDatabase.GenerateUniqueAssetPath("Assets/GalaxyExplorer/Galaxy/ScriptableObjects/Galaxy.asset");
+                assetPath = UnityEditor.AssetDatabase.GenerateUniqueAssetPath("Assets/GalaxyExplorer/Galaxy/ScriptableObjects/GalaxyStars.asset");
             }
 
             bakedStars = ScriptableObject.CreateInstance<StarsData>();
