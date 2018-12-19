@@ -149,7 +149,7 @@ TransitionManager to switch between different scenes.
 # Galaxy
 
 The galaxy rendering process was mostly described in Tech Process - Creating a
-Galaxy (https://microsoftstudios.com/hololens/2016/03/10/tech-process-creating-a-galaxy/)
+Galaxy (https://docs.microsoft.com/en-us/windows/mixed-reality/case-study-creating-a-galaxy-in-mixed-reality)
 
 The code itself lives in Assets\Galaxy and is comprised of a set of
 SpiralGalaxy which make up the stars and clouds (see MilkyWay.prefab).
