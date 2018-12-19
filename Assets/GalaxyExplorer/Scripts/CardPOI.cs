@@ -191,8 +191,11 @@ namespace GalaxyExplorer
 
             float time = 0.0f;
             Vector3 startPosition = CardDescription.transform.position;
-            Vector3 endPosition = CardObject.transform.position + CardObject.transform.TransformDirection(CardObject.transform.localScale.x * GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideDirection * GalaxyExplorerManager.MagicWindowScaleFactor / 2.0f);
-
+            // Find radius of magic window
+            MeshCollider collider = CardObject.GetComponentInChildren<MeshCollider>();
+            float radius = (collider) ? collider.bounds.extents.y : 1.0f;
+            Vector3 endPosition = CardObject.transform.position + radius * GalaxyExplorerManager.Instance.CardPoiManager.DescriptionSlideDirection.normalized;
+  
             do
             {
                 time += Time.deltaTime;

@@ -18,8 +18,11 @@ namespace GalaxyExplorer
         [Tooltip("Size of rotate handles in Bounding box.")]
         private Vector3 rotateHandleSize = new Vector3(0.08f, 0.08f, 0.08f);
 
+        [SerializeField]
+        [Tooltip("Parent entity of bounding box automatic generated gameobjects.")]
+        private GameObject ParentOfBBEntities = null;
+
         private bool groupBoundinBoxEntities = false;
-        private GameObject parent = null;
 
         private void Start()
         {
@@ -53,20 +56,19 @@ namespace GalaxyExplorer
                 yield break;
             }
 
-            parent = (parent == null) ? new GameObject() : parent;
-            parent.name = "BoundingBoxEntities";
-            //parent.transform.parent = transform.parent;
+            ParentOfBBEntities = (ParentOfBBEntities == null) ? new GameObject() : ParentOfBBEntities;
+            ParentOfBBEntities.name = "BoundingBoxEntities";
 
             GameObject center = GameObject.Find("center");
             if (center)
             {
-                center.transform.parent = parent.transform;
+                center.transform.parent = ParentOfBBEntities.transform;
             }
 
             GameObject bbb = GameObject.Find("BoundingBoxBasic(Clone)");
             if (bbb)
             {
-                bbb.transform.parent = parent.transform;
+                bbb.transform.parent = ParentOfBBEntities.transform;
             }
 
             List<GameObject> corners = GetObjectsWithName("Corner");
@@ -74,7 +76,7 @@ namespace GalaxyExplorer
             {
                 foreach (var entity in corners)
                 {
-                    entity.transform.parent = parent.transform;
+                    entity.transform.parent = ParentOfBBEntities.transform;
                     entity.transform.localScale = scaleHandleSize;
                 }
             }
@@ -84,7 +86,7 @@ namespace GalaxyExplorer
             {
                 foreach (var entity in middles)
                 {
-                    entity.transform.parent = parent.transform;
+                    entity.transform.parent = ParentOfBBEntities.transform;
                     entity.transform.localScale = rotateHandleSize;
                 }
 
@@ -94,13 +96,13 @@ namespace GalaxyExplorer
             AppBar appBar = FindObjectOfType<AppBar>();
             if (appBar)
             {
-                appBar.transform.parent = parent.transform;
+                appBar.transform.parent = ParentOfBBEntities.transform;
                 appBar.gameObject.SetActive(false);
             }
 
             if (GalaxyExplorerManager.IsDesktop)
             {
-                parent.SetActive(false);
+                ParentOfBBEntities.SetActive(false);
             }
 
             yield return null;

@@ -49,29 +49,12 @@ namespace GalaxyExplorer
         private void Update()
         {
             isAboutButtonClicked = false;
-
-            UpdateMouseButtonClicks();
         }
 
         // Callback when Desktop About button is clicked/touched/selected
         public void ButtonClicked()
         {
             isAboutButtonClicked = true;
-        }
-
-        // On every left mouse click check if click is inside or outside about slate card.
-        private void UpdateMouseButtonClicks()
-        {
-            if (GalaxyExplorerManager.IsDesktop && Input.GetMouseButtonDown(0))
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    ToggleAboutSlateLogic(IsClickOnAboutSlate(hit.collider.gameObject));
-                }
-            }
         }
 
         // Is user touching the About slate area
@@ -108,16 +91,23 @@ namespace GalaxyExplorer
         // On action triggered by keyboard
         public void OnKeyboadSelection()
         {
-            if (AboutDesktopButton && AboutDesktopButton.IsSelected)
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
             {
-                AboutDesktopButton.ToggleLogic();
+                ToggleAboutSlateLogic(IsClickOnAboutSlate(hit.collider.gameObject));
             }
         }
 
         // On every user's click, check if the click is outside the about area and if it is and About card is on then deactivate it
         public void OnInputClicked(InputClickedEventData eventData)
         {
-            ToggleAboutSlateLogic(IsClickOnAboutSlate(GazeManager.Instance.HitObject));
+            // Focused object is either the gazed one in hololens or the overriden my mouse click one for desktop
+            GameObject focusedObject = (FocusManager.Instance) ? FocusManager.Instance.TryGetFocusedObject(eventData) : null;
+            focusedObject = (focusedObject == null) ? InputManager.Instance.OverrideFocusedObject : focusedObject;
+
+            ToggleAboutSlateLogic(IsClickOnAboutSlate(focusedObject));
         }
 
         private void ToggleAboutSlateLogic(bool isAboutSelected)

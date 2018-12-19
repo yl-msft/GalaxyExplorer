@@ -166,7 +166,7 @@ namespace GalaxyExplorer
                 switch (Platform)
                 {
                     case PlatformId.ImmersiveHMD:
-                        return 1.0f; // 3.0f;
+                        return 3.0f;
                     case PlatformId.HoloLens:
                     case PlatformId.Desktop:
                     case PlatformId.Phone:
@@ -184,7 +184,7 @@ namespace GalaxyExplorer
                 switch (Platform)
                 {
                     case PlatformId.ImmersiveHMD:
-                        return 1.0f; // 3.0f;
+                        return 3.0f;
                     case PlatformId.HoloLens:
                     case PlatformId.Desktop:
                     case PlatformId.Phone:

@@ -49,6 +49,34 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.MouseInput.OnMouseOnHoverDelegate += OnMouseOnHoverDelegate;
                 GalaxyExplorerManager.Instance.MouseInput.OnMouseOnUnHoverDelegate += OnMouseOnUnHoverDelegate;
             }
+
+            if (GalaxyExplorerManager.Instance.ToolsManager)
+            {
+                GalaxyExplorerManager.Instance.ToolsManager.OnBoundingBoxDelegate += OnBoundingBoxDelegate;
+            }
+        }
+
+        // Callback when bounding box is on/off in HoloLens and MR devices
+        // Update pois activation
+        private void OnBoundingBoxDelegate(bool isBBenabled)
+        {
+            StartCoroutine(OnBoundingBoxDelegateCoroutine(isBBenabled));
+        }
+
+        private IEnumerator OnBoundingBoxDelegateCoroutine(bool isBBenabled)
+        {
+            // Wait in order for OnInputClicked to be executed and then continue with this functionality
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+
+            // Update poi collider activation
+            foreach (var poi in allPOIs)
+            {
+                if (poi.IndicatorCollider)
+                {
+                    poi.IndicatorCollider.enabled = !isBBenabled;
+                }
+            }
         }
 
         private void OnMouseOnUnHoverDelegate(GameObject selectedObject)
@@ -89,19 +117,28 @@ namespace GalaxyExplorer
             }
             else
             {
-                GameObject selected = GalaxyExplorerManager.Instance.MouseInput.FocusedObject;
+                GameObject selected = null;
+                // mouse focused object in desktop platform
+                selected = (selected == null && GalaxyExplorerManager.Instance.MouseInput) ? GalaxyExplorerManager.Instance.MouseInput.FocusedObject : selected;
+                // gaze focused object in MR platform
+                selected = (selected == null && GazeManager.Instance) ? GazeManager.Instance.HitObject : selected;
+
                 if (selected)
                 {
-                    IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
-                    handler?.OnInputClicked(null);
-
                     PointOfInterest poi = selected.GetComponentInParent<PointOfInterest>();
+                    // only if the selected object is a poi proceed and trigger OnInputClicked and select that poi
                     if (poi)
                     {
-                        GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
-                    }
+                        IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
+                        handler?.OnInputClicked(null);
 
-                    GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
+                        if (poi)
+                        {
+                            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
+                        }
+
+                        GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
+                    }
                 }
             }
 
@@ -137,6 +174,7 @@ namespace GalaxyExplorer
 
         // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
         // If no poi card is active then activate poi colliders
+        // This needs to happen in every airtap, mouse click, controller click, keyboard tap so any open magic window card will close 
         private IEnumerator UpdateActivationOfPOIColliders()
         {
             yield return new WaitForEndOfFrame();
