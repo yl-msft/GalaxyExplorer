@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SpiralStarsCloud
-  m_Shader: {fileID: 4800000, guid: d7f695e28e953314da17d2873701a8f5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 394df136108630342846c808b77e0b2c, type: 3}
   m_ShaderKeywords: DISCARD ONE
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
