@@ -37,10 +37,15 @@ namespace GalaxyExplorer
             Animator wireframe = GetComponentInChildren<Animator>();
             wireframe?.SetTrigger("Intro");
 
-            // Position earth pin in front of camera and a bit lower
-            if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD)
+            // Position earth pin in front of camera and a bit lower in VR
+            if (GalaxyExplorerManager.IsImmersiveHMD)
             {
                 gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance) + Vector3.down * 0.5f;
+            }
+            // Position earthpin exactly in front of camera in Hololens
+            else if (GalaxyExplorerManager.IsHoloLens)
+            {
+                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance);
             }
 
             // In VR if user doesnt have controller could tap space in order to proceed in placement mode
