@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PlacementControl : MonoBehaviour, IInputHandler
+    public class PlacementControl : MonoBehaviour, IInputClickHandler
     {
         [SerializeField]
         private float DesktopDuration = 2.0f;
@@ -37,22 +37,16 @@ namespace GalaxyExplorer
             Animator wireframe = GetComponentInChildren<Animator>();
             wireframe?.SetTrigger("Intro");
 
-            // Position earth pin in front of camera and a bit lower
-            if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD)
+            // Position earth pin in front of camera and a bit lower in VR
+            if (GalaxyExplorerManager.IsImmersiveHMD)
             {
                 gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance) + Vector3.down * 0.5f;
             }
-
-            // In VR if user doesnt have controller could tap space in order to proceed in placement mode
-            if (GalaxyExplorerManager.IsImmersiveHMD && GalaxyExplorerManager.Instance.InputRouter)
+            // Position earthpin exactly in front of camera in Hololens
+            else if (GalaxyExplorerManager.IsHoloLens)
             {
-                GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
+                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance);
             }
-        }
-
-        private void OnKeyboadSelection()
-        {
-            OnInputUp(null);
         }
 
         private IEnumerator ReleaseContent(float waitingTime)
@@ -75,11 +69,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public void OnInputDown(InputEventData eventData)
-        {
-        }
-
-        public void OnInputUp(InputEventData eventData)
+        public void OnInputClicked(InputClickedEventData eventData)
         {
             if (!isPlaced)
             {
@@ -88,6 +78,5 @@ namespace GalaxyExplorer
 
             isPlaced = true;
         }
-
     }
 }

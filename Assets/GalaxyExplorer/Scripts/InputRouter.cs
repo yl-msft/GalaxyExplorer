@@ -29,7 +29,6 @@ namespace GalaxyExplorer
         {
             // Register key events
             KeyboardManager.KeyEvent keyDownEvent = KeyboardManager.KeyEvent.KeyDown;
-            KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Space, keyDownEvent), SpaceTapKeyboardHandler);
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Backspace, keyDownEvent), BackSpaceKeyboardHandler);
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Alpha0, keyDownEvent), ResetCameraKeyboardHandler);
 
@@ -52,11 +51,6 @@ namespace GalaxyExplorer
             {
                 ZoomInOut(Input.mouseScrollDelta.y * ZoomDesktopFactor);
             }
-        }
-
-        private void SpaceTapKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)
-        {
-            OnKeyboadSelection?.Invoke();
         }
 
         private void BackSpaceKeyboardHandler(KeyboardManager.KeyCodeEventPair keyCodeEvent)

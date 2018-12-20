@@ -32,16 +32,6 @@ namespace GalaxyExplorer
         {
             InputManager.Instance.AddGlobalListener(gameObject);
 
-            if (GalaxyExplorerManager.Instance.ToolsManager)
-            {
-                GalaxyExplorerManager.Instance.ToolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
-            }
-
-            if (GalaxyExplorerManager.Instance.InputRouter)
-            {
-                GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
-            }
-
             if (GalaxyExplorerManager.Instance.MouseInput)
             {
                 GalaxyExplorerManager.Instance.MouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
@@ -72,10 +62,7 @@ namespace GalaxyExplorer
             // Update poi collider activation
             foreach (var poi in allPOIs)
             {
-                if (poi.IndicatorCollider)
-                {
-                    poi.IndicatorCollider.enabled = !isBBenabled;
-                }
+                poi?.UpdateCollidersActivation(!isBBenabled);
             }
         }
 
@@ -104,47 +91,7 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(selectedObject);
             }
         }
-
-        // Space bar was tapped callback
-        // If any poi card is on then close it else if space tap was to select a poi, then select it and trigger audio
-        private void OnKeyboadSelection()
-        {
-            bool isAnyCardActive = IsAnyCardActive();
-            if (isAnyCardActive)
-            {
-                StartCoroutine(CloseAnyOpenCard(null));
-                GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
-            }
-            else
-            {
-                GameObject selected = null;
-                // mouse focused object in desktop platform
-                selected = (selected == null && GalaxyExplorerManager.Instance.MouseInput) ? GalaxyExplorerManager.Instance.MouseInput.FocusedObject : selected;
-                // gaze focused object in MR platform
-                selected = (selected == null && GazeManager.Instance) ? GazeManager.Instance.HitObject : selected;
-
-                if (selected)
-                {
-                    PointOfInterest poi = selected.GetComponentInParent<PointOfInterest>();
-                    // only if the selected object is a poi proceed and trigger OnInputClicked and select that poi
-                    if (poi)
-                    {
-                        IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
-                        handler?.OnInputClicked(null);
-
-                        if (poi)
-                        {
-                            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
-                        }
-
-                        GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
-                    }
-                }
-            }
-
-            StartCoroutine(UpdateActivationOfPOIColliders());
-        }
-
+    
         public void RegisterPOI(PointOfInterest poi)
         {
             if (!allPOIs.Contains(poi))
@@ -232,36 +179,6 @@ namespace GalaxyExplorer
             }
 
             yield return null;
-        }
-
-        // When a card poi is on, if About Slate gets activated through menu or desktop button then card poi need to be deactivated
-        public void OnAboutSlateOnDelegate(bool enable)
-        {
-            if (enable)
-            {
-                // Find if a card POI is activa and its card is on/visible
-                bool isAnyCardActive = false;
-                foreach (var poi in allPOIs)
-                {
-                    if (poi.IsCardActive)
-                    {
-                        isAnyCardActive = true;
-                        poi.OnInputUp(null);
-                        break;
-                    }
-                }
-
-                if (isAnyCardActive)
-                {
-                    foreach (var poi in allPOIs)
-                    {
-                        if (poi.IndicatorCollider)
-                        {
-                            poi.IndicatorCollider.enabled = true;
-                        }
-                    }
-                }
-            }
         }
 
         // Deactivate all pois that might have active card description except the one that is currently focused/touched

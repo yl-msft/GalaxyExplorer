@@ -4,11 +4,12 @@
 using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IInputClickHandler, IFocusable, IControllerTouchpadHandler
+    public class PointOfInterest : MonoBehaviour, IInputClickHandler, IFocusable, IControllerTouchpadHandler
     {
         [SerializeField]
         protected GameObject CardDescription = null;
@@ -44,6 +45,9 @@ namespace GalaxyExplorer
         protected float timer = 0.0f;
         protected POIState currentState = POIState.kIdle;
         protected float restingOnPoiTime = 0.5f;
+
+        // A list of all colliders realted to this poi
+        protected List<Collider> allPoiColliders = new List<Collider>();
 
         protected enum POIState
         {
@@ -111,16 +115,6 @@ namespace GalaxyExplorer
             }
         }
 
-        public virtual void OnInputDown(InputEventData eventData)
-        {
-
-        }
-
-        public virtual void OnInputUp(InputEventData eventData)
-        {
-            
-        }
-
         protected virtual void Awake()
         {
             // do this before start because orbit points of interest need to override the target position (with the orbit)
@@ -147,6 +141,8 @@ namespace GalaxyExplorer
 
                 StartCoroutine(ResizePOICollider());
             }
+
+            allPoiColliders.Add(IndicatorCollider);
         }
 
         protected virtual void OnEnable()
@@ -303,6 +299,15 @@ namespace GalaxyExplorer
         {
             timer = 0.0f;
             currentState = (isFocused) ? POIState.kOnFocusEnter : currentState = POIState.kOnFocusExit;
+        }
+
+        // Switch on/off all colliders related to the poi
+        public void UpdateCollidersActivation(bool isEnabled)
+        {
+            foreach (var item in allPoiColliders)
+            {
+                item.enabled = isEnabled;
+            }
         }
     }
 }
