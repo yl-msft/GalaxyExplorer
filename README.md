@@ -147,25 +147,21 @@ They are represented in the application by a line and an indicator on the top.
 Parts of a PointOfInterest:
 * BillboardLine - the line that connects the interest point to interact with to an indicator at the top of the line. The line is always vertical and scales with distance as a UI element. It does not rescale with content and will always start at a target point.
 * Indicator - the card that is shown above the BillboardLine.
-* Description - a text card that fades in when GazeSelection collides with any collider in the POI hierarchy.
-* Transition Scene (optional) - the scene that is loaded through the TransitionManager when the POI is selected.
+* Card Description - a text card that appears when user focuses on the poi.
+
+POIs have different size in different platforms.
+PoiResizer.cs is the script that updates the scale of the poi elements depending on platform.
 
 ## OrbitScalePointOfInterest
 Is a toggle that converts between Realistic and Simplified orbit and size views
 in the solar system.
 
-## CardPointOfInterest
+## CardPOI
 Is used in the galaxy to inspect images through a magic window. Parallax for
 the window and settings are incorporated in the POI_Porthole shader, and the
-window depth is hidden with the POI_Occlusion shader. The magic window points
-of interest have a moving target, but the cards are outside of the POI
-hierarchy.
-
-POI controls are used outside of the POI hierarchy using a PointOfInterestReference.
-Any colliders that respond to GazeSelection in the reference's hierarchy are treated
-as if they are under the POI hierarchy. This is used by magic windows in the galaxy
-and could be extended to add other selection sources, like using orbits in the solar
-system to travel to planet views.
+window depth is hidden with the POI_Occlusion shader. 
+The magic window lives under the POI in the hierarchy. The CardPOI.cs is responsible 
+to place the magic window at the desired position and rotation.
 
 The font used in the PointOfInterest cards is called "Orbitron" and it can be found
 [here](https://www.theleagueofmoveabletype.com/orbitron). As this font is released
@@ -173,6 +169,19 @@ under the [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?si
 developers who are interested in creating or modifying PointOfInterest cards should
 treat it like any other third-party dependency and install the font on their own
 development system rather than committing it directly into the git repository.
+
+##PlanetPOI
+Is used in solar system and galactic center.
+Its the poi that when selected, it results in entering in a new scene.
+The scene that it loads is set in PlanetPOI in editor.
+The planet object lives along the poi under the same parent.
+There is a reference to the planet from the poi.
+The planets have a collider wich is around the mesh which is needed to be exactly as the mesh
+as these colliders are used during transitions to new scenes.
+Planets have an extra wider collider which is arond the planet and its much larger than the planet.
+Its purpose is to be able for the planet to be selected, as the collider that its exactly around its mesh, 
+might be small, a larger collider, gives the ability to select the planet easier.
+
 
 ## GE_POIMaker Tool
 
@@ -197,34 +206,23 @@ how flow moves from an old scene to a new scene through callbacks from the
 ViewLoader. This system handles the animations that are run between scenes to
 easily flow between scenes.
 
-Forward transitions are marked by using a PointOfInterest to load a scene. The
-viewer looks at a destination marker or target (i.e.: a planet in the solar
-system view) and clicks or air taps to start the transition to the new scene.
-These transitions add a new scene to a stack in the ViewLoader. Back
-transitions pop the ViewLoader scene stack to determine the scene to go back
-to. This is triggered through the UI back button or voice command.
+First, components that arent needed are disabled, like the OrbitUpdater, POIRotation animation,
+PointOfInterests, Touchscript. All these, are components that move the gameobjects in the scene and during
+transition to a new scene, nothing should move the objects except the transition code.
 
-Forward and backward transition flow:
-* The next scene is loaded asynchronously, objects slow to a stop, collisions are disabled, and POIs fade out.
-* After all of the above is complete, the transition starts by placing the newly loaded scene in the existing scene. The scenes are parented, translated, rotated, and scaled into position while the old scene fades out (handles deletion of the scene when it fades out completely).
+Scenes have focus colliders. For example, solar system scene has as focus collider the sun planet collider.
+A single planet scene, will have that collider as focus collider.
+The idea is, that the previous and new scene's focus colliders are being transitioned from one into the other.
 
-For forward transitions, the new content fits in the POI target.
+For example, going from solar system into earth view. The new scene, earth view, will initially be scaled, positioned and rotated
+in a way so its focus collider will match exactly the transform of the earth focus collider in solar system view.
+The transition code will update both scenes in that way so both focus colliders have matching transforms at any point until
+the end of the transition. At the end of the transition, the new scene will have the transform values that it had when it was spawned.
+So, the old and new scenes, are being modified, to transition from the previous scene's focus collider transform into the 
+next scene's focus collider transform.
 
-For backward transitions, the new content is scaled up to match up the POI
-target with the old scene. For these transitions the POI target is completely
-visible while all other content in the new scene is faded in during the
-transition.
+The transition code is in ZoomInOut.cs
 
-* After the transition is complete, POIs are faded in, collisions are enabled, and objects start to move.
-
-Performance choices:
-* Removing the POIs during a transition is both a design and performance bonus. When the POIs are hidden, they are disabled, saving rendering costs.
-* The orbit updater has some expensive computation that may not converge quickly, so the planets in the solar system stop updating during transitions.
-* The first transition from the earth to the solar system is taxing, especially on load. We preload the solar system during a blank screen and delete it at the end of the introduction to expedite the first time the solar system is loaded (part of transition logic).
-
-The TransitionManager publicly exposes the FadeContent coroutine, so any script
-logic can fade in/out an object and all of its children overtime, given an
-animation curve.
 
 # Fader
 
