@@ -10,9 +10,17 @@ namespace GalaxyExplorer
     {
         private UnityEngine.XR.WSA.WorldAnchor anchor;
 
-        public void CreateWorldAnchor()
+        public void CreateWorldAnchor(Vector3 position)
         {
-            GameObject sourceObject = FindObjectOfType<ViewLoader>().gameObject;
+            GameObject sourceObject = GalaxyExplorerManager.Instance.ViewLoaderScript.gameObject;
+
+            sourceObject.transform.position = position;
+
+            // rotate to face camera
+            var lookPos = Camera.main.transform.position - position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(-lookPos);
+            sourceObject.transform.rotation = rotation;
 
             anchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
 
@@ -38,18 +46,6 @@ namespace GalaxyExplorer
 
         }
 
-        private void ResetStarted()
-        {
-            if (anchor != null)
-            {
-                DestroyWorldAnchor();
-            }
-        }
-
-        private void ResetFinished()
-        {
-            CreateWorldAnchor();
-        }
         #endregion
     }
 }

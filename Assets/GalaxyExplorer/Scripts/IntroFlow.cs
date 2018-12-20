@@ -21,8 +21,6 @@ namespace GalaxyExplorer
         private MusicManager musicManagerScript = null;
         private FlowManager flowManagerScript = null;
         private ViewLoader viewLoaderScript = null;
-        private Transform sourceTransform = null;
-        private VOManager VOManagerScript = null;
 
         public delegate void IntroFinishedCallback();
         public IntroFinishedCallback OnIntroFinished;
@@ -68,15 +66,7 @@ namespace GalaxyExplorer
                 flowManagerScript.JumpToStage(3);
             }
 
-            sourceTransform.position = position;
-
-            // rotate to face camera
-            var lookPos = Camera.main.transform.position - position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(-lookPos);
-            sourceTransform.rotation = rotation;
-
-            FindObjectOfType<WorldAnchorHandler>().CreateWorldAnchor();
+            FindObjectOfType<WorldAnchorHandler>().CreateWorldAnchor(position);
         }
 
         void Start()
@@ -132,8 +122,7 @@ namespace GalaxyExplorer
 
             if (flowManagerScript == null)
             {
-                FlowManager[] allFlowManagers = Resources.FindObjectsOfTypeAll<FlowManager>();
-                flowManagerScript = (allFlowManagers != null && allFlowManagers.Length >= 1) ? allFlowManagers[0] : null;
+                flowManagerScript = GalaxyExplorerManager.Instance.FlowManagerHandler;
                 if (flowManagerScript)
                 {
                     flowManagerScript.enabled = true;
@@ -141,26 +130,10 @@ namespace GalaxyExplorer
                 }
             }
 
-            // World anchor is being created along the gameobject that has ViewLoader
-            // so thats the transform that we need to modify when user chooses position of hologram
-            if (sourceTransform == null)
-            {
-                sourceTransform = viewLoaderScript ? viewLoaderScript.transform : null;
-            }
-
             if (musicManagerScript == null)
             {
                 musicManagerScript = GalaxyExplorerManager.Instance.MusicManagerScript;
-
-                if (musicManagerScript)
-                {
-                    StartCoroutine(PlayWelcomeMusic());
-                }
-            }
-
-            if (VOManagerScript == null)
-            {
-                VOManagerScript = GalaxyExplorerManager.Instance.VoManager;
+                StartCoroutine(PlayWelcomeMusic());
             }
 
             yield return null;
