@@ -30,6 +30,12 @@ namespace GalaxyExplorer
         protected override void Start()
         {
             base.Start();
+
+            Collider[] allPlanetCollders = (Planet) ? Planet.GetComponentsInChildren<Collider>() : null;
+            foreach (var item in allPlanetCollders)
+            {
+                allPoiColliders.Add(item);
+            }
         }
 
         public override void OnInputClicked(InputClickedEventData eventData)

@@ -4,6 +4,7 @@
 using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -44,6 +45,9 @@ namespace GalaxyExplorer
         protected float timer = 0.0f;
         protected POIState currentState = POIState.kIdle;
         protected float restingOnPoiTime = 0.5f;
+
+        // A list of all colliders realted to this poi
+        protected List<Collider> allPoiColliders = new List<Collider>();
 
         protected enum POIState
         {
@@ -147,6 +151,8 @@ namespace GalaxyExplorer
 
                 StartCoroutine(ResizePOICollider());
             }
+
+            allPoiColliders.Add(IndicatorCollider);
         }
 
         protected virtual void OnEnable()
@@ -303,6 +309,15 @@ namespace GalaxyExplorer
         {
             timer = 0.0f;
             currentState = (isFocused) ? POIState.kOnFocusEnter : currentState = POIState.kOnFocusExit;
+        }
+
+        // Switch on/off all colliders related to the poi
+        public void UpdateCollidersActivation(bool isEnabled)
+        {
+            foreach (var item in allPoiColliders)
+            {
+                item.enabled = isEnabled;
+            }
         }
     }
 }

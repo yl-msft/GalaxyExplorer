@@ -72,10 +72,7 @@ namespace GalaxyExplorer
             // Update poi collider activation
             foreach (var poi in allPOIs)
             {
-                if (poi.IndicatorCollider)
-                {
-                    poi.IndicatorCollider.enabled = !isBBenabled;
-                }
+                poi?.UpdateCollidersActivation(!isBBenabled);
             }
         }
 
