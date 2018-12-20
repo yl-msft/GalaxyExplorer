@@ -19,8 +19,8 @@ interact.
 Download all of the developer tools from the
 [Microsoft Developer Website](http://lens.ms/Sa37sr)
 
-*note*, the currently supported version of Unity is 2017.3.0f3 which can be
-found on the [Unity Beta Program site](http://beta.unity3d.com/download/a9f86dcd79df/download.html).
+*note*, the currently supported version of Unity is 2017.4.10f1 which can be
+found on the [Unity Beta Program site](https://unity3d.com/get-unity/download/archive).
 
 # Running in Unity
 
@@ -66,44 +66,26 @@ package to deploy at a later time.
 CoreSystems is a scene that we load that has most of our global game objects.
 Things like our audio rig (which has our background music and VOManager) and
 things like our Input stack. CoreSystems is loaded into any scene via
-ViewLoader so that developers and artists can run any scene (e.g.
+Layers so that developers and artists can run any scene (e.g.
 SunView.unity) independent from running the MainScene. 
-
-There is a callback mechanism in ViewLoader that lets scenes know when the
-hierarchy is ready.
-
-## CoreSystems_ImmersiveHMD
-
-CoreSystems_ImmersiveHMD is a scene that adds game objects and scripts required
-when running in Windows Mixed Reality on an Immersive HMD. It is loaded by
-ViewLoader after CoreSystems is loaded. It controlls things like rendering a
-floor plane and a star-field background which help the user feel grounded. It
-also adds visualizers for Mixed Reality motion controllers
 
 # ViewLoader
 
-The ViewLoader manages the loading of scenes used throughout the app. When the
-ViewLoader is first created (MainScene or any other "view" scene), the
-CoreSystems scene is loaded. This initializes the app to contain all of the
-singleton objects necessary to run. If a "view" scene is run through the
-UnityEditor, loading CoreSystems in this way makes it easy to iterate on
-content in the editor without having to load the MainScene and walk through to
-the point in the application that you care about. Other systems can subscribe
-to the CoreSystemsLoaded action in the ViewLoader to know when the CoreSystems
-have loaded.
+The ViewLoader manages the loading of scenes used throughout the app. 
+The Viewloader lives inside CoreSystems scene.
+It is responsible to load and unload scenes.
+Scenes are loaded asynchronously
+TransitionManager calls Viewloader in order to load and unload scenes.
+All the rest of the script just hook up on ViewLoader's callbacks in order
+to know when a new scene is about to be loaded and when that has been completed.
 
-The IntroductionFlow loads the starting view, which uses the Transitionmanager
-to preload the solar system followed by loading the earth. All other content is
-loaded through the TransitionManager through "next" and "prev" scene loads.
-When a next scene is loaded, the name of the scene is provided by a
-PointOfInterest. The scene is added to a stack that the ViewLoader maintains,
-and the stack is popped to determine which scene to load for prev scenes.
+ViewLoader keeps the trail of scenes in a stack in order to know in which scene to go back.
+Scenes during Introduction flow should not go in this stack as user never goes back to introduction flow.
 
-For all scenes loaded, an optional callback for the loaded scene can be provided.
-Scenes are loaded asynchronously, so the TransitionManager uses this callback
-to know when new content is ready to be shown and moved for a transitions.
 
 # IntroductionFlow
+
+Flow of introduction is managed by FlowManager.
 
 IntroductionFlow contains the on-rails experience in the demo that happens when
 you first start Galaxy Explorer. The editor defines timings and voice over to be
