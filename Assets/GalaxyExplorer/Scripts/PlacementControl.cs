@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PlacementControl : MonoBehaviour, IInputHandler
+    public class PlacementControl : MonoBehaviour, IInputClickHandler
     {
         [SerializeField]
         private float DesktopDuration = 2.0f;
@@ -47,17 +47,6 @@ namespace GalaxyExplorer
             {
                 gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance);
             }
-
-            // In VR if user doesnt have controller could tap space in order to proceed in placement mode
-            if (GalaxyExplorerManager.IsImmersiveHMD && GalaxyExplorerManager.Instance.InputRouter)
-            {
-                GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
-            }
-        }
-
-        private void OnKeyboadSelection()
-        {
-            OnInputUp(null);
         }
 
         private IEnumerator ReleaseContent(float waitingTime)
@@ -80,11 +69,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public void OnInputDown(InputEventData eventData)
-        {
-        }
-
-        public void OnInputUp(InputEventData eventData)
+        public void OnInputClicked(InputClickedEventData eventData)
         {
             if (!isPlaced)
             {
@@ -93,6 +78,5 @@ namespace GalaxyExplorer
 
             isPlaced = true;
         }
-
     }
 }

@@ -32,8 +32,6 @@ namespace GalaxyExplorer
         {
             InputManager.Instance.AddGlobalListener(gameObject);
 
-            GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
-
             if (AboutDesktopButton == null)
             {
                 Debug.LogWarning("AboutSlate.cs is missing AboutDesktopButton");
@@ -96,18 +94,6 @@ namespace GalaxyExplorer
             }
 
             return false;
-        }
-
-        // On action triggered by keyboard
-        public void OnKeyboadSelection()
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                ToggleAboutSlateLogic(IsClickOnAboutSlate(hit.collider.gameObject));
-            }
         }
 
         // On every user's click, check if the click is outside the about area and if it is and About card is on then deactivate it

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class Hyperlink : MonoBehaviour, IInputHandler, IControllerTouchpadHandler
+    public class Hyperlink : MonoBehaviour, IInputClickHandler, IControllerTouchpadHandler
     {
         public string URL;
 
@@ -31,17 +31,29 @@ namespace GalaxyExplorer
         {
         }
 
-        public void OnInputDown(InputEventData eventData)
-        {
-  
-        }
-
         public void OnInputPositionChanged(InputPositionEventData eventData)
         {
  
         }
 
         public void OnInputUp(InputEventData eventData)
+        {
+            
+        }
+
+        public void OnTouchpadReleased(InputEventData eventData)
+        {
+            OnInputClicked(null);
+
+            eventData.Use();
+        }
+
+        public void OnTouchpadTouched(InputEventData eventData)
+        {
+
+        }
+
+        public void OnInputClicked(InputClickedEventData eventData)
         {
             if (Clicked != null)
             {
@@ -57,18 +69,6 @@ namespace GalaxyExplorer
                 Application.OpenURL(URL);
 #endif
             }
-        }
-
-        public void OnTouchpadReleased(InputEventData eventData)
-        {
-            OnInputUp(null);
-
-            eventData.Use();
-        }
-
-        public void OnTouchpadTouched(InputEventData eventData)
-        {
-
         }
     }
 }

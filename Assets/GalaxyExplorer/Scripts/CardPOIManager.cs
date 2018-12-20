@@ -37,11 +37,6 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.ToolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
             }
 
-            if (GalaxyExplorerManager.Instance.InputRouter)
-            {
-                GalaxyExplorerManager.Instance.InputRouter.OnKeyboadSelection += OnKeyboadSelection;
-            }
-
             if (GalaxyExplorerManager.Instance.MouseInput)
             {
                 GalaxyExplorerManager.Instance.MouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
@@ -101,47 +96,7 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(selectedObject);
             }
         }
-
-        // Space bar was tapped callback
-        // If any poi card is on then close it else if space tap was to select a poi, then select it and trigger audio
-        private void OnKeyboadSelection()
-        {
-            bool isAnyCardActive = IsAnyCardActive();
-            if (isAnyCardActive)
-            {
-                StartCoroutine(CloseAnyOpenCard(null));
-                GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
-            }
-            else
-            {
-                GameObject selected = null;
-                // mouse focused object in desktop platform
-                selected = (selected == null && GalaxyExplorerManager.Instance.MouseInput) ? GalaxyExplorerManager.Instance.MouseInput.FocusedObject : selected;
-                // gaze focused object in MR platform
-                selected = (selected == null && GazeManager.Instance) ? GazeManager.Instance.HitObject : selected;
-
-                if (selected)
-                {
-                    PointOfInterest poi = selected.GetComponentInParent<PointOfInterest>();
-                    // only if the selected object is a poi proceed and trigger OnInputClicked and select that poi
-                    if (poi)
-                    {
-                        IInputClickHandler handler = selected.GetComponentInParent<IInputClickHandler>();
-                        handler?.OnInputClicked(null);
-
-                        if (poi)
-                        {
-                            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(poi.IndicatorCollider.gameObject);
-                        }
-
-                        GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
-                    }
-                }
-            }
-
-            StartCoroutine(UpdateActivationOfPOIColliders());
-        }
-
+    
         public void RegisterPOI(PointOfInterest poi)
         {
             if (!allPOIs.Contains(poi))
