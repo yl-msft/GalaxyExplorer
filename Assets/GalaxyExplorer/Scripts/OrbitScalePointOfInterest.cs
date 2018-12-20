@@ -126,10 +126,5 @@ namespace GalaxyExplorer
                 }
             }
         }
-
-        public override void OnInputUp(InputEventData eventData)
-        {
-            base.OnInputUp(eventData);
-        }
     }
 }

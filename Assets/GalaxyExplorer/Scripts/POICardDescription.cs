@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class POICardDescription : MonoBehaviour, IInputHandler, IInputClickHandler, IFocusable
+    public class POICardDescription : MonoBehaviour, IInputClickHandler, IFocusable
     {
         [SerializeField]
         private PointOfInterest POI = null;
@@ -24,16 +24,6 @@ namespace GalaxyExplorer
         public void OnInputClicked(InputClickedEventData eventData)
         {
             POI?.OnInputClicked(eventData);
-        }
-
-        public void OnInputDown(InputEventData eventData)
-        {
-            
-        }
-
-        public void OnInputUp(InputEventData eventData)
-        {
-            
         }
     }
 }

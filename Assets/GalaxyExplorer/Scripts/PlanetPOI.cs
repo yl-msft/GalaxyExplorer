@@ -51,16 +51,6 @@ namespace GalaxyExplorer
             GalaxyExplorerManager.Instance.TransitionManager.LoadNextScene(SceneToLoad);
         }
 
-        public override void OnInputDown(InputEventData eventData)
-        {
-            base.OnInputDown(eventData);
-        }
-
-        public override void OnInputUp(InputEventData eventData)
-        {
-            base.OnInputUp(eventData);
-        }
-
         public override void OnFocusEnter()
         {
             base.OnFocusEnter();

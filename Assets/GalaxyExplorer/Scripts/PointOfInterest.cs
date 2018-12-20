@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IInputHandler, IInputClickHandler, IFocusable, IControllerTouchpadHandler
+    public class PointOfInterest : MonoBehaviour, IInputClickHandler, IFocusable, IControllerTouchpadHandler
     {
         [SerializeField]
         protected GameObject CardDescription = null;
@@ -113,16 +113,6 @@ namespace GalaxyExplorer
             {
                 CardDescription.SetActive(false);
             }
-        }
-
-        public virtual void OnInputDown(InputEventData eventData)
-        {
-
-        }
-
-        public virtual void OnInputUp(InputEventData eventData)
-        {
-            
         }
 
         protected virtual void Awake()

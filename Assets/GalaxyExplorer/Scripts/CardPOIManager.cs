@@ -32,11 +32,6 @@ namespace GalaxyExplorer
         {
             InputManager.Instance.AddGlobalListener(gameObject);
 
-            if (GalaxyExplorerManager.Instance.ToolsManager)
-            {
-                GalaxyExplorerManager.Instance.ToolsManager.OnAboutSlateOnDelegate += OnAboutSlateOnDelegate;
-            }
-
             if (GalaxyExplorerManager.Instance.MouseInput)
             {
                 GalaxyExplorerManager.Instance.MouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
@@ -184,36 +179,6 @@ namespace GalaxyExplorer
             }
 
             yield return null;
-        }
-
-        // When a card poi is on, if About Slate gets activated through menu or desktop button then card poi need to be deactivated
-        public void OnAboutSlateOnDelegate(bool enable)
-        {
-            if (enable)
-            {
-                // Find if a card POI is activa and its card is on/visible
-                bool isAnyCardActive = false;
-                foreach (var poi in allPOIs)
-                {
-                    if (poi.IsCardActive)
-                    {
-                        isAnyCardActive = true;
-                        poi.OnInputUp(null);
-                        break;
-                    }
-                }
-
-                if (isAnyCardActive)
-                {
-                    foreach (var poi in allPOIs)
-                    {
-                        if (poi.IndicatorCollider)
-                        {
-                            poi.IndicatorCollider.enabled = true;
-                        }
-                    }
-                }
-            }
         }
 
         // Deactivate all pois that might have active card description except the one that is currently focused/touched

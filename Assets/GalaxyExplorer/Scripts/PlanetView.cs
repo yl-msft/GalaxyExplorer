@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 namespace GalaxyExplorer
 {
-    public class PlanetView : MonoBehaviour, IInputHandler
+    public class PlanetView : MonoBehaviour, IInputClickHandler
     {
         [SerializeField]
         private string SceneName = "";
@@ -19,13 +19,7 @@ namespace GalaxyExplorer
             get { return (SceneName.Length > 0) ? SceneName : gameObject.scene.name; }
         }
 
-
-        public virtual void OnInputDown(InputEventData eventData)
-        {
-
-        }
-
-        public virtual void OnInputUp(InputEventData eventData)
+        public void OnInputClicked(InputClickedEventData eventData)
         {
             if (GalaxyExplorerManager.Instance.TransitionManager && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
             {
