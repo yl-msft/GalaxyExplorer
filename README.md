@@ -85,48 +85,24 @@ Scenes during Introduction flow should not go in this stack as user never goes b
 
 # IntroductionFlow
 
-Flow of introduction is managed by FlowManager.
+Flow of introduction is managed by FlowManager and IntroFlow.cs
+IntroFlow.cs lives in MainScene. In that way, in order for introduction to play,
+user need to run the main scene and it doesnt run when running any other scene.
 
-IntroductionFlow contains the on-rails experience in the demo that happens when
-you first start Galaxy Explorer. The editor defines timings and voice over to be
-played in different states of the introduction:
+IntroFlow.cs activates FlowManager in CoreSystems scene.
+FlowManager has all the dinstict stages of the introduction flow, from Logo appearance until 
+the first scene that user can interact with, the galaxy view.
 
-* SlateFadeout
 * Logo
-* LogoFadeout
+* Sfx
+* VO
+* Earth pin
+* Solar System view
+* Galaxy view 
 
-The above states show the Galaxy Explorer logo. Clicking or air tapping before
-the timer completes for the logo will skip to the PreloadSolarSystem state.
-
-* PreloadSolarSystem
-
-This state loads the solar system and the first earth that you see. The
-preloaded solar system is a performance optimization to prevent a hitch when
-transitioning from earth to the solar system for the first time.
-
-* EarthHydrate
-* PlaceEarth
-
-At this point in the introduction, the earth becomes head locked to be placed
-with gaze. Click or air tap to place the earth and start the experience.
-
-* EarthFadeout
-* Earth
-* SolarSystem
-* Galaxy
-
-The above states cannot be skipped and contain voice over the introduce the
-flow of the experience.
-
-* Complete
-
-When this state is entered, the IntroductionFlow object is destroyed. Other
-scripts will identify if the application is in the introduction (i.e.: the
-TransitionManager does not fade in the PointsOfInterest during the introduction
-because interacting with them has not yet been explained).
+The IntroFlow.cs just helps out FlowManager in functionality that cant be just hooked up in editor in FloManager
 		
-The IntroductionFlow loads the first scene in the experience by telling the
-TransitionManager to switch between different scenes.
+When the GalaxyView scene is loaded which is the first scene that user can interact with, then thats the end of introduction.
 
 # Galaxy
 
@@ -148,30 +124,25 @@ Cameras, we use a RenderProxy script to trigger the Galaxy rendering.
 # Tools
 
 The Tools are contained in a ToolPanel, which manages the visibility of the
-Back, Grab, Zoom, Tilt, Reset, About, and Controls UI elements. It has
-accessor functions to fade in/out all of the UI elements together, and the
-update logic implements the tag-along functionality.
+Back, Grab, Reset, About, and Controls UI elements. 
+The ToolPanel.cs has the functionality to move the tools and implements is as the tag-along functionality.
 
-In the ToolPanel, there are Buttons (Back, Grab, Reset, About, and Controls)
-and Tools (Zoom and Tilt). The buttons perform an action on selection, and
-tools enter a toggle state that change the functionality of the cursor. (Even
-though Grab was implemented as a Button, it could also be a Tool that toggles
-itself off on placement of the content.)
+In the ToolPanel, there are Buttons (Back, Grab, Reset, About, and Controls). 
+The buttons perform an action on selection, and tools enter a toggle state. 
+The ToolPanel can be raised or lowered through the manager. 
 
-The ToolManager handles the Button and Tool settings that can be called from
-anywhere in script. It also has global settings that other content is dependent
-on. For example, the min and max zoom sizes are calculated when new content is
-loaded and stored inside the ToolManager. Tools are locked and unlocked to
-enable/disable their functionality, and the ToolPanel can be raised or lowered
-through the manager. Most of the functions provided here are utility functions
-expected to be called anywhere a script wants to control tool functionality.
+The ToolManager handles the Button settings that can be called from anywhere in script. 
+
+All UI Buttons are in UI physics layer, in order to be able to have sfx from Audui
+
+The tools appear in HoloLens and MR platfroms.
+In Desktop, there are unity buttons on the right corner of the screen.
+The buttons are Reset and About.
 
 # PointOfInterest
 
-PointOfInterests (POIs) are used to interact with a specific part of a hologram
-(galaxy, solar system, a planet) as opposed to the entire hologram, which is
-controlled by Tools. They are represented in the application by a line from the
-content to interact with to a marker.
+PointOfInterests (POIs) are markers in scene.
+They are represented in the application by a line and an indicator on the top.
 
 Parts of a PointOfInterest:
 * BillboardLine - the line that connects the interest point to interact with to an indicator at the top of the line. The line is always vertical and scales with distance as a UI element. It does not rescale with content and will always start at a target point.
