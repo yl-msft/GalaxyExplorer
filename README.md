@@ -246,6 +246,21 @@ Next we need to scale the new scene to fill the given percentage of the global v
 The global volume is the one set in the transform of TransformSource.
 Its scene fills a percentage of this. The percentage is set in editor in SceneTransition component.
 
+Next is initialization of zoom in out functionality.
+At this step the properties for start and end position, rotation, scale are set and after this
+position, rotation and scale of the scene objects should not change from other functionality other
+than zoom in out code.
+
+Next all colliders of old and new scene needs to be deactivated so user cant interact with them during transition.
+
+Next, the pois of previous scene fades out, and when that is done, the whole previous scene starts fading out.
+The audio transition plays.
+The new scene's pois alpha is set to zero so there arent visible
+The new scene fades in except its pois
+Then, the zoom in out transition starts.
+When that is over, the previous scene unloads, 
+the new scene's pois fade in and its colliders are being active again.
+
 Scenes have focus colliders. For example, solar system scene has as focus collider the sun planet collider.
 A single planet scene, will have that collider as focus collider.
 The idea is, that the previous and new scene's focus colliders are being transitioned from one into the other.
