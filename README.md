@@ -161,10 +161,12 @@ POIs have different size in different platforms.
 PoiResizer.cs is the script that updates the scale of the poi elements depending on platform.
 
 ## OrbitScalePointOfInterest
+
 Is a toggle that converts between Realistic and Simplified orbit and size views
 in the solar system.
 
 ## CardPOI
+
 Is used in the galaxy to inspect images through a magic window. Parallax for
 the window and settings are incorporated in the POI_Porthole shader, and the
 window depth is hidden with the POI_Occlusion shader. 
@@ -179,6 +181,7 @@ treat it like any other third-party dependency and install the font on their own
 development system rather than committing it directly into the git repository.
 
 ## PlanetPOI
+
 Is used in solar system and galactic center.
 Its the poi that when selected, it results in entering in a new scene.
 The scene that it loads is set in PlanetPOI in editor.
@@ -207,6 +210,7 @@ The GE_POIMaker tool references the Orbitron font, but will use a default font
 if Orbitron is not installed on the development system.
 
 # TransformSource
+
 Every scene that is spawned need to be at the same place as the previous one.
 In order to keep consecutive scenes in same position, rotation, scale,
 we use TransformSource and TransformHanlde.
@@ -216,6 +220,7 @@ TransformSource position, rotation and scale are synched with the transform in T
 In this way, all scenes, have the same transform values.
 
 # SceneTransition
+
 Every scene needs to have a SceneTransition component on the top entity of the scene.
 All other gameobjects need to live under this entity.
 
@@ -261,6 +266,8 @@ Then, the zoom in out transition starts.
 When that is over, the previous scene unloads, 
 the new scene's pois fade in and its colliders are being active again.
 
+The transition code is in ZoomInOut.cs
+
 Scenes have focus colliders. For example, solar system scene has as focus collider the sun planet collider.
 A single planet scene, will have that collider as focus collider.
 The idea is, that the previous and new scene's focus colliders are being transitioned from one into the other.
@@ -272,9 +279,11 @@ the end of the transition. At the end of the transition, the new scene will have
 So, the old and new scenes, are being modified, to transition from the previous scene's focus collider transform into the 
 next scene's focus collider transform.
 
-The transition code is in ZoomInOut.cs
-
-
+ZoomInOut.cs implements the above transition.
+Need to take into account any rotation between top parent scene entity and focus collider and any translation.
+Need to rotate the scenes around the focus objects as pivots.
+Need to scale the scenes around the focus objects as pivots.
+So, it takes these into consideration during rotation and scale.
 
 # Fader
 
@@ -288,6 +297,7 @@ GEFadeManager has all required functionality for fading.
 There are few differents faders, all inherit from the base Fader.
 
 ## MaterialsFader
+
 Has all of its materials defined in the UnityEditor instead of trying to figure
 out which materials to fade through renderers. You can use this for batch
 rendering or to fade a group of objects together without needing to collect a
@@ -297,13 +307,16 @@ Its also used in solar system and galactic center to have a list of materials th
 as orbit trail material.
 
 ## POIMaterialFader
+
 Its a list of materials specifically for pois, in order to fade in/out all together.
 There is a separate fade script for pois in order to be able to fade just that fader 
 
 ## SpiralGalaxyFader
+
 Its a fader specifically for the milky way in Galaxy view.
 
 ## SunLensFlareSetter
+
 Specifies a single material in the UnityEditor to integrate _TransitionAlpha
 settings with other shader-dependent values for lens flare.
 
@@ -332,6 +345,19 @@ VOManager works best when it exists in a persistent system.
 Its only requirement is that an AudioSource is placed on the same object.
 Fade out time can me tweaked in editor.
 
+# MusicManager
+
+Musicmanager lives in CoreSystems. 
+Its responsible for background music in its scene.
+
+# Audui
+
+Sfx are being handled through Audui.
+So, sfx in pois, magic windows and tools menu buttons are handled with AuduiCustomSound.
+AuduiEventWrangler has the default sound events.
+Its entity that wants to override these sounds need to have along its collider a AuduiCustomSound component.
+Note that Audui workd with entities in UI physics layer only.
+
 # WorldAnchorHandler
 
 WorldAnchors are Unity components that create Windows Volumetric Spatial
@@ -339,6 +365,21 @@ Anchors at a defined real world transform in space. The WorldAnchorHandler
 class wraps up all of the calls to create and maintain the WorldAnchor that
 defines the position where the galaxy is placed as part of the introduction
 process.
+
+# Touchscript
+
+Its a unity free asset that handles user touches on screen and interpretes them
+into translation, rotation, scale.
+
+# Input
+
+There are multiple user inputs.
+Input in HoloLens and MR is handled by MRTK.
+In desktop there is GEMouseInputSource, GEKeyboardInputSource and GETouchScreenInputSource
+Each one of these inherit from MRTK's BaseInputSource.
+They override InputManager.Instance.OverrideFocusedObject when necessary as InputManager of MRTK
+has as focused object the one focused by the cursor.
+In mouse, keyboard and touch case those thats not valid.
 
 # Shaders
 
@@ -392,10 +433,6 @@ rings of the planet, we project the world space position of the pixel on the
 planet into the rings plane, and we compare its distance to the center of the
 planet to the distance to the inner ring radius and outer ring radius. The
 result gives a value in [0-1] which is used to sample a shadow texture.
-
-# Touchscript
-Its a unity free asset that handles user touches on screen and interpretes them
-into translation, rotation, scale.
 
 ## Performance Investigation
 
