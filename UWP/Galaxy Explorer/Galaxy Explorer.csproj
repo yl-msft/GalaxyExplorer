@@ -388,7 +388,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:\src\GitHub\timGerken\GalaxyExplorer\UWP\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj">
+    <ProjectReference Include="..\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj">
       <Project>{8734b9ba-2cd2-4e56-b4fd-7279b3a72a0a}</Project>
       <Name>Assembly-CSharp</Name>
       <Private>False</Private>
