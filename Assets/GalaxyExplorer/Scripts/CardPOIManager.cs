@@ -120,7 +120,6 @@ namespace GalaxyExplorer
         }
 
         // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
-        // If no poi card is active then activate poi colliders
         // This needs to happen in every airtap, mouse click, controller click, keyboard tap so any open magic window card will close 
         private IEnumerator UpdateActivationOfPOIColliders()
         {
@@ -142,39 +141,40 @@ namespace GalaxyExplorer
                     }
                 }
             }
-            else
-            {
-                foreach (var poi in allPOIs)
-                {
-                    if (poi.IndicatorCollider.enabled == true)
-                    {
-                        yield break;
-                    }
-
-                    if (poi.IndicatorCollider)
-                    {
-                        poi.IndicatorCollider.enabled = true;
-                    }
-                }
-            }
         }
 
         // Find if a card POI is active and its card is on/visible, close the card and trigger audio
         private IEnumerator CloseAnyOpenCard(InputEventData eventData)
         {
+            bool isCardActive = false;
+
             foreach (var poi in allPOIs)
             {
                 if (poi.IsCardActive)
                 {
                     // eventData needs to be used in case that we are clocing the card because we dont want this click to propagate into the focused handler
                     eventData?.Use();
+                    isCardActive = true;
 
                     CardPOI cardPoi = (CardPOI)poi;
                     GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject((cardPoi) ? cardPoi.GetCardObject.GetComponentInChildren<Collider>().gameObject : poi.IndicatorCollider.gameObject);
 
                     poi.OnInputClicked(null);
+
                     Debug.Log("Close card because of input");
                     break;
+                }
+            }
+
+            // If any magic window card was active then activate all indicator colliders
+            if (isCardActive)
+            {
+                foreach (var poi in allPOIs)
+                {
+                    if (poi.IndicatorCollider)
+                    {
+                        poi.IndicatorCollider.enabled = true;
+                    }
                 }
             }
 
