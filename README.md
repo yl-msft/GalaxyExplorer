@@ -82,51 +82,35 @@ to know when a new scene is about to be loaded and when that has been completed.
 ViewLoader keeps the trail of scenes in a stack in order to know in which scene to go back.
 Scenes during Introduction flow should not go in this stack as user never goes back to introduction flow.
 
+# GalaxyExplorerManager
+
+Its the main component of the app.
+It decides in which platform the app is running.
+It holds references in many other managers of the scene in order for other components
+to access them through GalaxyExplorerManager
+It also holds properties that are different per platform that other components in the
+app use.
 
 # IntroductionFlow
 
-Flow of introduction is managed by FlowManager.
+Flow of introduction is managed by FlowManager and IntroFlow.cs
+IntroFlow.cs lives in MainScene. In that way, in order for introduction to play,
+user need to run the main scene and it doesnt run when running any other scene.
 
-IntroductionFlow contains the on-rails experience in the demo that happens when
-you first start Galaxy Explorer. The editor defines timings and voice over to be
-played in different states of the introduction:
+IntroFlow.cs activates FlowManager in CoreSystems scene.
+FlowManager has all the dinstict stages of the introduction flow, from Logo appearance until 
+the first scene that user can interact with, the galaxy view.
 
-* SlateFadeout
 * Logo
-* LogoFadeout
+* Sfx
+* VO
+* Earth pin
+* Solar System view
+* Galaxy view 
 
-The above states show the Galaxy Explorer logo. Clicking or air tapping before
-the timer completes for the logo will skip to the PreloadSolarSystem state.
-
-* PreloadSolarSystem
-
-This state loads the solar system and the first earth that you see. The
-preloaded solar system is a performance optimization to prevent a hitch when
-transitioning from earth to the solar system for the first time.
-
-* EarthHydrate
-* PlaceEarth
-
-At this point in the introduction, the earth becomes head locked to be placed
-with gaze. Click or air tap to place the earth and start the experience.
-
-* EarthFadeout
-* Earth
-* SolarSystem
-* Galaxy
-
-The above states cannot be skipped and contain voice over the introduce the
-flow of the experience.
-
-* Complete
-
-When this state is entered, the IntroductionFlow object is destroyed. Other
-scripts will identify if the application is in the introduction (i.e.: the
-TransitionManager does not fade in the PointsOfInterest during the introduction
-because interacting with them has not yet been explained).
+The IntroFlow.cs just helps out FlowManager in functionality that cant be just hooked up in editor in FloManager
 		
-The IntroductionFlow loads the first scene in the experience by telling the
-TransitionManager to switch between different scenes.
+When the GalaxyView scene is loaded which is the first scene that user can interact with, then thats the end of introduction.
 
 # Galaxy
 
@@ -148,53 +132,44 @@ Cameras, we use a RenderProxy script to trigger the Galaxy rendering.
 # Tools
 
 The Tools are contained in a ToolPanel, which manages the visibility of the
-Back, Grab, Zoom, Tilt, Reset, About, and Controls UI elements. It has
-accessor functions to fade in/out all of the UI elements together, and the
-update logic implements the tag-along functionality.
+Back, Grab, Reset, About, and Controls UI elements. 
+The ToolPanel.cs has the functionality to move the tools and implements is as the tag-along functionality.
 
-In the ToolPanel, there are Buttons (Back, Grab, Reset, About, and Controls)
-and Tools (Zoom and Tilt). The buttons perform an action on selection, and
-tools enter a toggle state that change the functionality of the cursor. (Even
-though Grab was implemented as a Button, it could also be a Tool that toggles
-itself off on placement of the content.)
+In the ToolPanel, there are Buttons (Back, Grab, Reset, About, and Controls). 
+The buttons perform an action on selection, and tools enter a toggle state. 
+The ToolPanel can be raised or lowered through the manager. 
 
-The ToolManager handles the Button and Tool settings that can be called from
-anywhere in script. It also has global settings that other content is dependent
-on. For example, the min and max zoom sizes are calculated when new content is
-loaded and stored inside the ToolManager. Tools are locked and unlocked to
-enable/disable their functionality, and the ToolPanel can be raised or lowered
-through the manager. Most of the functions provided here are utility functions
-expected to be called anywhere a script wants to control tool functionality.
+The ToolManager handles the Button settings that can be called from anywhere in script. 
+
+All UI Buttons are in UI physics layer, in order to be able to have sfx from Audui
+
+The tools appear in HoloLens and MR platfroms.
+In Desktop, there are unity buttons on the right corner of the screen.
+The buttons are Reset and About.
 
 # PointOfInterest
 
-PointOfInterests (POIs) are used to interact with a specific part of a hologram
-(galaxy, solar system, a planet) as opposed to the entire hologram, which is
-controlled by Tools. They are represented in the application by a line from the
-content to interact with to a marker.
+PointOfInterests (POIs) are markers in scene.
+They are represented in the application by a line and an indicator on the top.
 
 Parts of a PointOfInterest:
 * BillboardLine - the line that connects the interest point to interact with to an indicator at the top of the line. The line is always vertical and scales with distance as a UI element. It does not rescale with content and will always start at a target point.
 * Indicator - the card that is shown above the BillboardLine.
-* Description - a text card that fades in when GazeSelection collides with any collider in the POI hierarchy.
-* Transition Scene (optional) - the scene that is loaded through the TransitionManager when the POI is selected.
+* Card Description - a text card that appears when user focuses on the poi.
+
+POIs have different size in different platforms.
+PoiResizer.cs is the script that updates the scale of the poi elements depending on platform.
 
 ## OrbitScalePointOfInterest
 Is a toggle that converts between Realistic and Simplified orbit and size views
 in the solar system.
 
-## CardPointOfInterest
+## CardPOI
 Is used in the galaxy to inspect images through a magic window. Parallax for
 the window and settings are incorporated in the POI_Porthole shader, and the
-window depth is hidden with the POI_Occlusion shader. The magic window points
-of interest have a moving target, but the cards are outside of the POI
-hierarchy.
-
-POI controls are used outside of the POI hierarchy using a PointOfInterestReference.
-Any colliders that respond to GazeSelection in the reference's hierarchy are treated
-as if they are under the POI hierarchy. This is used by magic windows in the galaxy
-and could be extended to add other selection sources, like using orbits in the solar
-system to travel to planet views.
+window depth is hidden with the POI_Occlusion shader. 
+The magic window lives under the POI in the hierarchy. The CardPOI.cs is responsible 
+to place the magic window at the desired position and rotation.
 
 The font used in the PointOfInterest cards is called "Orbitron" and it can be found
 [here](https://www.theleagueofmoveabletype.com/orbitron). As this font is released
@@ -202,6 +177,19 @@ under the [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?si
 developers who are interested in creating or modifying PointOfInterest cards should
 treat it like any other third-party dependency and install the font on their own
 development system rather than committing it directly into the git repository.
+
+## PlanetPOI
+Is used in solar system and galactic center.
+Its the poi that when selected, it results in entering in a new scene.
+The scene that it loads is set in PlanetPOI in editor.
+The planet object lives along the poi under the same parent.
+There is a reference to the planet from the poi.
+The planets have a collider wich is around the mesh which is needed to be exactly as the mesh
+as these colliders are used during transitions to new scenes.
+Planets have an extra wider collider which is arond the planet and its much larger than the planet.
+Its purpose is to be able for the planet to be selected, as the collider that its exactly around its mesh, 
+might be small, a larger collider, gives the ability to select the planet easier.
+
 
 ## GE_POIMaker Tool
 
@@ -218,6 +206,30 @@ tooltips on each control for help on that specific control.
 The GE_POIMaker tool references the Orbitron font, but will use a default font
 if Orbitron is not installed on the development system.
 
+# TransformSource
+Every scene that is spawned need to be at the same place as the previous one.
+In order to keep consecutive scenes in same position, rotation, scale,
+we use TransformSource and TransformHanlde.
+There is only one TransformSource in CoreSystems with an ID.
+Every scene needs to have a TransformHandle with the matching id of TransformSource.
+TransformSource position, rotation and scale are synched with the transform in TransformHandle.
+In this way, all scenes, have the same transform values.
+
+# SceneTransition
+Every scene needs to have a SceneTransition component on the top entity of the scene.
+All other gameobjects need to live under this entity.
+
+This is necessary for the transitions from an old scene to the new one.
+This component is aware of the size of the scene as it has a reference
+to a collider named EntireSceneCollider and its aware of the focus collider
+of this scene. The focus collider is useful in the transition from one scene into the other.
+It also has a reference to SceneObject which is the entity that its transform is updated
+during transitions. This is the child of the SceneTransition object and needs to have an
+identity transform. All gameobjects of the scene need to be under this or they wont be moved
+along during transition.
+Its important to set the IsSinglePlanet bool property to true if the scene is a single planet.
+This is also used during transition to a new scene.
+
 # TransitionManager
 
 Each view (galaxy, solar system, each planet, and the sun) is a scene in Unity.
@@ -226,34 +238,28 @@ how flow moves from an old scene to a new scene through callbacks from the
 ViewLoader. This system handles the animations that are run between scenes to
 easily flow between scenes.
 
-Forward transitions are marked by using a PointOfInterest to load a scene. The
-viewer looks at a destination marker or target (i.e.: a planet in the solar
-system view) and clicks or air taps to start the transition to the new scene.
-These transitions add a new scene to a stack in the ViewLoader. Back
-transitions pop the ViewLoader scene stack to determine the scene to go back
-to. This is triggered through the UI back button or voice command.
+First, components that arent needed are disabled, like the OrbitUpdater, POIRotation animation,
+PointOfInterests, Touchscript. All these, are components that move the gameobjects in the scene and during
+transition to a new scene, nothing should move the objects except the transition code.
 
-Forward and backward transition flow:
-* The next scene is loaded asynchronously, objects slow to a stop, collisions are disabled, and POIs fade out.
-* After all of the above is complete, the transition starts by placing the newly loaded scene in the existing scene. The scenes are parented, translated, rotated, and scaled into position while the old scene fades out (handles deletion of the scene when it fades out completely).
+Next we need to scale the new scene to fill the given percentage of the global volume.
+The global volume is the one set in the transform of TransformSource.
+Its scene fills a percentage of this. The percentage is set in editor in SceneTransition component.
 
-For forward transitions, the new content fits in the POI target.
+Scenes have focus colliders. For example, solar system scene has as focus collider the sun planet collider.
+A single planet scene, will have that collider as focus collider.
+The idea is, that the previous and new scene's focus colliders are being transitioned from one into the other.
 
-For backward transitions, the new content is scaled up to match up the POI
-target with the old scene. For these transitions the POI target is completely
-visible while all other content in the new scene is faded in during the
-transition.
+For example, going from solar system into earth view. The new scene, earth view, will initially be scaled, positioned and rotated
+in a way so its focus collider will match exactly the transform of the earth focus collider in solar system view.
+The transition code will update both scenes in that way so both focus colliders have matching transforms at any point until
+the end of the transition. At the end of the transition, the new scene will have the transform values that it had when it was spawned.
+So, the old and new scenes, are being modified, to transition from the previous scene's focus collider transform into the 
+next scene's focus collider transform.
 
-* After the transition is complete, POIs are faded in, collisions are enabled, and objects start to move.
+The transition code is in ZoomInOut.cs
 
-Performance choices:
-* Removing the POIs during a transition is both a design and performance bonus. When the POIs are hidden, they are disabled, saving rendering costs.
-* The orbit updater has some expensive computation that may not converge quickly, so the planets in the solar system stop updating during transitions.
-* The first transition from the earth to the solar system is taxing, especially on load. We preload the solar system during a blank screen and delete it at the end of the introduction to expedite the first time the solar system is loaded (part of transition logic).
 
-The TransitionManager publicly exposes the FadeContent coroutine, so any script
-logic can fade in/out an object and all of its children overtime, given an
-animation curve.
 
 # Fader
 
@@ -262,87 +268,29 @@ supporting _TransitionAlpha. Each Fader is responsible for changing the blend
 settings of material shaders for alpha blending and returning them to their
 original states when fading completes.
 
-Use the TransitionManager.Instance.FadeContent() coroutine to fade in/out
-content over time. All faders on the object passed to the function will fade
-in/out. You can disable specific faders of the parent object passed to the
-function by calling EnableFade() on those faders before the coroutine is
-started; the function assumes that faders that have already been enabled
-are handled by other logic.
+GEFadeManager has all required functionality for fading.
 
-Parts of the Fader:
-* Faders chained in a hierarchy will, by default, only contain materials used by renderers that do not have a closer Fader parent in its hierarchical tree.
-* Call EnableFade() to allow a shader to receive and use _TransitionAlpha properly and DisableFade() to restore its shader settings to their original settings for performance outside of transitions.
-* When enabled, a Fader can have its alpha changed through SetAlpha.
-
-## PointOfInterest.POIFader
-CardPointOfInterest (see PointOfInterest) is a fader of this type. For shared
-meshes of this fader, the _TransitionAlpha is used to individually set
-transparency without breaking batch rendering for performance.
-
-## BillboardLine.LineFader
-Forwards _TransitionAlpha to the BillboardLine (see PointOfInterest) to set POI
-line opacity without breaking batch rendering for performant rendering.
-
-## ToolPanel.ToolsFader
-Forwards _TransitionAlpha to the ToolPanel, Buttons, and Tools (see Tools) to
-handle opacity changes.
+There are few differents faders, all inherit from the base Fader.
 
 ## MaterialsFader
 Has all of its materials defined in the UnityEditor instead of trying to figure
 out which materials to fade through renderers. You can use this for batch
 rendering or to fade a group of objects together without needing to collect a
 list of faders for better performance.
+This is used in Tools in order to fade in/out all the materials related to Tools menu.
+Its also used in solar system and galactic center to have a list of materials that are used in the scene
+as orbit trail material.
 
-## SharedMaterialFader
-Identifies the first material that the fader contains and forces all of the
-renderers to share the first material found. This is used to fade several 
-objects in a hierarchy at the same time and ensures that all of the children 
-in the fader are using the same shader for better performance.
+## POIMaterialFader
+Its a list of materials specifically for pois, in order to fade in/out all together.
+There is a separate fade script for pois in order to be able to fade just that fader 
+
+## SpiralGalaxyFader
+Its a fader specifically for the milky way in Galaxy view.
 
 ## SunLensFlareSetter
 Specifies a single material in the UnityEditor to integrate _TransitionAlpha
 settings with other shader-dependent values for lens flare.
-
-# GazeSelection
-
-GazeSelection collects all targets that are selected through gaze by using a
-ray from the HoloLens position along the device's forward vector. The cursor
-indicates the position and direction of the ray in the demo, and the Cursor
-script defines how targets are found with physics.
-
-The logic supports raycast and spherical cone collisions and processes the
-physics layers to test against in-order. This allows us to prioritize tool
-selection first and fallback to spherical cone collisions for gaze selection
-assistance when near interactive elements. If any collisions are found at any
-step in physics, all targets are cached for that frame. If the spherical cone
-collision finds multiple targets, those targets are prioritized and ordered
-from closest to the gaze ray to farthest from the gaze ray.
-
-The GazeSelectionManager filters the gaze selection targets down to a single
-target and manages when the target changes for the entirety of the app. When
-the target would change, there is a small delay introduced before the target
-is actually deselected to account for an unsteady gaze. There is additional
-logic to prevent gaze selection from quickly switching between objects by
-keeping an object selected if switching to an object one frame would reselect
-the old object in the next. This allows targets of gaze selection to turn
-on/off colliders and not flicker if the colliders refer to the same target
-selection object.
-
-Only a GazeSelectionTarget can be selected. This gives the app occluder
-support, allowing other colliders to block interactions. If there is a new
-component that should support gaze selection, it must inherit from the
-GazeSelectionTarget component and implement the IGazeSelectionTarget interface.
-GazeSelectionTarget and IGazeSelecdtionTarget have function calls to respond to
-gaze selection changes (selection and deselection), hand and clicker input, and
-voice commands.
-
-The following component types are GazeSelectionTargets:
-
-* Hyperlink - used in the About Galaxy Explorer slate to explore more about Galaxy Explorer outside of the application.
-* Button - the Back, Grab, Reset, About, and Controls buttons in the ToolPanel.
-* Tool - the Zoom and Tilt tools in the ToolPanel.
-* PointOfInterest and PointOfInterestReference - define the interactions with specific objects in the galaxy and solar system.
-* PlacementControl - an invisible barrier that is enabled when the Grab tool is selected. Selecting this disables Grab and places the content in its current location.
 
 # VOManager
 
@@ -365,24 +313,17 @@ Lastly, voice over audio can be disabled and enabled globally by setting the VO
 state to false, fading out any audio currently playing and clearing the queue
 of clips waiting to be played.
 
-VOManager works best when it exists in a persistent system as it inherits the
-Singleton behavior pattern. Its only requirement is that an AudioSource is
-placed on the same object.
+VOManager works best when it exists in a persistent system.
+Its only requirement is that an AudioSource is placed on the same object.
+Fade out time can me tweaked in editor.
 
-# WorldAnchorHelper
+# WorldAnchorHandler
 
 WorldAnchors are Unity components that create Windows Volumetric Spatial
-Anchors at a defined real world transform in space. The WorldAnchorHelper
+Anchors at a defined real world transform in space. The WorldAnchorHandler
 class wraps up all of the calls to create and maintain the WorldAnchor that
 defines the position where the galaxy is placed as part of the introduction
 process.
-
-One important function of WorldAnchorHelper is to listen for changes in the
-locatability of the created WorldAnchor. A WorldAnchor will only be located
-when the device is able to find the playspace where the WorldAnchor was
-created. While the WorldAnchor is not located, the main content will be
-hidden. If the content is hidden for more than five seconds then the content
-is placed in the 'grabbed' state and shown so it can be placed again.
 
 # Shaders
 
@@ -436,6 +377,10 @@ rings of the planet, we project the world space position of the pixel on the
 planet into the rings plane, and we compare its distance to the center of the
 planet to the distance to the inner ring radius and outer ring radius. The
 result gives a value in [0-1] which is used to sample a shadow texture.
+
+# Touchscript
+Its a unity free asset that handles user touches on screen and interpretes them
+into translation, rotation, scale.
 
 ## Performance Investigation
 

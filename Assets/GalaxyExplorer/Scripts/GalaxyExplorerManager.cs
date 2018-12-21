@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using MRS.FlowManager;
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
@@ -77,6 +78,11 @@ namespace GalaxyExplorer
         }
 
         public CameraController CameraControllerHandler
+        {
+            get; set;
+        }
+
+        public FlowManager FlowManagerHandler
         {
             get; set;
         }
@@ -332,6 +338,7 @@ namespace GalaxyExplorer
             ViewLoaderScript = FindObjectOfType<ViewLoader>();
             CardPoiManager = FindObjectOfType<CardPOIManager>();
             CameraControllerHandler = FindObjectOfType<CameraController>();
+            FlowManagerHandler = FindObjectOfType<FlowManager>();
         }
 
     }
