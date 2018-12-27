@@ -28,6 +28,20 @@ namespace GalaxyExplorer
             transform.localScale = transform.localScale * GalaxyExplorerManager.SlateScaleFactor;
         }
 
+        private void SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
+        {
+            Hide();
+        }
+
+        private void OnEnable()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        }
+        private void OnDisable()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+        }
+
         private void Start()
         {
             InputManager.Instance.AddGlobalListener(gameObject);
