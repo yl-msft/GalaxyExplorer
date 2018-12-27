@@ -25,11 +25,12 @@ namespace GalaxyExplorer
 
         private bool isCtrlHeld = false;
 
-        void Start()
+        private void Start()
         {
             // Register key events
             KeyboardManager.KeyEvent keyDownEvent = KeyboardManager.KeyEvent.KeyDown;
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Backspace, keyDownEvent), BackSpaceKeyboardHandler);
+
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Alpha0, keyDownEvent), ResetCameraKeyboardHandler);
 
             KeyboardManager.KeyEvent keyHeldEvent = KeyboardManager.KeyEvent.KeyHeld;
@@ -42,6 +43,37 @@ namespace GalaxyExplorer
             KeyboardManager.KeyEvent keyUpEvent = KeyboardManager.KeyEvent.KeyUp;
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.LeftControl, keyUpEvent), CtrlKeyboardHandler);
             KeyboardManager.Instance.RegisterKeyEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.RightControl, keyUpEvent), CtrlKeyboardHandler);
+
+            RegisterForKeyboardAndMouseGoBackButtons();
+        }
+
+        private void RegisterForKeyboardAndMouseGoBackButtons()
+        {
+#if WINDOWS_UWP
+            UnityEngine.WSA.Application.InvokeOnUIThread(() =>
+            {
+                var coreWindow = Windows.UI.Core.CoreWindow.GetForCurrentThread();
+                if (coreWindow != null)
+                {
+                    coreWindow.KeyDown += (sender, args) =>
+                    {
+                        // check for VK_BROWSER_BACK (available on some keyboards)
+                        if (args.VirtualKey == Windows.System.VirtualKey.GoBack)
+                        {
+                            KeyboardManager.Instance.InjectKeyboardEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Backspace, KeyboardManager.KeyEvent.KeyDown));
+                        }
+                    };
+                    coreWindow.PointerPressed += (sender, args) =>
+                    {
+                        // check for VK_XBUTTON1
+                        if (args.CurrentPoint.Properties.IsXButton1Pressed)
+                        {
+                            KeyboardManager.Instance.InjectKeyboardEvent(new KeyboardManager.KeyCodeEventPair(KeyCode.Backspace, KeyboardManager.KeyEvent.KeyDown));
+                        }
+                    };
+                }
+            }, false);
+#endif
         }
 
         private void Update()
@@ -96,7 +128,7 @@ namespace GalaxyExplorer
                 if (Mathf.Abs((cameraPosition - currentPosition).z) > MaxZoomDesktop)
                 {
                     Vector3 clampedPosition = cameraPosition - direction * MaxZoomDesktop;
-                    GalaxyExplorerManager.Instance.CameraControllerHandler.transform.position =  new Vector3(currentPosition.x, currentPosition.y, clampedPosition.z);
+                    GalaxyExplorerManager.Instance.CameraControllerHandler.transform.position = new Vector3(currentPosition.x, currentPosition.y, clampedPosition.z);
                 }
                 else if (Mathf.Abs((cameraPosition - currentPosition).z) < MinZoomDesktop)
                 {
