@@ -29,7 +29,6 @@
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
-				float  clipAmount : TEXCOORD1;
 				float4 vertex : SV_POSITION;
 			};
 
