@@ -10,6 +10,7 @@ namespace GalaxyExplorer
 {
     public class GEInteractiveToggle : InteractiveToggle
     {
+        [Header("GEInteractiveToggle members")]
         [SerializeField]
         [Tooltip("Is button that stays active even if another button is selected. Its deactivated only if user explicitly selects it again")]
         private bool isPrimaryButton = false;

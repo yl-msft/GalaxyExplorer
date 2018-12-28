@@ -228,7 +228,7 @@ Transform:
   - {fileID: 1903070682}
   - {fileID: 1776203199}
   m_Father: {fileID: 392308216}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &29840859
 MonoBehaviour:
@@ -246,8 +246,9 @@ MonoBehaviour:
   DetectHold: 0
   HoldTime: 0.5
   RollOffTime: 0.02
-  Keyword: 
-  KeywordRequiresGaze: 1
+  Keyword: grab, move, move tool, zoom, zoom tool, rotate, rotate tool, tilt, tilt
+    tool
+  KeywordRequiresGaze: 0
   OnSelectEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -985,7 +986,7 @@ Transform:
   - {fileID: 1359961546}
   - {fileID: 367548890}
   m_Father: {fileID: 392308216}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &307842273
 MonoBehaviour:
@@ -1003,8 +1004,8 @@ MonoBehaviour:
   DetectHold: 0
   HoldTime: 0.5
   RollOffTime: 0.02
-  Keyword: 
-  KeywordRequiresGaze: 1
+  Keyword: hide controls
+  KeywordRequiresGaze: 0
   OnSelectEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -1561,13 +1562,13 @@ Transform:
   m_LocalPosition: {x: 0.162, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 29840858}
+  - {fileID: 737713329}
   - {fileID: 1642965382}
+  - {fileID: 29840858}
+  - {fileID: 2098339873}
   - {fileID: 499409398}
   - {fileID: 1177703201}
-  - {fileID: 737713329}
   - {fileID: 307842272}
-  - {fileID: 2098339873}
   m_Father: {fileID: 1278074902}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
@@ -1797,7 +1798,7 @@ Transform:
   - {fileID: 322439611}
   - {fileID: 2010926473}
   m_Father: {fileID: 392308216}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &499409399
 MonoBehaviour:
@@ -1815,8 +1816,8 @@ MonoBehaviour:
   DetectHold: 0
   HoldTime: 0.5
   RollOffTime: 0.02
-  Keyword: 
-  KeywordRequiresGaze: 1
+  Keyword: about
+  KeywordRequiresGaze: 0
   OnSelectEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -2866,7 +2867,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.1, z: 0.02}
   m_Children: []
   m_Father: {fileID: 392308216}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &737713331
 BoxCollider:
@@ -3748,7 +3749,7 @@ Transform:
   - {fileID: 846118210}
   - {fileID: 98358410}
   m_Father: {fileID: 392308216}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1177703202
 MonoBehaviour:
@@ -3766,8 +3767,8 @@ MonoBehaviour:
   DetectHold: 0
   HoldTime: 0.5
   RollOffTime: 0.02
-  Keyword: 
-  KeywordRequiresGaze: 1
+  Keyword: show controls
+  KeywordRequiresGaze: 0
   OnSelectEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -5608,6 +5609,7 @@ MonoBehaviour:
   BackButton: {fileID: 1642965381}
   ShowButton: {fileID: 1177703200}
   HideButton: {fileID: 307842271}
+  ResetButton: {fileID: 2098339875}
   MinZoom: 0.15
   LargestZoom: 3
   toolsOpacityChange:
@@ -5776,8 +5778,8 @@ MonoBehaviour:
   DetectHold: 0
   HoldTime: 0.5
   RollOffTime: 0.02
-  Keyword: 
-  KeywordRequiresGaze: 1
+  Keyword: back, go back
+  KeywordRequiresGaze: 0
   OnSelectEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -6546,6 +6548,11 @@ MonoBehaviour:
   IntroClips:
     StaticClip: {fileID: 8300000, guid: a5e2a96c3c086d847a1e9410ecf30073, type: 3}
     MovingClip: {fileID: 8300000, guid: 0ded39c29c77caa4eb588abb5c5e76be, type: 3}
+  OnResetMRSceneToOriginComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1701178539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8207,7 +8214,7 @@ Transform:
   - {fileID: 512287430}
   - {fileID: 387264276}
   m_Father: {fileID: 392308216}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2098339874
 MonoBehaviour:
@@ -8243,8 +8250,8 @@ MonoBehaviour:
   DetectHold: 0
   HoldTime: 0.5
   RollOffTime: 0.02
-  Keyword: 
-  KeywordRequiresGaze: 1
+  Keyword: reset, reset view
+  KeywordRequiresGaze: 0
   OnSelectEvents:
     m_PersistentCalls:
       m_Calls: []

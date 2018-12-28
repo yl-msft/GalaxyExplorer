@@ -15,6 +15,7 @@ namespace GalaxyExplorer
         public GameObject BackButton;
         public GameObject ShowButton;
         public GameObject HideButton;
+        public GEInteractiveToggle ResetButton;
         public float MinZoom = 0.15f;
         public float LargestZoom = 3.0f;
 
@@ -80,6 +81,10 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.ViewLoaderScript.OnLoadNewScene += OnLoadNewScene;
             }
 
+            if (GalaxyExplorerManager.Instance.TransitionManager)
+            {
+                GalaxyExplorerManager.Instance.TransitionManager.OnResetMRSceneToOriginComplete.AddListener(OnSceneReset);
+            }
             // if its unity editor and a non intro scene is active on start then make the menu visible
 #if UNITY_EDITOR
             OnSceneIsLoaded();
@@ -89,6 +94,11 @@ namespace GalaxyExplorer
         public void OnSceneIsLoaded()
         {
             StartCoroutine(OnSceneIsLoadedCoroutine());
+        }
+
+        private void OnSceneReset()
+        {
+            ResetButton.OnDeselection?.Invoke();
         }
 
         // Callback when a new scene is requested to be loaded
@@ -107,7 +117,8 @@ namespace GalaxyExplorer
         // Callback when a new scene is loaded
         private IEnumerator OnSceneIsLoadedCoroutine()
         {
-            // waiting necessary for events in flow manager to be called and stage of intro flow to be correct when executing following code
+            // waiting necessary for events in flow manager to be called and
+            // stage of intro flow to be correct when executing following code
             yield return new WaitForSeconds(1);
 
             if (!ToolsVisible && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
@@ -122,7 +133,6 @@ namespace GalaxyExplorer
 
                 // If there is previous scene then user is able to go back so activate the back button
                 BackButton?.SetActive(GalaxyExplorerManager.Instance.ViewLoaderScript.IsTherePreviousScene());
-
             }
 
             yield return null;
@@ -215,19 +225,6 @@ namespace GalaxyExplorer
             }
         }
 
-        // Toggle tools by lowering and raising them, this is happening when show and hide button is being pressed
-        public void ToggleTools()
-        {
-            if (panel.IsLowered)
-            {
-                RaiseTools();
-            }
-            else
-            {
-                LowerTools();
-            }
-        }
-
         [ContextMenu("Hide Tools")]
         public void HideTools()
         {
@@ -241,7 +238,7 @@ namespace GalaxyExplorer
         }
 
         // Hide tools by deactivating button colliders and fade out button materials
-        public IEnumerator HideToolsAsync()
+        private IEnumerator HideToolsAsync()
         {
             ToolsVisible = false;
             SetCollidersEnabled(false);
@@ -253,7 +250,7 @@ namespace GalaxyExplorer
         }
 
         // Show tools by activating button colliders and fade in button materials
-        public IEnumerator ShowToolsAsync()
+        private IEnumerator ShowToolsAsync()
         {
             if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD)
             {
@@ -275,24 +272,12 @@ namespace GalaxyExplorer
             }
         }
 
-        public void ShowBackButton()
-        {
-            if (BackButton)
-            {
-                BackButton.SetActive(true);
-            }
-        }
-
-        public void HideBackButton()
-        {
-            if (BackButton)
-            {
-                BackButton.SetActive(false);
-            }
-        }
-
-        // On manipulate scene button pressed from menu
-        // Enable bounding box and scale it appropriately so in coves the whole scene
+        /// <summary>
+        /// On manipulate scene button pressed from menu
+        /// Enable bounding box and scale it appropriately so it covers the whole scene
+        /// This method is invoked from a UnityEvent
+        /// </summary>
+        /// <param name="enable"></param>
         public void OnManipulateButtonPressed(bool enable)
         {
             if (boundingBox)
@@ -302,13 +287,12 @@ namespace GalaxyExplorer
                 if (enable)
                 {
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Activate();
-                    OnBoundingBoxDelegate?.Invoke(enable);
                 }
                 else
                 {
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Deactivate();
-                    OnBoundingBoxDelegate?.Invoke(enable);
                 }
+                OnBoundingBoxDelegate?.Invoke(enable);
             }
         }
 

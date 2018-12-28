@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using TouchScript.Examples.CameraControl;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Handles the transition between scenes. Has the flow that is followed during transitions
@@ -122,6 +123,9 @@ namespace GalaxyExplorer
 
         private Quaternion defaultSceneRotation = Quaternion.identity;
         private Vector3 defaultSceneScale = Vector3.one;
+
+        [HideInInspector]
+        public UnityEvent OnResetMRSceneToOriginComplete;
 
         private enum IntroStage
         {
@@ -911,7 +915,7 @@ namespace GalaxyExplorer
 
                 float delta = Mathf.Clamp01(TransitionTimeCameraCurve.Evaluate(timeFraction));
 
-                // Reset cameras parent
+                // Reset camera's parent
                 transformSource.transform.localScale = Vector3.Lerp(startScale, defaultSceneScale, delta);
                 transformSource.transform.rotation = Quaternion.Slerp(startRotation, defaultSceneRotation, delta);
 
@@ -921,7 +925,8 @@ namespace GalaxyExplorer
 
             transformSource.transform.localScale = defaultSceneScale;
             transformSource.transform.rotation = defaultSceneRotation;
-        }
 
+            OnResetMRSceneToOriginComplete?.Invoke();
+        }
     }
 }

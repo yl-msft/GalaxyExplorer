@@ -21,7 +21,7 @@ namespace HoloToolkit.Examples.InteractiveElements
     /// </summary>
     public class Interactive : MonoBehaviour, IInputClickHandler, IFocusable, IInputHandler
     {
-
+        [Header("Interactive members")]
         public GameObject ParentObject;
 
         /// <summary>
@@ -91,8 +91,7 @@ namespace HoloToolkit.Examples.InteractiveElements
 #if UNITY_WSA || UNITY_STANDALONE_WIN
         protected KeywordRecognizer mKeywordRecognizer;
 #endif
-        protected Dictionary<string, int> mKeywordDictionary;
-        protected string[] mKeywordArray;
+        protected List<string> mKeywordList = new List<string>();
 
         /// <summary>
         /// Internal comparison variables to allow for live state updates no matter the input method
@@ -122,22 +121,23 @@ namespace HoloToolkit.Examples.InteractiveElements
         {
             if (Keyword != "")
             {
-                mKeywordArray = new string[1] { Keyword };
+                mKeywordList.Add(Keyword);
                 if (Keyword.IndexOf(',') > -1)
                 {
-                    mKeywordArray = Keyword.Split(',');
+                    mKeywordList.Clear();
+                    var keywords = Keyword.Split(',');
 
-                    mKeywordDictionary = new Dictionary<string, int>();
-                    for (int i = 0; i < mKeywordArray.Length; ++i)
+                    for (int i = 0; i < keywords.Length; ++i)
                     {
-                        mKeywordDictionary.Add(mKeywordArray[i], i);
+                        var keyword = keywords[i].Trim();
+                        mKeywordList.Add(keyword);
                     }
                 }
 
 #if UNITY_WSA || UNITY_STANDALONE_WIN
                 if (!KeywordRequiresGaze)
                 {
-                    mKeywordRecognizer = new KeywordRecognizer(mKeywordArray);
+                    mKeywordRecognizer = new KeywordRecognizer(mKeywordList.ToArray());
                     mKeywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
                     mKeywordRecognizer.Start();
                 }
@@ -185,9 +185,7 @@ namespace HoloToolkit.Examples.InteractiveElements
             }
 
             HasGaze = true;
-
             SetKeywordListener(true);
-
             UpdateEffects();
         }
 
@@ -209,11 +207,11 @@ namespace HoloToolkit.Examples.InteractiveElements
 #if UNITY_WSA || UNITY_STANDALONE_WIN
             if (listen)
             {
-                if (KeywordRequiresGaze && mKeywordArray != null)
+                if (KeywordRequiresGaze && mKeywordList.Count > 0)
                 {
                     if (mKeywordRecognizer == null)
                     {
-                        mKeywordRecognizer = new KeywordRecognizer(mKeywordArray);
+                        mKeywordRecognizer = new KeywordRecognizer(mKeywordList.ToArray());
                         mKeywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
                         mKeywordRecognizer.Start();
                     }
@@ -396,14 +394,12 @@ namespace HoloToolkit.Examples.InteractiveElements
 #if UNITY_WSA || UNITY_STANDALONE_WIN
         protected virtual void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
         {
-
             // Check to make sure the recognized keyword matches, then invoke the corresponding method.
-            if (args.text == Keyword && (!KeywordRequiresGaze || HasGaze) && IsEnabled)
+            if (IsEnabled &&
+                (!KeywordRequiresGaze || HasGaze) &&
+                mKeywordList.Contains(args.text))
             {
-                if (mKeywordDictionary == null)
-                {
-                    OnInputClicked(null);
-                }
+                OnInputClicked(null);
             }
         }
 #endif

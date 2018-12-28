@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using UnityEngine;
 using UnityEngine.Events;
 using HoloToolkit.Unity.InputModule;
 
@@ -19,6 +20,7 @@ namespace HoloToolkit.Examples.InteractiveElements
     /// </summary>
     public class InteractiveToggle : Interactive
     {
+        [Header("InteractiveToggle members")]
 
         /// <summary>
         /// Sets the button to act like a navigation button or toggle type button
@@ -131,7 +133,7 @@ namespace HoloToolkit.Examples.InteractiveElements
 
         public override void OnFocusEnter()
         {
-            if (((AllowDeselect && IsSelected) || !IsSelected ) &&!PassiveMode)
+            if (((AllowDeselect && IsSelected) || !IsSelected ) && !PassiveMode)
             {
                 base.OnFocusEnter();
             }
@@ -189,23 +191,5 @@ namespace HoloToolkit.Examples.InteractiveElements
             base.Update();
             
         }
-
-#if UNITY_WSA || UNITY_STANDALONE_WIN
-        protected override void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
-        {
-            base.KeywordRecognizer_OnPhraseRecognized(args);
-            
-            // Check to make sure the recognized keyword matches, then invoke the corresponding method.
-            if ((!KeywordRequiresGaze || HasGaze) && mKeywordDictionary != null)
-            {
-                int index;
-
-                if (mKeywordDictionary.TryGetValue(args.text, out index))
-                {
-                    HasSelection = index == 1;
-                }
-            }
-        }
-#endif
     }
 }
