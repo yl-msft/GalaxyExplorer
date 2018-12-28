@@ -63,8 +63,11 @@ namespace GalaxyExplorer
             if (!string.IsNullOrEmpty(URL))
             {
 #if NETFX_CORE
-            var uri = new System.Uri(URL);
-            var unused = Windows.System.Launcher.LaunchUriAsync(uri);
+                UnityEngine.WSA.Application.InvokeOnUIThread(() =>
+                {
+                    var uri = new System.Uri(URL);
+                    var unused = Windows.System.Launcher.LaunchUriAsync(uri);
+                }, false);
 #else
                 Application.OpenURL(URL);
 #endif
