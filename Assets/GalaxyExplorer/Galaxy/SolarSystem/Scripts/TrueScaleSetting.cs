@@ -30,6 +30,8 @@ namespace GalaxyExplorer
         private Transform sun;
         private float originalSunScale;
 
+        private SunBrightnessAdjust sunScript;
+
         private void Awake()
         {
             originalTransitionAlpha = AsteroidMaterial.GetFloat("_TransitionAlpha");
@@ -38,13 +40,12 @@ namespace GalaxyExplorer
             originalScales = planets.Select(p => p.transform.localScale.x).ToArray();
             previousRealismScale = -1;
 
+            sunScript = FindObjectOfType<SunBrightnessAdjust>();
             ResolveSun();
         }
 
         private void ResolveSun()
         {
-            var sunScript = FindObjectOfType<SunBrightnessAdjust>();
-
             if (sunScript)
             {
                 sun = sunScript.transform.parent;
