@@ -507,105 +507,6 @@ MonoBehaviour:
         DelayRandomization: 0
       CrossfadeTime: 0
       CurrentClip: 0
-  - Name: Menu_Deselect
-    Spatialization: 0
-    RoomSize: 0
-    AttenuationCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    SpatialCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    SpreadCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    ReverbCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    MaxDistanceAttenuation3D: 100
-    AudioBus: {fileID: 0}
-    PitchCenter: 1
-    PitchRandomization: 0
-    VolumeCenter: 1
-    VolumeRandomization: 0
-    PanCenter: 0
-    PanRandomization: 0
-    FadeInTime: 0
-    FadeOutTime: 0
-    InstanceLimit: 0
-    InstanceTimeBuffer: 0
-    AudioEventInstanceBehavior: 0
-    Container:
-      ContainerType: 0
-      Looping: 0
-      LoopTime: 0
-      Sounds:
-      - Sound: {fileID: 8300000, guid: aaf351806a67746488c412cbe43e931b, type: 3}
-        Looping: 0
-        DelayCenter: 0
-        DelayRandomization: 0
-      CrossfadeTime: 0
-      CurrentClip: 0
   - Name: ToolBox_Direction_Down
     Spatialization: 0
     RoomSize: 0
@@ -804,7 +705,7 @@ MonoBehaviour:
         DelayRandomization: 0
       CrossfadeTime: 0
       CurrentClip: 0
-  - Name: Transition_ToRealisticView
+  - Name: Default_Primary
     Spatialization: 0
     RoomSize: 0
     AttenuationCurve:
@@ -897,7 +798,7 @@ MonoBehaviour:
       Looping: 0
       LoopTime: 0
       Sounds:
-      - Sound: {fileID: 8300000, guid: a3288ec8bdf39fe42ada675e55fc81a0, type: 3}
+      - Sound: {fileID: 8300000, guid: 643b412a8d54e484a84df94a3db77cef, type: 3}
         Looping: 0
         DelayCenter: 0
         DelayRandomization: 0

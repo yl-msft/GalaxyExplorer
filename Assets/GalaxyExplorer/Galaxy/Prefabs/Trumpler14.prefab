@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0df9f671cd23d4b8419e343dc38b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CustomFocusEvent: none
+  CustomFocusEvent: 
   CustomBlurEvent: 
   CustomActionStartedEvent: 
   CustomActionEndedEvent: 
