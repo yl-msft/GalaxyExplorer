@@ -261,27 +261,19 @@ namespace GalaxyExplorer
         // Find top parent entity of new scene that is loaded
         private GameObject FindContent()
         {
-            GameObject content = null;
-
-            if (content == null)
+            TransformHandler[] parentContent = FindObjectsOfType<TransformHandler>();
+            foreach (var parent in parentContent)
             {
-                TransformHandler[] parentContent = FindObjectsOfType<TransformHandler>();
-                foreach (var parent in parentContent)
+                if (parent.gameObject != prevSceneLoaded)
                 {
-                    if (parent.gameObject != prevSceneLoaded)
-                    {
-                        return parent.gameObject;
-                    }
+                    return parent.gameObject;
                 }
             }
 
-            if (content == null)
-            {
-                PlacementControl placement = FindObjectOfType<PlacementControl>();
-                return (placement) ? placement.gameObject : content;
-            }
-
-            return content;
+            // if the scene didn't have an object with at TransformHandler, we are
+            // in the initial placmenet mode. Look for that script instead.
+            PlacementControl placement = FindObjectOfType<PlacementControl>();
+            return placement?.gameObject;
         }
 
         /// <summary>

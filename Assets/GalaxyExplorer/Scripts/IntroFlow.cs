@@ -56,6 +56,9 @@ namespace GalaxyExplorer
         // After modifying transform, create world anchor
         public void OnPlacementFinished(Vector3 position)
         {
+            // Anchor the content in place
+            FindObjectOfType<WorldAnchorHandler>().CreateWorldAnchor(position);
+
             // if its not Desktop platform then skip the next stage and go directly to solar system stage
             if (GalaxyExplorerManager.IsDesktop && flowManagerScript)
             {
@@ -65,8 +68,6 @@ namespace GalaxyExplorer
             {
                 flowManagerScript.JumpToStage(3);
             }
-
-            FindObjectOfType<WorldAnchorHandler>().CreateWorldAnchor(position);
         }
 
         void Start()
@@ -81,7 +82,7 @@ namespace GalaxyExplorer
                 case IntroFlowState.kLogo:
                     timer += Time.deltaTime;
 
-                    if(timer >= LogoDuration)
+                    if (timer >= LogoDuration)
                     {
                         // if its Desktop platform then jump to earth pin desktop stage
                         if (GalaxyExplorerManager.IsDesktop && flowManagerScript)
@@ -117,7 +118,9 @@ namespace GalaxyExplorer
             {
                 viewLoaderScript = GalaxyExplorerManager.Instance.ViewLoaderScript;
                 if (viewLoaderScript)
+                {
                     viewLoaderScript.OnSceneIsLoaded += OnSceneIsLoaded;
+                }
             }
 
             if (flowManagerScript == null)

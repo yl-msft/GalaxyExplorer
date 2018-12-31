@@ -13,17 +13,15 @@ namespace GalaxyExplorer
         public void CreateWorldAnchor(Vector3 position)
         {
             GameObject sourceObject = GalaxyExplorerManager.Instance.ViewLoaderScript.gameObject;
-
             sourceObject.transform.position = position;
 
             // rotate to face camera
-            var lookPos = Camera.main.transform.position - position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(-lookPos);
+            var lookDirection = Camera.main.transform.position - position;
+            lookDirection.y = 0;
+            var rotation = Quaternion.LookRotation(-lookDirection.normalized);
             sourceObject.transform.rotation = rotation;
 
             anchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
-
             if (anchor)
             {
                 anchor.OnTrackingChanged += GalaxyWorldAnchor_OnTrackingChanged;
@@ -36,6 +34,7 @@ namespace GalaxyExplorer
             {
                 anchor.OnTrackingChanged -= GalaxyWorldAnchor_OnTrackingChanged;
                 DestroyImmediate(anchor);
+                anchor = null;
             }
         }
 
@@ -43,7 +42,8 @@ namespace GalaxyExplorer
     
         private void GalaxyWorldAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
         {
-
+            // Debug.Log($"WorldAnchorHandler: tracking changed to {(located ? "located":"lost")}");
+            GalaxyExplorerManager.Instance.TransitionManager.CurrentActiveScene?.SetActive(located);
         }
 
         #endregion
