@@ -5169,7 +5169,7 @@ MonoBehaviour:
     audioDelay: 0
     Events:
     - Name: EarthPin
-      Delay: 1
+      Delay: 0.5
       Event:
         m_PersistentCalls:
           m_Calls:
@@ -5188,7 +5188,7 @@ MonoBehaviour:
             m_MethodName: set_clip
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 8300000, guid: c2cd2e32fb376594abcb61767bcb4c3e,
+              m_ObjectArgument: {fileID: 8300000, guid: b5cfeb2a2f24a7744b278901b974b21e,
                 type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
               m_IntArgument: 0
@@ -5211,7 +5211,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       Triggered: 0
     - Name: EarthPin
-      Delay: 4.5
+      Delay: 2
       Event:
         m_PersistentCalls:
           m_Calls:
@@ -5219,7 +5219,7 @@ MonoBehaviour:
             m_MethodName: set_clip
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 8300000, guid: b5cfeb2a2f24a7744b278901b974b21e,
+              m_ObjectArgument: {fileID: 8300000, guid: c2cd2e32fb376594abcb61767bcb4c3e,
                 type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
               m_IntArgument: 0
