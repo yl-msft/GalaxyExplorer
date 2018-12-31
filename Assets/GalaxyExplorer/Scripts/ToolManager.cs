@@ -109,8 +109,8 @@ namespace GalaxyExplorer
                 HideTools();
 
                 // If button is selected then need to be deselected 
-                SelectedTool = null;
                 UnselectAllTools();
+                SelectedTool = null;
             }
         }
 

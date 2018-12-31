@@ -68,7 +68,10 @@ namespace GalaxyExplorer
         // Dont deselect that way any primary buttons
         public void DeselectButton()
         {
-            if (IsSelected && !PassiveMode && GalaxyExplorerManager.Instance.ToolsManager.SelectedTool != this && !IsPrimaryButton)
+            if (IsSelected &&
+                !PassiveMode
+                && GalaxyExplorerManager.Instance.ToolsManager.SelectedTool != this
+                && !IsPrimaryButton)
             {
                 if (OnDeselection != null)
                 {
@@ -86,6 +89,7 @@ namespace GalaxyExplorer
 
                 Debug.Log("Button " + gameObject.name + " was deselected because it was selected while another button got selected");
             }
+            IsSelected = false;
         }
 
         // Reset is needed in buttons that the moment they are selected they are deselected as well, so they dont stay active

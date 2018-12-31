@@ -628,7 +628,7 @@ namespace GalaxyExplorer
                     if (animator.runtimeAnimatorController && animator.runtimeAnimatorController.name.Contains("POIRotation"))
                     {
                         animator.enabled = isActive;
-                        Debug.Log("Change activation of POIRotation animation to " + isActive);
+                        //Debug.Log("Change activation of POIRotation animation to " + isActive);
                         break;
                     }
                 }
@@ -641,7 +641,7 @@ namespace GalaxyExplorer
                     if (animator.runtimeAnimatorController && animator.runtimeAnimatorController.name.Contains("POIRotation"))
                     {
                         animator.enabled = isActive;
-                        Debug.Log("Change activation of POIRotation animation to " + isActive);
+                        //Debug.Log("Change activation of POIRotation animation to " + isActive);
                         break;
                     }
                 }
