@@ -16,17 +16,9 @@ TagManager:
   - UI
   - 
   - 
-  - Planet
-  - SR
   - Tools
-  - Cube
-  - CubeCorners
   - CursorBackgroundCollider
-  - PointOfInterestCollider
-  - Ground Plane
-  - Cursor
-  - LSRFallback
-  - POIText
+  - Cube
   - 
   - 
   - 
@@ -40,6 +32,14 @@ TagManager:
   - 
   - 
   - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - Spatial Mapping
   m_SortingLayers:
   - name: Default
     uniqueID: 0

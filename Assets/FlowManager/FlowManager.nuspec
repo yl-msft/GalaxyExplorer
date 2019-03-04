@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FlowManager</id>
+    <version>1.0.$revision$</version>
+    <authors>PJ Bowron</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>FlowManager is a simple sequencing tool, designed to aid development of smaller-scale or story-led app experiences.</description>
+    <copyright>Copyright Microsoft 2018</copyright>
+    <tags></tags>
+	<dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="**" target=""/>
+  </files>
+</package>
