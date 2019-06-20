@@ -7,10 +7,13 @@ Bin/
 UnityGenerated/
 Library/
 Packages/
+Packages.meta
 Assets/AssetStoreTools*
 project.json
 project.lock.json
 UnityPackageManager/
+
+!Assets/Packages/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -38,6 +41,7 @@ obj/
 *.opendb
 WSATestCertificate.pfx
 WSATestCertificate.pfx.meta
+
 
 # ============================================= #
 # Exceptions to above rules for Galaxy Explorer #

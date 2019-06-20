@@ -1,0 +1,45 @@
+=====================================================================================================================================
+1.0.6:
+[~] spin until prerequisite components are available
+
+=====================================================================================================================================
+1.0.5:
+[~] reimplemented input handling to support concurrent (carefully planned!) use of multiple FlowManagers
+[!] protected against trying to enter a non-existent first stage
+[!] fixed UI errors arising from adding/removing a stage while window is open
+[!] cleaned up an 'unused variable' warning
+
+=====================================================================================================================================
+1.0.4:
+[!] protect against trying to init the Flow window from a stale object reference
+[+] reinstated missing release notes!
+
+=====================================================================================================================================
+1.0.3: SharedTech first release
+[+] added NuGet configs and set up automated push to wwhs package feed 
+[+] first draft README.md 
+[!] ensure stage autotransition timer is clear in case we've looped back 
+[~] added editor classes to namespace
+[-] removed obsolete abstracted input
+[+] added per-stage clickToAdvance
+[+] added more finegrained event hooks improved structuring
+[~] UI updates:
+     FlowEditorWindow: added loopback indicator and stage title headers, added label to new-stage button;
+	 FlowStageUI: added clickToAdvance ui, labeling tweaks 
+
+=====================================================================================================================================
+1.0.2:
++ Warning dialogs for potentially destructive actions
+
+=====================================================================================================================================
+1.0.1:
++ Added background and texture optimisations
+
+=====================================================================================================================================
+1.0.0:
++ New UI, FlowWindow and new Inspector view
++ Support for delayed Exit Events
+
+=====================================================================================================================================
+<1.0 - Internal use only
+~ Gradual evolution; default-inspector-based UI
