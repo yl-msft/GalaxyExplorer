@@ -30,4 +30,7 @@ public enum AudioId
     CardDeselect,
     ToolboxShow,
     ToolBoxHide,
+    ForcePull,
+    ManipulationStart,
+    ManipulationEnd,
 }

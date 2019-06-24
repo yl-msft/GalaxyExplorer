@@ -18,8 +18,8 @@ void CalcPixelFromCamera(min16float3 worldPos, inout PixelFromCamera pixelFromCa
 	pixelFromCamera.direction = pixelFromCamera.posFromCamera / pixelFromCamera.distance;
 }
 
-#define _CLIP_START ((min16float)0.5)
-#define _CLIP_END ((min16float)0.7)
+#define _CLIP_START ((min16float)0.05)
+#define _CLIP_END ((min16float)0.1)
 #define _CLIP_BIAS ((min16float)0)
 
 min16float4 ApplyNearClip(min16float4 color, PixelFromCamera pixelFromCamera)

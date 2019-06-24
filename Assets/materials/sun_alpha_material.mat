@@ -13,7 +13,7 @@ Material:
     EMISSIVE_ON FRESNEL_OFF LIGHTMAP_OFF LIGHTPROBES_OFF LIGHT_OFF NEARCLIP_OFF NORMAL_VERTEX
     SHOWDEBUG_OFF TINT_OFF VERTCOLOR_OFF _FOG_OFF
   m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}

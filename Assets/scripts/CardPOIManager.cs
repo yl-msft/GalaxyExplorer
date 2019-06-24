@@ -34,9 +34,6 @@ namespace GalaxyExplorer
 
         private List<PointOfInterest> allPOIs = new List<PointOfInterest>();
 
-        private SpiralGalaxy[] spiralGalaxies;
-        private PoiAnimator poiAnimator;
-
         private void Start()
         {
             //            InputManager.Instance.AddGlobalListener(gameObject);
@@ -90,7 +87,7 @@ namespace GalaxyExplorer
         }
 
         // Find if a card POI is activa and its card is on/visible
-        public bool IsAnyCardActive()
+        private bool IsAnyCardActive()
         {
             foreach (var poi in allPOIs)
             {
@@ -105,12 +102,9 @@ namespace GalaxyExplorer
 
         // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
         // This needs to happen in every airtap, mouse click, controller click, keyboard tap so any open magic window card will close
-        public IEnumerator UpdateActivationOfPOIColliders(bool waitForEndOfFrame = true)
+        private IEnumerator UpdateActivationOfPOIColliders()
         {
-            if (waitForEndOfFrame)
-            {
-                yield return new WaitForEndOfFrame();
-            }
+            yield return new WaitForEndOfFrame();
 
             if (GalaxyExplorerManager.Instance.TransitionManager.InTransition)
             {
@@ -118,16 +112,6 @@ namespace GalaxyExplorer
             }
 
             bool isAnyCardActive = IsAnyCardActive();
-            if (spiralGalaxies == null)
-            {
-                spiralGalaxies = FindObjectsOfType<SpiralGalaxy>();
-            }
-
-            if (poiAnimator == null)
-            {
-                poiAnimator = FindObjectOfType<PoiAnimator>();
-            }
-           
             if (isAnyCardActive)
             {
                 foreach (var poi in allPOIs)
@@ -137,37 +121,11 @@ namespace GalaxyExplorer
                         poi.IndicatorCollider.enabled = false;
                     }
                 }
-                if (spiralGalaxies != null)
-                {
-                    foreach (var spiralGalaxy in spiralGalaxies)
-                    {
-                        spiralGalaxy.velocityMultiplier = 0;
-                    }
-
-                    if (poiAnimator != null)
-                    {
-                        poiAnimator.animator.speed = 0;
-                    }
-                }
-            }
-            else
-            {
-                if (spiralGalaxies != null)
-                {
-                    foreach (var spiralGalaxy in spiralGalaxies)
-                    {
-                        spiralGalaxy.velocityMultiplier = .08f;
-                    }
-                    if (poiAnimator != null)
-                    {
-                        poiAnimator.animator.speed = 1;
-                    }
-                }
             }
         }
 
         // Find if a card POI is active and its card is on/visible, close the card and trigger audio
-        public void CloseAnyOpenCard()
+        private IEnumerator CloseAnyOpenCard(MixedRealityPointerEventData eventData)
         {
             bool isCardActive = false;
 
@@ -175,6 +133,8 @@ namespace GalaxyExplorer
             {
                 if (poi.IsCardActive)
                 {
+                    // eventData needs to be used in case that we are clocing the card because we dont want this click to propagate into the focused handler
+                    eventData?.Use();
                     isCardActive = true;
 
                     poi.OnPointerDown(null);
@@ -195,6 +155,8 @@ namespace GalaxyExplorer
                     }
                 }
             }
+
+            yield return null;
         }
 
         // Deactivate all pois that might have active card description except the one that is currently focused/touched
@@ -266,6 +228,7 @@ namespace GalaxyExplorer
 
         public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
         {
+            StartCoroutine(CloseAnyOpenCard(eventData));
             StartCoroutine(UpdateActivationOfPOIColliders());
         }
 

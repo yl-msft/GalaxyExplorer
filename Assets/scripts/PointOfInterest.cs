@@ -113,12 +113,12 @@ namespace GalaxyExplorer
                 IndicatorLine.points[1] = gameObject.transform;
                 IndicatorLine.material.color = IndicatorDefaultColor;
             }
-
-            audioService = MixedRealityToolkit.Instance.GetService<IAudioService>();
         }
 
         protected virtual void Start()
         {
+            audioService = MixedRealityToolkit.Instance.GetService<IAudioService>();
+            
             cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
             CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
 
@@ -163,7 +163,10 @@ namespace GalaxyExplorer
         {
             yield return new WaitForEndOfFrame();
 
-            GalaxyExplorerManager.Instance.CardPoiManager.RegisterPOI(this);
+            if (GalaxyExplorerManager.IsInitialized)
+            {
+                GalaxyExplorerManager.Instance.CardPoiManager.RegisterPOI(this);
+            }
         }
 
         protected virtual void UpdateState()
@@ -330,7 +333,10 @@ namespace GalaxyExplorer
             if (CardDescription)
             {
                 CardDescription.SetActive(true);
-                GalaxyExplorerManager.Instance.CardPoiManager.OnPOIFocusEnter(this);
+                if (GalaxyExplorerManager.IsInitialized)
+                {
+                    GalaxyExplorerManager.Instance.CardPoiManager.OnPOIFocusEnter(this);
+                }
             }
             audioService.PlayClip(AudioId.Focus);
         }

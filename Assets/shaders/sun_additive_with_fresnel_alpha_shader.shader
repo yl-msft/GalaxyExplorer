@@ -70,7 +70,7 @@ Shader "Planets/Sun_AdditiveWithFresnelAlpha"
 				o.clipAmount = CalcVertClipAmount(wPos);
 
 
-				float facingRatio = -dot(normalize(camToPixel), normal);
+				float facingRatio = abs(dot(normalize(camToPixel), normal));
 				facingRatio = _FresnelAlphaParams.x + pow(facingRatio, _FresnelAlphaParams.y) * _FresnelAlphaParams.z;
 				o.color *= facingRatio * _Color;
 				o.color.a = facingRatio;

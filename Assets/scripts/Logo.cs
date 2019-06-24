@@ -12,10 +12,10 @@ namespace GalaxyExplorer
         [Tooltip("Distance of Logo in MR")]
         private float LogoDistanceMR = 2.0f;
 
-        void Start()
+        private void Start()
         {
             // position the logo and orient it towards the user in MR devices
-            if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD)
+            if (GalaxyExplorerManager.IsHoloLensGen1 || GalaxyExplorerManager.IsHoloLens2 || GalaxyExplorerManager.IsImmersiveHMD)
             {
                 gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * LogoDistanceMR);
 

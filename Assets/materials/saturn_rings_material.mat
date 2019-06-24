@@ -112,7 +112,7 @@ Material:
     - _NormalAlphaAsSpecular: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PlanetRadius: 0.008
+    - _PlanetRadius: 0.005
     - _SRCBLEND: 5
     - _SRCBLENDALPHA: 1
     - _ShowDebugValue: 0

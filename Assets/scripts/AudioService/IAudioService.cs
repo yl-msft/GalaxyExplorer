@@ -5,6 +5,8 @@ using UnityEngine;
 public interface IAudioService<IdType> : IMixedRealityExtensionService where IdType : Enum 
 {
     void PlayClip(IdType audioId, Transform target = null, float volume = -1);
+    
+    void PlayClip(IdType audioId, out AudioSource playedSource,  Transform target = null, float volume = -1);
 
     void PlayClip(AudioClip clip, Transform target = null, float volume = -1);
 

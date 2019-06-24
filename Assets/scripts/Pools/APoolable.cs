@@ -5,8 +5,12 @@ namespace Pools
 {
    public abstract class APoolable : MonoBehaviour
    {
-      public delegate void OnDestroyPoolable(APoolable poolable);
-      public event OnDestroyPoolable OnDestroy;
+      public delegate void OnUsePoolable(APoolable poolable);
+
+      public delegate void OnDestroyPoolable(APoolable poolable, Transform parent);
+
+      public event OnUsePoolable OnPoolableUsed;
+      public event OnDestroyPoolable OnPoolableDestroyed;
 
       public virtual void Init(Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), Transform parent = default(Transform))
       {
@@ -23,17 +27,25 @@ namespace Pools
    
       public virtual bool IsActive { get; set; }
 
-      public virtual void Destroy()
+      public virtual void Use()
       {
          gameObject.SetActive(false);
          IsActive = false;
          Reset();
-         if (OnDestroy != null)
+         if (OnPoolableUsed != null)
          {
-            OnDestroy.Invoke(this);
+            OnPoolableUsed.Invoke(this);
          }
       }
-   
+
+      protected virtual void OnDestroy()
+      {
+         if (OnPoolableDestroyed != null)
+         {
+            OnPoolableDestroyed.Invoke(this, transform.parent);
+         }
+      }
+
       protected virtual void Reset()
       {
          transform.position = Vector3.zero;

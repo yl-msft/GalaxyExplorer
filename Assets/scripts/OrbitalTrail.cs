@@ -342,7 +342,7 @@ namespace GalaxyExplorer
                 pointOfInterestTarget.transform.localRotation = Quaternion.identity;
                 pointOfInterestTarget.transform.localScale = Vector3.one;
 
-                if (pointOfInterestMarker.GetIndicatorLine != null)
+                if (pointOfInterestMarker != null && pointOfInterestMarker.GetIndicatorLine != null)
                 {
                     pointOfInterestMarker.GetIndicatorLine.points[0] = pointOfInterestTarget.transform;
                 }

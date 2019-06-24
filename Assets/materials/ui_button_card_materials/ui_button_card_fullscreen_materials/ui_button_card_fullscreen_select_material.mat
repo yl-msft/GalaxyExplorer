@@ -100,7 +100,7 @@ Material:
     - _CULL: 2
     - _CubemapContribution: 1
     - _Cutoff: 0.5
-    - _DSTBLEND: 0
+    - _DSTBLEND: 10
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissiveMultiplier: 1
@@ -113,7 +113,7 @@ Material:
     - _NormalAlphaAsSpecular: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SRCBLEND: 1
+    - _SRCBLEND: 5
     - _ShowDebugValue: 0
     - _SpecForEmissiveArea: 0
     - _SrcBlend: 1

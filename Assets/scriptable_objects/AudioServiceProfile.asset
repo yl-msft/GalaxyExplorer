@@ -33,3 +33,12 @@ MonoBehaviour:
   - audioId: 6
     clip: {fileID: 8300000, guid: 67bf745bce5fbd54c9f2cf5d02752975, type: 3}
     volume: 1
+  - audioId: 7
+    clip: {fileID: 8300000, guid: 5732a91ad5765da42841286431dc17d0, type: 3}
+    volume: 1
+  - audioId: 8
+    clip: {fileID: 8300000, guid: ece9b7920f707b84d9cc8f80274bd68e, type: 3}
+    volume: 1
+  - audioId: 9
+    clip: {fileID: 8300000, guid: 944b4def70dfeb64db3e76917ccf2da2, type: 3}
+    volume: 1

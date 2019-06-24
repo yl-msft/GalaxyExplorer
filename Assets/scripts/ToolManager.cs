@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 //using HoloToolkit.Unity.UX;
+using Microsoft.MixedReality.Toolkit;
+using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace GalaxyExplorer
 {
     public class ToolManager : MonoBehaviour
     {
-        public GameObject SelectedTool = null;
+        public DesktopButton SelectedTool = null;
         public GameObject BackButton;
         public GameObject ShowButton;
         public GameObject HideButton;
@@ -28,11 +30,31 @@ namespace GalaxyExplorer
         [HideInInspector]
         public bool ToolsVisible = false;
 
+        private POIPlanetFocusManager POIPlanetFocusManager
+        {
+            get
+            {
+                if (_pOIPlanetFocusManager == null)
+                {
+                    _pOIPlanetFocusManager = FindObjectOfType<POIPlanetFocusManager>();
+                }
+
+                return _pOIPlanetFocusManager;
+            }
+        }
+
+        public delegate void BackButtonNeedsShowingEventHandler(bool show);
+
+        public event BackButtonNeedsShowingEventHandler BackButtonNeedsShowing;
+
         private bool locked = false;
         private ToolPanel panel;
+        private POIPlanetFocusManager _pOIPlanetFocusManager;
+        private Vector3 _defaultBackButtonLocalPosition;
+        private float _fullMenuVisibleBackButtonX;
 
-        //        private List<GEInteractiveToggle> allButtons = new List<GEInteractiveToggle>();
-        private List<Collider> allButtonColliders = new List<Collider>();
+        private List<DesktopButton> allButtons = new List<DesktopButton>();
+        //private List<Collider> allButtonColliders = new List<Collider>();
 
         private BoundingBox boundingBox = null;
 
@@ -59,22 +81,38 @@ namespace GalaxyExplorer
                 Debug.LogError("ToolManager couldn't find ToolPanel. Hiding and showing of Tools unavailable.");
             }
 
-            // FInd all button scripts
-            //            GEInteractiveToggle[] buttonsArray = GetComponentsInChildren<GEInteractiveToggle>(true);
-            //            foreach (var button in buttonsArray)
-            //            {
-            //                allButtons.Add(button);
-            //            }
+            // Find all button scripts
+            DesktopButton[] buttonsArray = GetComponentsInChildren<DesktopButton>(true);
+            foreach (var button in buttonsArray)
+            {
+                allButtons.Add(button);
+            }
 
             // Find all button colliders
-            Collider[] allColliders = GetComponentsInChildren<Collider>(true);
-            foreach (var collider in allColliders)
-            {
-                allButtonColliders.Add(collider);
-            }
+            //Collider[] allColliders = GetComponentsInChildren<Collider>(true);
+            //foreach (var collider in allColliders)
+            //{
+            //    allButtonColliders.Add(collider);
+            //}
 
             ShowButton.SetActive(false);
             BackButton.SetActive(false);
+            ResetButton.SetActive(false);
+
+            OnBackButtonNeedsShowing(false);
+
+            panel.gameObject.SetActive(false);
+            ToolsVisible = false;
+            SetCollidersEnabled(false);
+
+            // Store the x value of the local position for the back button when all menu buttons are visible
+            _fullMenuVisibleBackButtonX = BackButton.transform.localPosition.x;
+
+            // Since reset is not visible during most of the app states, regard its local position as the default back button local position
+            _defaultBackButtonLocalPosition = ResetButton.transform.localPosition;
+
+            // Since the app starts with reset button not visible, move the back button to its spot instead
+            BackButton.transform.localPosition = _defaultBackButtonLocalPosition;
 
             boundingBox = FindObjectOfType<BoundingBox>();
 
@@ -101,7 +139,14 @@ namespace GalaxyExplorer
 
         private void OnSceneReset()
         {
-            //            ResetButton.OnDeselection?.Invoke();
+            if (POIPlanetFocusManager)
+            {
+                _pOIPlanetFocusManager.ResetAllForseSolvers();
+            }
+            else
+            {
+                Debug.Log("No POIPlanetFocusManager found in currently loaded scenes");
+            }
         }
 
         // Callback when a new scene is requested to be loaded
@@ -132,13 +177,44 @@ namespace GalaxyExplorer
                     yield return null;
                 }
 
-                ShowTools();
-
+                if (!GalaxyExplorerManager.IsHoloLens2)
+                {
+                    ShowTools();
+                }
                 // If there is previous scene then user is able to go back so activate the back button
                 BackButton?.SetActive(GalaxyExplorerManager.Instance.ViewLoaderScript.IsTherePreviousScene());
+                CheckIfResetButtonNeedsShowing();
+                OnBackButtonNeedsShowing(GalaxyExplorerManager.Instance.ViewLoaderScript.IsTherePreviousScene());
             }
 
             yield return null;
+        }
+
+        private void CheckIfResetButtonNeedsShowing()
+        {
+            if (!GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
+            {
+                if (POIPlanetFocusManager != null && !ResetButton.activeInHierarchy)
+                {
+                    // When the POIPlanetFocusManager is present in the currently loaded scenes, this means we are in the solar system and the reset button should be visible
+                    ResetButton.SetActive(true);
+                    BackButton.transform.localPosition = new Vector3(_fullMenuVisibleBackButtonX, 0f, 0f);
+                }
+                else if (POIPlanetFocusManager == null && ResetButton.activeInHierarchy)
+                {
+                    // When the POIPlanetFocusManager isn't present in the currently loaded scenes, this means we're not in the solar system and the reset button shouldn't show up
+                    ResetButton.SetActive(false);
+                    BackButton.transform.localPosition = _defaultBackButtonLocalPosition;
+                }
+            }
+        }
+
+        private void OnBackButtonNeedsShowing(bool show)
+        {
+            if (BackButtonNeedsShowing != null)
+            {
+                BackButtonNeedsShowing(show);
+            }
         }
 
         // prevents tools from being accessed
@@ -160,51 +236,51 @@ namespace GalaxyExplorer
         public void UnselectAllTools()
         {
             // Deselect any other button that might be selected
-            //            foreach (var button in allButtons)
-            //            {
-            //                button.DeselectButton();
-            //            }
+            foreach (var button in allButtons)
+            {
+                button.DeselectButton();
+            }
         }
 
-        //        public bool SelectTool(GEInteractiveToggle tool)
-        //        {
-        //            if (locked)
-        //            {
-        //                return false;
-        //            }
-        //
-        //            // Dont take into account any primary buttons that need to remain selected
-        //            bool isAnyToolSelected = (SelectedTool != null && !SelectedTool.IsPrimaryButton);
-        //            SelectedTool = tool;
-        //
-        //            // if Any tool was selected before this one was, then need to deselect the previous one
-        //            if (isAnyToolSelected)
-        //            {
-        //                UnselectAllTools();
-        //            }
-        //
-        //            // TODO set cursor to select tool state
-        //
-        //            return true;
-        //        }
-        //
-        //        public bool DeselectTool(GEInteractiveToggle tool)
-        //        {
-        //            if (locked)
-        //            {
-        //                return false;
-        //            }
-        //
-        //            // TODO set cursor normal state
-        //
-        //            if (SelectedTool == tool)
-        //            {
-        //                SelectedTool = null;
-        //                return true;
-        //            }
-        //
-        //            return false;
-        //        }
+        //public bool SelectTool(DesktopButton tool)
+        //{
+        //    if (locked)
+        //    {
+        //        return false;
+        //    }
+
+        //    // Dont take into account any primary buttons that need to remain selected
+        //    bool isAnyToolSelected = (SelectedTool != null && !SelectedTool.IsPrimaryButton);
+        //    SelectedTool = tool;
+
+        //    // if Any tool was selected before this one was, then need to deselect the previous one
+        //    if (isAnyToolSelected)
+        //    {
+        //        UnselectAllTools();
+        //    }
+
+        //    // TODO set cursor to select tool state
+
+        //    return true;
+        //}
+
+        public bool DeselectTool(DesktopButton tool)
+        {
+            if (locked)
+            {
+                return false;
+            }
+
+            // TODO set cursor normal state
+
+            if (SelectedTool == tool)
+            {
+                SelectedTool = null;
+                return true;
+            }
+
+            return false;
+        }
 
         public void LowerTools()
         {
@@ -255,7 +331,7 @@ namespace GalaxyExplorer
         // Show tools by activating button colliders and fade in button materials
         private IEnumerator ShowToolsAsync()
         {
-            if (GalaxyExplorerManager.IsHoloLens || GalaxyExplorerManager.IsImmersiveHMD || GalaxyExplorerManager.IsDesktop)
+            if (GalaxyExplorerManager.IsHoloLensGen1 || GalaxyExplorerManager.IsImmersiveHMD)
             {
                 panel.gameObject.SetActive(true);
                 ToolsVisible = true;
@@ -269,10 +345,10 @@ namespace GalaxyExplorer
 
         private void SetCollidersEnabled(bool isEnabled)
         {
-            foreach (var collider in allButtonColliders)
-            {
-                collider.enabled = isEnabled;
-            }
+            //foreach (var collider in allButtonColliders)
+            //{
+            //    collider.enabled = isEnabled;
+            //}
         }
 
         /// <summary>

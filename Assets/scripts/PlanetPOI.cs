@@ -3,7 +3,6 @@
 
 //using HoloToolkit.Unity.InputModule;
 
-using System.Collections;
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
 
@@ -34,7 +33,7 @@ namespace GalaxyExplorer
         {
             base.Start();
 
-            Collider[] allPlanetCollders = (Planet) ? Planet.GetComponentsInChildren<Collider>() : null;
+            Collider[] allPlanetCollders = (Planet) ? Planet.GetComponentsInChildren<Collider>() : new Collider[]{};
             foreach (var item in allPlanetCollders)
             {
                 allPoiColliders.Add(item);
@@ -44,31 +43,14 @@ namespace GalaxyExplorer
         public override void OnPointerDown(MixedRealityPointerEventData eventData)
         {
             base.OnPointerDown(eventData);
-            StartCoroutine(OnPointerDownRoutine());
-        }
 
-        private IEnumerator OnPointerDownRoutine()
-        {
-            isCardActive = true;
-            yield return StartCoroutine(GalaxyExplorerManager.Instance.CardPoiManager.UpdateActivationOfPOIColliders(false));
-
-            
             // Fade out card description material
             if (CardDescription)
             {
                 StartCoroutine(GalaxyExplorerManager.Instance.GeFadeManager.FadeMaterial(CardDescriptionMaterial, GEFadeManager.FadeType.FadeOut, GalaxyExplorerManager.Instance.CardPoiManager.POIFadeOutTime, GalaxyExplorerManager.Instance.CardPoiManager.POIOpacityCurve));
             }
 
-            yield return new WaitForSeconds(.3f);
             GalaxyExplorerManager.Instance.TransitionManager.LoadNextScene(SceneToLoad);
-            var poiBehaviors = FindObjectsOfType<POIBehavior>();
-            if (poiBehaviors != null)
-            {
-                foreach (var poiBehavior in poiBehaviors)
-                {
-                    poiBehavior.enabled = false;
-                }
-            }
         }
 
         public override void OnFocusEnter(FocusEventData eventData)

@@ -4,45 +4,66 @@ using UnityEngine;
 
 public class PoolableAudioSource : APoolable
 {
-    [SerializeField] public AudioSource audioSource;
+    private AudioSource _audioSource;
+
+    public AudioSource AudioSource
+    {
+        get
+        {
+            if (_audioSource == null)
+            {
+                Debug.LogWarning("PoolableAudioSource should never be null (destroyed somewhere)");
+                _audioSource = gameObject.AddComponent<AudioSource>();
+            }
+            return _audioSource;
+        }
+    }
 
     public bool IsPlaying
     {
-        get { return audioSource.isPlaying; }
+        get
+        {
+            return AudioSource.isPlaying;
+        }
     }
 
     public override bool IsActive
     {
-        get {  return audioSource.isPlaying; }
+        get { return AudioSource.isPlaying; }
     }
 
     private void Awake()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource = gameObject.AddComponent<AudioSource>();
     }
-    
+
     public void PlayClip(
-        AudioClip clip, 
-        float volume = 1) 
+        AudioClip clip,
+        float volume = 1)
     {
-        audioSource.clip = clip;
-        audioSource.volume = volume;
-        audioSource.time = 0;
-        audioSource.Play();
+        AudioSource.clip = clip;
+        AudioSource.volume = volume;
+        AudioSource.time = 0;
+        AudioSource.Play();
         StartCoroutine(DestroyWithDelay(clip.length));
     }
 
     private IEnumerator DestroyWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay + .1f);
-        Destroy();
+        Use();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     protected override void Reset()
     {
-        audioSource.clip = null;
-        audioSource.volume = 1;
-        audioSource.outputAudioMixerGroup = null;
+        AudioSource.clip = null;
+        AudioSource.volume = 1;
+        AudioSource.outputAudioMixerGroup = null;
         base.Reset();
     }
 }

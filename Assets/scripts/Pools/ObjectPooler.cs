@@ -10,6 +10,7 @@ namespace Pools
 
       private Queue<APoolable> queue;
       private int lastInitializedSize;
+      private bool _poolableDestroyed;
 
       public static ObjectPooler CreateObjectPool<T>(int poolSize, Transform parent = null) where T : APoolable
       {
@@ -22,6 +23,7 @@ namespace Pools
             go.transform.SetParent(parent);
             go.transform.localPosition = Vector3.zero;
          }
+         DontDestroyOnLoad(go);
          return result;
       }
 
@@ -49,6 +51,7 @@ namespace Pools
          }
 
          lastInitializedSize = poolSize;
+         _poolableDestroyed = false;
       }
 
       public T GetNextObject<T>(
@@ -56,7 +59,7 @@ namespace Pools
          Quaternion rotation = default(Quaternion), 
          Transform parent = default(Transform)) where T : APoolable
       {
-         if (queue == null || lastInitializedSize != poolSize)
+         if (queue == null || lastInitializedSize != poolSize || _poolableDestroyed)
          {
             Init<T>();
          }
@@ -80,11 +83,19 @@ namespace Pools
          queue.Enqueue(poolable);
       }
 
+      private void HandlePoolableDestroyed<T>(APoolable poolable, Transform parent) where T : APoolable
+      {
+         //TODO: what happens when a poolable has been destroyed?infinite loop for when pooler is destroyed
+         // have to use a flag for now so as not to create 
+         _poolableDestroyed = true;
+      }
+
       private T InstantiateNewObject<T>() where T : APoolable
       {
          var go = new GameObject(typeof(T).ToString());
          var result = go.AddComponent<T>();
-         result.OnDestroy += HandleReturnToPool;
+         result.OnPoolableUsed += HandleReturnToPool;
+         result.OnPoolableDestroyed += HandlePoolableDestroyed<T>;
          return result;
       }
    }

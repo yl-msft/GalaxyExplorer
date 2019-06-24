@@ -18,50 +18,67 @@ namespace GalaxyExplorer
         [Header("Scene Transitions")]
         [Tooltip("The first time the galaxy appears, this defines how the scene moves into position.")]
         public AnimationCurve IntroTransitionCurveContentChange;
+
         [Tooltip("The curve that defines how content moves when transitioning from the galaxy to the solar system scene.")]
         public AnimationCurve GalaxyToSSTransitionCurveContentChange;
+
         [Tooltip("The curve that defines how content moves when transitioning from the solar system to the galaxy.")]
         public AnimationCurve SSToGalaxyTransitionCurveContentChange;
+
         [Tooltip("The EXTRA position curve that defines how content moves when transitioning from the solar system to the galaxy and galactic center to galaxy.")]
         public AnimationCurve BackToGalaxyPositionTransitionCurveContentChange;
+
         [Tooltip("The curve that defines how content moves when transitioning from the solar system to a planet or the sun.")]
         public AnimationCurve SSToPlanetTransitionCurveContentChange;
+
         [Tooltip("The curve that defines how content moves (position and scale only) when transitioning from a planet or the sun to the solar system.")]
         public AnimationCurve PlanetToSSPositionScaleCurveContentChange;
+
         [Tooltip("The curve that defines how content moves (rotation only) when transitioning from a planet or the sun to the solar system.")]
         public AnimationCurve PlanetToSSRotationCurveContentChange;
+
         [Tooltip("The curve that defines how content scales when transitioning from a planet or the sun to the solar system.")]
         public AnimationCurve PlanetToSSScaleCurveContentChange;
+
         [Tooltip("The curve that defines how content moves when transitioning from a planet to Galactic Center.")]
         public AnimationCurve PlanetToGCPositionCurveContentChange;
+
         [Tooltip("The curve that defines how content rotates when transitioning from a planet to Galactic Center.")]
         public AnimationCurve PlanetToGCRotationCurveContentChange;
 
         [Header("OpeningScene")]
         [Tooltip("The time it takes to fully transition from one scene opening and getting into position at the center of the cube or room.")]
         public float TransitionTimeOpeningScene = 3.0f;
+
         [Tooltip("Drives the opacity of the new scene that was loaded in when transitioning backwards.")]
         public AnimationCurve OpacityCurveEnteringScene;
+
         [Tooltip("Drives the opacity animation for the next scene that is entering.")]
         public AnimationCurve PlanetToSSTransitionOpacityCurveContentChange;
 
         [Header("Closing Scene")]
         [Tooltip("How long it takes to completely fade the galaxy scene when transitioning from this scene.")]
         public float GalaxyVisibilityTimeClosingScene = 1.0f;
+
         [Tooltip("How long it takes to completely fade the solar system scene when transitioning from this scene.")]
         public float SolarSystemVisibilityTimeClosingScene = 1.0f;
+
         [Tooltip("How long it takes to completely fade a planet or sun scene when transitioning from this scene.")]
         public float PlanetVisibilityTimeClosingScene = 1.0f;
+
         [Tooltip("Drives the opacity animation for the scene that is closing.")]
         public AnimationCurve OpacityCurveClosingScene;
 
         [Header("Points Of Interest")]
         [Tooltip("The time it takes for one point of interest to completely fade out.")]
         public float PoiFadeOutDuration = 1.0f;
+
         [Tooltip("Drives the POI opacity animation for the closing scene.")]
         public AnimationCurve POIOpacityCurveStartTransition;
+
         [Tooltip("The time it takes for one point of interest to completely fade in.")]
         public float PoiFadeInDuration = 2.0f;
+
         [Tooltip("Drives the POI opacity animation for the opening scene after it has completely moved into place.")]
         public AnimationCurve POIOpacityCurveEndTransition;
 
@@ -73,9 +90,7 @@ namespace GalaxyExplorer
         [Tooltip("Transition curve of camera reset movement.")]
         public AnimationCurve TransitionTimeCameraCurve;
 
-
         [Header("Audio Transitions")]
-
         [SerializeField]
         [Tooltip("AudioSource used in scene transitions for static sound effect.")]
         private AudioSource TransitionAudioSource = null;
@@ -492,7 +507,7 @@ namespace GalaxyExplorer
                 }
             }
             // in case of previous scene is a single planet scene, find the new scene related planet's SunLightReceivers
-            // and replace their sun to a new gameobject pretending to be a sun. This sun;s starting position is 
+            // and replace their sun to a new gameobject pretending to be a sun. This sun;s starting position is
             // same as the old scene's sun position and transition to new sun's position
             else if (previousTransition && previousTransition.IsSinglePlanetTransition)
             {
@@ -548,7 +563,7 @@ namespace GalaxyExplorer
                     }
                 }
             }
-            
+
             return child;
         }
 
@@ -683,7 +698,7 @@ namespace GalaxyExplorer
             previousRelatedPlanetObjectt = null;
             nextRelatedPlanetObjectt = null;
 
-            // If a planet of the previous scene loads the new scene then this is the previous focus collider 
+            // If a planet of the previous scene loads the new scene then this is the previous focus collider
             PlanetPOI[] allPreviousPlanets = previousScene.GetComponentsInChildren<PlanetPOI>();
             foreach (var planet in allPreviousPlanets)
             {
@@ -694,7 +709,7 @@ namespace GalaxyExplorer
                 }
             }
 
-            // If a planet of the previous scene loads the new scene then this is the previous focus collider 
+            // If a planet of the previous scene loads the new scene then this is the previous focus collider
             PlanetPOI[] allNewPlanets = newScene.GetComponentsInChildren<PlanetPOI>();
             foreach (var planet in allNewPlanets)
             {
@@ -705,7 +720,6 @@ namespace GalaxyExplorer
                 }
             }
         }
-
 
         private AnimationCurve GetContentTransitionCurve(string loadedSceneName)
         {
@@ -873,11 +887,10 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.position = Vector3.Lerp(startPosition, Vector3.zero, delta);
                 GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.rotation = Quaternion.Slerp(startRotation, Quaternion.identity, delta);
 
-                // Reset parent of camera parent 
+                // Reset parent of camera parent
                 GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.position = Vector3.Lerp(startPivotPosition, Vector3.zero, delta);
                 GalaxyExplorerManager.Instance.CameraControllerHandler.Pivot.transform.rotation = Quaternion.Slerp(startPivotRotation, Quaternion.identity, delta);
                 yield return null;
-
             } while (timeFraction < 1f);
 
             GalaxyExplorerManager.Instance.CameraControllerHandler.EntityToMove.position = Vector3.zero;
@@ -912,7 +925,6 @@ namespace GalaxyExplorer
                 transformSource.transform.rotation = Quaternion.Slerp(startRotation, defaultSceneRotation, delta);
 
                 yield return null;
-
             } while (timeFraction < 1f);
 
             transformSource.transform.localScale = defaultSceneScale;

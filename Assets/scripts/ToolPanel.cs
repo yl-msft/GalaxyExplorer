@@ -35,8 +35,8 @@ namespace GalaxyExplorer
 
         private void Start()
         {
-            ShownViewOffset = (GalaxyExplorerManager.IsHoloLens) ? ShownViewOffsetHololens : ShownViewOffsetMR;
-            HiddenViewOffset = (GalaxyExplorerManager.IsHoloLens) ? HiddenViewOffsetHololens : HiddenViewOffsetMR;
+            ShownViewOffset = (GalaxyExplorerManager.IsHoloLensGen1) ? ShownViewOffsetHololens : ShownViewOffsetMR;
+            HiddenViewOffset = (GalaxyExplorerManager.IsHoloLensGen1) ? HiddenViewOffsetHololens : HiddenViewOffsetMR;
         }
 
         private void Update()
