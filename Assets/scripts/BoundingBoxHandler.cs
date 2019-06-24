@@ -1,7 +1,6 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using HoloToolkit.Unity.UX;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,13 +111,13 @@ namespace GalaxyExplorer
                 groupBoundinBoxEntities = true;
             }
 
-            AppBar appBar = FindObjectOfType<AppBar>();
-            if (appBar)
-            {
-                appBar.transform.parent = ParentOfBBEntities.transform;
-                appBar.gameObject.SetActive(false);
-                isAppBarFound = true;
-            }
+//            AppBar appBar = FindObjectOfType<AppBar>();
+//            if (appBar)
+//            {
+//                appBar.transform.parent = ParentOfBBEntities.transform;
+//                appBar.gameObject.SetActive(false);
+//                isAppBarFound = true;
+//            }
 
             if (GalaxyExplorerManager.IsDesktop)
             {

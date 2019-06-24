@@ -1,9 +1,9 @@
-﻿// Copyright Microsoft Corporation. All rights reserved.
+﻿﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using MRS.FlowManager;
-using HoloToolkit.Unity;
-using HoloToolkit.Unity.InputModule;
+//using HoloToolkit.Unity;
+//using HoloToolkit.Unity.InputModule;
 using MRS.Audui;
 using TouchScript.Examples.CameraControl;
 using UnityEngine;
@@ -52,15 +52,15 @@ namespace GalaxyExplorer
             get; set;
         }
 
-        public GEMouseInputSource MouseInput
-        {
-            get; set;
-        }
+//        public GEMouseInputSource MouseInput
+//        {
+//            get; set;
+//        }
 
-        public InputRouter InputRouter
-        {
-            get; set;
-        }
+//        public InputRouter InputRouter
+//        {
+//            get; set;
+//        }
 
         public MusicManager MusicManagerScript
         {
@@ -319,8 +319,8 @@ namespace GalaxyExplorer
             else 
             {
                 Platform = PlatformId.Desktop;
-                GazeManager.Instance.enabled = false;
-                FocusManager.Instance.enabled = false;
+//                GazeManager.Instance.enabled = false;
+//                FocusManager.Instance.enabled = false;
             }
 
             if (MyAppPlatformManagerInitialized != null)
@@ -333,8 +333,8 @@ namespace GalaxyExplorer
             VoManager = FindObjectOfType<VOManager>();
             GeFadeManager = FindObjectOfType<GEFadeManager>();
             ToolsManager = FindObjectOfType<ToolManager>();
-            MouseInput = FindObjectOfType<GEMouseInputSource>();
-            InputRouter = FindObjectOfType<InputRouter>();
+//            MouseInput = FindObjectOfType<GEMouseInputSource>();
+//            InputRouter = FindObjectOfType<InputRouter>();
             MusicManagerScript = FindObjectOfType<MusicManager>();
             ViewLoaderScript = FindObjectOfType<ViewLoader>();
             CardPoiManager = FindObjectOfType<CardPOIManager>();

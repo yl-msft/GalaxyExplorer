@@ -12,7 +12,6 @@ namespace GalaxyExplorer
             if (GalaxyExplorerManager.IsDesktop)
             {
                 gameObject.SetActive(false);
-                Debug.Log("Desktop platform detected so gaze cursor is deactivated");
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using HoloToolkit.Unity.InputModule;
 using System;
 using UnityEngine;
 
@@ -60,7 +59,7 @@ namespace GalaxyExplorer
         public bool UseUnscaledTime = true;
 
         public AxisType axisType = AxisType.Mouse;
-        public ButtonController.ButtonType buttonType = ButtonController.ButtonType.None;
+//        public ButtonController.ButtonType buttonType = ButtonController.ButtonType.None;
 
         public string InputManagerHorizontalAxisName;
         public string InputManagerVerticalAxisName;
@@ -120,21 +119,21 @@ namespace GalaxyExplorer
             // Workaround for Remote Desktop.  Ctrl-mouse, Shift-mouse, and Alt-mouse don't work, so they should be avoided.
             if (IsRunningUnderRemoteDesktop())
             {
-                if (this.buttonType == ButtonController.ButtonType.Control)
-                {
-                    this.buttonType = ButtonController.ButtonType.Left;
-                    Debug.LogWarning("Running under Remote Desktop, so changed AxisContol method to Left mouse button");
-                }
-                if (this.buttonType == ButtonController.ButtonType.Alt)
-                {
-                    this.buttonType = ButtonController.ButtonType.Right;
-                    Debug.LogWarning("Running under Remote Desktop, so changed AxisContol method to Right mouse button");
-                }
-                if (this.buttonType == ButtonController.ButtonType.Shift)
-                {
-                    this.buttonType = ButtonController.ButtonType.Middle;
-                    Debug.LogWarning("Running under Remote Desktop, so changed AxisContol method to Middle mouse button");
-                }
+//                if (this.buttonType == ButtonController.ButtonType.Control)
+//                {
+//                    this.buttonType = ButtonController.ButtonType.Left;
+//                    Debug.LogWarning("Running under Remote Desktop, so changed AxisContol method to Left mouse button");
+//                }
+//                if (this.buttonType == ButtonController.ButtonType.Alt)
+//                {
+//                    this.buttonType = ButtonController.ButtonType.Right;
+//                    Debug.LogWarning("Running under Remote Desktop, so changed AxisContol method to Right mouse button");
+//                }
+//                if (this.buttonType == ButtonController.ButtonType.Shift)
+//                {
+//                    this.buttonType = ButtonController.ButtonType.Middle;
+//                    Debug.LogWarning("Running under Remote Desktop, so changed AxisContol method to Middle mouse button");
+//                }
             }
 
             UnityEngine.Cursor.lockState = CursorLockMode.None;
@@ -267,34 +266,34 @@ namespace GalaxyExplorer
 
         private void OnStartMouseLook()
         {
-            if (this.buttonType <= ButtonController.ButtonType.Middle)
-            {
-                // if mouse button is either left, right or middle
-                SetWantsMouseJumping(true);
-            }
-            else if (this.buttonType <= ButtonController.ButtonType.Focused)
-            {
-                // if mouse button is either control, shift or focused
-                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-                UnityEngine.Cursor.visible = false;
-            }
+//            if (this.buttonType <= ButtonController.ButtonType.Middle)
+//            {
+//                // if mouse button is either left, right or middle
+//                SetWantsMouseJumping(true);
+//            }
+//            else if (this.buttonType <= ButtonController.ButtonType.Focused)
+//            {
+//                // if mouse button is either control, shift or focused
+//                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+//                UnityEngine.Cursor.visible = false;
+//            }
 
             // do nothing if (this.MouseLookButton == MouseButton.None)
         }
 
         private void OnEndMouseLook()
         {
-            if (this.buttonType <= ButtonController.ButtonType.Middle)
-            {
-                // if mouse button is either left, right or middle
-                SetWantsMouseJumping(false);
-            }
-            else if (this.buttonType <= ButtonController.ButtonType.Focused)
-            {
-                // if mouse button is either control, shift or focused
-                UnityEngine.Cursor.lockState = CursorLockMode.None;
-                UnityEngine.Cursor.visible = true;
-            }
+//            if (this.buttonType <= ButtonController.ButtonType.Middle)
+//            {
+//                // if mouse button is either left, right or middle
+//                SetWantsMouseJumping(false);
+//            }
+//            else if (this.buttonType <= ButtonController.ButtonType.Focused)
+//            {
+//                // if mouse button is either control, shift or focused
+//                UnityEngine.Cursor.lockState = CursorLockMode.None;
+//                UnityEngine.Cursor.visible = true;
+//            }
 
             // do nothing if (this.MouseLookButton == MouseButton.None)
         }
@@ -449,49 +448,49 @@ namespace GalaxyExplorer
             {
                 return false;
             }
-            else if (this.buttonType == ButtonController.ButtonType.None)
-            {
-                return true;
-            }
-            else if (this.buttonType <= ButtonController.ButtonType.Middle)
-            {
-                return Input.GetMouseButton((int)this.buttonType);
-            }
-            else if (this.buttonType == ButtonController.ButtonType.Control)
-            {
-                return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-            }
-            else if (this.buttonType == ButtonController.ButtonType.Shift)
-            {
-                return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-            }
-            else if (this.buttonType == ButtonController.ButtonType.Alt)
-            {
-                return Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
-            }
-            else if (this.buttonType == ButtonController.ButtonType.Space)
-            {
-                return Input.GetKey(KeyCode.Space);
-            }
-            else if (this.buttonType == ButtonController.ButtonType.Return)
-            {
-                return Input.GetKey(KeyCode.Return);
-            }
-            else if (this.buttonType == ButtonController.ButtonType.Focused)
-            {
-                if (!this.usingMouse)
-                {
-                    // any kind of click will capture focus
-                    return Input.GetMouseButtonDown((int)ButtonController.ButtonType.Left)
-                        || Input.GetMouseButtonDown((int)ButtonController.ButtonType.Right)
-                        || Input.GetMouseButtonDown((int)ButtonController.ButtonType.Middle);
-                }
-                else
-                {
-                    // pressing escape will stop capture
-                    return !Input.GetKeyDown(KeyCode.Escape);
-                }
-            }
+//            else if (this.buttonType == ButtonController.ButtonType.None)
+//            {
+//                return true;
+//            }
+//            else if (this.buttonType <= ButtonController.ButtonType.Middle)
+//            {
+//                return Input.GetMouseButton((int)this.buttonType);
+//            }
+//            else if (this.buttonType == ButtonController.ButtonType.Control)
+//            {
+//                return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+//            }
+//            else if (this.buttonType == ButtonController.ButtonType.Shift)
+//            {
+//                return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+//            }
+//            else if (this.buttonType == ButtonController.ButtonType.Alt)
+//            {
+//                return Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
+//            }
+//            else if (this.buttonType == ButtonController.ButtonType.Space)
+//            {
+//                return Input.GetKey(KeyCode.Space);
+//            }
+//            else if (this.buttonType == ButtonController.ButtonType.Return)
+//            {
+//                return Input.GetKey(KeyCode.Return);
+//            }
+//            else if (this.buttonType == ButtonController.ButtonType.Focused)
+//            {
+//                if (!this.usingMouse)
+//                {
+//                    // any kind of click will capture focus
+//                    return Input.GetMouseButtonDown((int)ButtonController.ButtonType.Left)
+//                        || Input.GetMouseButtonDown((int)ButtonController.ButtonType.Right)
+//                        || Input.GetMouseButtonDown((int)ButtonController.ButtonType.Middle);
+//                }
+//                else
+//                {
+//                    // pressing escape will stop capture
+//                    return !Input.GetKeyDown(KeyCode.Escape);
+//                }
+//            }
 
             return false;
         }

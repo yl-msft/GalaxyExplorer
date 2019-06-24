@@ -103,8 +103,6 @@ namespace GalaxyExplorer
                 yield return null;
             }
            
-            Debug.Log("ViewLoader: Loaded " + viewName);
-
             if (OnSceneIsLoaded != null)
             {
                 OnSceneIsLoaded.Invoke();

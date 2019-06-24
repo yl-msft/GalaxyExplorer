@@ -7,10 +7,12 @@ namespace GalaxyExplorer
 {
     public class SunBrightnessAdjust : MonoBehaviour
     {
+#pragma warning disable 0618
         [ColorUsage(true, true, 0, 100, 0, 100)]
         public Color NormalFresnel;
         [ColorUsage(true, true, 0, 100, 0, 100)]
         public Color BrightFresnel;
+#pragma warning restore 0618
 
         public float WhenVisibleAdjustmentSpeed = 1;
         public float WhenNotVisibleAdjustmentSpeed = 1;

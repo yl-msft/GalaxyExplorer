@@ -390,7 +390,6 @@ namespace TouchScript.InputSources
         {
             mouseHandler = new MouseHandler(addPointer, updatePointer, pressPointer, releasePointer, removePointer, cancelPointer);
             mouseHandler.EmulateSecondMousePointer = emulateSecondMousePointer;
-            Debug.Log("[TouchScript] Initialized Unity mouse input.");
         }
 
         private void disableMouse()
@@ -405,7 +404,6 @@ namespace TouchScript.InputSources
         private void enableTouch()
         {
             touchHandler = new TouchHandler(addPointer, updatePointer, pressPointer, releasePointer, removePointer, cancelPointer);
-            Debug.Log("[TouchScript] Initialized Unity touch input.");
         }
 
         private void disableTouch()

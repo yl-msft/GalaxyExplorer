@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using HoloToolkit.Unity.InputModule;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 
 namespace MRS.FlowManager
@@ -12,7 +12,7 @@ namespace MRS.FlowManager
     /// FlowManager is a sequencing tool, designed to aid development of smaller-scale or story-led app experiences.
     /// </summary>
     [System.Serializable]
-    public class FlowManager : MonoBehaviour, IInputClickHandler
+    public class FlowManager : MonoBehaviour
     {
         public int m_currentStage = 0;
         public bool m_restartEnabled;
@@ -22,12 +22,15 @@ namespace MRS.FlowManager
         public FlowStage[] m_stages;
 
         private float m_timeAtTap = -1000f;
+
         [SerializeField] // So we can access this from the editor
         private float m_timeSinceTap = 10000f;
-//        private PlaySoundEffectFromList m_voiceOver;
+
+        //        private PlaySoundEffectFromList m_voiceOver;
 
         // TODO: may be more useful to pass stage name rather than index
         public delegate void TransitionEventDelegate(int timedstage);
+
         public TransitionEventDelegate OnAutoTransition;
         public TransitionEventDelegate OnManualTransition;
         public TransitionEventDelegate OnStageTransition;
@@ -35,7 +38,7 @@ namespace MRS.FlowManager
 
         private List<IEnumerator> m_currentEntryEvents = new List<IEnumerator>();
 
-        T GetComponentInNamedChild<T>(GameObject root, string name)
+        private T GetComponentInNamedChild<T>(GameObject root, string name)
         {
             foreach (Transform child in root.transform)
             {
@@ -55,27 +58,27 @@ namespace MRS.FlowManager
         {
             m_timeAtTap = Time.time;
 
-//            m_voiceOver = GetComponentInNamedChild<PlaySoundEffectFromList>(gameObject, "VO");
+            //            m_voiceOver = GetComponentInNamedChild<PlaySoundEffectFromList>(gameObject, "VO");
 
             if (m_stages.Length > 0)
             {
-				StartCoroutine(WaitForPrerequisitesThenEnter());
+                StartCoroutine(WaitForPrerequisitesThenEnter());
             }
         }
 
-		private IEnumerator WaitForPrerequisitesThenEnter()
-		{
-			while (!InputManager.IsInitialized)
-			{
-				yield return null;
-			}
-			EnterStage(0);
-		}
+        private IEnumerator WaitForPrerequisitesThenEnter()
+        {
+            while (MixedRealityToolkit.InputSystem == null)
+            {
+                yield return null;
+            }
+            EnterStage(0);
+        }
 
-		/// <summary>
-		/// Handle timers for tap-ignore and autotransition.
-		/// </summary>
-		private void Update()
+        /// <summary>
+        /// Handle timers for tap-ignore and autotransition.
+        /// </summary>
+        private void Update()
         {
             m_timeSinceTap = Time.time - m_timeAtTap;
 
@@ -180,10 +183,10 @@ namespace MRS.FlowManager
             m_currentStage = newStageIdx;
             m_currentStageName = newStage.Name;
 
-//			if (m_voiceOver != null)
-//			{
-//				m_voiceOver.Play(m_currentStage, 1, false, m_stages[m_currentStage].audioDelay);
-//			}
+            //			if (m_voiceOver != null)
+            //			{
+            //				m_voiceOver.Play(m_currentStage, 1, false, m_stages[m_currentStage].audioDelay);
+            //			}
 
             if (newStage.clickToAdvance)
             {
@@ -273,11 +276,11 @@ namespace MRS.FlowManager
         {
             if (receive)
             {
-                InputManager.Instance.PushModalInputHandler(this.gameObject);
+                MixedRealityToolkit.InputSystem.PushModalInputHandler(gameObject);
             }
             else
             {
-                InputManager.Instance.PopModalInputHandler();
+                MixedRealityToolkit.InputSystem.PopModalInputHandler();
             }
         }
 
@@ -316,10 +319,10 @@ namespace MRS.FlowManager
         /// IInputClickHandler implementation
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnInputClicked(InputClickedEventData eventData)
-        {
-            RequestTransition();
-            eventData.Use();
-        }
+        //        public void OnInputClicked(InputClickedEventData eventData)
+        //        {
+        //            RequestTransition();
+        //            eventData.Use();
+        //        }
     }
 }

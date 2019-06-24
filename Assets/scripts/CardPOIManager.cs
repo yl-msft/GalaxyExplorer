@@ -1,28 +1,34 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using HoloToolkit.Unity.InputModule;
-using UnityEngine;
+//using HoloToolkit.Unity.InputModule;
+//using HoloToolkit.Unity;
+using Microsoft.MixedReality.Toolkit.Input;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class CardPOIManager : MonoBehaviour, IInputClickHandler, IControllerTouchpadHandler
+    public class CardPOIManager : MonoBehaviour, IMixedRealityPointerHandler//, IInputClickHandler, IControllerTouchpadHandler
     {
         [Header("Galaxy Card POI Fading")]
         [Tooltip("The time it takes for all points of interest to completely fade out when a card point of interest is selected.")]
         public float POIFadeOutTime = 1.0f;
+
         [Tooltip("How the opacity changes when all points of interest fade out when a card is selected.")]
         public AnimationCurve POIOpacityCurve;
 
         [Header("Galaxy Card Text Sliding")]
         [Tooltip("The time it takes for the card description to move from its unselected position to its selected position.")]
         public float DescriptionSlideOutTime = 1.0f;
+
         [Tooltip("The time it takes for the card description to move from its selected position to its unselected/highlight position.")]
         public float DescriptionSlideInTime = 0.5f;
+
         [Tooltip("The vector (local space) that descripts where the description card moves to when selected.")]
         public Vector3 DescriptionSlideDirection;
+
         [Tooltip("How the description card moves when it slides to selected and unselected positions.")]
         public AnimationCurve DescriptionSlideCurve;
 
@@ -30,15 +36,16 @@ namespace GalaxyExplorer
 
         private void Start()
         {
-            InputManager.Instance.AddGlobalListener(gameObject);
+            //            InputManager.Instance.AddGlobalListener(gameObject);
+            //            MixedRealityToolkit.InputSystem.Register(gameObject);
 
-            if (GalaxyExplorerManager.Instance.MouseInput)
-            {
-                GalaxyExplorerManager.Instance.MouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
-                GalaxyExplorerManager.Instance.MouseInput.OnMouseClickUpDelegate += OnMouseClickUpDelegate;
-                GalaxyExplorerManager.Instance.MouseInput.OnMouseOnHoverDelegate += OnMouseOnHoverDelegate;
-                GalaxyExplorerManager.Instance.MouseInput.OnMouseOnUnHoverDelegate += OnMouseOnUnHoverDelegate;
-            }
+            //            if (GalaxyExplorerManager.Instance.MouseInput)
+            //            {
+            //                GalaxyExplorerManager.Instance.MouseInput.OnMouseClickDelegate += OnMouseClickDelegate;
+            //                GalaxyExplorerManager.Instance.MouseInput.OnMouseClickUpDelegate += OnMouseClickUpDelegate;
+            //                GalaxyExplorerManager.Instance.MouseInput.OnMouseOnHoverDelegate += OnMouseOnHoverDelegate;
+            //                GalaxyExplorerManager.Instance.MouseInput.OnMouseOnUnHoverDelegate += OnMouseOnUnHoverDelegate;
+            //            }
 
             if (GalaxyExplorerManager.Instance.ToolsManager)
             {
@@ -91,7 +98,7 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(selectedObject);
             }
         }
-    
+
         public void RegisterPOI(PointOfInterest poi)
         {
             if (!allPOIs.Contains(poi))
@@ -120,7 +127,7 @@ namespace GalaxyExplorer
         }
 
         // If a poi card is active then deactivate all poi colliders so user cant activate another one during card presentation
-        // This needs to happen in every airtap, mouse click, controller click, keyboard tap so any open magic window card will close 
+        // This needs to happen in every airtap, mouse click, controller click, keyboard tap so any open magic window card will close
         private IEnumerator UpdateActivationOfPOIColliders()
         {
             yield return new WaitForEndOfFrame();
@@ -144,7 +151,7 @@ namespace GalaxyExplorer
         }
 
         // Find if a card POI is active and its card is on/visible, close the card and trigger audio
-        private IEnumerator CloseAnyOpenCard(InputEventData eventData)
+        private IEnumerator CloseAnyOpenCard(MixedRealityPointerEventData eventData)
         {
             bool isCardActive = false;
 
@@ -159,7 +166,7 @@ namespace GalaxyExplorer
                     CardPOI cardPoi = (CardPOI)poi;
                     GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject((cardPoi) ? cardPoi.GetCardObject.GetComponentInChildren<Collider>().gameObject : poi.IndicatorCollider.gameObject);
 
-                    poi.OnInputClicked(null);
+                    poi.OnPointerDown(null);
 
                     Debug.Log("Close card because of input");
                     break;
@@ -200,43 +207,37 @@ namespace GalaxyExplorer
                         }
                     }
 
-                    poi.OnFocusExit();
+                    poi.OnFocusExit(null);
                 }
             }
         }
 
-        public void OnTouchpadTouched(InputEventData eventData)
-        {
+        //        public void OnTouchpadTouched(InputEventData eventData)
+        //        {
+        //
+        //        }
 
-        }
+        //        public void OnTouchpadReleased(InputEventData eventData)
+        //        {
+        //            // GETouchScreenInputSource sets InputManager.Instance.OverrideFocusedObject on collider touch
+        ////            GameObject focusedObj = InputManager.Instance.OverrideFocusedObject;
+        ////            DeactivateAllDescriptionsHandlers(focusedObj);
+        //
+        //            bool isAnyCardActive = IsAnyCardActive();
+        //            StartCoroutine(CloseAnyOpenCard(eventData));
+        //            StartCoroutine(UpdateActivationOfPOIColliders());
+        //
+        //            if (isAnyCardActive)
+        //            {
+        //                GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
+        //            }
+        //        }
 
-        public void OnTouchpadReleased(InputEventData eventData)
-        {
-            // GETouchScreenInputSource sets InputManager.Instance.OverrideFocusedObject on collider touch
-            GameObject focusedObj = InputManager.Instance.OverrideFocusedObject; 
-            DeactivateAllDescriptionsHandlers(focusedObj);
-
-            bool isAnyCardActive = IsAnyCardActive();
-            StartCoroutine(CloseAnyOpenCard(eventData));
-            StartCoroutine(UpdateActivationOfPOIColliders());
-
-            if (isAnyCardActive)
-            {
-                GalaxyExplorerManager.Instance.AudioEventWrangler.OnInputClicked(null);
-            }
-        }
-
-        public void OnInputPositionChanged(InputPositionEventData eventData)
-        {
-
-        }
-
-        // OnInputClicked is triggered with airtap and mouse click
-        public void OnInputClicked(InputClickedEventData eventData)
-        {
-            StartCoroutine(CloseAnyOpenCard(eventData));
-            StartCoroutine(UpdateActivationOfPOIColliders());
-        }
+        //        public void OnInputPositionChanged(InputPositionEventData eventData)
+        //        {
+        //
+        //        }
+        //
 
         // Called by poi if any poi is focused in order to notify all the other pois
         public void OnPOIFocusEnter(PointOfInterest focusedPOI)
@@ -250,5 +251,18 @@ namespace GalaxyExplorer
             }
         }
 
+        public void OnPointerUp(MixedRealityPointerEventData eventData)
+        {
+        }
+
+        public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
+        {
+            StartCoroutine(CloseAnyOpenCard(eventData));
+            StartCoroutine(UpdateActivationOfPOIColliders());
+        }
+
+        public void OnPointerClicked(MixedRealityPointerEventData eventData)
+        {
+        }
     }
 }

@@ -1,7 +1,8 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using HoloToolkit.Unity.InputModule;
+//using HoloToolkit.Unity.InputModule;
+using Microsoft.MixedReality.Toolkit.Input;
 using System;
 using System.Collections;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace GalaxyExplorer
 
             if (curve != null)
             {
-                var duration = curve.keys.Last().time; 
+                var duration = curve.keys.Last().time;
                 float currentTime = 0;
 
                 while (currentTime <= duration)
@@ -80,9 +81,9 @@ namespace GalaxyExplorer
             IsAnimating = false;
         }
 
-        public override void OnInputClicked(InputClickedEventData eventData)
+        public override void OnPointerDown(MixedRealityPointerEventData eventData)
         {
-            base.OnInputClicked(eventData);
+            base.OnPointerDown(eventData);
 
             if (!IsAnimating)
             {
@@ -113,7 +114,6 @@ namespace GalaxyExplorer
                 {
                     GalaxyExplorerManager.Instance.VoManager.Stop(true);
                 }
-
 
                 if (AlternateDescription != null)
                 {

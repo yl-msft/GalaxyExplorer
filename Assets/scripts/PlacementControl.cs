@@ -1,34 +1,35 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using HoloToolkit.Unity;
-using HoloToolkit.Unity.InputModule;
-using System;
+//using HoloToolkit.Unity;
+//using HoloToolkit.Unity.InputModule;
+using Microsoft.MixedReality.Toolkit.Physics;
 using System.Collections;
 using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PlacementControl : MonoBehaviour, IInputClickHandler
+    public class PlacementControl : MonoBehaviour//, IInputClickHandler
     {
         [SerializeField]
         private float DesktopDuration = 2.0f;
 
         public delegate void ContentPlacedCallback(Vector3 position);
+
         public ContentPlacedCallback OnContentPlaced;
 
-        private Tagalong volumeTagalong;
+        //        private Tagalong volumeTagalong;
         private Interpolator volumeInterpolator;
 
         private bool isPlaced = false;
 
         private void Start()
         {
-            volumeTagalong = gameObject.GetComponent<Tagalong>();
+            //            volumeTagalong = gameObject.GetComponent<Tagalong>();
             volumeInterpolator = gameObject.GetComponent<Interpolator>();
 
             // if platform is desktop or immersive headset then disable tag along
-            if (GalaxyExplorerManager.IsDesktop)
+            if (GalaxyExplorerManager.IsDesktop || true)
             {
                 StartCoroutine(ReleaseContent(DesktopDuration));
                 isPlaced = true;
@@ -38,15 +39,15 @@ namespace GalaxyExplorer
             wireframe?.SetTrigger("Intro");
 
             // Position earth pin in front of camera and a bit lower in VR
-            if (GalaxyExplorerManager.IsImmersiveHMD)
-            {
-                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance) + Vector3.down * 0.5f;
-            }
-            // Position earthpin exactly in front of camera in Hololens
-            else if (GalaxyExplorerManager.IsHoloLens)
-            {
-                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance);
-            }
+            //            if (GalaxyExplorerManager.IsImmersiveHMD)
+            //            {
+            //                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance) + Vector3.down * 0.5f;
+            //            }
+            //            // Position earthpin exactly in front of camera in Hololens
+            //            else if (GalaxyExplorerManager.IsHoloLens)
+            //            {
+            //                gameObject.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * volumeTagalong.TagalongDistance);
+            //            }
         }
 
         private IEnumerator ReleaseContent(float waitingTime)
@@ -58,8 +59,8 @@ namespace GalaxyExplorer
             wireframe?.SetTrigger("Place");
 
             // Disable Tagalong and interpolator
-            volumeTagalong.enabled = false;
-            volumeInterpolator.enabled = false;
+            //            volumeTagalong.enabled = false;
+            //            volumeInterpolator.enabled = false;
 
             if (OnContentPlaced != null)
             {
@@ -69,14 +70,14 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public void OnInputClicked(InputClickedEventData eventData)
-        {
-            if (!isPlaced)
-            {
-                StartCoroutine(ReleaseContent(1));
-            }
-
-            isPlaced = true;
-        }
+        //        public void OnInputClicked(InputClickedEventData eventData)
+        //        {
+        //            if (!isPlaced)
+        //            {
+        //                StartCoroutine(ReleaseContent(1));
+        //            }
+        //
+        //            isPlaced = true;
+        //        }
     }
 }

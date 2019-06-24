@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f52c0b2762d2843ab71a1dce517426, type: 3}
+  m_Name: AudioServiceProfile
+  m_EditorClassIdentifier: 
+  isCustomProfile: 1
+  audioClips:
+  - audioId: 1
+    clip: {fileID: 8300000, guid: 4614daeb1c62e6c468f313ab13761cf2, type: 3}
+  - audioId: 2
+    clip: {fileID: 8300000, guid: 5df739e4e6519b44c8b0b84fa9451fa1, type: 3}
+  - audioId: 3
+    clip: {fileID: 8300000, guid: 643b412a8d54e484a84df94a3db77cef, type: 3}
+  - audioId: 4
+    clip: {fileID: 8300000, guid: 4c5d4d1fd7341a94ab2c8133cfc48d0c, type: 3}
+  - audioId: 5
+    clip: {fileID: 8300000, guid: d90e48dcbef4b674aa526409c74cbd04, type: 3}
+  - audioId: 6
+    clip: {fileID: 8300000, guid: 67bf745bce5fbd54c9f2cf5d02752975, type: 3}
+  numberOfAudioSources: 2

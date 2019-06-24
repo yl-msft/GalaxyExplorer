@@ -28,7 +28,7 @@ namespace MRS.Audui
         [SerializeField]
         private bool OverrideDefaultSound = true;
 
-        private HoloToolkit.Unity.UAudioManager AudioManager;
+//        private HoloToolkit.Unity.UAudioManager AudioManager;
 
         private void OnEnable()
         {
@@ -41,22 +41,22 @@ namespace MRS.Audui
             yield return null;
 
             // This component requires an instantiated UAudioManager
-            AudioManager = HoloToolkit.Unity.UAudioManager.Instance;
-            if (!AudioManager)
-            {
-                enabled = false;
-            }
+//            AudioManager = HoloToolkit.Unity.UAudioManager.Instance;
+//            if (!AudioManager)
+//            {
+//                enabled = false;
+//            }
         }
 
         private void PlayEvent(AuduiEventData eventData, string eventName)
         {
             // Protect against an event firing on the object before this script gets enabled
-            if (!AudioManager)
-            {
-                return;
-            }
-
-            AudioManager.PlayEvent(eventName);
+//            if (!AudioManager)
+//            {
+//                return;
+//            }
+//
+//            AudioManager.PlayEvent(eventName);
 
             if (OverrideDefaultSound)
             {
