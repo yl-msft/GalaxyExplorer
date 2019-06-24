@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   routingTarget: {fileID: 2156282389908855756}
-  InteractableOnClick: 0
+  InteractableOnClick: 2
 --- !u!114 &2156282389908855756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3324,7 +3324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   routingTarget: {fileID: 3778893916704738083}
-  InteractableOnClick: 1
+  InteractableOnClick: 2
 --- !u!114 &304551936890474501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3338,6 +3338,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   routingTarget: {fileID: 3778893916704738083}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &3778893916704738083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4315,6 +4320,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   routingTarget: {fileID: 406165487477158745}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &6580514847161336806
 GameObject:
   m_ObjectHideFlags: 0

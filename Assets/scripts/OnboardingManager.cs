@@ -210,6 +210,8 @@ public class OnboardingManager : MonoBehaviour
     {
         OnboardingStage = Stage.AfterConfirmation;
         VoManager.Stop(true);
+        PlacementDirector.Stop();
+        PlacementDirector.gameObject.SetActive(false);
         StopAllCoroutines();
         EvaluateOnEndOfVoiceOver();
     }

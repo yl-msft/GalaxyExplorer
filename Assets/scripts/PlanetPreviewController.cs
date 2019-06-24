@@ -7,6 +7,7 @@ public class PlanetPreviewController : MonoBehaviour
 {
     [SerializeField] private Button[] buttons;
     [SerializeField] private Vector3 lightDestinationPosition;
+    [SerializeField] private Image selectionImage;
 
     private GameObject lightObject;
     private Vector3 lightInitialPosition;
@@ -15,6 +16,12 @@ public class PlanetPreviewController : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += HandleSceneLoaded;
+        selectionImage.gameObject.SetActive(false);
+    }
+
+    public void OnButtonSelected(int index)
+    {
+        OnButtonSelected(buttons[index]);
     }
 
     public void OnButtonSelected(Button selectedButton)
@@ -39,16 +46,21 @@ public class PlanetPreviewController : MonoBehaviour
             {
                 StartCoroutine(MoveLight(true));
             }
+            selectionImage.gameObject.SetActive(true);
+            selectionImage.transform.SetParent(selectedButton.transform);
+            selectionImage.transform.localPosition = Vector3.zero;
         }
         else
         {
             StartCoroutine(MoveLight(false));
+            selectionImage.gameObject.SetActive(false);
         }
     }
 
     private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         lightObject = null;
+        selectionImage.gameObject.SetActive(false);
     }
 
     private IEnumerator MoveLight(bool toDestination)

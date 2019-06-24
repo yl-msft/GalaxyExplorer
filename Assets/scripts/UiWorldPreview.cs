@@ -21,7 +21,6 @@ public class UiWorldPreview : MonoBehaviour
     private RenderTexture renderTexture;
 
     private static int layerNumber;
-    private bool initialized;
 
     private void OnEnable()
     {
@@ -61,9 +60,6 @@ public class UiWorldPreview : MonoBehaviour
         targetCamera.clearFlags = CameraClearFlags.Color;
         targetCamera.backgroundColor = Color.clear;
         targetCamera.nearClipPlane = .0001f;
-        initialized = true;
-
-
     }
 
     private void PositionCamera()

@@ -1,6 +1,6 @@
 # Galaxy
 
-![Galaxy](Images/ge_poi_no_interaction_state.jpg)
+![Galaxy](Images/ge_app_poi.png)
 
 The galaxy rendering process is outlined in [Case Study - Creating a galaxy in mixed reality](https://docs.microsoft.com/en-us/windows/mixed-reality/case-study-creating-a-galaxy-in-mixed-reality) on Microsoft Docs. The article describes the art and design approach as well as the technical implementation.
 

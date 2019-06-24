@@ -31,8 +31,8 @@ Shader "Planets/Earth"
 		{
 			Tags
 			{
-				"RenderType" = "Opaque"
-				"Queue" = "Geometry"
+				"RenderType" = "Transparent"
+				"Queue" = "Transparent"
 				"LightMode" = "ForwardBase"
 			}
 
@@ -40,6 +40,8 @@ Shader "Planets/Earth"
 			{
 				Fog { Mode Off }
 				Lighting Off
+				ZWrite Off
+				ZTest LEqual
 				Blend [_SRCBLEND] [_DSTBLEND]
 
 				CGPROGRAM

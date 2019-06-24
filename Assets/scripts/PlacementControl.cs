@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
 using Microsoft.MixedReality.Toolkit.Physics;
 using System.Collections;
 using Microsoft.MixedReality.Toolkit.UI;
@@ -14,6 +15,7 @@ namespace GalaxyExplorer
         private Camera _cameraMain;
         private PlacementConfirmationButton _confirmationButton;
         private ForceSolver _forceSolver;
+        private PlacementRing _placementRing;
         
         [SerializeField]
         private float DesktopDuration = 2.0f;
@@ -25,11 +27,13 @@ namespace GalaxyExplorer
 
         public ContentPlacedCallback OnContentPlaced;
         public Interactable PlacementConfirmationButton;
+        public Transform ConfirmationButtonOffsetTransform;
 
         private void Awake()
         {
             _confirmationButton = GetComponentInChildren<PlacementConfirmationButton>();
             _forceSolver = GetComponent<ForceSolver>();
+            _placementRing = GetComponentInChildren<PlacementRing>();
         }
 
         private void Start()
@@ -37,10 +41,42 @@ namespace GalaxyExplorer
             _cameraMain = Camera.main;
             
             IntroEarthPlacementAnimator.SetTrigger("Intro");
+
+            var buttonOffset = ConfirmationButtonOffsetTransform.localPosition;
+
+            switch (GalaxyExplorerManager.Platform)
+            {
+                case GalaxyExplorerManager.PlatformId.HoloLensGen1:
+                    _placementRing.gameObject.SetActive(false);
+                    buttonOffset.z = -.2f;
+                    break;
+                
+                case GalaxyExplorerManager.PlatformId.Desktop:
+                    _placementRing.gameObject.SetActive(false);
+                    StartCoroutine(ReleaseContent(DesktopDuration));
+                    isPlaced = true;
+                    StartCoroutine(StartOnboarding(true));
+                    return;
+                
+                case GalaxyExplorerManager.PlatformId.ArticulatedHandsPlatform:
+                case GalaxyExplorerManager.PlatformId.ImmersiveHMD:
+                    buttonOffset.z = -_placementRing.Diameter * .5f;
+                    break;
+                
+                case GalaxyExplorerManager.PlatformId.Phone:
+                    //Should never get here
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            ConfirmationButtonOffsetTransform.localPosition = buttonOffset;
             
             // if platform is desktop then bypass placement
             if (GalaxyExplorerManager.IsDesktop)
             {
+                _placementRing.gameObject.SetActive(false);
                 StartCoroutine(ReleaseContent(DesktopDuration));
                 isPlaced = true;
                 StartCoroutine(StartOnboarding(true));

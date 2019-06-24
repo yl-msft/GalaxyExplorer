@@ -16,7 +16,7 @@ public class GlobalMenuManager : MonoBehaviour
             return _pOIPlanetFocusManager;
         }
     }
-    
+
     public PlanetPreviewController PlanetPreviewController
     {
         get
@@ -39,13 +39,20 @@ public class GlobalMenuManager : MonoBehaviour
 
     public AboutSlateOnDelegate OnAboutSlateOnDelegate;
 
+    [SerializeField]
     private DesktopMenuManager _desktopButtonsManager;
+
+    [SerializeField]
     private GGVMenuManager _ggvMenuManager;
+
+    [SerializeField]
     private HandMenuManager _handMenuManager;
+
+    [SerializeField]
+    private AboutSlate _aboutSlate;
+
     private ForceSolverFocusManager _pOIPlanetFocusManager;
     private PlanetPreviewController _planetPreviewController;
-
-    private AboutSlate _aboutSlate;
 
     private void Start()
     {
@@ -145,7 +152,7 @@ public class GlobalMenuManager : MonoBehaviour
 
     public void OnAboutButtonPressed()
     {
-        _aboutSlate.ButtonClicked();
+        _aboutSlate.ToggleAboutButton();
     }
 
     public void OnResetButtonPressed()
@@ -163,6 +170,7 @@ public class GlobalMenuManager : MonoBehaviour
 
     public void OnBackButtonPressed()
     {
+        GalaxyExplorerManager.Instance.VoManager.Stop(true);
         GalaxyExplorerManager.Instance.TransitionManager.LoadPrevScene();
     }
 }

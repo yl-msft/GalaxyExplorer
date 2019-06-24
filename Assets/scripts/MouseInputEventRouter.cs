@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using System.Collections;
 using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,6 +16,7 @@ public class MouseInputEventRouter : MonoBehaviour
 
         RaycastHit[] raycastResults = new RaycastHit[1];
         private bool mouseDown;
+        private bool isCoolingDown;
         
 
         private void Awake()
@@ -27,6 +29,10 @@ public class MouseInputEventRouter : MonoBehaviour
 
         public void OnHandleClick()
         {
+            if (isCoolingDown)
+            {
+                return;
+            }
             if (routingTarget != null)
             {
                 routingTarget.SetPhysicalTouch(true);
@@ -38,6 +44,18 @@ public class MouseInputEventRouter : MonoBehaviour
             {
                 OnClick?.Invoke();
             }
+
+            if (gameObject.activeInHierarchy)
+            {
+                isCoolingDown = true;
+                StartCoroutine(CoolDownRoutine(1));
+            }
+        }
+
+        private IEnumerator CoolDownRoutine(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            isCoolingDown = false;
         }
         
         private void Update()
@@ -66,5 +84,10 @@ public class MouseInputEventRouter : MonoBehaviour
             {
                 mouseDown = false;
             }
+        }
+
+        private void OnDisable()
+        {
+            isCoolingDown = false;
         }
     }

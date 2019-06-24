@@ -73,7 +73,7 @@ MonoBehaviour:
   lifetime: 0
   SolverHandler: {fileID: 81565625}
   orientationType: 0
-  localOffset: {x: -0.2, y: -0.1, z: 0.5}
+  localOffset: {x: -0.1, y: -0.05, z: 0.5}
   worldOffset: {x: 0, y: 0, z: 0}
   useAngleSteppingForWorldOffset: 0
   tetherAngleSteps: 6
@@ -157,9 +157,6 @@ MonoBehaviour:
   Intro_01: {fileID: 8300000, guid: 747732974d7e7f440bfe98050a930068, type: 3}
   Intro_02: {fileID: 8300000, guid: c2cd2e32fb376594abcb61767bcb4c3e, type: 3}
   Intro_04: {fileID: 8300000, guid: 2bed0107f9857a1409d2633cb4ad8df2, type: 3}
-  Intro_05: {fileID: 8300000, guid: 2d14dff036bd0774aab0d040b7fe2027, type: 3}
-  Intro_06: {fileID: 8300000, guid: f16afffd10c2f344c87a8cddf289d2b8, type: 3}
-  Intro_07: {fileID: 8300000, guid: 5b60a882599f3cd4f88b85fecf2b084b, type: 3}
   Intro_0301_hl1: {fileID: 8300000, guid: 9e78dec27ea7622469a29ee2bebf72b1, type: 3}
   Intro_0302_hl1: {fileID: 8300000, guid: 1a3c67c37ef630e4db9e982c58b835af, type: 3}
   Intro_0301_hl2: {fileID: 8300000, guid: 177a372318a367443b8010ee789f0e65, type: 3}

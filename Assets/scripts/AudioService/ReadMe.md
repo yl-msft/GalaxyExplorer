@@ -1,6 +1,6 @@
 ## Audio Service
 # Code 
-The AudioService is surfaced via a generic interface IAudioService\<EnumType> where EnumType is an Enum. This generic interface allows users to define their own enums for audio ids.  The generic interface is then extended to a concrete interface IAudioService.  This allows for users to define their own ids but not have to redefine the concrete type at every usage. This also allows for addtional interfaces to be added to the API surface such as the IAudioMixer. 
+The AudioService is surfaced via a generic interface IAudioService\<EnumType> where EnumType is an Enum. This generic interface allows users to define their own enums for audio ids.  The generic interface is then extended to a concrete interface IAudioService.  This allows for users to define their own ids but not have to redefine the concrete type at every usage. This also allows for additional interfaces to be added to the API surface such as the IAudioMixer. 
 
 # Using the AudioService
 The AudioService can be used by following the service locator pattern currently used in MRTK.  First get the Service by calling MixedRealityToolkit.Instance.GetService\<IAudioService>(), then use the result to play audio clips. You may want to store the resulting service in a member variable if you have multiple audio calls in one class.

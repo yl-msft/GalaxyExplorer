@@ -4,7 +4,6 @@
 using Microsoft.MixedReality.Toolkit;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GalaxyExplorer
 {
@@ -12,23 +11,27 @@ namespace GalaxyExplorer
     {
         public Material AboutMaterial;
         public GameObject Slate;
+        public GameObject SlateContentParent;
         public float TransitionDuration = 1.0f;
-        public GameObject AboutDesktopButton = null;
-        public GameObject AboutMenuButton = null;
 
-        private bool _isActive;
-        private bool _isTransitioning;
+        private bool _aboutIsActive;
+        private ZoomInOut _zoomInOut;
+        private Collider[] _otherCollidersInScene;
+        private Renderer[] _hyperlinkRenderers;
 
-        //        private bool isAboutButtonClicked = false;
-
-        private void Awake()
+        private void Start()
         {
-            DisableLinks();
-            AboutMaterial.SetFloat("_TransitionAlpha", 0);
-            _isActive = false;
-            _isTransitioning = false;
+            AboutMaterial.SetFloat("_TransitionAlpha", 0f);
+            _aboutIsActive = false;
+
+            _hyperlinkRenderers = SlateContentParent.GetComponentsInChildren<Renderer>();
+            SetHyperlinksTransitionAplha((0f));
+
+            _zoomInOut = FindObjectOfType<ZoomInOut>();
 
             transform.localScale = transform.localScale * GalaxyExplorerManager.SlateScaleFactor;
+
+            MixedRealityToolkit.InputSystem.Register(gameObject);
         }
 
         private void SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
@@ -44,36 +47,14 @@ namespace GalaxyExplorer
         private void OnDisable()
         {
             UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+
+            AboutMaterial.SetFloat("_TransitionAlpha", 1f);
+            SetHyperlinksTransitionAplha((1f));
         }
 
-        private void Start()
+        public void ToggleAboutButton()
         {
-            MixedRealityToolkit.InputSystem.Register(gameObject);
-
-            if (AboutDesktopButton == null)
-            {
-                Debug.LogWarning("AboutSlate.cs is missing AboutDesktopButton");
-            }
-
-            if (AboutDesktopButton)
-            {
-                Button button = AboutDesktopButton.GetComponent<Button>();
-                button.onClick.AddListener(ButtonClicked);
-            }
-        }
-
-        // Callback when Desktop About button is clicked/touched/selected
-        public void ButtonClicked()
-        {
-            if (!_isTransitioning)
-            {
-                ToggleAboutButton();
-            }
-        }
-
-        private void ToggleAboutButton()
-        {
-            if (_isActive)
+            if (_aboutIsActive)
             {
                 Hide();
             }
@@ -83,171 +64,92 @@ namespace GalaxyExplorer
             }
         }
 
-        public void Show()
+        private void Show()
         {
+            EnableOtherCollidersInScene(false);
+
             transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2f;
             transform.rotation = Camera.main.transform.rotation;
 
             gameObject.SetActive(true);
 
-            EnableLinks();
-
             StartCoroutine(AnimateToOpacity(1));
         }
 
-        public void Hide()
+        private void Hide()
         {
-            if (gameObject.activeSelf)
-            {
-                StartCoroutine(AnimateToOpacity(0));
-            }
+            StartCoroutine(AnimateToOpacity(0));
         }
 
         private IEnumerator AnimateToOpacity(float target)
         {
             var timeLeft = TransitionDuration;
 
-            DisableLinks();
             Slate.SetActive(true);
-            _isTransitioning = true;
+            SlateContentParent.SetActive(true);
 
-            if (TransitionDuration > 0)
+            while (timeLeft > 0)
             {
-                while (timeLeft > 0)
-                {
-                    Slate.SetActive(true);
-                    AboutMaterial.SetFloat("_TransitionAlpha", Mathf.Lerp(target, 1 - target, timeLeft / TransitionDuration));
-                    yield return null;
+                float transitionAlpha = Mathf.Lerp(target, 1 - target, timeLeft / TransitionDuration);
+                AboutMaterial.SetFloat("_TransitionAlpha", transitionAlpha);
+                SetHyperlinksTransitionAplha((transitionAlpha));
 
-                    timeLeft -= Time.deltaTime;
-                }
+                yield return null;
+
+                timeLeft -= Time.deltaTime;
             }
 
-            _isTransitioning = false;
             AboutMaterial.SetFloat("_TransitionAlpha", target);
+            SetHyperlinksTransitionAplha(target);
 
             if (target > 0)
             {
-                EnableLinks();
-                Slate.SetActive(true);
+                SlateContentParent.SetActive(true);
                 gameObject.SetActive(true);
-                _isActive = true;
+                _aboutIsActive = true;
             }
             else
             {
-                DisableLinks();
+                SlateContentParent.SetActive(false);
                 Slate.SetActive(false);
                 gameObject.SetActive(false);
-                _isActive = false;
+                _aboutIsActive = false;
+                EnableOtherCollidersInScene(true);
             }
         }
 
-        private void EnableLinks()
+        private void SetHyperlinksTransitionAplha(float transitionAplha)
         {
-            //            var links = GetComponentsInChildren<Hyperlink>(includeInactive: true);
-            //            foreach (var link in links)
-            //            {
-            //                link.gameObject.SetActive(true);
-            //            }
+            if (_hyperlinkRenderers == null) { return; }
+
+            foreach (Renderer renderer in _hyperlinkRenderers)
+            {
+                Color newColor = renderer.material.GetColor("_FaceColor"); ;
+                newColor.a = transitionAplha;
+                renderer.material.SetColor("_FaceColor", newColor);
+            }
         }
 
-        private void DisableLinks()
+        private void EnableOtherCollidersInScene(bool enable)
         {
-            //            var links = GetComponentsInChildren<Hyperlink>(includeInactive: true);
-            //            foreach (var link in links)
-            //            {
-            //                link.gameObject.SetActive(false);
-            //            }
-        }
-
-        //        private void Update()
-        //        {
-        //            isAboutButtonClicked = false;
-        //        }
-
-        // Is user touching the About slate area
-        public bool IsUserTouchingAboutSlate()
-        {
-            Collider[] allChildren = GetComponentsInChildren<Collider>();
-            foreach (var entity in allChildren)
+            if (!enable)
             {
-                //                if (entity.gameObject == InputManager.Instance.OverrideFocusedObject)
-                //                {
-                //                    return true;
-                //                }
-            }
+                _otherCollidersInScene = null;
 
-            return false;
-        }
-
-        // Has user clicked the About slate area
-        public bool IsClickOnAboutSlate(GameObject hitObject)
-        {
-            // Check if clicked object is the menu button or desktop button
-            if (AboutMenuButton && AboutMenuButton.gameObject == hitObject)
-            {
-                return true;
-            }
-            else if (AboutDesktopButton && AboutDesktopButton.gameObject == hitObject)
-            {
-                return true;
-            }
-
-            // Check if clicked object is any of the slate object
-            Collider[] allChildren = GetComponentsInChildren<Collider>();
-            foreach (var entity in allChildren)
-            {
-                if (entity.gameObject == hitObject)
+                // These colliders need to be tracked until the about slate gets disabled and the colliders are re-enabled, since this code would otherwise look for the colliders of the next scene and disable them instead
+                if (_zoomInOut.GetNextScene != null)
                 {
-                    return true;
+                    _otherCollidersInScene = _zoomInOut.GetNextScene.GetComponentsInChildren<Collider>();
                 }
             }
 
-            return false;
+            if (_otherCollidersInScene != null)
+            {
+                foreach (Collider collider in _otherCollidersInScene)
+                {
+                    collider.enabled = enable;
+                }
+            }
         }
-
-        // On every user's click, check if the click is outside the about area and if it is and About card is on then deactivate it
-        //        public void OnInputClicked(InputClickedEventData eventData)
-        //        {
-        // Focused object is either the gazed one in hololens or the overriden my mouse click one for desktop
-        //            GameObject focusedObject = (FocusManager.Instance) ? FocusManager.Instance.TryGetFocusedObject(eventData) : null;
-        //            focusedObject = (focusedObject == null) ? InputManager.Instance.OverrideFocusedObject : focusedObject;
-
-        //            ToggleAboutSlateLogic(IsClickOnAboutSlate(focusedObject));
-        //        }
-
-        //        private void ToggleAboutSlateLogic(bool isAboutSelected)
-        //        {
-        //            bool isButtonSelected = (AboutMenuButton && AboutMenuButton.IsSelected) || (AboutDesktopButton && AboutDesktopButton.IsSelected);
-        //
-        //            if (!isAboutSelected && !isAboutButtonClicked && isButtonSelected)
-        //            {
-        //                Debug.Log("User clicked outside About Slate so toggle its button state");
-        //
-        //                if (AboutMenuButton && AboutMenuButton.IsSelected)
-        //                {
-        //                    AboutMenuButton.ToggleLogic();
-        //                }
-        //                else if (AboutDesktopButton && AboutDesktopButton.IsSelected)
-        //                {
-        //                    AboutDesktopButton.ToggleLogic();
-        //                }
-        //            }
-        //        }
-
-        //        public void OnTouchpadTouched(InputEventData eventData)
-        //        {
-        //
-        //        }
-        //
-        //        public void OnTouchpadReleased(InputEventData eventData)
-        //        {
-        //            ToggleAboutSlateLogic(IsUserTouchingAboutSlate());
-        //        }
-        //
-        //        public void OnInputPositionChanged(InputPositionEventData eventData)
-        //        {
-        //
-        //        }
     }
 }

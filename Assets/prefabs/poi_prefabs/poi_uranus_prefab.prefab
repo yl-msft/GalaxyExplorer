@@ -80,7 +80,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109004159742968}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4869931143258530}
@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 1272428535938606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.043, y: 0.043, z: 0.043}
   m_Children: []
   m_Father: {fileID: 4657378399064794}
   m_RootOrder: 0
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1336089941368946
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1346103849855562
@@ -423,6 +423,8 @@ GameObject:
   - component: {fileID: 82771804507958830}
   - component: {fileID: 114364931606749332}
   - component: {fileID: 114421249662457292}
+  - component: {fileID: 4268015018488321540}
+  - component: {fileID: 8501543030278551583}
   m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
@@ -583,12 +585,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346103849855562}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3876bdea56b3f340a95fbbf0c344934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDescription: {fileID: 1109004159742968}
   Indicator: {fileID: 1317690944229224}
   IndicatorLine: {fileID: 114489939892160588}
   TargetPoint: {fileID: 1398306140611038}
@@ -609,6 +610,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cdcb570c416354db07d07e68fd28ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4268015018488321540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346103849855562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1109004159742968}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1272428535938606}
+  movePoiStartingPosition: 0
+--- !u!114 &8501543030278551583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346103849855562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1109004159742968}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1272428535938606}
+  movePoiStartingPosition: 0
 --- !u!1 &1398306140611038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1141,7 @@ MonoBehaviour:
   SolverHandler: {fileID: 7133416376442707965}
   EnableForce: 1
   AttractionDwellDuration: 2
+  AvergeSides: 1
   TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
     type: 3}
   AttractionDwellForgiveness: 0.5
@@ -1360,6 +1394,7 @@ GameObject:
   - component: {fileID: 7657608698005680709}
   - component: {fileID: 1537577871965521157}
   - component: {fileID: 1992119393556343336}
+  - component: {fileID: 5331605018544864371}
   m_Layer: 12
   m_Name: uranus_sphere_mesh
   m_TagString: Untagged
@@ -1505,6 +1540,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0050000013
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5331605018544864371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268899632035507792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 7
+  displayName: Uranus
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 782867970933567562}
 --- !u!1 &8556116828626220179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,6 +1650,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
   SetMaterials: 1
+--- !u!114 &4268015018488321548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9020768276827030356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 782867970933567562}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &726575831448225854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1774,6 +1856,12 @@ PrefabInstance:
 --- !u!4 &9020768276262694519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 311045954647939084, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
+    type: 3}
+  m_PrefabInstance: {fileID: 8746336074392729211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9020768276827030356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311045955212260655, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
     type: 3}
   m_PrefabInstance: {fileID: 8746336074392729211}
   m_PrefabAsset: {fileID: 0}

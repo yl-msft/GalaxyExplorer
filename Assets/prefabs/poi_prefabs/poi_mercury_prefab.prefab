@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1259350673869148
@@ -334,6 +334,8 @@ GameObject:
   - component: {fileID: 82841684588608272}
   - component: {fileID: 114960404777215108}
   - component: {fileID: 114429776120278194}
+  - component: {fileID: 4268015018143712703}
+  - component: {fileID: 3498510957246884853}
   m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
@@ -494,12 +496,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683773399555190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3876bdea56b3f340a95fbbf0c344934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDescription: {fileID: 1848879523102106}
   Indicator: {fileID: 1152332561924966}
   IndicatorLine: {fileID: 114330287584253490}
   TargetPoint: {fileID: 1259350673869148}
@@ -520,6 +521,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cdcb570c416354db07d07e68fd28ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4268015018143712703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683773399555190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1848879523102106}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1993961897650658}
+  movePoiStartingPosition: 0
+--- !u!114 &3498510957246884853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683773399555190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1848879523102106}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1993961897650658}
+  movePoiStartingPosition: 0
 --- !u!1 &1790209699879888
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848879523102106}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4833715951887588}
@@ -769,7 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1993961897650658
@@ -801,7 +834,7 @@ Transform:
   m_GameObject: {fileID: 1993961897650658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.043, y: 0.043, z: 0.043}
   m_Children: []
   m_Father: {fileID: 4411111044313224}
   m_RootOrder: 0
@@ -955,6 +988,7 @@ MonoBehaviour:
   SolverHandler: {fileID: 583097010196925986}
   EnableForce: 1
   AttractionDwellDuration: 2
+  AvergeSides: 1
   TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
     type: 3}
   AttractionDwellForgiveness: 0.5
@@ -1223,6 +1257,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axis: {x: 0, y: 1, z: 0}
   speed: -5
+--- !u!114 &9149775142863764096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7477668877917142938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1343588552044845485}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &7598563527677872978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1302,7 @@ GameObject:
   - component: {fileID: 8223855970792752671}
   - component: {fileID: 1010718627209530865}
   - component: {fileID: 6233456018127467087}
+  - component: {fileID: 8974229945032664755}
   m_Layer: 12
   m_Name: mercury_sphere_mesh
   m_TagString: Untagged
@@ -1428,6 +1492,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.005
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8974229945032664755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598563527677872978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 1
+  displayName: Mercury
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 1343588552044845485}
 --- !u!1 &8998621108183991429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,6 +1721,12 @@ PrefabInstance:
 --- !u!4 &7477668877487166137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 311045954647939084, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
+    type: 3}
+  m_PrefabInstance: {fileID: 7176216196721740469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7477668877917142938 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311045955212260655, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
     type: 3}
   m_PrefabInstance: {fileID: 7176216196721740469}
   m_PrefabAsset: {fileID: 0}

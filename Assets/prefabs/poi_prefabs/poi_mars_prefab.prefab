@@ -1,5 +1,34 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4268015017389671904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172155641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4163332159228259097}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1016721853542446
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a293f5e6b081f42a82cd6b1a50ce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDescription: {fileID: 1165863049135836}
   Indicator: {fileID: 1564929265541186}
   IndicatorLine: {fileID: 114693625038744534}
   TargetPoint: {fileID: 1016721853542446}
@@ -329,7 +357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165863049135836}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4856749570675988}
@@ -454,7 +482,7 @@ Transform:
   m_GameObject: {fileID: 1184840915917258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.043, y: 0.043, z: 0.043}
   m_Children: []
   m_Father: {fileID: 4481360661157750}
   m_RootOrder: 0
@@ -574,7 +602,7 @@ GameObject:
   - component: {fileID: 23079859051270584}
   - component: {fileID: 114665138998922868}
   - component: {fileID: 114805862020689042}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: mars_glow_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +773,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500584379286758}
-  m_LocalRotation: {x: 0, y: 0, z: 0.21805806, w: 0.9759358}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -753,7 +781,7 @@ Transform:
   - {fileID: 4850165743045156}
   m_Father: {fileID: 4154012133524900}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.19}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114907465580918774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,7 +890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1780989332968608
@@ -910,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1875154304098540
@@ -1020,6 +1048,7 @@ GameObject:
   - component: {fileID: 1114095280}
   - component: {fileID: 6358789457040136162}
   - component: {fileID: 8115637085805907238}
+  - component: {fileID: 3908174527004233106}
   m_Layer: 12
   m_Name: mars_sphere_mesh
   m_TagString: Untagged
@@ -1209,6 +1238,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0049999994
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3908174527004233106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949256713972140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 4
+  displayName: Mars
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 4163332159228259097}
 --- !u!1 &1538666439415101602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1267,7 @@ GameObject:
   - component: {fileID: 7927163338134987565}
   - component: {fileID: 1734534215584929253}
   m_Layer: 0
-  m_Name: moon_scale_controller
+  m_Name: deimos_scale_controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1335,7 +1382,11 @@ GameObject:
   - component: {fileID: 4163332159228259097}
   - component: {fileID: 8303869871599941286}
   - component: {fileID: 2481915693532229849}
-  m_Layer: 0
+  - component: {fileID: 4268015017389671894}
+  - component: {fileID: 5308469370511746368}
+  - component: {fileID: 2813750226952587985}
+  - component: {fileID: 8421410864042817444}
+  m_Layer: 12
   m_Name: force_grab_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1400,6 +1451,7 @@ MonoBehaviour:
   SolverHandler: {fileID: 7081570627356724627}
   EnableForce: 1
   AttractionDwellDuration: 2
+  AvergeSides: 1
   TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
     type: 3}
   AttractionDwellForgiveness: 0.5
@@ -1410,18 +1462,7 @@ MonoBehaviour:
   AttractionCollider: {fileID: 8115637085805907238}
   SetToRoot:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Hide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   SetToDwell:
@@ -1441,34 +1482,12 @@ MonoBehaviour:
       PublicKeyToken=null
   SetToManipulate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetAlphaOverloadWrapper
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   SetToFree:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetAlphaOverloadWrapper
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   planetAudioClip: {fileID: 8300000, guid: b716ef324b0efce489ae5b8e4b807eed, type: 3}
@@ -1498,6 +1517,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   POI: {fileID: 3249706815278192456}
+--- !u!65 &4268015017389671894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168159995354372201}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.017207205, y: 0.017207205, z: 0.017210469}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5308469370511746368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168159995354372201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afd5316c63705643b3daba5a6e923bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTetherWhenManipulating: 0
+--- !u!65 &2813750226952587985
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168159995354372201}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.017207205, y: 0.017207205, z: 0.017210469}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8421410864042817444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168159995354372201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afd5316c63705643b3daba5a6e923bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTetherWhenManipulating: 0
 --- !u!1 &2756150004186754132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,7 +1815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7998032508561906695}
   m_Layer: 0
-  m_Name: moon_orbit_offsetter
+  m_Name: deimos_orbit_offsetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2070,6 +2141,12 @@ PrefabInstance:
 --- !u!4 &752979930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 311045954647939084, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
+    type: 3}
+  m_PrefabInstance: {fileID: 311045955384072150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &172155641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311045955212260655, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
     type: 3}
   m_PrefabInstance: {fileID: 311045955384072150}
   m_PrefabAsset: {fileID: 0}

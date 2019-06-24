@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 863714479}
   - component: {fileID: 863714478}
   - component: {fileID: 6108862370037355813}
+  - component: {fileID: 4886475620043565313}
   m_Layer: 12
   m_Name: venus_sphere_mesh
   m_TagString: Untagged
@@ -284,6 +285,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.005
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4886475620043565313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863714476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 2
+  displayName: Venus
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 1776904392}
 --- !u!1 &1776904390
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +380,7 @@ MonoBehaviour:
   SolverHandler: {fileID: 1776904393}
   EnableForce: 1
   AttractionDwellDuration: 2
+  AvergeSides: 1
   TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
     type: 3}
   AttractionDwellForgiveness: 0.5
@@ -712,6 +732,8 @@ GameObject:
   - component: {fileID: 82791560214663660}
   - component: {fileID: 114732196590422030}
   - component: {fileID: 114173951578608420}
+  - component: {fileID: 4268015018155130974}
+  - component: {fileID: 6849688485455086376}
   m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
@@ -872,12 +894,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175656608006298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3876bdea56b3f340a95fbbf0c344934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDescription: {fileID: 1810008179789636}
   Indicator: {fileID: 1589571374026274}
   IndicatorLine: {fileID: 114985195571921218}
   TargetPoint: {fileID: 1038226900464428}
@@ -898,6 +919,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cdcb570c416354db07d07e68fd28ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4268015018155130974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175656608006298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1810008179789636}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1911259905389458}
+  movePoiStartingPosition: 0
+--- !u!114 &6849688485455086376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175656608006298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1810008179789636}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1911259905389458}
+  movePoiStartingPosition: 0
 --- !u!1 &1177963708793112
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1447569757250226
@@ -1162,7 +1215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1736316371763844
@@ -1259,7 +1312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810008179789636}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4141134454073452}
@@ -1384,7 +1437,7 @@ Transform:
   m_GameObject: {fileID: 1911259905389458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.043, y: 0.043, z: 0.043}
   m_Children: []
   m_Father: {fileID: 4493654926007410}
   m_RootOrder: 0
@@ -1461,6 +1514,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: UI_POI
   material: {fileID: 0}
+--- !u!114 &4268015018155130918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311045954307221359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1776904392}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &731669746126779088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,6 +1814,12 @@ PrefabInstance:
 --- !u!4 &311045953680214604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 311045954647939084, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
+    type: 3}
+  m_PrefabInstance: {fileID: 1249006144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &311045954307221359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311045955212260655, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
     type: 3}
   m_PrefabInstance: {fileID: 1249006144}
   m_PrefabAsset: {fileID: 0}

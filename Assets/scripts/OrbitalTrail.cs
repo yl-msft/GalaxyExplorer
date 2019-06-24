@@ -344,7 +344,10 @@ namespace GalaxyExplorer
 
                 if (pointOfInterestMarker != null && pointOfInterestMarker.GetIndicatorLine != null)
                 {
-                    pointOfInterestMarker.GetIndicatorLine.points[0] = pointOfInterestTarget.transform;
+                    if (pointOfInterestMarker.GetIndicatorLine.points.Length > 0)
+                    {
+                        pointOfInterestMarker.GetIndicatorLine.points[0] = pointOfInterestTarget.transform;
+                    }
                 }
             }
         }

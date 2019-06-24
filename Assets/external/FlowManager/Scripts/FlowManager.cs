@@ -26,9 +26,6 @@ namespace MRS.FlowManager
         [SerializeField] // So we can access this from the editor
         private float m_timeSinceTap = 10000f;
 
-        //        private PlaySoundEffectFromList m_voiceOver;
-
-        // TODO: may be more useful to pass stage name rather than index
         public delegate void TransitionEventDelegate(int timedstage);
 
         public TransitionEventDelegate OnAutoTransition;
@@ -57,8 +54,6 @@ namespace MRS.FlowManager
         private void Start()
         {
             m_timeAtTap = Time.time;
-
-            //            m_voiceOver = GetComponentInNamedChild<PlaySoundEffectFromList>(gameObject, "VO");
 
             if (m_stages.Length > 0)
             {
@@ -183,11 +178,6 @@ namespace MRS.FlowManager
             m_currentStage = newStageIdx;
             m_currentStageName = newStage.Name;
 
-            //			if (m_voiceOver != null)
-            //			{
-            //				m_voiceOver.Play(m_currentStage, 1, false, m_stages[m_currentStage].audioDelay);
-            //			}
-
             if (newStage.clickToAdvance)
             {
                 ReceiveTaps(true);
@@ -225,7 +215,6 @@ namespace MRS.FlowManager
         private void ExitStage()
         {
             // Execute any stage events that haven't yet fired;
-            // TODO: add a per-stage or per-event setting to dictate execute or cancel
             // 1. cancel all cued coroutines
             foreach (IEnumerator coroutine in m_currentEntryEvents)
             {
@@ -314,15 +303,5 @@ namespace MRS.FlowManager
                 }
             }
         }
-
-        /// <summary>
-        /// IInputClickHandler implementation
-        /// </summary>
-        /// <param name="eventData"></param>
-        //        public void OnInputClicked(InputClickedEventData eventData)
-        //        {
-        //            RequestTransition();
-        //            eventData.Use();
-        //        }
     }
 }

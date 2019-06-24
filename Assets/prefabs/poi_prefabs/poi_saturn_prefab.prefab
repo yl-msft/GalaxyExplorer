@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1182831670159976
@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 82709110797967080}
   - component: {fileID: 114435700947517138}
   - component: {fileID: 114226775347627186}
+  - component: {fileID: 4268015017165388200}
+  - component: {fileID: 8962746995257842700}
   m_Layer: 8
   m_Name: POI
   m_TagString: Untagged
@@ -273,12 +275,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182831670159976}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3876bdea56b3f340a95fbbf0c344934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDescription: {fileID: 1439922977061368}
   Indicator: {fileID: 1889547621224538}
   IndicatorLine: {fileID: 114438456934596512}
   TargetPoint: {fileID: 1752569321218954}
@@ -299,6 +300,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3cdcb570c416354db07d07e68fd28ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4268015017165388200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182831670159976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1439922977061368}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1984408968394488}
+  movePoiStartingPosition: 0
+--- !u!114 &8962746995257842700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182831670159976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3d90c13e7b644392c4db59108e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoiCard: {fileID: 1439922977061368}
+  PoiAlternateCard: {fileID: 0}
+  PoiIndicator: {fileID: 1984408968394488}
+  movePoiStartingPosition: 0
 --- !u!1 &1191122824323156
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357127204829864}
-  m_LocalRotation: {x: 0.12691972, y: -0.030470723, z: 0.23144819, w: 0.9640512}
+  m_LocalRotation: {x: 0.25340438, y: 0.66014105, z: 0.0739128, w: 0.7032332}
   m_LocalPosition: {x: -0.2614, y: 0, z: 0}
   m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
   m_Children:
@@ -381,7 +414,7 @@ Transform:
   - {fileID: 4014934710005476}
   m_Father: {fileID: 4018310667523852}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 27}
+  m_LocalEulerAnglesHint: {x: 15, y: 90, z: 27}
 --- !u!114 &114383485530979200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,7 +488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439922977061368}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.02, z: 0}
   m_LocalScale: {x: 30, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4792194767650210}
@@ -720,7 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultSizeDistance: 5.5
-  MinSizeRatio: 0.5
+  MinSizeRatio: 0.8
   MaxSizeRatio: 6
   LerpSpeed: 100
 --- !u!1 &1984408968394488
@@ -752,7 +785,7 @@ Transform:
   m_GameObject: {fileID: 1984408968394488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.043, y: 0.043, z: 0.043}
   m_Children: []
   m_Father: {fileID: 4909377941742200}
   m_RootOrder: 0
@@ -893,6 +926,8 @@ GameObject:
   - component: {fileID: 9006728239386487417}
   - component: {fileID: 793974073568531259}
   - component: {fileID: 1393191340134076638}
+  - component: {fileID: 989428500}
+  - component: {fileID: 2138986579270650745}
   m_Layer: 12
   m_Name: saturn_sphere_mesh
   m_TagString: Untagged
@@ -1098,6 +1133,42 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.005
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &989428500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537566386370097988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 6
+  displayName: Saturn
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 6143172048118177612}
+--- !u!114 &2138986579270650745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537566386370097988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 6
+  displayName: Saturn
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 6143172048118177612}
 --- !u!1 &643758866196026310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1403,64 @@ MonoBehaviour:
   PlanetDiameterInKilometer: 252.1
   UseGlobalPlanetScaleFactor: 0
   CustomPerPlanetScaleFactor: 100
+--- !u!114 &1321614355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2967540182748218206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6143172048118177612}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &7554951293236354631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2967540182748218206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6143172048118177612}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &3200286502340907092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,28 +1921,18 @@ MonoBehaviour:
   SolverHandler: {fileID: 5267884180980498309}
   EnableForce: 1
   AttractionDwellDuration: 2
+  AvergeSides: 1
   TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
     type: 3}
   AttractionDwellForgiveness: 0.5
   RootTransform: {fileID: 4901845216865052}
-  ControllerTracker: {fileID: 0}
+  ControllerTracker: {fileID: 998223104, guid: 52454e3384953574ab147196dfd5fe66, type: 3}
   OffsetToObjectBoundsFromController: 1
   ManipulationHandler: {fileID: 7207915013350356471}
   AttractionCollider: {fileID: 1393191340134076638}
   SetToRoot:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Hide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   SetToDwell:
@@ -1833,34 +1952,12 @@ MonoBehaviour:
       PublicKeyToken=null
   SetToManipulate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetAlphaOverloadWrapper
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   SetToFree:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetAlphaOverloadWrapper
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   planetAudioClip: {fileID: 8300000, guid: 90f1d711622a22b469716c332a2b18a2, type: 3}
@@ -2427,6 +2524,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1feb7da4c9edf9441ae1c3b2433ebc93, type: 3}
+--- !u!1 &2967540182748218206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311045955212260655, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
+    type: 3}
+  m_PrefabInstance: {fileID: 3278581732895913585}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2967540183391841917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 311045954647939084, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,

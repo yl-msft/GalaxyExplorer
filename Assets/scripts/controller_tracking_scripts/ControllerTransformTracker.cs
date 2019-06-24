@@ -65,7 +65,9 @@ public class ControllerTransformTracker : MonoBehaviour, IMixedRealitySourceStat
     #region public accessors
 
     public bool IsTracking => _trackedControllers != 0;
-    public bool BothSides => (_trackedControllers & Controllers.Left) > 0 && (_trackedControllers & Controllers.Right) > 0;
+    public bool BothSides => LeftSide && RightSide; 
+    public bool RightSide => (_trackedControllers & Controllers.Right) > 0;
+    public bool LeftSide => (_trackedControllers & Controllers.Left) > 0;
     public Controllers TrackedControlles => _trackedControllers;
 
     public Transform LeftTransform =>

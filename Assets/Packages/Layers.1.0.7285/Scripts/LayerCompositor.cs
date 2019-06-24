@@ -84,7 +84,32 @@ namespace MRS.Layers
             {
                 if (layer.autoload)
                 {
-                    LoadLayer(layer);
+                    var scene = LoadLayer(layer);
+#if UNITY_EDITOR
+                    if (!Application.isPlaying)
+                    {
+                        var isMainSceneLoaded = false;
+                        for (int i = 0; i < EditorSceneManager.loadedSceneCount; i++)
+                        {
+                            if (SceneManager.GetSceneAt(i).name == "main_scene")
+                            {
+                                isMainSceneLoaded = true;
+                                break;
+                            }
+                        }
+
+                        if (scene != default)
+                        {
+                            if (scene.name == "main_scene")
+                            {
+                                SceneManager.SetActiveScene(scene);
+                            } else if (layer.id == "Core" && !isMainSceneLoaded)
+                            {
+                                SceneManager.SetActiveScene(scene);
+                            }
+                        }
+                    }
+#endif
                 }
             }
         }
@@ -155,30 +180,29 @@ namespace MRS.Layers
             return false;
         }
 
-        private static void LoadLayer(Layer layer)
+        private static Scene LoadLayer(Layer layer)
         {
             if (string.IsNullOrEmpty(layer.scene.Path))
             {
-                return;
+                return default;
             }
 
             TrackLayerReference(layer, true);
 
             if (IsLayerLoaded(layer))
             {
-                return;
+                return default;
             }
 
 #if UNITY_EDITOR
             if (!Application.isPlaying)
             {
-                EditorSceneManager.OpenScene(layer.scene, OpenSceneMode.Additive);
-
-                return;
+                return EditorSceneManager.OpenScene(layer.scene, OpenSceneMode.Additive);
             }
 #endif
 
             SceneManager.LoadSceneAsync(layer.scene, LoadSceneMode.Additive);
+            return default;
         }
 
         private static void UnloadLayer(Layer layer, Scene currentScene)

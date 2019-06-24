@@ -100,6 +100,19 @@ namespace GalaxyExplorer
 
         private void SetVisibleTextLabels(bool isVisible)
         {
+            if (GGVMenuTextComponents == null)
+            {
+                _menuParent = GetComponentInChildren<ToolPanel>(true) as ToolPanel;
+
+                GGVMenuTextComponents = _menuParent.GetComponentsInChildren<TextMeshPro>(true);
+
+                if (GGVMenuTextComponents == null)
+                {
+                    Debug.LogWarning("GGVMenuTextComponents not found");
+                    return;
+                }
+            }
+
             foreach (TextMeshPro text in GGVMenuTextComponents)
             {
                 text.enabled = isVisible;

@@ -97,4 +97,13 @@ public class PostManipulationResetter : MonoBehaviour
         _startScale = tr.localScale;
         _startRotation = tr.rotation;
     }
+
+    public void Reset()
+    {
+        if (_coroutine != null)
+        {
+            return;
+        }
+        _coroutine = StartCoroutine(ResetCoroutine());
+    }
 }
