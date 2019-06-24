@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections;
-using TouchScript.Examples.CameraControl;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -461,15 +460,15 @@ namespace GalaxyExplorer
 
             if (newTransition.gameObject.scene.name.Contains("galaxy_view_scene"))
             {
-                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), BackToGalaxyPositionTransitionCurveContentChange));
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), BackToGalaxyPositionTransitionCurveContentChange, offset:newTransition.scenePositionOffset));
             }
             else if (previousTransition && previousTransition.IsSinglePlanetTransition)
             {
-                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), PlanetToSSScaleCurveContentChange));
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), PlanetToSSScaleCurveContentChange, offset:newTransition.scenePositionOffset));
             }
             else
             {
-                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name)));
+                StartCoroutine(ZoomInOutBehaviour.ZoomInOutCoroutine(TransitionTimeOpeningScene, GetContentTransitionCurve(newTransition.gameObject.scene.name), GetContentRotationCurve(newTransition.gameObject.scene.name), GetContentTransitionCurve(newTransition.gameObject.scene.name), offset:newTransition.scenePositionOffset));
             }
 
             StartCoroutine(LightTransitions(previousTransition, newTransition));

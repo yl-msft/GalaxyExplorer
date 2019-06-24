@@ -1,5 +1,7 @@
 # Building & running the application
 
+![BuildingGalaxyExplorer](Images/ge_app_icon_banner.png)
+
 ## Running in Unity
 
 Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to /Scenes and double-click MainScene to setup the editor properly. After that, hitting Play will start the experience.

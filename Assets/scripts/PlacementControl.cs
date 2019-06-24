@@ -70,13 +70,17 @@ namespace GalaxyExplorer
         private IEnumerator ReleaseContent(float waitingTime)
         {
             IntroEarthPlacementAnimator.SetTrigger("Place");
-            
-            // Wait for 1 sec so previous transition finishes
+
+            GalaxyExplorerManager.Instance.OnboardingManager.OnPlacementConfirmed();
+            // have to make sure finished onboarding if vo manager is still fading it out
+            while (GalaxyExplorerManager.Instance.VoManager.IsPlaying)
+            {
+                yield return null;
+            }
             yield return new WaitForSeconds(waitingTime);
 
 
             OnContentPlaced?.Invoke(transform.position);
-            GalaxyExplorerManager.Instance.OnboardingManager.OnPlacementConfirmed();
 
             yield return null;
         }

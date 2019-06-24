@@ -50,24 +50,6 @@ The IntroFlow.cs just helps out FlowManager in functionality that cant be just h
 
 When the GalaxyView scene is loaded which is the first scene that user can interact with, then thats the end of introduction.
 
-# Galaxy
-
-The galaxy rendering process was mostly described in Tech Process - Creating a
-Galaxy (https://docs.microsoft.com/en-us/windows/mixed-reality/case-study-creating-a-galaxy-in-mixed-reality)
-
-The code itself lives in Assets\Galaxy and is comprised of a set of
-SpiralGalaxy which make up the stars and clouds (see MilkyWay.prefab).
-
-The galaxy is the result of 3 layers:
-
-* Stars, rendered last but first in the hierarchy
-* Clouds shadows, that make up the dark spots that can be seen when looking at the Galaxy from the side
-* Clouds, that make up the fluffy blue clouds that surround the stars
-
-The galaxy itself being rendered through Unity's DrawProcedural via the
-OnPostRender method. OnPostRender being called only on scripts attached to
-Cameras, we use a RenderProxy script to trigger the Galaxy rendering.
-
 # Tools
 
 The Tools are contained in a ToolPanel, which manages the visibility of the

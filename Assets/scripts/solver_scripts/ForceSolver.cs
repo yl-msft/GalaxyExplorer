@@ -628,7 +628,10 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
             case State.Attraction:
             case State.Free:
                 StartManipulation();
-                _manipulationHandler.OnPointerDown(eventData);
+                if (eventData.Pointer != null)
+                {
+                    _manipulationHandler.OnPointerDown(eventData);
+                }
                 break;
 
             case State.Manipulation:

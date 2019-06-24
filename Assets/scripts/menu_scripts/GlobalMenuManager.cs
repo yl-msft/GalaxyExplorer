@@ -16,6 +16,19 @@ public class GlobalMenuManager : MonoBehaviour
             return _pOIPlanetFocusManager;
         }
     }
+    
+    public PlanetPreviewController PlanetPreviewController
+    {
+        get
+        {
+            if (_planetPreviewController == null)
+            {
+                _planetPreviewController = FindObjectOfType<PlanetPreviewController>();
+            }
+
+            return _planetPreviewController;
+        }
+    }
 
     public bool ResetButtonNeedsShowing { get; private set; } = false;
     public bool BackButtonNeedsShowing { get; private set; } = false;
@@ -30,6 +43,7 @@ public class GlobalMenuManager : MonoBehaviour
     private GGVMenuManager _ggvMenuManager;
     private HandMenuManager _handMenuManager;
     private ForceSolverFocusManager _pOIPlanetFocusManager;
+    private PlanetPreviewController _planetPreviewController;
 
     private AboutSlate _aboutSlate;
 
@@ -140,9 +154,10 @@ public class GlobalMenuManager : MonoBehaviour
         {
             _pOIPlanetFocusManager.ResetAllForseSolvers();
         }
-        else
+
+        if (PlanetPreviewController)
         {
-            Debug.Log("No POIPlanetFocusManager found in currently loaded scenes");
+            PlanetPreviewController.OnButtonSelected(null);
         }
     }
 

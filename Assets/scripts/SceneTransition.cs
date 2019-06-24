@@ -39,6 +39,8 @@ namespace GalaxyExplorer
         protected float FillVolumePercentage = 0.75f;
 
         private Vector3 defaultSize;
+        
+        public Vector3 scenePositionOffset = Vector3.zero;
 
 
         public GameObject ThisSceneObject

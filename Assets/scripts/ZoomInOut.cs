@@ -129,7 +129,7 @@ namespace GalaxyExplorer
             yield return null;
         }
 
-        public IEnumerator ZoomInOutCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve, AnimationCurve extraPositionCurve = null)
+        public IEnumerator ZoomInOutCoroutine(float duration, AnimationCurve positionCurve, AnimationCurve rotationCurve, AnimationCurve scaleCurve, AnimationCurve extraPositionCurve = null, Vector3 offset = default)
         {
             if (PreviousScene == null || NextScene == null || PreviousSceneFocusCollider == null || NextSceneFocusCollider == null)
             {
@@ -158,15 +158,18 @@ namespace GalaxyExplorer
                 NextScene.localScale = Vector3.one * Mathf.Lerp(nextSceneInitialScale * (1f / scalar), nextSceneInitialScale, Mathf.Clamp01(scaleCurve.Evaluate(transitionAmount)));
                 Vector3 newDisplacement = PreviousSceneFocusCollider.transform.position - PreviousScene.position;
                 PreviousScene.position = posBeforeScale - newDisplacement;
+                var destination = GalaxyExplorerManager.IsDesktop
+                    ? offset + new Vector3(0, 0, 2)
+                    : previousSceneInitialPosition;
 
                 // Position scenes. FOr next scene take into account the focus collider pivot as well
                 if (extraPositionCurve != null)
                 {
-                    NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(extraPositionCurve.Evaluate(positionCurve.Evaluate(transitionAmount))));
+                    NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), destination, Mathf.Clamp01(extraPositionCurve.Evaluate(positionCurve.Evaluate(transitionAmount))));
                 }
                 else
                 {
-                    NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), previousSceneInitialPosition, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
+                    NextScene.transform.position = Vector3.Lerp(nextSceneInitialPosition - (NextSceneFocusCollider.transform.position - NextScene.position), destination, Mathf.Clamp01(positionCurve.Evaluate(transitionAmount)));
                 }
                 
                 PreviousScene.transform.position = NextSceneFocusCollider.transform.position - newDisplacement;
