@@ -78,7 +78,7 @@ Material:
     - _TransitionAlpha: 1
     - _Truthfulness: 0
     - _UVSec: 0
-    - _Width: 0.0035
+    - _Width: 0.02
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.42020997, g: 0.8149237, b: 0.87, a: 0.19}

@@ -1088,6 +1088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicEvent: 04_PlanetaryView
+  backgroundMusic: 10001
   MusicDelayInSeconds: 1
   VoiceOver:
     clip: {fileID: 8300000, guid: bf46ce2ce18984c4bb94fc804379bb6a, type: 3}

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -37,14 +38,11 @@ namespace GalaxyExplorer
         private float nextClipDelay;
         private float defaultVolume;
 
-        private void Awake()
-        {
-            audioSource = GetComponent<AudioSource>();
-        }
+        private IAudioService audioService;
 
         private void Start()
         {
-            defaultVolume = audioSource.volume;
+            audioService = MixedRealityToolkit.Instance.GetService<IAudioService>();
         }
 
         private void Update()
@@ -63,12 +61,16 @@ namespace GalaxyExplorer
                 {
                     // Fading out sets volume to 0, ensure we're playing at the right
                     // volume every time
-                    audioSource.volume = defaultVolume;
-                    audioSource.PlayOneShot(nextClip);
+                    if (audioSource != null)
+                    {
+                        audioSource.volume = defaultVolume;
+                    }
+                    audioService.PlayClip(nextClip, out audioSource);
                     nextClip = null;
+                    
                 }
             }
-            else if (clipQueue != null && clipQueue.Count > 0 && !audioSource.isPlaying)
+            else if (clipQueue != null && clipQueue.Count > 0 && (audioSource == null || !audioSource.isPlaying))
             {
                 QueuedAudioClip queuedClip = clipQueue.Dequeue();
 

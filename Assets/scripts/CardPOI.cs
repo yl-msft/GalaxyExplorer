@@ -136,6 +136,7 @@ namespace GalaxyExplorer
                     cardOffset = cardOffsetTransform.position - CardObject.transform.position;
 
                     StartCoroutine(SlideCardOut());
+                    audioService.PlayClip(AudioId.CardSelect);
                 }
                 else
                 {
@@ -157,6 +158,8 @@ namespace GalaxyExplorer
                     }
 
                     StartCoroutine(SlideCardIn());
+                    
+                    audioService.PlayClip(AudioId.CardDeselect);
                 }
             }
         }

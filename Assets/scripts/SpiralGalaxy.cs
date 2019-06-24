@@ -167,15 +167,6 @@ namespace GalaxyExplorer
 
             generatedDrawer.referenceQuad = referenceQuad;
 
-            if (referenceQuad)
-            {
-                var refQuadRenderer = referenceQuad.GetComponent<MeshRenderer>();
-                if (refQuadRenderer)
-                {
-                    refQuadRenderer.enabled = false;
-                }
-            }
-
             generatedDrawer.renderIntoDownscaledTarget = renderIntoDownscaledTarget;
 
             baseMaterial = Instantiate(baseMaterial);

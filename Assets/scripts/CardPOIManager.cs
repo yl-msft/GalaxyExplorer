@@ -73,32 +73,6 @@ namespace GalaxyExplorer
             }
         }
 
-        private void OnMouseOnUnHoverDelegate(GameObject selectedObject)
-        {
-            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
-        }
-
-        private void OnMouseOnHoverDelegate(GameObject selectedObject)
-        {
-            if (selectedObject)
-            {
-                GalaxyExplorerManager.Instance.AudioEventWrangler.OnFocusEnter(selectedObject);
-            }
-        }
-
-        private void OnMouseClickUpDelegate(GameObject selectedObject)
-        {
-            GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
-        }
-
-        private void OnMouseClickDelegate(GameObject selectedObject)
-        {
-            if (selectedObject)
-            {
-                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(selectedObject);
-            }
-        }
-
         public void RegisterPOI(PointOfInterest poi)
         {
             if (!allPOIs.Contains(poi))
@@ -162,9 +136,6 @@ namespace GalaxyExplorer
                     // eventData needs to be used in case that we are clocing the card because we dont want this click to propagate into the focused handler
                     eventData?.Use();
                     isCardActive = true;
-
-                    CardPOI cardPoi = (CardPOI)poi;
-                    GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject((cardPoi) ? cardPoi.GetCardObject.GetComponentInChildren<Collider>().gameObject : poi.IndicatorCollider.gameObject);
 
                     poi.OnPointerDown(null);
 

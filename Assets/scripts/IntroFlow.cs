@@ -3,7 +3,7 @@
 
 using MRS.FlowManager;
 using System.Collections;
-using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -18,9 +18,12 @@ namespace GalaxyExplorer
         private IntroFlowState currentState = IntroFlowState.kNone;
         private float timer = 0.0f;
 
-        private MusicManager musicManagerScript = null;
         private FlowManager flowManagerScript = null;
         private ViewLoader viewLoaderScript = null;
+        private IAudioService audioService;
+
+        private const string WelcomeSnapShot = "01_Welcome";
+        private const float TransitionTime = 3.8f;
 
         public delegate void IntroFinishedCallback();
         public IntroFinishedCallback OnIntroFinished;
@@ -107,6 +110,8 @@ namespace GalaxyExplorer
             // need to wait otherwise the viewloader subscription to callback becomes null in holoLens
             //yield return new WaitForSeconds(1);
             yield return new WaitForEndOfFrame();
+            
+            audioService = MixedRealityToolkit.Instance.GetService<IAudioService>();
 
             PlacementControl placement = FindObjectOfType<PlacementControl>();
             if (placement)
@@ -133,11 +138,7 @@ namespace GalaxyExplorer
                 }
             }
 
-            if (musicManagerScript == null)
-            {
-                musicManagerScript = GalaxyExplorerManager.Instance.MusicManagerScript;
-                StartCoroutine(PlayWelcomeMusic());
-            }
+            StartCoroutine(PlayWelcomeMusic());
 
             yield return null;
         }
@@ -146,10 +147,7 @@ namespace GalaxyExplorer
         {
             yield return new WaitForEndOfFrame();
 
-            if (musicManagerScript)
-            {
-                musicManagerScript.FindSnapshotAndTransition(musicManagerScript.WelcomeTrack);
-            }
+            audioService.TryTransitionMixerSnapshot(WelcomeSnapShot, TransitionTime);
 
             yield return null;
         }

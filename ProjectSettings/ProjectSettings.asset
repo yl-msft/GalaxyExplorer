@@ -651,24 +651,24 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: Microsoft Corporation
   metroCertificateIssuer: Microsoft Corporation
-  metroCertificateNotAfter: 008cf6166d12d601
+  metroCertificateNotAfter: 00e92fafdd18d601
   metroApplicationDescription: Galaxy Explorer
   wsaImages:
     65636: Assets/textures/app_icons/store_icons/GE_icon_store_blue_50x50.png
     65736: Assets/textures/app_icons/store_icons/GE_icon_store_blue_100x100.png
     65936: Assets/textures/app_icons/store_icons/GE_icon_store_blue.png
-    131222: Assets/textures/app_icons/store_icons/GE_splash_930x450.jpg
-    131272: Assets/textures/app_icons/store_icons/GE_splash_1240x600.jpg
+    131222: Assets/textures/app_icons/store_icons/GE_splash_930x450.png
+    131272: Assets/textures/app_icons/store_icons/GE_splash_1240x600.png
     2031640: Assets/textures/app_icons/store_icons/GE_icon_square44_blue_24x24.png
     2031816: Assets/textures/app_icons/store_icons/GE_icon_square44_blue_88x88.png
     2031872: Assets/textures/app_icons/store_icons/GE_icon_square44_blue.png
     2162888: Assets/textures/app_icons/store_icons/GE_icon_square150_blue300x300.png
     2163088: Assets/textures/app_icons/store_icons/GE_icon_square150_blue.png
-    2293960: Assets/textures/app_icons/store_icons/GE_wide_620x300.jpg
-    2294160: Assets/textures/app_icons/store_icons/GE_wide_1240x600.jpg
+    2293960: Assets/textures/app_icons/store_icons/GE_wide_620x300.png
+    2294160: Assets/textures/app_icons/store_icons/GE_wide_1240x600.png
   metroTileShortName: Galaxy Explorer
   metroTileShowName: 0
-  metroMediumTileShowName: 1
+  metroMediumTileShowName: 0
   metroLargeTileShowName: 1
   metroWideTileShowName: 1
   metroSupportStreamingInstall: 0

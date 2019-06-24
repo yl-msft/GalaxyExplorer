@@ -5,45 +5,65 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace GalaxyExplorer
 {
     public class RenderProxy : MonoBehaviour
     {
         public DrawStars owner;
-        private bool wasValid = false;
+        
+        private CommandBuffer _commandBuffer;
+        
+        private bool wasValid;
+        private Camera _camera;
+        private  const CameraEvent CamEvent = CameraEvent.BeforeForwardAlpha;
 
-        private void OnPostRender()
+        public CommandBuffer CommandBuffer
         {
-            if (owner)
+            set
             {
-                wasValid = true;
-                owner.Render(isEditor: false);
+                _commandBuffer = value;
+                _camera.AddCommandBuffer(CamEvent, _commandBuffer);
             }
+        }
+
+        private void Awake()
+        {
+            _camera = GetComponent<Camera>();
+            _commandBuffer = new CommandBuffer
+            {
+                name = "DrawStars Command Buffer"
+            };
+            _camera.AddCommandBuffer(CamEvent, _commandBuffer);
         }
 
         private void Update()
         {
+            if (owner)
+            {
+                wasValid = true;
+            }
             if (wasValid && !owner)
             {
                 Destroy(this);
             }
         }
 
-#if UNITY_EDITOR
-        /// <summary>
-        /// This will enable seeing the galaxy in the editor view.
-        /// Without that, it will only draw in the game view.
-        /// </summary>
-        private void OnDrawGizmos()
-        {
-            if (owner)
-            {
-                wasValid = true;
-                owner.Render(isEditor: true);
-            }
-        }
-#endif
+//#if UNITY_EDITOR
+//        /// <summary>
+//        /// This will enable seeing the galaxy in the editor view.
+//        /// Without that, it will only draw in the game view.
+//        /// </summary>
+//        private void OnDrawGizmos()
+//        {
+//            if (owner)
+//            {
+//                wasValid = true;
+//                owner.Render(isEditor: true, _commandBuffer);
+//            }
+//        }
+//#endif
     }
 
     public class RenderTexturesBucket : SingleInstance<RenderTexturesBucket>
@@ -54,31 +74,29 @@ namespace GalaxyExplorer
 
         private void CreateBuffers()
         {
-            int downRezFactor = 3;
+            const int downRezFactor = 3;
             downRez = new RenderTexture(Camera.main.pixelWidth >> downRezFactor, Camera.main.pixelHeight >> downRezFactor, 0, RenderTextureFormat.ARGB32);
             downRezMed = new RenderTexture(Camera.main.pixelWidth >> (downRezFactor - 1), Camera.main.pixelHeight >> (downRezFactor - 1), 0, RenderTextureFormat.ARGB32);
             downRezHigh = new RenderTexture(Camera.main.pixelWidth >> (downRezFactor - 2), Camera.main.pixelHeight >> (downRezFactor - 2), 0, RenderTextureFormat.ARGB32);
+            downRez.filterMode = FilterMode.Bilinear;
+            downRezMed.filterMode = FilterMode.Bilinear;
+            downRezHigh.filterMode = FilterMode.Bilinear;
         }
 
         static bool isInitialized = false;
         public static bool CreateIfNeeded(GameObject owner)
         {
-            if (!isInitialized)
-            {
-                var go = new GameObject("Galaxy Render Textures");
-                go.transform.parent = owner.transform;
+            if (isInitialized) return false;
+            
+            var go = new GameObject("Galaxy Render Textures");
+            go.transform.parent = owner.transform;
 
-                var inst = go.AddComponent<RenderTexturesBucket>();
+            var inst = go.AddComponent<RenderTexturesBucket>();
 
-                inst.CreateBuffers();
+            inst.CreateBuffers();
 
-                isInitialized = true;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            isInitialized = true;
+            return true;
         }
 
         protected override void OnDestroy()
@@ -110,6 +128,9 @@ namespace GalaxyExplorer
 
         private Mesh cubeMeshProxy;
 
+        private Camera _mainCamera;
+        private static readonly int TransitionAlpha = Shader.PropertyToID("_TransitionAlpha");
+
         private IEnumerator Start()
         {
             while (!Camera.main)
@@ -117,13 +138,17 @@ namespace GalaxyExplorer
                 yield return null;
             }
 
-            var renderProxy = Camera.main.gameObject.AddComponent<RenderProxy>();
+            _mainCamera = Camera.main;
+
+            var renderProxy = _mainCamera.gameObject.AddComponent<RenderProxy>();
             renderProxy.owner = this;
 
             if (referenceQuad && referenceQuad.sharedMaterial)
             {
-                originalTransitionAlpha = referenceQuad.sharedMaterial.GetFloat("_TransitionAlpha");
+                originalTransitionAlpha = referenceQuad.sharedMaterial.GetFloat(TransitionAlpha);
             }
+
+            renderProxy.CommandBuffer = CreateCommandBuffer();
         }
 
         public void CreateBuffers(StarVertDescriptor[] stars)
@@ -146,13 +171,11 @@ namespace GalaxyExplorer
             starCount = stars.Length;
         }
 
-        private void DisposeBuffer(ref ComputeBuffer buffer)
+        private static void DisposeBuffer(ref ComputeBuffer buffer)
         {
-            if (buffer != null)
-            {
-                buffer.Dispose();
-                buffer = null;
-            }
+            if (buffer == null) return;
+            buffer.Dispose();
+            buffer = null;
         }
 
         private void OnDestroy()
@@ -165,46 +188,74 @@ namespace GalaxyExplorer
             DisposeBuffer(ref starsData);
         }
 
-        public void Render(bool isEditor)
+        private CommandBuffer CreateCommandBuffer()
+        {
+            var commandBuffer = new CommandBuffer();
+
+            if (renderIntoDownscaledTarget)
+            {
+                commandBuffer.SetRenderTarget(RenderTexturesBucket.Instance.downRez);
+                
+                if (isFirst)
+                {
+                        commandBuffer.Clear();
+                }
+            }
+
+            commandBuffer.DrawProcedural(galaxy.transform.worldToLocalMatrix, starsMaterial, 0, MeshTopology.Points, starCount, 1);
+
+            if (!renderIntoDownscaledTarget) return commandBuffer;
+            commandBuffer.SetRenderTarget(RenderTexture.active);
+
+            if (isFirst) return commandBuffer;
+            commandBuffer.Blit(RenderTexturesBucket.Instance.downRez, RenderTexturesBucket.Instance.downRezMed, screenComposeMaterial, 0);
+            commandBuffer.Blit(RenderTexturesBucket.Instance.downRezMed, RenderTexturesBucket.Instance.downRezHigh, screenComposeMaterial, 0);
+
+//                    var renderCubeScale = galaxy.transform.lossyScale;
+//                    renderCubeScale.x *= galaxy.MaxEllipseScale * 2 * Math.Max(galaxy.XRadii, galaxy.ZRadii);
+//                    renderCubeScale.z *= galaxy.MaxEllipseScale * 2 * Math.Max(galaxy.XRadii, galaxy.ZRadii);
+//                    renderCubeScale.y *= galaxy.YRange * 4 * Mathf.Lerp(2, .5f, camDir.y);
+
+//#if (UNITY_EDITOR)
+//                    if (isEditor)
+//                    {
+//                        // true if called from DrawGizmos...
+//                        screenComposeMaterial.SetPass(2);
+//                    }
+//                    else
+//                    {
+//                        screenComposeMaterial.SetPass(1);
+//                    }
+//#else
+//                    screenComposeMaterial.SetPass(1);
+//#endif
+//                    commandBuffer.DrawMesh(cubeMeshProxy, Matrix4x4.TRS(galaxy.transform.position, galaxy.transform.rotation, renderCubeScale));
+//                    Graphics.DrawMeshNow(cubeMeshProxy, Matrix4x4.TRS(galaxy.transform.position, galaxy.transform.rotation, renderCubeScale));
+
+            return commandBuffer;
+        }
+
+        private void Update()
         {
             if (!enabled || !galaxy.gameObject.activeInHierarchy)
             {
                 return;
             }
 
-            var oldRT = RenderTexture.active;
+            var mainCamTransform = _mainCamera.transform;
 
             if (renderIntoDownscaledTarget)
             {
-                RenderTexture.active = RenderTexturesBucket.Instance.downRez;
-            }
-
-            var mainCam = Camera.main;
-            var mainCamTransform = mainCam.transform;
-
-            if (renderIntoDownscaledTarget)
-            {
-                GL.PushMatrix();
-                if (isFirst)
-                {
-                    GL.Clear(true, true, new Color(0, 0, 0, 0));
-                }
-
-                GL.PopMatrix();
 
                 if (referenceQuad)
                 {
-                    var mesh = referenceQuad.gameObject.GetComponent<MeshFilter>().sharedMesh;
                     referenceQuad.sharedMaterial.SetFloat("_TransitionAlpha", galaxy.TransitionAlpha);
-                    referenceQuad.sharedMaterial.SetPass(0);
-                    Graphics.DrawMeshNow(mesh, referenceQuad.localToWorldMatrix);
                 }
             }
 
             float wsScale = galaxy.worldSpaceScale * galaxy.transform.lossyScale.x;
 
             var camDir = galaxy.transform.InverseTransformPoint(mainCamTransform.position).normalized;
-            var skipRender = false;
 
             if (!renderIntoDownscaledTarget)
             {
@@ -214,16 +265,9 @@ namespace GalaxyExplorer
             {
                 var scaleMultiplier = 1 - Mathf.Clamp01(4 * Math.Max(.1f, Mathf.Abs(camDir.y * .1f)));
                 wsScale *= scaleMultiplier;
-
-                if (scaleMultiplier <= .1f)
-                {
-                    // Skip rendering the clouds, we can't see them anyway
-                    skipRender = true;
-                }
             }
 
             // Draw the galaxy
-            starsMaterial.SetPass(0);
             starsMaterial.SetBuffer("_Stars", starsData);
             starsMaterial.SetVector("_LocalCamDir", camDir);
             starsMaterial.SetFloat("_WSScale", wsScale);
@@ -240,63 +284,34 @@ namespace GalaxyExplorer
 
             starsMaterial.SetFloat("_TransitionAlpha", galaxy.TransitionAlpha);
 
-            GL.PushMatrix();
-
-            if (!skipRender)
-            {
-                Graphics.DrawProcedural(MeshTopology.Points, starCount, 1);
-            }
-
             if (renderIntoDownscaledTarget)
             {
-                screenComposeMaterial.mainTexture = RenderTexturesBucket.Instance.downRez;
-
-                RenderTexture.active = oldRT;
 
                 if (!isFirst)
                 {
-                    RenderTexturesBucket.Instance.downRez.filterMode = FilterMode.Bilinear;
-                    RenderTexturesBucket.Instance.downRezMed.filterMode = FilterMode.Bilinear;
-                    RenderTexturesBucket.Instance.downRezHigh.filterMode = FilterMode.Bilinear;
 
-                    RenderTexture.active = RenderTexturesBucket.Instance.downRezMed;
-                    Graphics.Blit(RenderTexturesBucket.Instance.downRez, screenComposeMaterial, 0);
-
-                    RenderTexture.active = RenderTexturesBucket.Instance.downRezHigh;
-                    Graphics.Blit(RenderTexturesBucket.Instance.downRezMed, screenComposeMaterial, 0);
-
-                    RenderTexture.active = oldRT;
                     var renderCubeScale = galaxy.transform.lossyScale;
                     renderCubeScale.x *= galaxy.MaxEllipseScale * 2 * Math.Max(galaxy.XRadii, galaxy.ZRadii);
                     renderCubeScale.z *= galaxy.MaxEllipseScale * 2 * Math.Max(galaxy.XRadii, galaxy.ZRadii);
                     renderCubeScale.y *= galaxy.YRange * 4 * Mathf.Lerp(2, .5f, camDir.y);
 
-                    GL.PopMatrix();
-
-                    screenComposeMaterial.mainTexture = RenderTexturesBucket.Instance.downRezHigh;
-#if (UNITY_EDITOR)
-                    if (isEditor)
-                    {
-                        // true if called from DrawGizmos...
-                        screenComposeMaterial.SetPass(2);
-                    }
-                    else
-                    {
-                        screenComposeMaterial.SetPass(1);
-                    }
-#else
-                    screenComposeMaterial.SetPass(1);
-#endif
-                    Graphics.DrawMeshNow(cubeMeshProxy, Matrix4x4.TRS(galaxy.transform.position, galaxy.transform.rotation, renderCubeScale));
+//                    screenComposeMaterial.mainTexture = RenderTexturesBucket.Instance.downRezHigh;
+//#if (UNITY_EDITOR)
+//                    if (isEditor)
+//                    {
+//                        // true if called from DrawGizmos...
+//                        screenComposeMaterial.SetPass(2);
+//                    }
+//                    else
+//                    {
+//                        screenComposeMaterial.SetPass(1);
+//                    }
+//#else
+//                    screenComposeMaterial.SetPass(1);
+//#endif
+//                    commandBuffer.DrawMesh(cubeMeshProxy, Matrix4x4.TRS(galaxy.transform.position, galaxy.transform.rotation, renderCubeScale));
+//                    Graphics.DrawMeshNow(cubeMeshProxy, Matrix4x4.TRS(galaxy.transform.position, galaxy.transform.rotation, renderCubeScale));
                 }
-                else
-                {
-                    GL.PopMatrix();
-                }
-            }
-            else
-            {
-                GL.PopMatrix();
             }
         }
     }

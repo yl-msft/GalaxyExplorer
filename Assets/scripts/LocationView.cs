@@ -1,6 +1,7 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -21,6 +22,8 @@ namespace GalaxyExplorer
         private bool playMusic = true;
         private float delayTimer = 0.0f;
 
+        private IAudioService audioService;
+        private const float TransitionTime = 3.8f;
     
         void Start()
         {
@@ -31,6 +34,8 @@ namespace GalaxyExplorer
                 GalaxyExplorerManager.Instance.VoManager.Stop(true);
                 GalaxyExplorerManager.Instance.VoManager.PlayClip(VoiceOver);
             }
+
+            audioService = MixedRealityToolkit.Instance.GetService<IAudioService>();
         }
 
         void Update()
@@ -40,7 +45,8 @@ namespace GalaxyExplorer
                 delayTimer -= Time.deltaTime;
                 if (delayTimer <= 0.0f)
                 {
-                    GalaxyExplorerManager.Instance.MusicManagerScript.FindSnapshotAndTransition(MusicEvent);
+                    audioService.TryTransitionMixerSnapshot(MusicEvent, TransitionTime);
+                    
                     playMusic = false;
                 }
             }

@@ -195,6 +195,9 @@ namespace GalaxyExplorer
 
         public void Show()
         {
+            transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2f;
+            transform.rotation = Camera.main.transform.rotation;
+
             gameObject.SetActive(true);
 
             EnableLinks();
