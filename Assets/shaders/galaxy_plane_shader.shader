@@ -36,7 +36,6 @@ Shader "Galaxy/Plane"
 				float4 vertex : SV_POSITION;
 
 				float2 uv : TEXCOORD0;
-				float3 wPos : TEXCOORD1;
 			};
 
 			sampler2D _MainTex;
@@ -50,7 +49,6 @@ Shader "Galaxy/Plane"
 				
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				o.wPos = mul(unity_ObjectToWorld, v.vertex);
 
 				return o;
 			}

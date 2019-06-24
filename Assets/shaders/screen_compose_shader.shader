@@ -9,8 +9,8 @@ Shader "Galaxy/ScreenCompose"
 		// Normal pass
 		Pass 
 		{
- 			ZTest Always Cull Off
-			ZWrite On
+			ZWrite Off
+			ZTest LEqual
 			Blend One Zero
 
 			CGPROGRAM
@@ -20,7 +20,6 @@ Shader "Galaxy/ScreenCompose"
 			#include "UnityCG.cginc"
 
 			sampler2D _MainTex;
-			float4 _Color;
 			
 			struct appdata_t {
 				float4 vertex : POSITION;
@@ -36,7 +35,7 @@ Shader "Galaxy/ScreenCompose"
 			{
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.vertex.z = 1;
+//				o.vertex.z = 1;
 				o.texcoord = v.texcoord.xy;
 				return o;
 			}

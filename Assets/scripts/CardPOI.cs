@@ -14,7 +14,7 @@ namespace GalaxyExplorer
     public class CardPOI : PointOfInterest
     {
         [SerializeField]
-        private GameObject CardObject = null;
+        private POIContent CardObject = null;
 
         [SerializeField]
         private Animator CardAnimator = null;
@@ -31,7 +31,7 @@ namespace GalaxyExplorer
 
         private POIMaterialsFader poiFader = null;
 
-        public GameObject GetCardObject
+        public POIContent GetCardObject
         {
             get { return CardObject; }
         }
@@ -65,7 +65,7 @@ namespace GalaxyExplorer
             base.LateUpdate();
 
             // If the card of this poi is open, then override the card's and descriptions's position and rotation so these are moved with the rotation animation
-            if (CardObject && CardObject.activeSelf)
+            if (CardObject && CardObject.gameObject.activeSelf)
             {
                 CardObject.transform.rotation = cardRotation;
                 CardObject.transform.position = cardOffsetTransform.position - cardOffset;
@@ -86,7 +86,7 @@ namespace GalaxyExplorer
                     {
                         timer = 0.0f;
 
-                        if (CardDescription && !CardObject.activeSelf)
+                        if (CardDescription && !CardObject.gameObject.activeSelf)
                         {
                             CardDescription.SetActive(false);
                         }
@@ -101,18 +101,18 @@ namespace GalaxyExplorer
             base.OnPointerDown(eventData);
             if (CardObject)
             {
-                if (!CardObject.activeSelf)
+                if (!CardObject.gameObject.activeSelf)
                 {
                     isCardActive = true;
-
                     StartCoroutine(GalaxyExplorerManager.Instance.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeOut, GalaxyExplorerManager.Instance.CardPoiManager.POIFadeOutTime, GalaxyExplorerManager.Instance.CardPoiManager.POIOpacityCurve));
 
-                    CardObject.SetActive(true);
+                    CardObject.gameObject.SetActive(true);
 
                     if (CardAnimator)
                     {
                         CardAnimator.SetBool("CardVisible", true);
                     }
+                    CardObject.ShowContents();
 
                     if (CardAudio && GalaxyExplorerManager.Instance.VoManager)
                     {
@@ -144,8 +144,9 @@ namespace GalaxyExplorer
 
                     StartCoroutine(GalaxyExplorerManager.Instance.GeFadeManager.FadeContent(poiFader, GEFadeManager.FadeType.FadeIn, GalaxyExplorerManager.Instance.CardPoiManager.POIFadeOutTime, GalaxyExplorerManager.Instance.CardPoiManager.POIOpacityCurve));
 
+                    CardObject.HideContents();
                     // TODO this need to be removed and happen in the animation, but it doesnt
-                    CardObject.SetActive(false);
+                    CardObject.gameObject.SetActive(false);
 
                     if (CardAnimator)
                     {
@@ -172,6 +173,12 @@ namespace GalaxyExplorer
         public override void OnFocusExit(FocusEventData eventData)
         {
             base.OnFocusExit(eventData);
+        }
+
+        public void CloseAnyOpenCard()
+        {
+            GalaxyExplorerManager.Instance.CardPoiManager.CloseAnyOpenCard();
+            GalaxyExplorerManager.Instance.CardPoiManager.OnPointerDown(null);
         }
 
         private IEnumerator SlideCardOut()

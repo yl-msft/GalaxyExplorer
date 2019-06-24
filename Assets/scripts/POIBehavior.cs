@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GalaxyExplorer;
 using Microsoft.MixedReality.Toolkit.Input;
 using MRS.Layers;
 using TMPro;
@@ -11,7 +12,8 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
     private const float INITIAL_DELAY = 5f; 
     
     [SerializeField] private List<Renderer> objectsToFade;
-    [SerializeField] private List<TextMeshPro> textsToFade;
+    [SerializeField] private TextMeshPro mainText;
+    [SerializeField] private TextMeshPro subText;
     [SerializeField] private float alphaColor = .2f;
     [SerializeField] private float scale = 1f;
     [SerializeField] private Vector2 offset = Vector2.zero;
@@ -25,18 +27,20 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
     
     
     private BoxCollider boxCollider;
-    private GameObject camera;
+    private GameObject cameraObject;
     private Transform[] corners;
     private bool fading;
     private List<Material> materialsToFade;
     private Vector3 colliderSize;
     private Color currentColor;
+    private PointOfInterest poi;
     
     RaycastHit[] raycastResults = new RaycastHit[1];
 
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
+        poi = GetComponentInParent<PointOfInterest>();
         colliderSize = boxCollider.size;
         windowMaterial = Instantiate(windowMaterial);
         windowMaterial.SetFloat("_Scale", windowImageScale);
@@ -44,18 +48,21 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
         windowMaterial.SetTextureOffset("_MainTex", windowImageOffset);
         windowRenderer.materials = new[] {windowMaterial, occlusionMaterial};
         
-        camera = Camera.main.gameObject;
-        corners = new Transform[5];
-        Vector3[] verts = new Vector3[5]; 
+        cameraObject = Camera.main.gameObject;
+        var numberOfPoints = 7;
+        corners = new Transform[numberOfPoints];
+        Vector3[] verts = new Vector3[numberOfPoints]; 
         verts[0] = transform.TransformPoint(boxCollider.center);
-        verts[1] = transform.TransformPoint(boxCollider.center + (new Vector3(boxCollider.size.x, boxCollider.size.y, 0) * 0.4f));
-        verts[2] = transform.TransformPoint(boxCollider.center + (new Vector3(boxCollider.size.x, -boxCollider.size.y, 0) * 0.4f));
-        verts[3] = transform.TransformPoint(boxCollider.center + (new Vector3(-boxCollider.size.x, boxCollider.size.y, 0) * 0.4f));
-        verts[4] = transform.TransformPoint(boxCollider.center + (new Vector3(-boxCollider.size.x, -boxCollider.size.y, 0) * 0.4f));
+        verts[1] = transform.TransformPoint(boxCollider.center + (new Vector3(boxCollider.size.x, boxCollider.size.y, 0) * 0.49f));
+        verts[2] = transform.TransformPoint(boxCollider.center + (new Vector3(boxCollider.size.x, -boxCollider.size.y, 0) * 0.49f));
+        verts[3] = transform.TransformPoint(boxCollider.center + (new Vector3(-boxCollider.size.x, boxCollider.size.y, 0) * 0.49f));
+        verts[4] = transform.TransformPoint(boxCollider.center + (new Vector3(-boxCollider.size.x, -boxCollider.size.y, 0) * 0.49f));
+        verts[5] = transform.TransformPoint(boxCollider.center + (new Vector3(0,-boxCollider.size.y, 0) * 0.49f));
+        verts[6] = transform.TransformPoint(boxCollider.center + (new Vector3(0, boxCollider.size.y, 0) * 0.49f));
 
         for (var i = 0; i < verts.Length; i++)
         {
-            var go = new GameObject($"corner {i}");
+            var go = new GameObject($"Raycast Point {i}");
             go.transform.position = verts[i];
             go.transform.SetParent(transform, true);
             corners[i] = go.transform;
@@ -71,11 +78,8 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
         {
             materialsToFade.Add(fadingObject.material);
         }
-        
-        foreach (var fadingText in textsToFade)
-        {
-            fadingText.color = Color.clear;
-        }
+        mainText.color = Color.clear;
+        subText.color = Color.clear;
         Fade(false, 0, 0);
         Fade(false, INITIAL_DELAY, 0);
     }
@@ -88,12 +92,17 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
         }
 
         boxCollider.size = colliderSize;
-        var allPointsVisible = IsPointVisible(corners[0].position);;
-        allPointsVisible = allPointsVisible && IsPointVisible(corners[1].position);
-        allPointsVisible = allPointsVisible && IsPointVisible(corners[2].position);
-        allPointsVisible = allPointsVisible && IsPointVisible(corners[3].position);
-        allPointsVisible = allPointsVisible && IsPointVisible(corners[4].position);
-        Fade(allPointsVisible);
+        var allPointsVisible = true;
+        for (int i = 0; i < corners.Length; i++)
+        {
+            if (!IsPointVisible(corners[i].position))
+            {
+                allPointsVisible = false;
+                break;
+            }
+        }
+        float alpha = GalaxyExplorerManager.Instance.CardPoiManager.IsAnyCardActive() ? 0f : -1f;
+        Fade(allPointsVisible, alpha:alpha);
         transform.localPosition = offset;
         transform.localScale = scale * Vector3.one;
     }
@@ -101,17 +110,18 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
     private bool IsPointVisible(Vector3 position)
     {
         var layerMask = 1 << LayerMask.NameToLayer("POI");
-        var direction = (position - camera.transform.position).normalized;
-        Debug.DrawRay(camera.transform.position, (position - camera.transform.position)*2, Color.green);
-        RaycastHit hit;
-        var isVisible = false;
-        if(Physics.Raycast(camera.transform.position, direction, out hit, float.PositiveInfinity, layerMask ))
+        var direction = (position - cameraObject.transform.position).normalized;
+        Debug.DrawRay(cameraObject.transform.position, (position - cameraObject.transform.position)*2, Color.green);
+        if(Physics.RaycastNonAlloc(cameraObject.transform.position, direction, raycastResults, float.PositiveInfinity, layerMask ) > 0)
         {
-            if (hit.collider != null)
+            foreach (var raycastHit in raycastResults)
             {
-                if (hit.collider.gameObject == gameObject)
+                if (raycastHit.collider != null)
                 {
-                    return true;
+                    if (raycastHit.collider.gameObject == gameObject)
+                    {
+                        return true;
+                    }
                 }
             }
         }
@@ -121,12 +131,12 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
 
     public void Fade(bool fadeIn, float overTime = .3f, float alpha = -1)
     {
-        StartCoroutine(FadeRoutine(fadeIn, overTime, alpha));
+        StartCoroutine(FadeRoutine(fadeIn, overTime, alpha, !poi.IsCardActive));
         pressableButton.SetActive(fadeIn);
 
     }
 
-    private IEnumerator FadeRoutine(bool fadeIn, float overTime = .3f, float alpha = -1f)
+    private IEnumerator FadeRoutine(bool fadeIn, float overTime = .3f, float alpha = -1f, bool fadeMainText = true)
     {
         fading = true;
         alpha = alpha != -1 ? alpha : alphaColor;
@@ -142,10 +152,11 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
                 material.color = Color.Lerp(startColor, fadingColor, timeSoFar / overTime);
             }
         
-            foreach (var fadingText in textsToFade)
+            if (fadeMainText)
             {
-                fadingText.color = Color.Lerp(startColor, fadingColor, timeSoFar / overTime);
+                mainText.color = Color.Lerp(startColor, fadingColor, timeSoFar / overTime);
             }
+            subText.color = Color.Lerp(startColor, fadingColor, timeSoFar / overTime);
             yield return null;
             timeSoFar += Time.deltaTime;
         }
@@ -155,10 +166,11 @@ public class POIBehavior : MonoBehaviour//, IMixedRealityPointerHandler
             material.color =  fadingColor;
         }
         
-        foreach (var fadingText in textsToFade)
+        if (fadeMainText)
         {
-            fadingText.color = fadingColor;
+            mainText.color = fadingColor;
         }
+        subText.color = fadingColor;
 
         currentColor = fadingColor;
 

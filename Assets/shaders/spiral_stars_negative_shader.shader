@@ -57,7 +57,6 @@ Shader "Galaxy/StarsNeg"
 			float _TransitionAlpha;
 
 			StructuredBuffer<StarVertDescriptor> _Stars;
-			float4x4 _GalaxyWorld;
 
 			v2g vert (uint id : SV_VertexID, uint inst : SV_InstanceID)
 			{
@@ -68,7 +67,7 @@ Shader "Galaxy/StarsNeg"
 				float3 pos = float4(ComputeStarPosition(star), 1);
 				float fade = saturate(dot(normalize(pos), _LocalCamDir));
 
-				o.vertex = mul(_GalaxyWorld, float4(pos, 1));
+                o.vertex = UnityObjectToClipPos(pos);
 				o.color = float4(star.color, 1) * fade * _TransitionAlpha;
 				o.uv = star.uv;
 				o.size = star.size;
@@ -79,22 +78,19 @@ Shader "Galaxy/StarsNeg"
 			[maxvertexcount(4)]
 			void geo(point v2g p[1], inout TriangleStream<v2f> triStream)
 			{
-				float4 pos = p[0].vertex;
-				float3 mvPos = UnityObjectToViewPos(pos);
-
-				float3 up = float3(0, 1, 0);
-				float3 look = mvPos.xyz;
-				float3 right = normalize(cross(up, look));
-
+				float4 mvPos = p[0].vertex;
+				
+				float4 up = float4(0, 1, 0, 0) * UNITY_MATRIX_P._22;
+				float4 right = float4(1, 0, 0, 0) * UNITY_MATRIX_P._11;
 				float halfS = p[0].size * _WSScale;
 
 				if (halfS > 0)
 				{
 					float4 v[4];
-					v[0] = mul(UNITY_MATRIX_P, float4(mvPos - halfS * up, 1.0f));
-					v[1] = mul(UNITY_MATRIX_P, float4(mvPos + halfS * right, 1.0f));
-					v[2] = mul(UNITY_MATRIX_P, float4(mvPos - halfS * right, 1.0f));
-					v[3] = mul(UNITY_MATRIX_P, float4(mvPos + halfS * up, 1.0f));
+					v[0] = mvPos - halfS * up;
+					v[1] = mvPos + halfS * right;
+					v[2] = mvPos - halfS * right;
+					v[3] = mvPos + halfS * up;
 
 					v2f pIn;
 					pIn.color = p[0].color;

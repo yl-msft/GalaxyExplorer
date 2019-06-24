@@ -71,7 +71,6 @@ namespace GalaxyExplorer
 
         public Material baseMaterial;
         public Material screenComposeMaterial;
-        public Material screenClearMaterial;
         public float worldSpaceScale;
         public int lastCount;
         public float velocityMultiplier = 5;
@@ -163,7 +162,6 @@ namespace GalaxyExplorer
             generatedDrawer = generated.AddComponent<DrawStars>();
             generatedDrawer.galaxy = this;
             generatedDrawer.screenComposeMaterial = screenComposeMaterial;
-            generatedDrawer.screenClearMaterial = screenClearMaterial;
 
             generatedDrawer.referenceQuad = referenceQuad;
 

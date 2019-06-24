@@ -57,7 +57,6 @@ Shader "Galaxy/Stars"
 			float _TransitionAlpha;
 
 			StructuredBuffer<StarVertDescriptor> _Stars;
-			float4x4 _GalaxyWorld;
 
 			v2g vert (uint id : SV_VertexID, uint inst : SV_InstanceID)
 			{
@@ -65,8 +64,7 @@ Shader "Galaxy/Stars"
 
 				v2g o;
 
-				o.vertex = mul(_GalaxyWorld, float4(ComputeStarPosition(star), 1));
-				o.vertex = mul(UNITY_MATRIX_VP, o.vertex);
+                o.vertex = UnityObjectToClipPos(float4(ComputeStarPosition(star), 1));
 				o.color = float4(star.color, 1) * _TransitionAlpha * _Color;
 				o.uv = star.uv + float2(0, .5);
 				o.size = star.size * _WSScale;
