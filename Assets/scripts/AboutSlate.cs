@@ -65,8 +65,6 @@ namespace GalaxyExplorer
         // Callback when Desktop About button is clicked/touched/selected
         public void ButtonClicked()
         {
-            Debug.Log("ButtonClicked");
-
             if (!_isTransitioning)
             {
                 ToggleAboutButton();

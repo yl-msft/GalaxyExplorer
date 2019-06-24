@@ -16,12 +16,14 @@ namespace GalaxyExplorer
             public AudioClip clip;
             public float delay;
             public bool allowReplay;
+            public bool blockProgress;
 
-            public QueuedAudioClip(AudioClip clip, float delay, bool allowReplay)
+            public QueuedAudioClip(AudioClip clip, float delay, bool allowReplay, bool blockProgress)
             {
                 this.clip = clip;
                 this.delay = delay;
                 this.allowReplay = allowReplay;
+                this.blockProgress = blockProgress;
             }
         }
 
@@ -38,7 +40,14 @@ namespace GalaxyExplorer
         private float nextClipDelay;
         private float defaultVolume;
 
+        private DateTime playStartTime;
+        private float clipLength;
+
         private IAudioService audioService;
+        
+
+        public bool ShouldAudioBlockProgress => DateTime.UtcNow < playStartTime.AddSeconds(clipLength);
+        public bool IsPlaying => clipQueue.Count > 0 || nextClip != null || audioSource != null && audioSource.isPlaying;
 
         private void Start()
         {
@@ -78,6 +87,16 @@ namespace GalaxyExplorer
                 {
                     nextClip = queuedClip.clip;
                     nextClipDelay = queuedClip.delay;
+                    if (queuedClip.blockProgress)
+                    { 
+                        playStartTime = DateTime.UtcNow;
+                        clipLength = nextClip.length + queuedClip.delay;
+                    }
+                    else
+                    {
+                        playStartTime = DateTime.MinValue;
+                        clipLength = 0;
+                    }
 
                     playedClips.Add(nextClip.name);
                 }
@@ -92,10 +111,10 @@ namespace GalaxyExplorer
 
         public bool PlayClip(QueuedAudioClip clip, bool replaceQueue = false)
         {
-            return PlayClip(clip.clip, clip.delay, replaceQueue);
+            return PlayClip(clip.clip, clip.delay, clip.allowReplay, replaceQueue, clip.blockProgress);
         }
 
-        public bool PlayClip(AudioClip clip, float delay = 0.0f, bool allowReplay = false, bool replaceQueue = false)
+        public bool PlayClip(AudioClip clip, float delay = 0.0f, bool allowReplay = false, bool replaceQueue = false, bool audioBlocksProgress = false)
         {
             bool clipWillPlay = false;
 
@@ -106,7 +125,7 @@ namespace GalaxyExplorer
                     clipQueue.Clear();
                 }
 
-                clipQueue.Enqueue(new QueuedAudioClip(clip, delay, allowReplay));
+                clipQueue.Enqueue(new QueuedAudioClip(clip, delay, allowReplay, audioBlocksProgress));
 
                 clipWillPlay = true;
             }
@@ -122,6 +141,8 @@ namespace GalaxyExplorer
             }
 
             nextClip = null;
+            playStartTime = DateTime.MinValue;
+            clipLength = 0;
 
             // Fade out the audio that's currently playing to stop it. Check here to
             // prevent coroutines from stacking up and calling Stop() on audioSource

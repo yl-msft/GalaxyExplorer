@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GalaxyExplorer;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
@@ -54,8 +55,9 @@ public class PlanetForceSolver : ForceSolver
 
     private void StartAudio()
     {
-        _audioService.PlayClip(planetAudioClip, out _voAudioSource, transform);
-        _audioService.PlayClip(planetAmbiantClip, out _ambientAudioSource, transform);
+        GalaxyExplorerManager.Instance.VoManager.Stop(true);
+        GalaxyExplorerManager.Instance.VoManager.PlayClip(planetAudioClip);
+        _audioService.PlayClip(planetAmbiantClip, out _ambientAudioSource, transform, playOptions:PlayOptions.Loop);
     }
 
     private void HideMoons()
@@ -112,11 +114,14 @@ public class PlanetForceSolver : ForceSolver
                 GoalScale = Vector3.one;
                 UpdateWorkingScaleToGoal();
                 break;
+                
             case State.Attraction:
                 if (_scaleController == null) break;
                 GoalScale = _editScaleTarget;
                 UpdateWorkingScaleToGoal();
                 break;
+            
+            case State.Dwell:
             case State.Free:
             case State.Manipulation:
             case State.None:

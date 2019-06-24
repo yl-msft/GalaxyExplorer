@@ -65,17 +65,17 @@ public class AudioService : BaseExtensionService, IAudioService
         if (audioClipCache != null && audioClipCache.ContainsKey(audioId))
         {
             var audioInfo = audioClipCache[audioId];
-            PlayClip(audioInfo.clip, out playedSource, target, volume == -1 ? audioInfo.volume : volume);
+            PlayClip(audioInfo.clip, out playedSource, target, volume == -1 ? audioInfo.volume : volume, PlayOptions.PlayOnce);
         }
     }
 
     public void PlayClip(AudioClip clip, Transform target, float volume)
     {
         AudioSource source;
-        PlayClip(clip, out source, target, volume);
+        PlayClip(clip, out source, target, volume, PlayOptions.PlayOnce);
     }
 
-    public void PlayClip(AudioClip clip, out AudioSource playedSource, Transform target, float volume)
+    public void PlayClip(AudioClip clip, out AudioSource playedSource, Transform target, float volume, PlayOptions playOptions)
     {
         if (lastPlayedTimes.ContainsKey(clip.name))
         {
@@ -89,7 +89,7 @@ public class AudioService : BaseExtensionService, IAudioService
         }
         var source = GetTargetSource(GetTarget(target));
         playedSource = source.AudioSource;
-        source.PlayClip(clip);
+        source.PlayClip(clip, playOptions:playOptions);
         lastPlayedTimes[clip.name] = DateTime.UtcNow;
     }
 
@@ -130,35 +130,31 @@ public class AudioService : BaseExtensionService, IAudioService
     private PoolableAudioSource GetTargetSource(Transform target)
     {
         PoolableAudioSource source = null;
-        List<PoolableAudioSource> sources = null;
+        List<PoolableAudioSource> sources = new List<PoolableAudioSource>();;
         if (playingCache.ContainsKey(target))
         {
             sources = playingCache[target];
             foreach (var poolableAudioSource in sources)
             {
-                if (!poolableAudioSource.IsPlaying)
+                if (poolableAudioSource != null && !poolableAudioSource.IsPlaying)
                 {
                     source = poolableAudioSource;
                     break;
                 }
             }
         }
-        else
-        {
-            sources = new List<PoolableAudioSource>();
-        }
-        // NULL operator is overriden! will return true if audio source pool is not active!
+        // Equals operator is overriden! will return true if audio source pool is not active!
         if (source == null)
         {
             source = objectPooler.GetNextObject<PoolableAudioSource>(parent:target);
             sources.Add(source);
-            source.OnPoolableDestroyed += OnPoolableAudioSourceDestroyed;
+            source.onReturnToPool += OnPoolableAudioSourceReturned;
         }
         playingCache[target] = sources;
         return source;
     }
 
-    private void OnPoolableAudioSourceDestroyed(APoolable source, Transform parent)
+    private void OnPoolableAudioSourceReturned(APoolable source, Transform parent)
     {
         var poolableAudioSource = source as PoolableAudioSource;
         if (poolableAudioSource == null)

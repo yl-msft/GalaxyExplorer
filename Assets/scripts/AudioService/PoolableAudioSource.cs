@@ -12,7 +12,7 @@ public class PoolableAudioSource : APoolable
         {
             if (_audioSource == null)
             {
-                Debug.LogWarning("PoolableAudioSource should never be null (destroyed somewhere)");
+                Debug.LogWarning("PoolableAudioSource Audio Source component should never be null (destroyed somewhere)");
                 _audioSource = gameObject.AddComponent<AudioSource>();
             }
             return _audioSource;
@@ -39,24 +39,43 @@ public class PoolableAudioSource : APoolable
 
     public void PlayClip(
         AudioClip clip,
-        float volume = 1)
+        float volume = 1,
+        PlayOptions playOptions = PlayOptions.PlayOnce)
     {
         AudioSource.clip = clip;
         AudioSource.volume = volume;
         AudioSource.time = 0;
+        AudioSource.spatialBlend = 1;
         AudioSource.Play();
-        StartCoroutine(DestroyWithDelay(clip.length));
+        if (playOptions == PlayOptions.Loop)
+        {
+            AudioSource.loop = true;
+            StartCoroutine(SlowUpdate());
+        }
+        else
+        {
+            StartCoroutine(DestroyWithDelay(clip.length));
+        }
     }
 
     private IEnumerator DestroyWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay + .1f);
-        Use();
+        ReturnToPool();
     }
 
-    private void OnDestroy()
+    private IEnumerator SlowUpdate()
     {
-        StopAllCoroutines();
+        var waitForOneSecond = new WaitForSeconds(1);
+        while (gameObject != null && gameObject.activeInHierarchy)
+        {
+            if (!AudioSource.isPlaying)
+            {
+                Reset();
+                yield break;
+            }
+            yield return waitForOneSecond;
+        }
     }
 
     protected override void Reset()
@@ -64,6 +83,12 @@ public class PoolableAudioSource : APoolable
         AudioSource.clip = null;
         AudioSource.volume = 1;
         AudioSource.outputAudioMixerGroup = null;
+        AudioSource.loop = false;
         base.Reset();
+    }
+
+    private void OnDisable()
+    {
+        Invoke("Reset", 0);
     }
 }

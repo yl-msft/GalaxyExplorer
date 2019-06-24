@@ -51,7 +51,6 @@ public class PlacementObject : MonoBehaviour
     {
         if(SourceMesh == null) return;
 
-        Debug.Log("generating data");
         var random = new Random(Seed);
         
         var vertices = SourceMesh.vertices;
@@ -73,6 +72,5 @@ public class PlacementObject : MonoBehaviour
         _targetMesh.RecalculateBounds();
         _targetMesh.UploadMeshData(false);
         GetComponent<MeshFilter>().mesh = _targetMesh;
-        Debug.Log("data generated");
     }
 }

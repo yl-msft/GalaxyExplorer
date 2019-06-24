@@ -39,25 +39,20 @@ namespace GalaxyExplorer
             get; set;
         }
 
+        public OnboardingManager OnboardingManager
+        {
+            get; set;
+        }
+
         public TransitionManager TransitionManager
         {
             get; set;
         }
 
-        public ToolManager ToolsManager
+        public GGVMenuManager GGVMenuManager
         {
             get; set;
         }
-
-        //        public GEMouseInputSource MouseInput
-        //        {
-        //            get; set;
-        //        }
-
-        //        public InputRouter InputRouter
-        //        {
-        //            get; set;
-        //        }
 
         public ViewLoader ViewLoaderScript
         {
@@ -404,8 +399,9 @@ namespace GalaxyExplorer
 
             TransitionManager = FindObjectOfType<TransitionManager>();
             VoManager = FindObjectOfType<VOManager>();
+            OnboardingManager = FindObjectOfType<OnboardingManager>();
             GeFadeManager = FindObjectOfType<GEFadeManager>();
-            ToolsManager = FindObjectOfType<ToolManager>();
+            GGVMenuManager = FindObjectOfType<GGVMenuManager>();
             ViewLoaderScript = FindObjectOfType<ViewLoader>();
             CardPoiManager = FindObjectOfType<CardPOIManager>();
             CameraControllerHandler = FindObjectOfType<CameraController>();

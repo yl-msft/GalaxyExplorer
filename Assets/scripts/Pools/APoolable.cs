@@ -5,44 +5,42 @@ namespace Pools
 {
    public abstract class APoolable : MonoBehaviour
    {
-      public delegate void OnUsePoolable(APoolable poolable);
+      public delegate void OnReturnPoolable(APoolable poolable, Transform parent);
 
-      public delegate void OnDestroyPoolable(APoolable poolable, Transform parent);
+      public OnReturnPoolable onReturnToPool;
+      protected Transform poolTransform;
+      private bool isActive;
 
-      public event OnUsePoolable OnPoolableUsed;
-      public event OnDestroyPoolable OnPoolableDestroyed;
-
-      public virtual void Init(Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), Transform parent = default(Transform))
+      public virtual void Init(Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), Transform parent = default(Transform),Transform poolTransform = default(Transform) )
       {
          transform.position = position;
          transform.rotation = rotation;
+         this.poolTransform = poolTransform;
          if (parent != null)
          {
             transform.SetParent(parent);
             transform.localPosition = Vector3.zero;
          }
-         gameObject.SetActive(true);
          IsActive = true;
       }
-   
-      public virtual bool IsActive { get; set; }
 
-      public virtual void Use()
+      public virtual bool IsActive
       {
-         gameObject.SetActive(false);
-         IsActive = false;
-         Reset();
-         if (OnPoolableUsed != null)
+         get => isActive;
+         set
          {
-            OnPoolableUsed.Invoke(this);
+            gameObject.SetActive(value);
+            isActive = value;
          }
       }
 
-      protected virtual void OnDestroy()
+      public virtual void ReturnToPool()
       {
-         if (OnPoolableDestroyed != null)
+         IsActive = false;
+         Reset();
+         if (onReturnToPool != null)
          {
-            OnPoolableDestroyed.Invoke(this, transform.parent);
+            onReturnToPool.Invoke(this, transform.parent);
          }
       }
 
@@ -50,21 +48,21 @@ namespace Pools
       {
          transform.position = Vector3.zero;
          transform.rotation = Quaternion.identity;
-         transform.SetParent(null);
+         transform.SetParent(poolTransform);
          transform.localPosition = Vector3.zero;
       }
 
       public static bool operator == (APoolable a, APoolable b)
       {
-         if (ReferenceEquals(a, null) || !a.IsActive)
+         if (ReferenceEquals(a,null) || a.Equals(null) || !a.IsActive)
          {
-            return ReferenceEquals(b,null) || !b.IsActive;
+            return ReferenceEquals(b,null) || b.Equals(null);
          }
-         if (ReferenceEquals(b, null) || !b.IsActive)
+         if (ReferenceEquals(b, null) || b.Equals(null) || !b.IsActive)
          {
-            return !a.IsActive;
+            return a.Equals(null);
          }
-         return ReferenceEquals(a,b);
+         return a.Equals(b);
       }
 
       public static bool operator != (APoolable a, APoolable b)

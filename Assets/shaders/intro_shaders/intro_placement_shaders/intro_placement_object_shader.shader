@@ -204,7 +204,7 @@ Shader "GalaxyExplorer/Placement"
             float4 frag(g2f i) : COLOR
             {
                 float l = length(abs(i.uv));
-                float a = 1-step(1, l);
+                float a = (1-l) * (1-step(1, l));
 //                float a = saturate(1-l);
 //                a *= a;
 //                return fixed4(i.color.rgb, tex2D(_MainTex, i.uv).a);

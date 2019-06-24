@@ -330,15 +330,19 @@ namespace Microsoft.MixedReality.Toolkit.Input
 
                 StartPoint = Pointer.Rays[0].Origin;
 
+                float rayDist = 0f;
                 for (int i = 0; i < Pointer.Rays.Length; i++)
                 {
                     // TODO: figure out how reliable this is. Should focusDetails.RayDistance be updated?
+                    rayDist += Pointer.Rays[i].Length;
                     if (Pointer.Rays[i].Contains(focusDetails.Point))
                     {
                         RayStepIndex = i;
                         break;
                     }
                 }
+
+                focusDetails.RayDistance = rayDist;
             }
 
             public void ResetFocusedObjects(bool clearPreviousObject = true)

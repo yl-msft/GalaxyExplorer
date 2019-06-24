@@ -10,11 +10,8 @@ using UnityEngine;
 
 namespace GalaxyExplorer
 {
-    public class PointOfInterest : MonoBehaviour, IMixedRealityPointerHandler, IMixedRealityFocusHandler//, IInputClickHandler, IFocusable, IControllerTouchpadHandler
+    public class PointOfInterest : MonoBehaviour, IMixedRealityPointerHandler, IMixedRealityFocusHandler
     {
-        [SerializeField]
-        protected GameObject CardDescription = null;
-
         [SerializeField]
         protected GameObject Indicator = null;
 
@@ -33,7 +30,6 @@ namespace GalaxyExplorer
         [SerializeField]
         protected Vector3 indicatorOffset = Vector3.up * 0.4f;
 
-        protected Animator cardDescriptionAnimator = null;
         private Collider indicatorCollider = null;
         protected bool isCardActive = false;
 
@@ -88,20 +84,7 @@ namespace GalaxyExplorer
             get { return indicatorCollider; }
         }
 
-        public Material CardDescriptionMaterial
-        {
-            get; set;
-        }
-
         // If any othe poi is focused then need to deactivate any card description that is on
-        public virtual void OnAnyPoiFocus()
-        {
-            if (CardDescription && CardDescription.activeSelf)
-            {
-                CardDescription.SetActive(false);
-            }
-        }
-
         protected virtual void Awake()
         {
             // do this before start because orbit points of interest need to override the target position (with the orbit)
@@ -119,9 +102,6 @@ namespace GalaxyExplorer
         {
             audioService = MixedRealityToolkit.Instance.GetService<IAudioService>();
             
-            cardDescriptionAnimator = CardDescription.GetComponent<Animator>();
-            CardDescriptionMaterial = CardDescription.GetComponent<MeshRenderer>().material;
-
             if (Indicator)
             {
                 Indicator.AddComponent<NoAutomaticFade>();
@@ -154,10 +134,6 @@ namespace GalaxyExplorer
             UpdateState();
         }
 
-        protected void LateUpdate()
-        {
-        }
-
         // Need to register poi after the end of frame as sometimes it ends up the manager to be initialized after pois and the list of pois becomes null
         protected IEnumerator RegisterPOICoroutine()
         {
@@ -175,15 +151,6 @@ namespace GalaxyExplorer
             {
                 case POIState.kOnFocusExit:
                     timer += Time.deltaTime;
-
-                    if (timer >= restingOnPoiTime)
-                    {
-                        if (CardDescription)
-                        {
-                            CardDescription.SetActive(false);
-                        }
-                    }
-
                     break;
             }
         }
@@ -214,40 +181,6 @@ namespace GalaxyExplorer
                 gameObject.transform.position = gameObject.transform.parent.position + (transform.parent.rotation * scaledTargetPosition) + targetOffset;
             }
         }
-
-        //        public void OnTouchpadTouched(InputEventData eventData)
-        //        {
-        //
-        //        }
-        //
-        //        public void OnTouchpadReleased(InputEventData eventData)
-        //        {
-        //            // First touch focus on poi
-        //            if (CardDescription && !CardDescription.activeSelf)
-        //            {
-        //                OnFocusEnter();
-        //
-        ////                GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-        ////                GalaxyExplorerManager.Instance.AudioEventWrangler?.OnFocusEnter(focusedObj);
-        //                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
-        //            }
-        //            // Second touch select that poi
-        //            else
-        //            {
-        //                OnInputClicked(null);
-        //
-        ////                GameObject focusedObj = (InputManager.Instance.OverrideFocusedObject) ? InputManager.Instance.OverrideFocusedObject : FocusManager.Instance.TryGetFocusedObject(eventData);
-        ////                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(focusedObj);
-        //                GalaxyExplorerManager.Instance.AudioEventWrangler?.OnInputClicked(null);
-        //                GalaxyExplorerManager.Instance.AudioEventWrangler.OverrideFocusedObject(null);
-        //            }
-        //        }
-        //
-        //        public void OnInputPositionChanged(InputPositionEventData eventData)
-        //        {
-        //
-        //        }
-        //
 
         // Scale POI collider in order to cover the whole POI + poi line.
         // Calculate the collider when collider is enabled so in end of transitions that has its final length
@@ -300,6 +233,11 @@ namespace GalaxyExplorer
         {
         }
 
+        public virtual void OnPointerDown()
+        {
+            OnPointerDown(null);
+        }
+
         public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
         {
             if (currentState == POIState.kOnFocusEnter)
@@ -311,6 +249,7 @@ namespace GalaxyExplorer
                 audioService.PlayClip(AudioId.CardDeselect);
             }
             currentState = POIState.kOnInputClicked;
+            GalaxyExplorerManager.Instance.CardPoiManager.OnPointerDown(null);
         }
 
         public virtual void OnPointerClicked(MixedRealityPointerEventData eventData)
@@ -330,14 +269,6 @@ namespace GalaxyExplorer
             currentState = POIState.kOnFocusEnter;
             timer = 0.0f;
 
-            if (CardDescription)
-            {
-                CardDescription.SetActive(true);
-                if (GalaxyExplorerManager.IsInitialized)
-                {
-                    GalaxyExplorerManager.Instance.CardPoiManager.OnPOIFocusEnter(this);
-                }
-            }
             audioService.PlayClip(AudioId.Focus);
         }
 

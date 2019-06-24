@@ -380,6 +380,11 @@ namespace GalaxyExplorer
             }
 
             yield return new WaitForEndOfFrame();
+            
+            while (GalaxyExplorerManager.Instance.VoManager.ShouldAudioBlockProgress)
+            {
+                yield return null;
+            }
 
             // Activate colliders of next scene
             if (ZoomInOutBehaviour.GetNextScene && introStage != IntroStage.kActiveIntro)

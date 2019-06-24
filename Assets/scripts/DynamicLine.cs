@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
+[ExecuteInEditMode]
 public class DynamicLine : MonoBehaviour
 {
     [SerializeField] private GameObject objectA;

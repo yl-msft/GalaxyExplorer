@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 7879944010150181186}
   - component: {fileID: 7879944010150181185}
   m_Layer: 0
-  m_Name: onboarding_menu_hl2_three
+  m_Name: onboarding_menu_hl2_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

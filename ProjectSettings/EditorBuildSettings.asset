@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/view_scenes/sagittarius_a_view_scene.unity
     guid: 86a30883e8ed1f14eb96ce79f1ce9d53
+  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

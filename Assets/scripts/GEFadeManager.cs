@@ -19,6 +19,7 @@ namespace GalaxyExplorer
         }
 
         public delegate void FadeCompleteCallback(FadeType fadeType);
+
         public FadeCompleteCallback OnFadeComplete;
 
         public void SetAlphaOnFader(Fader fader, float alpha)
@@ -108,8 +109,8 @@ namespace GalaxyExplorer
 
                 yield break;
             }
-      
-            // wait for the fade time offset to complete before alpha is changed on the faders
+
+            // Wait for the fade time offset to complete before alpha is changed on the faders
             float time = fadeTimeOffset;
             while (time > 0.0f)
             {
@@ -117,7 +118,7 @@ namespace GalaxyExplorer
                 yield return null;
             }
 
-            // setup initial and final alpha values for the fade based on the type of fade
+            // Setup initial and final alpha values for the fade based on the type of fade
             Vector2 alpha = (fadeType == FadeType.FadeIn) ? Vector2.up : Vector2.right;
             float timeFraction = 0.0f;
 
@@ -162,6 +163,5 @@ namespace GalaxyExplorer
             }
             while (timeFraction < 1.0f && content != null);
         }
-
     }
 }

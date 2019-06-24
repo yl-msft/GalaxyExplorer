@@ -2615,13 +2615,26 @@ MonoBehaviour:
   lifetime: 0
   SolverHandler: {fileID: 3503645891574481262}
   EnableForce: 1
+  AttractionDwellDuration: 2
+  TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
+    type: 3}
+  AttractionDwellForgiveness: 0.5
   RootTransform: {fileID: 1048764266691358751}
   ControllerTracker: {fileID: 0}
   OffsetToObjectBoundsFromController: 1
-  OffsetFromCameraOnNoControllerPosition: {x: 0, y: 0, z: 0}
   ManipulationHandler: {fileID: 7988720052898890621}
   AttractionCollider: {fileID: 4857034177859691841}
   SetToRoot:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  SetToDwell:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  DwellCanceled:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -2694,7 +2707,7 @@ Transform:
   m_GameObject: {fileID: 5012415309349672624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 40.000004, y: 40.000004, z: 40.000004}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
   - {fileID: 1087626363428522529}
   - {fileID: 6367151610609183161}
@@ -2708,7 +2721,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5012415309349672624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19a9f3d1552dd1349a5aecd4cb52b4d5, type: 3}
   m_Name: 
@@ -3823,17 +3836,17 @@ PrefabInstance:
     - target: {fileID: 311045954745802743, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 311045954745802743, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 311045954745802743, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 311045954745802742, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}

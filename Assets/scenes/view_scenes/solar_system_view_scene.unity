@@ -157,6 +157,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &148088738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4268015017075966165, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &148088739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148088738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 2
+  displayName: Venus
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 1085124840}
 --- !u!1 &160956229
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +215,18 @@ Transform:
   m_Father: {fileID: 398458147}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &267043085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3050404476533549336, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &326838047
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +312,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 124d08c41268a5d4e9d6c6c90f9480f0, type: 3}
     delay: 1
     allowReplay: 0
+    blockProgress: 1
 --- !u!4 &398458147
 Transform:
   m_ObjectHideFlags: 0
@@ -304,6 +341,432 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TransformSourceId: 0
+--- !u!114 &424299944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2998952740540899445, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &436688175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 865594914789260566, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &436688183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436688175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 0
+  displayName: The Sun
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 799202326}
+--- !u!1 &634606099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7826814774570990103, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &634606100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634606099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1418160228}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!1 &757025418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6700526330587072066, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &757025419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757025418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 424299944}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!1 &760858125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8950983752393724336, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &760858134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760858125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 8
+  displayName: Neptune
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 267043085}
+--- !u!114 &799202326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8956237972839425590, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &804626977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7247834706064904141, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &804626986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804626977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 9
+  displayName: Pluto
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 1113032726}
+--- !u!1 &846047960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5047195975893707019, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &846047961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846047960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1282255793}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!1 &860898040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4883860314365447878, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &860898045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860898040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921580124}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!1 &880733826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4268820760761503785, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &880733835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880733826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 4
+  displayName: Mars
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 1725709898}
+--- !u!1 &989428490 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4345649062727628471, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &989428500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989428490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 6
+  displayName: Saturn
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 1848103713}
+--- !u!1 &1034738810 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3789439821206067932, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1034738817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034738810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 5
+  displayName: Jupiter
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 1418160228}
+--- !u!1 &1072496747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4710091949699842843, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1072496748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072496747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 267043085}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!1 &1080125938 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4569473215842114326, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1080125939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080125938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1085124840}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1085124840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4268015018308195505, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1113032726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8817745177940588206, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1148028143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3173355911652822036, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1148028152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148028143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 3
+  displayName: Earth
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 1921580124}
 --- !u!1 &1224129310
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +811,242 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0005
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1282255793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3595639752869091861, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1321614354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1303188568449205933, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1321614355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321614354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1848103713}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!1 &1350340451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7909607424858915855, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1350340458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350340451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 7
+  displayName: Uranus
+  initialPosition: {x: 0, y: 0, z: -0.0185}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 35
+  forceSolver: {fileID: 1282255793}
+--- !u!1 &1365410130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1703101152723047207, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1365410131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365410130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1113032726}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1418160228 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1027553006817098346, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1508087523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1330715396538915677, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1508087524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508087523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 799202326}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1725709898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 215092518612701852, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1761679747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5929143181446705802, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1761679748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761679747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b75b7bed7e7ae41b82a55b439361ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotId: 1
+  displayName: Mercury
+  initialPosition: {x: 0, y: 0, z: -0.04}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialFov: 16
+  forceSolver: {fileID: 424299944}
+--- !u!114 &1848103713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7961211191220853439, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1909312115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4268015018592787324, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1909312116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909312115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bccfebdf6047ac89b4f6d1f87b6edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routingTarget: {fileID: 0}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1725709898}
+        m_MethodName: OnPointerDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1921580121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -364,6 +1063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 865594914789260566, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4268015018981783677, guid: 52454e3384953574ab147196dfd5fe66,
         type: 3}
@@ -420,6 +1124,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3364187942598769595, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268878702479932173, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269095642120896772, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269411119992654721, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269254481396740228, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269140932541890485, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269151264098449378, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268621864457332345, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267364368879619925, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267325298496358827, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268862714173628827, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512607069626816860, guid: 52454e3384953574ab147196dfd5fe66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52454e3384953574ab147196dfd5fe66, type: 3}
 --- !u!4 &1921580122 stripped
@@ -428,6 +1192,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1921580121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1921580124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 922883753279815618, guid: 52454e3384953574ab147196dfd5fe66,
+    type: 3}
+  m_PrefabInstance: {fileID: 1921580121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb93c995877f884cafbe3fcc468e735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2031269355
 GameObject:
   m_ObjectHideFlags: 0

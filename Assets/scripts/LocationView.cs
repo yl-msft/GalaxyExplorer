@@ -19,6 +19,10 @@ namespace GalaxyExplorer
         [SerializeField]
         private VOManager.QueuedAudioClip VoiceOver = null;
 
+        [SerializeField]
+        private bool ShouldStopPreviousClip = true;
+        
+
         private bool playMusic = true;
         private float delayTimer = 0.0f;
 
@@ -31,7 +35,7 @@ namespace GalaxyExplorer
  
             if (GalaxyExplorerManager.Instance.VoManager && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
             {
-                GalaxyExplorerManager.Instance.VoManager.Stop(true);
+                if(ShouldStopPreviousClip)GalaxyExplorerManager.Instance.VoManager.Stop(true);
                 GalaxyExplorerManager.Instance.VoManager.PlayClip(VoiceOver);
             }
 

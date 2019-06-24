@@ -23,7 +23,7 @@ namespace GalaxyExplorer
             fadingOut = true;
 
             float deltaTimeAccumulator = 0.0f;
-            while (deltaTimeAccumulator < seconds)
+            while (deltaTimeAccumulator < seconds && audioSource != null)
             {
                 deltaTimeAccumulator += Time.deltaTime;
                 audioSource.volume = 1.0f - (deltaTimeAccumulator / seconds);
@@ -31,7 +31,10 @@ namespace GalaxyExplorer
                 yield return null;
             }
 
-            audioSource.Stop();
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+            }
             fadingOut = false;
         }
     }

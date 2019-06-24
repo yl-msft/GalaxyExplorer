@@ -13,6 +13,7 @@ namespace GalaxyExplorer
         private bool isPlaced;
         private Camera _cameraMain;
         private PlacementConfirmationButton _confirmationButton;
+        private ForceSolver _forceSolver;
         
         [SerializeField]
         private float DesktopDuration = 2.0f;
@@ -28,6 +29,7 @@ namespace GalaxyExplorer
         private void Awake()
         {
             _confirmationButton = GetComponentInChildren<PlacementConfirmationButton>();
+            _forceSolver = GetComponent<ForceSolver>();
         }
 
         private void Start()
@@ -41,6 +43,7 @@ namespace GalaxyExplorer
             {
                 StartCoroutine(ReleaseContent(DesktopDuration));
                 isPlaced = true;
+                StartCoroutine(StartOnboarding(true));
                 return;
             }
 
@@ -51,16 +54,29 @@ namespace GalaxyExplorer
                 _cameraMain.transform.position + _cameraMain.transform.forward * 2f + offset;
             
             PlacementConfirmationButton.OnClick.AddListener(ConfirmPlacement);
+
+            StartCoroutine(StartOnboarding());
+        }
+
+        private IEnumerator StartOnboarding(bool skipPlacement = false)
+        {
+            while (!GalaxyExplorerManager.IsInitialized)
+            {
+                yield return null;
+            }
+            GalaxyExplorerManager.Instance.OnboardingManager.StartIntro(_forceSolver, skipPlacement);
         }
 
         private IEnumerator ReleaseContent(float waitingTime)
         {
+            IntroEarthPlacementAnimator.SetTrigger("Place");
+            
             // Wait for 1 sec so previous transition finishes
             yield return new WaitForSeconds(waitingTime);
 
-            IntroEarthPlacementAnimator.SetTrigger("Place");
 
             OnContentPlaced?.Invoke(transform.position);
+            GalaxyExplorerManager.Instance.OnboardingManager.OnPlacementConfirmed();
 
             yield return null;
         }

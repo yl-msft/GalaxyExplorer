@@ -226,8 +226,8 @@ MonoBehaviour:
   instancingMaterial: {fileID: 2100000, guid: 797d2be5ad27f314b91634212f97c54f, type: 2}
   meshScale: 15
   ringCount: 20
-  startRadius: 1.15
-  endRadius: 1
+  startRadius: 0.75
+  endRadius: 0.85
   stepCount: 20
   minScale: {x: 0.01, y: 0.01, z: 0.01}
   maxScale: {x: 0.1, y: 0.1, z: 0.1}
@@ -294,8 +294,8 @@ MonoBehaviour:
   instancingMaterial: {fileID: 2100000, guid: 797d2be5ad27f314b91634212f97c54f, type: 2}
   meshScale: 15
   ringCount: 20
-  startRadius: 1.15
-  endRadius: 1
+  startRadius: 0.75
+  endRadius: 0.85
   stepCount: 20
   minScale: {x: 0.01, y: 0.01, z: 0.01}
   maxScale: {x: 0.1, y: 0.1, z: 0.1}
@@ -350,7 +350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2928fa87686f25c4582a7473315012a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanBeNested: 1
   materials:
   - {fileID: 2100000, guid: 3202408ad95b0b143861b25e587a0022, type: 2}
   - {fileID: 2100000, guid: 8839b39b9dc77c944bbd0a217412bd88, type: 2}
@@ -400,7 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35c4c9b66d48444e8cba2885b6780f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanBeNested: 1
   materials:
   - {fileID: 2100000, guid: 797d2be5ad27f314b91634212f97c54f, type: 2}
   - {fileID: 2100000, guid: d4eee6434cf507842b4b80ffc7943afa, type: 2}
@@ -834,11 +832,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114008513137528052, guid: 225b2bfd78fd7e041af8cd1fc3016f3d,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 114960404777215108, guid: 225b2bfd78fd7e041af8cd1fc3016f3d,
         type: 3}
       propertyPath: m_Enabled
@@ -964,11 +957,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114326851732918808, guid: f2b8bee34b0faf8448abea9c5832018b,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4740635014006310, guid: f2b8bee34b0faf8448abea9c5832018b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1265,11 +1253,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114762754488116382, guid: 72b2b14c122d5f9449ca23154f43e1a9,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 2.9
-      objectReference: {fileID: 0}
     - target: {fileID: 114578205353091406, guid: 72b2b14c122d5f9449ca23154f43e1a9,
         type: 3}
       propertyPath: m_Enabled
@@ -1386,11 +1369,6 @@ PrefabInstance:
     - target: {fileID: 4804863230426058, guid: e34c77ad5a997fc47b26bbafcd17f274, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114348302311596674, guid: e34c77ad5a997fc47b26bbafcd17f274,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 114094785771425832, guid: e34c77ad5a997fc47b26bbafcd17f274,
         type: 3}
@@ -1534,11 +1512,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114387639076388778, guid: 5961d5d78d5a2a44ba5086802a2d2778,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 2.15
-      objectReference: {fileID: 0}
     - target: {fileID: 6143172048118177612, guid: 5961d5d78d5a2a44ba5086802a2d2778,
         type: 3}
       propertyPath: SetToRoot.m_PersistentCalls.m_Calls.Array.size
@@ -1584,11 +1557,6 @@ PrefabInstance:
         type: 3}
       propertyPath: MinSizeRatio
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1574081876791419456, guid: 5961d5d78d5a2a44ba5086802a2d2778,
-        type: 3}
-      propertyPath: CanBeNested
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5961d5d78d5a2a44ba5086802a2d2778, type: 3}
@@ -1676,11 +1644,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114741636062914950, guid: ad83fcd88d1c833449e130e6e8fb0197,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3853272619218396461, guid: ad83fcd88d1c833449e130e6e8fb0197,
         type: 3}
       propertyPath: SetToRoot.m_PersistentCalls.m_Calls.Array.size
@@ -1727,11 +1690,6 @@ PrefabInstance:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 7842916283653337669, guid: ad83fcd88d1c833449e130e6e8fb0197,
-        type: 3}
-      propertyPath: CanBeNested
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad83fcd88d1c833449e130e6e8fb0197, type: 3}
 --- !u!1 &4268590756517270411 stripped
@@ -1768,6 +1726,11 @@ PrefabInstance:
     - target: {fileID: 1016721853542446, guid: 5f83d016fa60cbb4eb99ba7794345276, type: 3}
       propertyPath: m_Name
       value: poi_mars_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168159995354372201, guid: 5f83d016fa60cbb4eb99ba7794345276,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4154012133524900, guid: 5f83d016fa60cbb4eb99ba7794345276, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1825,16 +1788,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2168159995354372201, guid: 5f83d016fa60cbb4eb99ba7794345276,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114907465580918774, guid: 5f83d016fa60cbb4eb99ba7794345276,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 0.9
-      objectReference: {fileID: 0}
     - target: {fileID: 4163332159228259097, guid: 5f83d016fa60cbb4eb99ba7794345276,
         type: 3}
       propertyPath: SetToRoot.m_PersistentCalls.m_Calls.Array.size
@@ -1885,16 +1838,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 4419661371298938201, guid: 5f83d016fa60cbb4eb99ba7794345276,
-        type: 3}
-      propertyPath: m_Name
-      value: phobos_orbit_offsetter
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756150004186754132, guid: 5f83d016fa60cbb4eb99ba7794345276,
-        type: 3}
-      propertyPath: m_Name
-      value: phobos_scale_controller
-      objectReference: {fileID: 0}
     - target: {fileID: 6243603089785333350, guid: 5f83d016fa60cbb4eb99ba7794345276,
         type: 3}
       propertyPath: m_Name
@@ -1905,13 +1848,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: deimos_scale_controller
       objectReference: {fileID: 0}
-    - target: {fileID: 2823337798036120500, guid: 5f83d016fa60cbb4eb99ba7794345276,
-        type: 3}
-      propertyPath: CanBeNested
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2141316391561809359, guid: 5f83d016fa60cbb4eb99ba7794345276, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f83d016fa60cbb4eb99ba7794345276, type: 3}
 --- !u!4 &4266539451798207521 stripped
 Transform:
@@ -1932,11 +1869,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3252652893472870116}
     m_Modifications:
-    - target: {fileID: 8011259067488206121, guid: bc5f2d93842f5584999ba3a17d859f1c,
-        type: 3}
-      propertyPath: CanBeNested
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1156133316895304, guid: bc5f2d93842f5584999ba3a17d859f1c, type: 3}
       propertyPath: m_Name
       value: poi_earth_prefab
@@ -1985,11 +1917,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114518546601240974, guid: bc5f2d93842f5584999ba3a17d859f1c,
-        type: 3}
-      propertyPath: SemiMajorAxis
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 114717276223179808, guid: bc5f2d93842f5584999ba3a17d859f1c,
         type: 3}
       propertyPath: m_Enabled
@@ -2026,8 +1953,7 @@ PrefabInstance:
       propertyPath: MinSizeRatio
       value: 0.8
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8536862556884187510, guid: bc5f2d93842f5584999ba3a17d859f1c, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc5f2d93842f5584999ba3a17d859f1c, type: 3}
 --- !u!1 &4268738035033469462 stripped
 GameObject:

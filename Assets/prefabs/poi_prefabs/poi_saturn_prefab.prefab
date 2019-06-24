@@ -394,7 +394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanBeNested: 1
 --- !u!114 &114387639076388778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a580c750e5b714daa419b43dfdd205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SemiMajorAxis: 2.4
+  SemiMajorAxis: 1.2
   SemiMajorAxisReal: 1.433365e+9
   Eccentricity: 0
   EccentricityReal: 0.05559913
@@ -1693,7 +1692,7 @@ Transform:
   m_GameObject: {fileID: 5383596882495075544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 39.7546, y: 39.7546, z: 39.7546}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 9055545923799073885}
   - {fileID: 4988878953797042359}
@@ -1707,7 +1706,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5383596882495075544}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19a9f3d1552dd1349a5aecd4cb52b4d5, type: 3}
   m_Name: 
@@ -1792,13 +1791,15 @@ MonoBehaviour:
   lifetime: 0
   SolverHandler: {fileID: 5267884180980498309}
   EnableForce: 1
+  AttractionDwellDuration: 2
+  TractionBeamPrefab: {fileID: 5144064591906706543, guid: 2e1f20209bc892e47a09b25c845e46cd,
+    type: 3}
+  AttractionDwellForgiveness: 0.5
   RootTransform: {fileID: 4901845216865052}
   ControllerTracker: {fileID: 0}
   OffsetToObjectBoundsFromController: 1
-  OffsetFromCameraOnNoControllerPosition: {x: 0, y: 0, z: 0}
   ManipulationHandler: {fileID: 7207915013350356471}
   AttractionCollider: {fileID: 1393191340134076638}
-  OffsetOnPullToCamera: 1
   SetToRoot:
     m_PersistentCalls:
       m_Calls:
@@ -1813,6 +1814,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  SetToDwell:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  DwellCanceled:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityForceSolverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   SetToAttract:
@@ -1879,7 +1890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225eddf64468e974792f73d1754e6538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanBeNested: 1
 --- !u!1 &5731119995050026247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,17 +2403,17 @@ PrefabInstance:
     - target: {fileID: 311045954745802743, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 311045954745802743, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 311045954745802743, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 311045954745802742, guid: 1feb7da4c9edf9441ae1c3b2433ebc93,
         type: 3}

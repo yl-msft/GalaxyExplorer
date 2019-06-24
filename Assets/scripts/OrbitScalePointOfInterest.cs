@@ -20,13 +20,8 @@ namespace GalaxyExplorer
         public AudioClip VO = null;
         public AudioSource FxAudioSource;
 
-        public GameObject AlternateDescription;
-
         public Texture RealIcon;
         public Texture SimplifiedIcon;
-
-        public float SimpleViewMaxScale = 13.5f;
-        public float RealisticViewMaxScale = 2350.0f;
 
         private bool IsReal = false;
         private bool IsAnimating = false;
@@ -113,16 +108,6 @@ namespace GalaxyExplorer
                 else if (IsReal && GalaxyExplorerManager.Instance.VoManager)
                 {
                     GalaxyExplorerManager.Instance.VoManager.Stop(true);
-                }
-
-                if (AlternateDescription != null)
-                {
-                    GameObject tempDescription = CardDescription;
-                    CardDescription = AlternateDescription;
-                    AlternateDescription = tempDescription;
-
-                    CardDescription.SetActive(false);
-                    AlternateDescription.SetActive(false);
                 }
             }
         }

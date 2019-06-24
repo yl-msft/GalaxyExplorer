@@ -96,6 +96,8 @@ namespace GalaxyExplorer
 
         public bool isShadow;
 
+        public bool IsSpinning { get; set; } = true;
+
         [ContextMenu("Bake Stars")]
         public void BakeStarsDesign()
         {
@@ -203,10 +205,10 @@ namespace GalaxyExplorer
 
         private void Update()
         {
-            age += Time.deltaTime;
 
-            if (generatedDrawer)
+            if (generatedDrawer && IsSpinning)
             {
+                age += Time.deltaTime;
                 baseMaterial.SetFloat("_Age", age * velocityMultiplier);
 
                 generatedDrawer.Age = age * velocityMultiplier;

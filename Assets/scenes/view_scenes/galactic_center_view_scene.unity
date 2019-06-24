@@ -455,9 +455,10 @@ MonoBehaviour:
   MusicEvent: 03_SolarSystem
   MusicDelayInSeconds: 1
   VoiceOver:
-    clip: {fileID: 8300000, guid: 6c848faeff9b5024b8d05ac55a50b785, type: 3}
+    clip: {fileID: 8300000, guid: 0a60723b9a06c6247b0df409c4b86e7d, type: 3}
     delay: 1
     allowReplay: 0
+    blockProgress: 1
 --- !u!1 &639238862
 GameObject:
   m_ObjectHideFlags: 0
