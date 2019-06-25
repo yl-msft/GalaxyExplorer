@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7684455958403795464}
   m_LocalRotation: {x: -0.2115927, y: 0.12960312, z: -0.82111007, w: 0.51401347}
-  m_LocalPosition: {x: 0.0035, y: -0.0019, z: -0.0009}
+  m_LocalPosition: {x: 0.000022, y: -0.000012, z: -0.000012}
   m_LocalScale: {x: 0.7, y: 1, z: 1}
   m_Children:
   - {fileID: 7684455958403962416}
@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 7684455958406829584}
   - component: {fileID: 7684455958405731536}
   - component: {fileID: 426447597}
+  - component: {fileID: 2284262069840749612}
   m_Layer: 0
   m_Name: inner_colour_plate
   m_TagString: Untagged
@@ -357,6 +358,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
   SetMaterials: 1
+--- !u!114 &2284262069840749612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684455958403795474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9015f6d9c70c0e04bac886bc919a5032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!1 &7684455958403795476
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +384,7 @@ GameObject:
   - component: {fileID: 7684455958406829586}
   - component: {fileID: 7684455958405731538}
   - component: {fileID: 938625507}
+  - component: {fileID: 8412135672363798328}
   m_Layer: 0
   m_Name: inner_spot
   m_TagString: Untagged
@@ -449,6 +465,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
   SetMaterials: 0
+--- !u!114 &8412135672363798328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684455958403795476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9015f6d9c70c0e04bac886bc919a5032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sun: {fileID: 0}
+  SetMaterials: 0
 --- !u!1 &7684455958403795478
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +492,7 @@ GameObject:
   - component: {fileID: 7684455958405731540}
   - component: {fileID: 7684455958396516824}
   - component: {fileID: 1353666795}
+  - component: {fileID: 2499893709111773317}
   m_Layer: 0
   m_Name: jupiter_planet_cloud_prefab
   m_TagString: Untagged
@@ -563,6 +594,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
   SetMaterials: 1
+--- !u!114 &2499893709111773317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684455958403795478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9015f6d9c70c0e04bac886bc919a5032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sun: {fileID: 0}
+  SetMaterials: 1
 --- !u!1 &7684455958403795480
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +635,7 @@ Transform:
   m_GameObject: {fileID: 7684455958403795480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.005, y: 1.005, z: 1.005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7684455958403962430}
   m_RootOrder: 0
@@ -667,7 +712,7 @@ Transform:
   m_GameObject: {fileID: 7684455958403795482}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.005, y: 1.005, z: 1.005}
   m_Children: []
   m_Father: {fileID: 7684455958403962430}
   m_RootOrder: 1
@@ -729,6 +774,7 @@ GameObject:
   - component: {fileID: 7684455958406829596}
   - component: {fileID: 7684455958405731548}
   - component: {fileID: 1843756632}
+  - component: {fileID: 6871003752370496295}
   m_Layer: 0
   m_Name: cloud_banner_03
   m_TagString: Untagged
@@ -796,6 +842,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!114 &1843756632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7684455958403795484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9015f6d9c70c0e04bac886bc919a5032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sun: {fileID: 0}
+  SetMaterials: 1
+--- !u!114 &6871003752370496295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

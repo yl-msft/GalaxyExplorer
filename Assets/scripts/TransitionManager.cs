@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -434,6 +436,7 @@ namespace GalaxyExplorer
 
             // make alpha of pois of next scene equal to zero so they arent visible
             GalaxyExplorerManager.Instance.GeFadeManager.SetAlphaOnFader(newTransition.GetComponentInChildren<POIMaterialsFader>(), 0.0f);
+            var faderToExclude = default(Fader);
 
             // if going back to solar system from a planet then fade in solar system
             // Dont fade the material of the selected/related planet in the next scene or any poi
@@ -451,11 +454,19 @@ namespace GalaxyExplorer
             }
             else if ((previousTransition && !previousTransition.IsSinglePlanetTransition && newTransition && !newTransition.IsSinglePlanetTransition))
             {
+                if (newTransition.gameObject.name.Contains("SolarSystem"))
+                {
+                    var sun = GameObject.Find("poi_sun_prefab");
+                    var sunFader = sun.GetComponentInChildren<Fader>(true);
+                    faderToExclude = sunFader;
+                }
                 Fader[] allFaders = newTransition.GetComponentsInChildren<Fader>();
                 GalaxyExplorerManager.Instance.GeFadeManager.SetAlphaOnFaderExcept(allFaders, typeof(POIMaterialsFader), 0.0f);
+                allFaders = allFaders.Where(f => f != faderToExclude).ToArray();
 
                 isFading = true;
                 GalaxyExplorerManager.Instance.GeFadeManager.FadeExcept(allFaders, typeof(POIMaterialsFader), null, GEFadeManager.FadeType.FadeIn, TransitionTimeOpeningScene, OpacityCurveEnteringScene);
+                GalaxyExplorerManager.Instance.GeFadeManager.Fade(faderToExclude, GEFadeManager.FadeType.FadeIn, 1, POIOpacityCurveStartTransition, 3f);
             }
 
             if (newTransition.gameObject.scene.name.Contains("galaxy_view_scene"))

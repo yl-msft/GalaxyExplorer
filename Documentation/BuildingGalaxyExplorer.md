@@ -4,41 +4,46 @@
 
 ## Running in Unity
 
-Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to /Scenes and double-click MainScene to setup the editor properly. After that, hitting Play will start the experience.
+Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to the *Assets/scenes* folder and double-click main_scene to set up the editor properly. After that, you can hit the play button to succesfully start the experience.
 
 ## Building Galaxy Explorer
 
-From Unity, choose File -> Build Settings to bring up the Build Settings window. All of the scenes in the scenes to Build section should be checked. Choose Universal Windows Platform as the Platform. On the right side, choose
-"any device" as the Target device, XAML as the UWP Build Type, 10.0.16299.0
-as the SDK, check "Unity C# Projects" and then click Build. Select the folder
-called 'UWP' and choose this folder.
+In the Unity editor, choose *File > Build Settings* to bring up the build settings window. All of the scenes in the *Scenes In Build* section should be checked.
 
-After the build completes successfully, an explorer window will pop up.
-Navigate into the UWP folder and double-click `Galaxy Explorer.sln` to launch
-Visual Studio. From Visual Studio, set the Configuration to **Release**
-for faster builds (doesn't use . NET Native) or **Master** to build the
-type of package the Store needs (uses . NET Native).
+Choose *Universal Windows Platform* as the platform. On the right side, choose *Any device* as the target device, *XAML* as the build type, and *10.0.18361.0* as the target SDK version.
+
+You can now build the project.
+
+After the build completes successfully, an explorer window will pop up. Navigate into the build folder you created and double-click the generated *GalaxyExplorer.sln* file in its root to launch the solution in Visual Studio.
+
+In Visual Studio, set the configuration to *Release* for faster builds (doesn't use .NET Native) or *Master* to build the type of package the Microsoft Store needs (uses .NET Native).
 
 ### Building for HoloLens (1st gen)
 
-Make sure to change ARM or x64 to **x86**.
-Now you can deploy to the Emulator, a Remote Device, or create a Store
-package to deploy at a later time.
+In *File > Build Settings*:
+
+Architecture should be set to **x86**.
 
 ### Building for HoloLens 2
 
-Make sure to change ARM or x64 to **x86**.
-Now you can deploy to the Emulator, a Remote Device, or create a Store
-package to deploy at a later time.
+In *File > Build Settings*:
+
+Architecture should be set to **ARM**.
 
 ### Building for Windows Mixed Reality headsets
 
-Make sure to change x64 or x86 to **ARM**.
-Now you can deploy to the Emulator, a Remote Device, or create a Store
-package to deploy at a later time.
+In *File > Build Settings*:
+
+Architecture should be set to **x64**.
 
 ### Building for Windows Desktop
 
-Make sure to change ARM to **x64** or **x86**.
-Now you can deploy to the Emulator, a Remote Device, or create a Store
-package to deploy at a later time.
+In *File > Build Settings*:
+
+Architecture should be set to **x64** or **x86**.
+
+It's now possible to deploy to the emulator, a remote device, or create a Microsoft Store package to deploy at a later time.
+
+# See also
+
+- [Unity Manual: Universal Windows Platform](https://docs.unity3d.com/Manual/windowsstore-il2cpp.html)

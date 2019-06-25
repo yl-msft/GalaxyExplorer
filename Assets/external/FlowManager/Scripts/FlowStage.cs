@@ -14,8 +14,10 @@ namespace MRS.FlowManager
     {
         public string Name;
         public float Delay = 0f;
+
         [SerializeField]
         public UnityEvent Event;
+
         public bool Triggered = false;
 
         public DelayedEvent()
@@ -31,7 +33,7 @@ namespace MRS.FlowManager
     }
 
     /// <summary>
-    /// A Flowstage defines a discrete phase of the app flow. Primary properties are a pair of event sets for triggering
+    /// A Flowstage defines a discrete phase of the app flow. Primary properties are a pair of events set for triggering
     ///  a) upon entry and during a stage, and
     ///  b) upon transition to the next stage.
     /// </summary>

@@ -4384,6 +4384,26 @@ PrefabInstance:
       propertyPath: m_stages.Array.data[1].ExitEvents.Array.data[1].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 8300000, guid: f16afffd10c2f344c87a8cddf289d2b8, type: 3}
+    - target: {fileID: 1654419119888927664, guid: 91f6edccdc2755148bf70aa264a7700a,
+        type: 3}
+      propertyPath: m_stages.Array.data[1].ExitEvents.Array.data[0].Delay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654419119888927664, guid: 91f6edccdc2755148bf70aa264a7700a,
+        type: 3}
+      propertyPath: m_stages.Array.data[1].Events.Array.data[0].Delay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654419119888927664, guid: 91f6edccdc2755148bf70aa264a7700a,
+        type: 3}
+      propertyPath: m_stages.Array.data[3].Events.Array.data[0].Delay
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654419119888927664, guid: 91f6edccdc2755148bf70aa264a7700a,
+        type: 3}
+      propertyPath: m_stages.Array.data[4].Events.Array.data[0].Delay
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f6edccdc2755148bf70aa264a7700a, type: 3}
 --- !u!82 &1654419121503805595 stripped

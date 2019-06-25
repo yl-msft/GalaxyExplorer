@@ -1,3 +1,3 @@
 # Galactic center
 
-![Galactic center](Images/galactic_center.png)
+![Galactic center](Images/ge_vis_galactic_center.png)

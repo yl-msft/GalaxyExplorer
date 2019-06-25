@@ -54,9 +54,10 @@ namespace GalaxyExplorer
             }
         }
 
-        public void Fade(Fader fader, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)
+        public void Fade(Fader fader, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve,
+            float fadeTimeOffset = 0)
         {
-            StartCoroutine(FadeContent(fader, type, fadeDuration, opacityCurve));
+            StartCoroutine(FadeContent(fader, type, fadeDuration, opacityCurve, fadeTimeOffset));
         }
 
         public void Fade(Fader[] allFaders, GEFadeManager.FadeType type, float fadeDuration, AnimationCurve opacityCurve)

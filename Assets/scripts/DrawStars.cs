@@ -1,7 +1,6 @@
 ﻿// Copyright Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-//using HoloToolkit.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,14 +15,13 @@ namespace GalaxyExplorer
         private float originalTransitionAlpha;
 
         private RenderTargetIdentifier _downRezId, _medRezId, _highRezId;
-        
+
         private Camera _mainCamera;
         private readonly Dictionary<Camera, CommandBuffer> _cameraToCommandBuffer = new Dictionary<Camera, CommandBuffer>();
-        
+
         private ComputeBuffer starsData;
         private bool isFirst;
-        
-        
+
         [SerializeField]
         private CameraEvent cameraEvent = CameraEvent.BeforeForwardOpaque;
 
@@ -38,7 +36,7 @@ namespace GalaxyExplorer
 
         public bool renderIntoDownscaledTarget;
         public MeshRenderer referenceQuad;
-        
+
         private static readonly int Stars = Shader.PropertyToID("_Stars");
         private static readonly int LocalCamDir = Shader.PropertyToID("_LocalCamDir");
         private static readonly int WsScale = Shader.PropertyToID("_WSScale");
@@ -63,7 +61,7 @@ namespace GalaxyExplorer
             {
                 originalTransitionAlpha = referenceQuad.sharedMaterial.GetFloat(TransitionAlpha);
             }
-            
+
             starsMaterial.SetBuffer(Stars, starsData);
         }
 
@@ -77,7 +75,7 @@ namespace GalaxyExplorer
             _downRezId = new RenderTargetIdentifier(RenderTexturesBucket.Instance.downRez);
             _medRezId = new RenderTargetIdentifier(RenderTexturesBucket.Instance.downRezMed);
             _highRezId = new RenderTargetIdentifier(RenderTexturesBucket.Instance.downRezHigh);
-            
+
             starsData = new ComputeBuffer(stars.Length, StarVertDescriptor.StructSize);
             starsData.SetData(stars);
             starCount = stars.Length;
@@ -119,7 +117,7 @@ namespace GalaxyExplorer
         private void UpdateCamera(bool isSceneView = false)
         {
             var cam = Camera.current;
-            if(cam == null) return;
+            if (cam == null) return;
             if (!_cameraToCommandBuffer.TryGetValue(cam, out var cb))
             {
                 cb = new CommandBuffer();
@@ -138,10 +136,10 @@ namespace GalaxyExplorer
             if (renderIntoDownscaledTarget)
             {
                 commandBuffer.SetRenderTarget(_downRezId);
-                
+
                 if (isFirst)
                 {
-                        commandBuffer.ClearRenderTarget(true, true, Color.clear);
+                    commandBuffer.ClearRenderTarget(true, true, Color.clear);
                 }
             }
 
@@ -171,7 +169,6 @@ namespace GalaxyExplorer
 
             if (renderIntoDownscaledTarget)
             {
-
                 if (referenceQuad)
                 {
                     referenceQuad.sharedMaterial.SetFloat(TransitionAlpha, galaxy.TransitionAlpha);
