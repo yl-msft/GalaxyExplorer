@@ -45,7 +45,10 @@ namespace GalaxyExplorer
             }
             else
             {
-                transform.rotation = Quaternion.LookRotation(forwardDirection.normalized) * Quaternion.Euler(rotationOffset);
+                if (forwardDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(forwardDirection.normalized) * Quaternion.Euler(rotationOffset);
+                }
             }
         }
     }
