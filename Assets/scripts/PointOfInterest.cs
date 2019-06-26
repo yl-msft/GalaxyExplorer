@@ -49,6 +49,8 @@ namespace GalaxyExplorer
 
         protected IAudioService audioService;
         
+        protected bool isCoolingDown;
+        
 
         protected enum POIState
         {
@@ -122,6 +124,7 @@ namespace GalaxyExplorer
         protected virtual void OnDisable()
         {
             GalaxyExplorerManager.Instance?.CardPoiManager?.UnRegisterPOI(this);
+            isCoolingDown = false;
         }
 
         protected virtual void OnDestroy()
@@ -240,6 +243,11 @@ namespace GalaxyExplorer
 
         public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
         {
+            if (isCoolingDown)
+            {
+                return;
+            }
+            
             if (currentState == POIState.kOnFocusEnter)
             {
                 audioService.PlayClip(AudioId.CardSelect);
@@ -250,6 +258,14 @@ namespace GalaxyExplorer
             }
             currentState = POIState.kOnInputClicked;
             GalaxyExplorerManager.Instance.CardPoiManager.OnPointerDown(null);
+            isCoolingDown = true;
+            StartCoroutine(ButtonCoolDownRoutine(1));
+        }
+        
+        private IEnumerator ButtonCoolDownRoutine(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            isCoolingDown = false;
         }
 
         public virtual void OnPointerClicked(MixedRealityPointerEventData eventData)

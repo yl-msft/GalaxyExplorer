@@ -81,6 +81,10 @@ namespace GalaxyExplorer
 
         public override void OnPointerDown(MixedRealityPointerEventData eventData)
         {
+            if (isCoolingDown)
+            {
+                return;
+            }
             base.OnPointerDown(eventData);
             if (CardObject)
             {
