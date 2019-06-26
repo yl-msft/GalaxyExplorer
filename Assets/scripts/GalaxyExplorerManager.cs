@@ -355,6 +355,16 @@ namespace GalaxyExplorer
             }
         }
 
+        private void HideGazeCursor()
+        {
+            var meshRenderers = MixedRealityToolkit.InputSystem.GazeProvider.GazeCursor.GameObjectReference
+                .GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            foreach (var meshRenderer in meshRenderers)
+            {
+                meshRenderer.enabled = false;
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -368,12 +378,16 @@ namespace GalaxyExplorer
             if (isHoloLens2)
             {
                 Platform = PlatformId.ArticulatedHandsPlatform;
+
+                HideGazeCursor();
+
             }
             else if (XRDevice.isPresent)
             {
                 if (HolographicSettings.IsDisplayOpaque)
                 {
                     Platform = PlatformId.ImmersiveHMD;
+                    HideGazeCursor();
                 }
                 else
                 {
@@ -383,6 +397,7 @@ namespace GalaxyExplorer
             else
             {
                 Platform = PlatformId.Desktop;
+                MixedRealityToolkit.InputSystem.GazeProvider.Enabled = false;
             }
 
             if (MyAppPlatformManagerInitialized != null)

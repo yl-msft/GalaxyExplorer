@@ -651,7 +651,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: Microsoft Corporation
   metroCertificateIssuer: Microsoft Corporation
-  metroCertificateNotAfter: 00e92fafdd18d601
+  metroCertificateNotAfter: 80148060034bd601
   metroApplicationDescription: Galaxy Explorer
   wsaImages:
     65636: Assets/textures/app_icons/store_icons/GE_icon_store_blue_50x50.png
