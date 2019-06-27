@@ -38,7 +38,7 @@ namespace GalaxyExplorer
         private Vector3 _defaultBackButtonLocalPosition;
         private float _fullMenuVisibleBackButtonX;
 
-        public void SetMenuVisibility(bool show, bool resetIsActive, bool backIsActive)
+        public void SetMenuAvailability(bool show, bool resetIsActive, bool backIsActive)
         {
             if (show)
             {
@@ -132,7 +132,7 @@ namespace GalaxyExplorer
             _resetButton.SetActive(false);
             _backButton.SetActive(false);
 
-            SetMenuVisibility(false, false, false);
+            SetMenuAvailability(false, false, false);
             ToolsVisible = false;
 
             // Store the x value of the local position for the back button when all menu buttons are visible

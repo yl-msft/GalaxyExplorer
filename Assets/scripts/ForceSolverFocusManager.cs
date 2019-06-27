@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ForceSolverFocusManager : MonoBehaviour
 {
+    public bool IsManipulatingPlanet { get; private set; } = false;
+
     private ForceSolver[] _planetForceSolvers;
     private ForceSolver _currentlyActiveSolver;
 
@@ -29,12 +29,12 @@ public class ForceSolverFocusManager : MonoBehaviour
         {
             return;
         }
-        
+
         if (_currentlyActiveSolver != null)
         {
             _currentlyActiveSolver.ResetToRoot();
         }
-        
+
         _currentlyActiveSolver = solver;
         foreach (var planetForceSolver in _planetForceSolvers)
         {
@@ -57,6 +57,8 @@ public class ForceSolverFocusManager : MonoBehaviour
 
     public void OnSolverManipulate(ForceSolver solver)
     {
+        IsManipulatingPlanet = true;
+
         if (solver == _currentlyActiveSolver)
         {
             return;
@@ -66,6 +68,8 @@ public class ForceSolverFocusManager : MonoBehaviour
 
     public void OnSolverFree(ForceSolver solver)
     {
+        IsManipulatingPlanet = false;
+
         foreach (var planetForceSolver in _planetForceSolvers)
         {
             if (solver == planetForceSolver)
@@ -76,13 +80,12 @@ public class ForceSolverFocusManager : MonoBehaviour
         }
     }
 
-    public void ResetAllForseSolvers()
+    public void ResetAllForceSolvers()
     {
         foreach (var planetForceSolver in _planetForceSolvers)
         {
             planetForceSolver.ResetToRoot();
             planetForceSolver.EnableForce = true;
         }
-        
     }
 }

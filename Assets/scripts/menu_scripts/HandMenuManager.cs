@@ -19,24 +19,24 @@ public class HandMenuManager : MonoBehaviour
     [SerializeField]
     private AudioClip _menuDisappearAudioClip;
 
-    public bool IsAMenuVisible
+    public bool IsHandMenuAlreadyVisible
     {
         get { return _handMenuLeft.IsCurrentlyVisible || _handMenuRight.IsCurrentlyVisible; }
     }
 
-    public bool MenuIsInActiveState { get; private set; } = false;
+    public bool MenuIsIsAvailable { get; private set; } = false;
 
-    public void SetMenuVisibility(bool isInActiveState, bool resetIsActive, bool backIsActive)
+    public void SetMenuAvailability(bool setMenuAvailable, bool resetIsActive, bool backIsActive)
     {
-        MenuIsInActiveState = isInActiveState;
-
-        if (MenuIsInActiveState)
+        if (setMenuAvailable)
         {
+            MenuIsIsAvailable = true;
             _handMenuLeft.UpdateButtonsActive(resetIsActive, backIsActive);
             _handMenuRight.UpdateButtonsActive(resetIsActive, backIsActive);
         }
         else
         {
+            MenuIsIsAvailable = false;
             _handMenuLeft.UpdateMenuVisibility(false);
             _handMenuRight.UpdateMenuVisibility(false);
         }
