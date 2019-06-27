@@ -8,12 +8,12 @@ public class GlobalMenuManager : MonoBehaviour
     {
         get
         {
-            if (_pOIPlanetFocusManager == null)
+            if (_forceSolverFocusManager == null)
             {
-                _pOIPlanetFocusManager = FindObjectOfType<ForceSolverFocusManager>();
+                _forceSolverFocusManager = FindObjectOfType<ForceSolverFocusManager>();
             }
 
-            return _pOIPlanetFocusManager;
+            return _forceSolverFocusManager;
         }
     }
 
@@ -33,7 +33,7 @@ public class GlobalMenuManager : MonoBehaviour
     public bool ResetButtonNeedsShowing { get; private set; } = false;
     public bool BackButtonNeedsShowing { get; private set; } = false;
 
-    public bool MenuIsVisible { get; private set; } = false;
+    public bool MenuIsAvailable { get; private set; } = false;
 
     public delegate void AboutSlateOnDelegate(bool enable);
 
@@ -51,7 +51,7 @@ public class GlobalMenuManager : MonoBehaviour
     [SerializeField]
     private AboutSlate _aboutSlate;
 
-    private ForceSolverFocusManager _pOIPlanetFocusManager;
+    private ForceSolverFocusManager _forceSolverFocusManager;
     private PlanetPreviewController _planetPreviewController;
 
     private void Start()
@@ -100,7 +100,7 @@ public class GlobalMenuManager : MonoBehaviour
         // stage of intro flow to be correct when executing following code
         yield return new WaitForSeconds(1);
 
-        if (!MenuIsVisible && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
+        if (!MenuIsAvailable && !GalaxyExplorerManager.Instance.TransitionManager.IsInIntroFlow)
         {
             // If menu is not visible and intro flow has finished then make menu visible
             while (GalaxyExplorerManager.Instance.TransitionManager.InTransition)
@@ -127,21 +127,21 @@ public class GlobalMenuManager : MonoBehaviour
         }
 
         BackButtonNeedsShowing = GalaxyExplorerManager.Instance.ViewLoaderScript.IsTherePreviousScene();
-        MenuIsVisible = show;
+        MenuIsAvailable = show;
 
         switch (GalaxyExplorerManager.Platform)
         {
             case GalaxyExplorerManager.PlatformId.HoloLensGen1:
             case GalaxyExplorerManager.PlatformId.ImmersiveHMD:
-                _ggvMenuManager.SetMenuVisibility(MenuIsVisible, ResetButtonNeedsShowing, BackButtonNeedsShowing);
+                _ggvMenuManager.SetMenuAvailability(MenuIsAvailable, ResetButtonNeedsShowing, BackButtonNeedsShowing);
                 break;
 
             case GalaxyExplorerManager.PlatformId.ArticulatedHandsPlatform:
-                _handMenuManager.SetMenuVisibility(MenuIsVisible, ResetButtonNeedsShowing, BackButtonNeedsShowing);
+                _handMenuManager.SetMenuAvailability(MenuIsAvailable, ResetButtonNeedsShowing, BackButtonNeedsShowing);
                 break;
 
             case GalaxyExplorerManager.PlatformId.Desktop:
-                _desktopButtonsManager.SetMenuVisibility(MenuIsVisible, ResetButtonNeedsShowing, BackButtonNeedsShowing);
+                _desktopButtonsManager.SetMenuAvailability(MenuIsAvailable, ResetButtonNeedsShowing, BackButtonNeedsShowing);
                 break;
 
             default:
@@ -159,7 +159,7 @@ public class GlobalMenuManager : MonoBehaviour
     {
         if (ForceSolverFocusManager)
         {
-            _pOIPlanetFocusManager.ResetAllForseSolvers();
+            _forceSolverFocusManager.ResetAllForceSolvers();
         }
 
         if (PlanetPreviewController)

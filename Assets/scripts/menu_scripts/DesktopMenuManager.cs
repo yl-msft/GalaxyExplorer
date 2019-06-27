@@ -22,7 +22,7 @@ public class DesktopMenuManager : MonoBehaviour
 
     private void Start()
     {
-        SetMenuVisibility(false, false, false);
+        SetMenuAvailability(false, false, false);
 
         // Store the x value of the local position for the back button when all menu buttons are visible
         _fullMenuVisibilityBackButtonPos = _backButton.transform.localPosition;
@@ -40,18 +40,16 @@ public class DesktopMenuManager : MonoBehaviour
         _cameraTransform = Camera.main.transform;
     }
 
-    public void SetMenuVisibility(bool isVisible, bool resetIsActive, bool backIsActive)
+    public void SetMenuAvailability(bool isAvailable, bool resetIsActive, bool backIsActive)
     {
-        //if (IsVisible == isVisible) { return; }
-
-        if (isVisible)
+        if (isAvailable)
         {
             UpdateButtonsActive(resetIsActive, backIsActive);
         }
 
-        _menuParent.SetActive(isVisible);
+        _menuParent.SetActive(isAvailable);
 
-        IsVisible = isVisible;
+        IsVisible = isAvailable;
     }
 
     private void UpdateButtonsActive(bool resetIsActive, bool backIsActive)
