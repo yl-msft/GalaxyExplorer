@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GalaxyExplorer;
 using UnityEngine;
@@ -11,12 +12,18 @@ public class SceneGameObjectEnabler : MonoBehaviour
     [SerializeField] private float delay;
     [SerializeField] private GameObject targetObject;
     [SerializeField] private int executeOnLoadNumber;
+    
+    private string sceneName;
+
+    private void Awake()
+    {
+        sceneName = gameObject.scene.name;
+    }
 
     private IEnumerator Start()
     {
         yield return IsInTransitionRoutine();
         yield return new WaitForSeconds(delay);
-        var sceneName = gameObject.scene.name;
         if (seenScenes.ContainsKey(sceneName))
         {
             seenScenes[sceneName]++;

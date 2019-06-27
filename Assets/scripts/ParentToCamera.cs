@@ -7,7 +7,7 @@ public class ParentToCamera : MonoBehaviour
 {
     [SerializeField] private Vector3 offsetPosition;
 
-    private void Awake()
+    private void Start()
     {
         var camera = Camera.main;
         if (camera != null)
