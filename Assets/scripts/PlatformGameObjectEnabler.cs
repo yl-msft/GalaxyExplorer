@@ -9,7 +9,7 @@ public class PlatformGameObjectEnabler : MonoBehaviour
    [SerializeField] private bool shouldEnable;
    [SerializeField] private List<GalaxyExplorerManager.PlatformId> targetPlatforms;
 
-   private void Start()
+   private void Awake()
    {
       if (targetPlatforms.Contains(GalaxyExplorerManager.Platform))
       {

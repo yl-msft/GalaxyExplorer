@@ -16,6 +16,7 @@ public class HandMenu : MonoBehaviour
 
     private AttachToControllerSolver _attachToControllerSolver;
     private HandMenuManager _handMenuManager;
+    private GlobalMenuManager _globalMenuManager;
 
     private float _currentAngle = 0f;
     private float _interButtonDistance = 0.04f;
@@ -27,6 +28,8 @@ public class HandMenu : MonoBehaviour
     private void Start()
     {
         _handMenuManager = FindObjectOfType<HandMenuManager>();
+        _globalMenuManager = FindObjectOfType<GlobalMenuManager>();
+
         _menuParent.SetActive(false);
         IsCurrentlyVisible = false;
 
@@ -49,8 +52,10 @@ public class HandMenu : MonoBehaviour
 
             if (_currentAngle > _minShowingAngle)
             {
+                bool inManipulationState = (_globalMenuManager.ForceSolverFocusManager != null && _globalMenuManager.ForceSolverFocusManager.IsManipulatingPlanet);
+
                 // Check if the menu is already showing on the other hand
-                if (!_handMenuManager.IsAMenuVisible && _handMenuManager.MenuIsInActiveState)
+                if (!_handMenuManager.IsHandMenuAlreadyVisible && _handMenuManager.MenuIsIsAvailable && !inManipulationState)
                 {
                     UpdateMenuVisibility(true);
                 }
