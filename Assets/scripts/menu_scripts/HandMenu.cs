@@ -19,8 +19,7 @@ public class HandMenu : MonoBehaviour
     private GlobalMenuManager _globalMenuManager;
 
     private float _currentAngle = 0f;
-    private float _interButtonDistance = 0.04f;
-    private Vector3 _originalBackButtonLocalPosition;
+
     private Transform _cameraTransform;
 
     public bool IsCurrentlyVisible { get; private set; } = false;
@@ -32,8 +31,6 @@ public class HandMenu : MonoBehaviour
 
         _menuParent.SetActive(false);
         IsCurrentlyVisible = false;
-
-        _originalBackButtonLocalPosition = _backButton.transform.localPosition;
 
         _resetButton.SetActive(false);
         _backButton.SetActive(false);
@@ -90,20 +87,10 @@ public class HandMenu : MonoBehaviour
 
     public void UpdateButtonsActive(bool resetIsActive, bool backIsActive)
     {
-        if (resetIsActive && !_resetButton.activeSelf)
-        {
-            // When the POIPlanetFocusManager is present in the currently loaded scenes, this means we are in the solar system and the reset button should be visible
-            _resetButton.SetActive(true);
-            _backButton.transform.localPosition = new Vector3(0f, _originalBackButtonLocalPosition.y + _interButtonDistance, 0f);
-        }
-        else if (!resetIsActive && _resetButton.activeSelf)
-        {
-            // When the POIPlanetFocusManager isn't present in the currently loaded scenes, this means we're not in the solar system and the reset button shouldn't show up
-            _resetButton.SetActive(false);
-            _backButton.transform.localPosition = _originalBackButtonLocalPosition;
-        }
+        // When the POIPlanetFocusManager is present in the currently loaded scenes, this means we are in the solar system or galactic center, so activate the  reset button
+        _resetButton?.SetActive(resetIsActive);
 
-        // If there is previous scene then user is able to go back so activate the back button
+        // If there is previous scene then user should able to go back, so activate the back button
         _backButton?.SetActive(backIsActive);
     }
 
