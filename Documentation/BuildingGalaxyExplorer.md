@@ -4,7 +4,7 @@
 
 ## Running in Unity
 
-Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to the *Assets/scenes* folder and double-click main_scene to set up the editor properly. After that, you can hit the play button to succesfully start the experience.
+Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to the *Assets/scenes* folder and double-click main_scene to set up the editor properly. After that, you can hit the play button to succesfully start the experience. To enable the Diagnostics system, select the MixedRealityToolkit GameObject in the core_systems_scene and check the box "Enable Diagnostics System".
 
 ## Building Galaxy Explorer
 
