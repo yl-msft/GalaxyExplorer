@@ -11762,6 +11762,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: about_slate
       objectReference: {fileID: 0}
+    - target: {fileID: 3592079254065389573, guid: d9f037fb7132a154f9ef0e94924b7c20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3592079254065389571, guid: d9f037fb7132a154f9ef0e94924b7c20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11775,7 +11780,7 @@ PrefabInstance:
     - target: {fileID: 3592079254065389571, guid: d9f037fb7132a154f9ef0e94924b7c20,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 3592079254065389571, guid: d9f037fb7132a154f9ef0e94924b7c20,
         type: 3}
