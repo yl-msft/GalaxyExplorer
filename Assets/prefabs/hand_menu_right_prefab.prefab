@@ -88,8 +88,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuParent: {fileID: 6793838486947976180}
-  _backButton: {fileID: 4431933273317361098}
   _resetButton: {fileID: 4240988890876204980}
+  _backButton: {fileID: 4431933273317361098}
   _minShowingAngle: 130
 --- !u!1001 &636656184833556551
 PrefabInstance:
@@ -158,11 +158,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3608087616140887618, guid: a02bea9ba5102f44294381b8c1835a10,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.015
-      objectReference: {fileID: 0}
     - target: {fileID: 3842899488982664044, guid: a02bea9ba5102f44294381b8c1835a10,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -193,10 +188,40 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1793279447522676482, guid: a02bea9ba5102f44294381b8c1835a10,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793279447522676482, guid: a02bea9ba5102f44294381b8c1835a10,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3842899489989530749, guid: a02bea9ba5102f44294381b8c1835a10,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3842899489989530749, guid: a02bea9ba5102f44294381b8c1835a10,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3842899489989530627, guid: a02bea9ba5102f44294381b8c1835a10,
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063602863815955010, guid: a02bea9ba5102f44294381b8c1835a10,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063602863815955010, guid: a02bea9ba5102f44294381b8c1835a10,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7063602863815955004, guid: a02bea9ba5102f44294381b8c1835a10,
         type: 3}
