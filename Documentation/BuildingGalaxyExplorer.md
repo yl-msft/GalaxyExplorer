@@ -78,6 +78,8 @@ Next specify the "MixedRealityModel" in the default tile for your application as
           </Application>
       </Applications>
 
+The 3D galaxy model '3DTile.glb' is located in the app's Assets folder.
+
 The MixedRealityModel elements accepts a file path pointing to a 3D asset stored in your app package. Generally you can implement your own custom 3D models as you like, although currently only 3D models delivered using the .glb file format and authored against the Windows Mixed Reality 3D asset authoring instructions are supported. Assets must be stored in the app package and animation is not currently supported. If the “Path” parameter is left blank Windows will show the 2D slate instead of the 3D launcher.
 Note: the .glb asset must be marked as "Content" in your build settings before building and running your app:
 
