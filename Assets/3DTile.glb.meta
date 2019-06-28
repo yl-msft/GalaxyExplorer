@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: b247662ee9eb4b24c846ce5f3d5e3aad
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: main/glTF Scene 3DTile
+    100002: main/glTF Scene 3DTile/placement_model_icon1
+    400000: main/glTF Scene 3DTile/Transform
+    400002: main/glTF Scene 3DTile/placement_model_icon1/Transform
+    2100002: launcher_atlas
+    2300000: main/glTF Scene 3DTile/placement_model_icon1/MeshRenderer
+    2800002: launcher_atlas_baseColor.png
+    3300000: main/glTF Scene 3DTile/placement_model_icon1/MeshFilter
+    4300000: placement_model_icon1
+    11400000: glTF data
+    100100000: main
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 75911c45f303c8f45927f5efeaa50cc4, type: 3}
