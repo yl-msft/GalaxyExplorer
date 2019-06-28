@@ -44,50 +44,44 @@ Architecture should be set to **x64** or **x86**.
 
 It's now possible to deploy to the emulator, a remote device, or create a Microsoft Store package to deploy at a later time.
 
-### Implementing a 3D app launcher icon
+## Implementing a 3D app launcher icon
 
-When you create the project in Visual Studio, it creates the default tile that displays Galaxy Explorer's name and logo. To replace this 2D representation with a 3D galaxy model edit the app manifest of your application to include the “MixedRealityModel” element as part of your default tile definition. To revert to the 2D launcher just remove the MixedRealityModel definition from the manifest:
-llowed by selecting the XML editor.
-At the top of the manifest, add the uap5 schema and include it as an ignorable namespace:
-First, locate the app package manifest in your current project. By default, the manifest will be named Package.appxmanifest. If you're using Visual Studio, then right-click the manifest in your solution viewer and select "Open with..." fo
+When you open the project in Visual Studio (exported from Unity), it will create a default app launcher tile that is used in Mixed Reality. To replace this 2D tile with the actual 3D app launcher, the applications' app manifest needs to include the “MixedRealityModel” element as the default tile definition.
 
-      <Package xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
-              xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
-              xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" 
-              xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
-              IgnorableNamespaces="uap uap2 uap5 mp"
-              xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10">
-         
-Next specify the "MixedRealityModel" in the default tile for your application as in the sample code below (this part might differ depending on what you want to include, exclude or customize in your build):
+First, locate the app package manifest in the project. By default, the manifest will be named Package.appxmanifest.
+```xml
+<Package xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+        xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+        xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" 
+        xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+        IgnorableNamespaces="uap uap2 uap5 mp"
+        xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10">
+```
 
-      <Applications>
-          <Application Id="App"
-            Executable="$targetnametoken$.exe"
-            EntryPoint="ExampleApp.App">
-            <uap:VisualElements
-              DisplayName="ExampleApp"
-              Square150x150Logo="Assets\Logo.png"
-              Square44x44Logo="Assets\SmallLogo.png"
-              Description="ExampleApp"
-              BackgroundColor="#464646">
-              <uap:DefaultTile Wide310x150Logo="Assets\WideLogo.png" >
-                <uap5:MixedRealityModel Path="Assets\My3DTile.glb" />
-              </uap:DefaultTile>
-              <uap:SplashScreen Image="Assets\SplashScreen.png" />
-            </uap:VisualElements>
-          </Application>
-      </Applications>
+Next specify the "MixedRealityModel" as shown below. Note that the 3D galaxy model is called '3DTile.glb' and is located in the app's Assets folder.
 
-The 3D galaxy model '3DTile.glb' is located in the app's Assets folder.
-
-The MixedRealityModel elements accepts a file path pointing to a 3D asset stored in your app package. Generally you can implement your own custom 3D models as you like, although currently only 3D models delivered using the .glb file format and authored against the Windows Mixed Reality 3D asset authoring instructions are supported. Assets must be stored in the app package and animation is not currently supported. If the “Path” parameter is left blank Windows will show the 2D slate instead of the 3D launcher.
-Note: the .glb asset must be marked as "Content" in your build settings before building and running your app:
-
-![IncludeAsset](Images/3Dasset_include_VS.png)
-
-For general instructions on implementing 3D launcher icons, also refer to the [Mixed Reality online documentation](https://docs.microsoft.com/en-us/windows/mixed-reality/implementing-3d-app-launchers)
-
+```xml
+<Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="ExampleApp.App">
+      <uap:VisualElements
+        DisplayName="ExampleApp"
+        Square150x150Logo="Assets\Logo.png"
+        Square44x44Logo="Assets\SmallLogo.png"
+        Description="ExampleApp"
+        BackgroundColor="#464646">
+        <uap:DefaultTile Wide310x150Logo="Assets\WideLogo.png" >
+          <uap5:MixedRealityModel Path="Assets\3DTile.glb" />
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+    </Application>
+</Applications>
+```
 
 # See also
 
 - [Unity Manual: Universal Windows Platform](https://docs.unity3d.com/Manual/windowsstore-il2cpp.html)
+- For general instructions on implementing 3D launcher icons, also refer to the [Mixed Reality online documentation](https://docs.microsoft.com/en-us/windows/mixed-reality/implementing-3d-app-launchers)
+
