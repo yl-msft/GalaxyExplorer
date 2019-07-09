@@ -4,7 +4,9 @@
 
 ## Running in Unity
 
-Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to the *Assets/scenes* folder and double-click main_scene to set up the editor properly. After that, you can hit the play button to succesfully start the experience. To enable the Diagnostics system, select the MixedRealityToolkit GameObject in the core_systems_scene and check the box "Enable Diagnostics System".
+Note that by default when you download / clone this repository and open it in Unity, it will open a new scene. Navigate to the *Assets/scenes* folder and double-click main_scene to set up the editor properly. After that, you can hit the play button to succesfully start the experience.
+
+To enable the [MRTK diagnostics system](https://microsoft.github.io/MixedRealityToolkit-Unity/Documentation/Diagnostics/DiagnosticsSystemGettingStarted.html), select the MixedRealityToolkit GameObject in the core_systems_scene and check the box "Enable Diagnostics System".
 
 ## Building Galaxy Explorer
 
@@ -22,7 +24,7 @@ In Visual Studio, set the configuration to *Release* for faster builds (doesn't 
 
 In *File > Build Settings*:
 
-Architecture should be set to **x86**.
+Architecture should be set to **x86**. The target device should be **HoloLens**.
 
 ### Building for HoloLens 2
 
@@ -40,7 +42,7 @@ Architecture should be set to **x64**.
 
 In *File > Build Settings*:
 
-Architecture should be set to **x64** or **x86**.
+Architecture should be set to **x64** or **x86**. The target device should be **PC**.
 
 It's now possible to deploy to the emulator, a remote device, or create a Microsoft Store package to deploy at a later time.
 
@@ -80,8 +82,7 @@ Next specify the "MixedRealityModel" as shown below. Note that the 3D galaxy mod
 </Applications>
 ```
 
-# See also
+## See also
 
 - [Unity Manual: Universal Windows Platform](https://docs.unity3d.com/Manual/windowsstore-il2cpp.html)
 - For general instructions on implementing 3D launcher icons, also refer to the [Mixed Reality online documentation](https://docs.microsoft.com/en-us/windows/mixed-reality/implementing-3d-app-launchers)
-
