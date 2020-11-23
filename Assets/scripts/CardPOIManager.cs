@@ -153,5 +153,9 @@ namespace GalaxyExplorer
         public void OnPointerClicked(MixedRealityPointerEventData eventData)
         {
         }
+
+        public void OnPointerDragged(MixedRealityPointerEventData eventData)
+        {
+        }
     }
 }

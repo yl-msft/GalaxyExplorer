@@ -220,7 +220,7 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
         PreviousForceState = ForceState;
         ForceState = State.Root;
         _manipulationHandler.enabled = false;
-        SolverHandler.TransformTarget = RootTransform;
+        SolverHandler.TransformOverride = RootTransform;
         OnStartRoot();
         SetToRoot?.Invoke(this);
     }
@@ -239,7 +239,7 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
         PreviousForceState = ForceState;
         ForceState = State.Dwell;
         _manipulationHandler.enabled = false;
-        SolverHandler.TransformTarget = ControllerTracker.ResolvedTransform;
+        SolverHandler.TransformOverride = ControllerTracker.ResolvedTransform;
         Debug.Assert(_attractionDwellRoutine == null);
         _attractionDwellRoutine = StartCoroutine(DwellCoroutine());
         OnStartDwell();
@@ -352,12 +352,12 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
         if (forcePullToFrontOfCamera)
         {
             _forcePullToFrontOfCamera = true;
-            SolverHandler.TransformTarget = _mainCamera.transform;
+            SolverHandler.TransformOverride = _mainCamera.transform;
         }
         else
         {
             _forcePullToFrontOfCamera = false;
-            SolverHandler.TransformTarget = ControllerTracker.transform;
+            SolverHandler.TransformOverride = ControllerTracker.transform;
             SolverHandler.AdditionalOffset = Vector3.zero;
             var worldToPalmRotation = Quaternion.Inverse(SolverHandler.TransformTarget.rotation);
             _rotationOffset = worldToPalmRotation * transform.rotation;
@@ -382,7 +382,7 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
 //        SetActivePointersFocusLocked(false);
         PreviousForceState = ForceState;
         ForceState = State.Manipulation;
-        SolverHandler.TransformTarget = ControllerTracker.transform;
+        SolverHandler.TransformOverride = ControllerTracker.transform;
         _manipulationHandler.enabled = true;
         _audioService.PlayClip(AudioId.ManipulationStart, out _activeAudioSource);
         OnStartManipulation();
@@ -397,7 +397,7 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
     {
         PreviousForceState = ForceState;
         ForceState = State.Free;
-        SolverHandler.TransformTarget = ControllerTracker.transform;
+        SolverHandler.TransformOverride = ControllerTracker.transform;
         _manipulationHandler.enabled = false;
         if (_activeAudioSource != null)
         {
@@ -679,6 +679,10 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
     }
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
+    {
+    }
+
+    public void OnPointerDragged(MixedRealityPointerEventData eventData)
     {
     }
 
