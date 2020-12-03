@@ -37,7 +37,7 @@ public class MouseInputEventRouter : MonoBehaviour
             {
                 routingTarget.HasPhysicalTouch = true;
                 routingTarget.HasPress = true;
-                routingTarget.OnPointerClicked(null);
+                routingTarget.TriggerOnClick();
                 routingTarget.HasPress = false;
             }
             else
