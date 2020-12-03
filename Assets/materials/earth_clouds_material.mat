@@ -9,9 +9,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: earth_clouds_material
   m_Shader: {fileID: 4800000, guid: 33a6a7b1bb0c712488992a063d9094fd, type: 3}
-  m_ShaderKeywords: ALBEDO_ON ALPHA_USAGE_SPECULAR AMBIENTLIGHT_OFF EMISSIVE_OFF FRESNEL_COLOR
-    LIGHTMAP_OFF LIGHTPROBES_OFF LIGHT_DIFFUSE_SPEC NORMAL_TEXTURE SHOW_OFF TINT_OFF
-    VERTCOLOR_OFF _FOG_OFF
+  m_ShaderKeywords: ALBEDO_ON ALPHA_USAGE_SPECULAR AMBIENTLIGHT_OFF EMISSIVE_OFF
+    FRESNEL_COLOR LIGHTMAP_OFF LIGHTPROBES_OFF LIGHT_DIFFUSE_SPEC NORMAL_TEXTURE
+    SHOW_OFF TINT_OFF VERTCOLOR_OFF _FOG_OFF
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -136,3 +136,4 @@ Material:
     - _SpecPower: {r: 60, g: 0, b: 1, a: 0}
     - _SunDirection: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
