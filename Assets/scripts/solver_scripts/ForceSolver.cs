@@ -9,7 +9,6 @@ using Microsoft.MixedReality.Toolkit.Input.UnityInput;
 using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Utilities.Solvers;
-using Microsoft.MixedReality.Toolkit.WindowsMixedReality.Input;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -455,9 +454,9 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
         }
         var controller = pointer.Controller;
         return controller != null &&
-               !(controller is WindowsMixedRealityGGVHand) &&
+               !(false/*controller is WindowsMixedRealityGGVHand*/) &&
                (controller is IMixedRealityHand ||
-               controller is WindowsMixedRealityController)
+               false/*controller is WindowsMixedRealityController*/)
             ;
     }
 
@@ -477,7 +476,7 @@ public class ForceSolver : Solver, IMixedRealityFocusChangedHandler, IMixedReali
 
     private static bool IsGgvOrDesktopController(IMixedRealityController controller)
     {
-                return  controller is WindowsMixedRealityGGVHand ||
+                return  false /*controller is WindowsMixedRealityGGVHand*/ ||
                         controller is MouseController
 # if UNITY_EDITOR
 //                        || controller is SimulatedArticulatedHand

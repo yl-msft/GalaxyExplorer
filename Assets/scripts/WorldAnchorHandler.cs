@@ -8,7 +8,7 @@ namespace GalaxyExplorer
 {
     public class WorldAnchorHandler : SingleInstance<WorldAnchorHandler>
     {
-        private UnityEngine.XR.WSA.WorldAnchor anchor;
+        //private UnityEngine.XR.WSA.WorldAnchor anchor;
 
         public void CreateWorldAnchor(Vector3 position)
         {
@@ -21,30 +21,30 @@ namespace GalaxyExplorer
             var rotation = Quaternion.LookRotation(-lookDirection.normalized);
             sourceObject.transform.rotation = rotation;
 
-            anchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
-            if (anchor)
-            {
-                anchor.OnTrackingChanged += GalaxyWorldAnchor_OnTrackingChanged;
-            }
+            //anchor = sourceObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
+            //if (anchor)
+            //{
+            //    anchor.OnTrackingChanged += GalaxyWorldAnchor_OnTrackingChanged;
+            //}
         }
 
         public void DestroyWorldAnchor()
         {
-            if (anchor != null)
-            {
-                anchor.OnTrackingChanged -= GalaxyWorldAnchor_OnTrackingChanged;
-                DestroyImmediate(anchor);
-                anchor = null;
-            }
+            //if (anchor != null)
+            //{
+            //    anchor.OnTrackingChanged -= GalaxyWorldAnchor_OnTrackingChanged;
+            //    DestroyImmediate(anchor);
+            //    anchor = null;
+            //}
         }
 
         #region Callbacks
     
-        private void GalaxyWorldAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
-        {
-            // Debug.Log($"WorldAnchorHandler: tracking changed to {(located ? "located":"lost")}");
-            GalaxyExplorerManager.Instance.TransitionManager.CurrentActiveScene?.SetActive(located);
-        }
+        //private void GalaxyWorldAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
+        //{
+        //    // Debug.Log($"WorldAnchorHandler: tracking changed to {(located ? "located":"lost")}");
+        //    GalaxyExplorerManager.Instance.TransitionManager.CurrentActiveScene?.SetActive(located);
+        //}
 
         #endregion
     }

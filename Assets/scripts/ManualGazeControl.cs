@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
 
 namespace GalaxyExplorer
@@ -38,7 +39,7 @@ namespace GalaxyExplorer
             {
 
 #if UNITY_2017_2_OR_NEWER
-                if (UnityEngine.XR.XRDevice.isPresent)
+                if (DeviceUtility.IsPresent)
 #else
                 if (UnityEngine.VR.VRDevice.isPresent)
 #endif
