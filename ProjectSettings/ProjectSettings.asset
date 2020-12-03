@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
-  m_StereoRenderingPath: 0
+  m_StereoRenderingPath: 2
   m_ActiveColorSpace: 1
   m_MTRendering: 1
   mipStripping: 0
@@ -142,17 +142,17 @@ PlayerSettings:
   - {fileID: 1038226900464428, guid: f2b8bee34b0faf8448abea9c5832018b, type: 3}
   - {fileID: 4300000, guid: 5ed718aa7c95734458c46d3c69cd31c1, type: 2}
   - {fileID: 4300000, guid: 1a491003decb72c41a1b244c6ad7ba63, type: 2}
-  - {fileID: 11400000, guid: bd3eddc4e5db1a142bda72ba6e43fcc8, type: 2}
-  - {fileID: 11400000, guid: fe854ae6216010545a558cd7985e8b54, type: 2}
-  - {fileID: 11400000, guid: da44752175e09684ea98932927a8de71, type: 2}
-  - {fileID: 1266089081842180, guid: 9f76a9fbe92c04344a581cfa77888228, type: 3}
-  - {fileID: 1834774269602868, guid: ea4077a54a402c14b9d3ee0b48a349be, type: 3}
-  - {fileID: 1369813858095096, guid: 7294de74339f30d4c859699f450fcf93, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 1500388789491938, guid: 0b8b8976322d3a844b11b4312ab1f4e2, type: 3}
-  - {fileID: 1940880304239954, guid: 4dfc93f6b612a4d468c195183043f8c4, type: 3}
-  - {fileID: 1319054239249804, guid: da26e73ca3acc984c98747bebe657120, type: 3}
-  - {fileID: 1258006435640448, guid: 8506cf1ada7845346a6f8cc6abcb6b62, type: 3}
-  - {fileID: 1770708368540390, guid: 481b5fb6cac3b824f8087cbae94281a4, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2800000, guid: 4070f10f521522048b2f7cfce68ec8e7, type: 3}
   - {fileID: 2800000, guid: f5731c2bbb4f48748a7e5543fdd1a1c1, type: 3}
   - {fileID: 1668825500061524, guid: 5b2708c7f66141a4bab63b1ef748b106, type: 3}
@@ -185,6 +185,8 @@ PlayerSettings:
   - {fileID: 100000, guid: f7f807a51f05f3c4cb0e1b0370d494bd, type: 3}
   - {fileID: 100000, guid: bc01bcba52268114783a69b93bce71b8, type: 3}
   - {fileID: 102900000, guid: d73ecf9fee4ffab47b24e988b2490fa4, type: 3}
+  - {fileID: -6114625964401713071, guid: 78a6169722f9bdd4387e0fa379285d8b, type: 2}
+  - {fileID: 8956009008872911100, guid: ec0d0396679f9d841be82e0cd15444e7, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 0
@@ -737,6 +739,7 @@ PlayerSettings:
   metroSplashScreenUseBackgroundColor: 0
   platformCapabilities:
     WindowsStoreApps:
+      CodeGeneration: False
       OfflineMapsManagement: False
       HumanInterfaceDevice: False
       Location: False
@@ -749,7 +752,6 @@ PlayerSettings:
       InternetClientServer: False
       VideosLibrary: False
       Objects3D: False
-      InternetClient: False
       RemoteSystem: False
       BlockedChatMessages: False
       PhoneCall: False
@@ -771,7 +773,7 @@ PlayerSettings:
       RecordedCallsFolder: False
       Contacts: False
       Proximity: False
-      CodeGeneration: False
+      InternetClient: False
       BackgroundMediaPlayback: False
       EnterpriseAuthentication: False
     XboxOne:

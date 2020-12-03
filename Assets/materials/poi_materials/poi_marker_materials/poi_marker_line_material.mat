@@ -102,3 +102,4 @@ Material:
     - _TintColor: {r: 0.6539793, g: 0.88235295, b: 0.1297578, a: 1}
     - _UplightColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     - _WireColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
