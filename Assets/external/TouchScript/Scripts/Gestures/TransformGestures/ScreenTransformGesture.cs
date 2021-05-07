@@ -13,6 +13,7 @@ using UnityEngine.Profiling;
 using System.Collections.Generic;
 using TouchScript.Pointers;
 using UnityEngine.XR;
+using Microsoft.MixedReality.Toolkit.Utilities;
 
 namespace TouchScript.Gestures.TransformGestures
 {
@@ -42,7 +43,7 @@ namespace TouchScript.Gestures.TransformGestures
 
         protected void Start()
         {
-            if (!XRDevice.isPresent)
+            if (!DeviceUtility.IsPresent)
             {
                 this.enabled = false;
             }

@@ -271,6 +271,9 @@ namespace GalaxyExplorer
         public virtual void OnPointerClicked(MixedRealityPointerEventData eventData)
         {
         }
+        public void OnPointerDragged(MixedRealityPointerEventData eventData)
+        {
+        }
 
         public void OnBeforeFocusChange(FocusEventData eventData)
         {

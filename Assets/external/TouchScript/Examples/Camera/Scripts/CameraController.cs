@@ -8,6 +8,7 @@
 using UnityEngine;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine.XR;
+using Microsoft.MixedReality.Toolkit.Utilities;
 
 namespace TouchScript.Examples.CameraControl
 {
@@ -31,7 +32,7 @@ namespace TouchScript.Examples.CameraControl
 
         private void Start()
         {
-            if (!XRDevice.isPresent)
+            if (!DeviceUtility.IsPresent)
             {
                 this.enabled = false;
             }

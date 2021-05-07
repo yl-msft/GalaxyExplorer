@@ -85,3 +85,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _PlanetHighlightColor: {r: 0.4397091, g: 0.6882862, b: 1.0225793, a: 0.19}
+  m_BuildTextureStacks: []

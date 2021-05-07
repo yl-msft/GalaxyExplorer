@@ -226,7 +226,7 @@ namespace GalaxyExplorer
                     orbitsMaterial.SetMatrix("_Orbits2World", orbitsWorld.transform.localToWorldMatrix);
                     orbitsMaterial.SetFloat("_GlobalScale", orbitsWorld.lossyScale.x);
 
-                    Graphics.DrawProcedural(MeshTopology.Points, orbitsData.Count);
+                    Graphics.DrawProceduralNow(MeshTopology.Points, orbitsData.Count);
                 }
             }
         }

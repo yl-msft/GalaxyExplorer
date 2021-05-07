@@ -35,10 +35,10 @@ public class MouseInputEventRouter : MonoBehaviour
             }
             if (routingTarget != null)
             {
-                routingTarget.SetPhysicalTouch(true);
-                routingTarget.SetPress(true);
-                routingTarget.OnPointerClicked(null);
-                routingTarget.SetPress(false);
+                routingTarget.HasPhysicalTouch = true;
+                routingTarget.HasPress = true;
+                routingTarget.TriggerOnClick();
+                routingTarget.HasPress = false;
             }
             else
             {

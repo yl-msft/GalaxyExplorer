@@ -40,6 +40,10 @@ namespace GalaxyExplorer
             }
         }
 
+        public void OnPointerDragged(MixedRealityPointerEventData eventData)
+        {
+        }
+
         public void OnBeforeFocusChange(FocusEventData eventData)
         {
             if (POI != null && POI.isActiveAndEnabled)

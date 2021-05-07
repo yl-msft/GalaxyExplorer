@@ -3,6 +3,7 @@
 
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Input;
+using Microsoft.MixedReality.Toolkit.Utilities;
 using MRS.FlowManager;
 using System.Collections;
 using TouchScript.Examples.CameraControl;
@@ -382,17 +383,17 @@ namespace GalaxyExplorer
                 HideGazeCursor();
 
             }
-            else if (XRDevice.isPresent)
+            else if (DeviceUtility.IsPresent)
             {
-                if (HolographicSettings.IsDisplayOpaque)
-                {
+                //if (HolographicSettings.IsDisplayOpaque)
+                //{
                     Platform = PlatformId.ImmersiveHMD;
                     HideGazeCursor();
-                }
-                else
-                {
-                    Platform = PlatformId.HoloLensGen1;
-                }
+                //}
+                //else
+                //{
+                //    Platform = PlatformId.HoloLensGen1;
+                //}
             }
             else
             {

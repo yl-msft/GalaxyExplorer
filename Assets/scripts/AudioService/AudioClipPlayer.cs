@@ -28,6 +28,10 @@ public class AudioClipPlayer : MonoBehaviour, IMixedRealityPointerHandler, IMixe
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
     }
+
+    public void OnPointerDragged(MixedRealityPointerEventData eventData)
+    {
+    }
     #endregion
 
     #region IMixedRealityFocusHandlerFunctions

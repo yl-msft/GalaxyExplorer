@@ -72,14 +72,14 @@ public class AttachToControllerSolver : Solver
                 break;
             
             case Handedness.Left:
-                _handler.TransformTarget = _controllerTracker.LeftTransform;
+                _handler.TransformOverride = _controllerTracker.LeftTransform;
                 break;
             case Handedness.Right:
-                _handler.TransformTarget = _controllerTracker.RightTransform;
+                _handler.TransformOverride = _controllerTracker.RightTransform;
                 break;
             case Handedness.Both:
             case Handedness.Any:
-                _handler.TransformTarget = _controllerTracker.transform;
+                _handler.TransformOverride = _controllerTracker.transform;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
